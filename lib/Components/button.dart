@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Services/utils.dart';
 
 class ButtonComponent extends StatefulWidget {
   const ButtonComponent(
       {super.key,
       required this.screenHeight,
       required this.screenWidth,
+    required this. ButtonHeight,
       required this.child,
+       required this.radius,
       required this.backgroundColor});
 
   final double screenHeight;
+  
+  final double radius;
+  final double ButtonHeight;
   final double screenWidth;
   final Widget child;
   final Color backgroundColor;
@@ -20,6 +26,13 @@ class ButtonComponent extends StatefulWidget {
 class _ButtonComponentState extends State<ButtonComponent> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      height: widget.screenHeight * widget.ButtonHeight,
+      decoration: BoxDecoration(
+        color: widget.backgroundColor,
+        borderRadius: BorderRadius.circular(widget.screenWidth * widget.radius)
+      ),
+      child: widget.child,
+    );
   }
 }

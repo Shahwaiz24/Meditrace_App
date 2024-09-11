@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Components/app_logo.dart';
+import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Services/utils.dart';
 
 class SplashViewmodel with ChangeNotifier {
@@ -34,61 +36,87 @@ class SplashViewmodel with ChangeNotifier {
     required bool animate,
     required bool showButtons,
   }) {
+
     return AnimatedPositioned(
       duration: const Duration(seconds: 1),
-      top: showButtons
-          ? (screenHeight - (screenWidth * 0.7 * 0.3 + 40)) /
-              2 // Calculate based on button height and spacing
-          : screenHeight, // Move off-screen when not showing
-      left: 0,
-      right: 0,
       child: AnimatedOpacity(
         duration: const Duration(seconds: 1),
         opacity: showButtons ? 1.0 : 0.0,
         child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                width: screenWidth * 0.7,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Sign In action
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.ButtonBackColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.080),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AppLogo(
+                  screenheight: screenHeight,
+                  screenwidth: screenWidth,
+                  imageHeight: 0.100,
+                ),
+                SizedBox(height: screenHeight * 0.020),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Medi',
+                      style: TextStyle(
+                        color: AppColors.AppTextColor1,
+                        fontSize: screenHeight * 0.038,
+                        fontWeight: FontWeight.w800,
+                        fontFamily: 'Poppins Semi Bold',
+                      ),
+                    ),
+                    Text(
+                      'trace',
+                      style: TextStyle(
+                        color: AppColors.AppTextColor2,
+                        fontSize: screenHeight * 0.038,
+                        fontWeight: FontWeight.w800,
+                        fontFamily: 'Poppins Semi Bold',
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: screenHeight * 0.040),
+                ButtonComponent(
+                  screenHeight: screenHeight,
+                  screenWidth: screenWidth,
+                  ButtonHeight: 0.070,
+                  radius: 0.070,
+                  backgroundColor: AppColors.ButtonBackColor,
+                  child: Center(
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(
+                        color: AppColors.TextwhiteColor,
+                        fontFamily: "Poppins Semi Bold",
+                        fontSize: screenHeight * 0.018,
+                      ),
                     ),
                   ),
-                  child: const Text(
-                    'Sign In',
-                    style: TextStyle(fontSize: 18),
-                  ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: screenWidth * 0.7,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Sign Up action
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.ButtonBackColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                SizedBox(height: screenHeight * 0.020),
+                ButtonComponent(
+                  screenHeight: screenHeight,
+                  screenWidth: screenWidth,
+                  ButtonHeight: 0.070,
+                  radius: 0.070,
+                  backgroundColor: AppColors.ButtonBackColor,
+                  child: Center(
+                    child: Text(
+                      'Sign Up',
+                      style: TextStyle(
+                        color: AppColors.TextwhiteColor,
+                        fontFamily: "Poppins Semi Bold",
+                        fontSize: screenHeight * 0.018,
+                      ),
                     ),
                   ),
-                  child: const Text(
-                    'Sign Up',
-                    style: TextStyle(fontSize: 18),
-                  ),
                 ),
-              ),
-            ],
+            
+              ],
+            ),
           ),
         ),
       ),
