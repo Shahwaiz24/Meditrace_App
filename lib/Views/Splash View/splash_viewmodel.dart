@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/app_logo.dart';
 import 'package:meditrace_project/Components/button.dart';
+import 'package:meditrace_project/Services/local_storage.dart';
 import 'package:meditrace_project/Services/utils.dart';
 
 class SplashViewmodel with ChangeNotifier {
@@ -21,12 +22,19 @@ class SplashViewmodel with ChangeNotifier {
   }
 
   void animating() async {
-    await Future.delayed(const Duration(seconds: 4), () {
+    await Future.delayed(const Duration(seconds: 3), () async {
       startAnimation();
+      bool check = await LocalStorage.checkLogin();
+      if (check == true) {
+        print("Navigate to Home View");
+      }
+      else{
+        Future.delayed(const Duration(seconds: 1), () {
+          showNewColumn();
+        });
+      }
       // Delay before showing the new column with buttons
-      Future.delayed(const Duration(seconds: 1), () {
-        showNewColumn();
-      });
+     
     });
   }
 
@@ -36,7 +44,6 @@ class SplashViewmodel with ChangeNotifier {
     required bool animate,
     required bool showButtons,
   }) {
-
     return AnimatedPositioned(
       duration: const Duration(seconds: 1),
       child: AnimatedOpacity(
@@ -114,7 +121,6 @@ class SplashViewmodel with ChangeNotifier {
                     ),
                   ),
                 ),
-            
               ],
             ),
           ),
