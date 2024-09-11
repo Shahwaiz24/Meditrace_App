@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Colors {
+class AppColors {
   static Color ScaffoldColor = Color(0xffF2FAF9);
   static Color AppTextColor1 = Color(0xffF5BB32);
   static Color AppTextColor2 = Color(0xffF22938C);
