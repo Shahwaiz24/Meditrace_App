@@ -3,6 +3,7 @@ import 'package:meditrace_project/Components/app_logo.dart';
 import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Services/local_storage.dart';
 import 'package:meditrace_project/Services/utils.dart';
+import 'package:meditrace_project/Views/Sign%20In%20View/signin_view.dart';
 
 class SplashViewmodel with ChangeNotifier {
   bool _animate = false;
@@ -21,25 +22,24 @@ class SplashViewmodel with ChangeNotifier {
     notifyListeners();
   }
 
-  void animating() async {
+  void animating({required BuildContext context}) async {
     await Future.delayed(const Duration(seconds: 3), () async {
       startAnimation();
       bool check = await LocalStorage.checkLogin();
       if (check == true) {
         print("Navigate to Home View");
-      }
-      else{
+      } else {
         Future.delayed(const Duration(seconds: 1), () {
           showNewColumn();
         });
       }
       // Delay before showing the new column with buttons
-     
     });
   }
 
   Widget buildAnimatedButtons({
     required double screenHeight,
+    required BuildContext context,
     required double screenWidth,
     required bool animate,
     required bool showButtons,
@@ -86,19 +86,28 @@ class SplashViewmodel with ChangeNotifier {
                   ],
                 ),
                 SizedBox(height: screenHeight * 0.040),
-                ButtonComponent(
-                  screenHeight: screenHeight,
-                  screenWidth: screenWidth,
-                  ButtonHeight: 0.070,
-                  radius: 0.070,
-                  backgroundColor: AppColors.ButtonBackColor,
-                  child: Center(
-                    child: Text(
-                      'Sign In',
-                      style: TextStyle(
-                        color: AppColors.TextwhiteColor,
-                        fontFamily: "Poppins Semi Bold",
-                        fontSize: screenHeight * 0.018,
+                InkWell(
+                  onTap: () {
+                    print('Navigating to Sign In');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>  SigninView()));
+                  },
+                  child: ButtonComponent(
+                    screenHeight: screenHeight,
+                    screenWidth: screenWidth,
+                    ButtonHeight: 0.070,
+                    radius: 0.070,
+                    backgroundColor: AppColors.ButtonBackColor,
+                    child: Center(
+                      child: Text(
+                        'Sign In',
+                        style: TextStyle(
+                          color: AppColors.TextwhiteColor,
+                          fontFamily: "Poppins Semi Bold",
+                          fontSize: screenHeight * 0.018,
+                        ),
                       ),
                     ),
                   ),

@@ -10,10 +10,11 @@ class LocalStorage {
 
   static checkLogin() async {
     bool? check = prefs.getBool('User Logined');
+    print("Check Login : ${check}");
     if (check == true) {
       return true;
     } else {
-      return true;
+      return false;
     }
   }
 }

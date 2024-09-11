@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/local_storage.dart';
+import 'package:meditrace_project/Views/Sign%20In%20View/signin_viewmodel.dart';
 import 'package:meditrace_project/Views/Splash%20View/splash_view.dart';
 import 'package:meditrace_project/Views/Splash%20View/splash_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => SplashViewmodel()),
+        ChangeNotifierProvider(create: (_) => SigninViewmodel()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

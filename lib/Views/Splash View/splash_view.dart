@@ -13,11 +13,17 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> {
   @override
+  void initState() {
+    Provider.of<SplashViewmodel>(context, listen: false)
+        .animating(context: context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     final model = Provider.of<SplashViewmodel>(context, listen: false);
-    model.animating();
 
     return Scaffold(
       backgroundColor: AppColors.ScaffoldColor,
@@ -90,6 +96,7 @@ class _SplashViewState extends State<SplashView> {
           Consumer<SplashViewmodel>(
             builder: (context, animationProvider, child) {
               return animationProvider.buildAnimatedButtons(
+                context: context,
                 screenHeight: screenHeight,
                 screenWidth: screenWidth,
                 animate: animationProvider.animate,
