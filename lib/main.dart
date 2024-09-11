@@ -15,8 +15,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => SplashViewmodel()),
-    ], child: MaterialApp(
-      home: const SplashView(),
+    ], child: const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home:  SplashView(),
     ),);
     
   }
