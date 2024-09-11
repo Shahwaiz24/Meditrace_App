@@ -60,6 +60,7 @@ class SigninView extends StatelessWidget {
                 children: [
                   Consumer<SigninViewmodel>(builder: (context, model, child) {
                     return TextFields(
+                      isEmailFocus: true,
                         controller: emailController,
                         enablefillColor: Color(0xffA3A2A3).withOpacity(0.1),
                         focusfillColor: AppColors.TextwhiteColor,
@@ -76,6 +77,7 @@ class SigninView extends StatelessWidget {
                   ),
                   Consumer<SigninViewmodel>(builder: (context, model, child) {
                     return TextFields(
+                      isEmailFocus: false,
                         controller: passwordController,
                         enablefillColor: Color(0xffA3A2A3).withOpacity(0.1),
                         focusfillColor: AppColors.TextwhiteColor,

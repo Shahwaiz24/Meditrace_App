@@ -12,9 +12,7 @@ class TextFields extends StatelessWidget {
     required this.radius,
     required this.HintText,
     required this.hintStyle,
-    // required this.Onchanged,
-    // required this.onfieldSubmitted,
-    // required this.isenable,
+    required this.isEmailFocus,
   });
 
   final TextEditingController controller;
@@ -24,7 +22,7 @@ class TextFields extends StatelessWidget {
   final Color enablefillColor;
   final String HintText;
   final TextStyle hintStyle;
-
+  final bool isEmailFocus;
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +30,21 @@ class TextFields extends StatelessWidget {
 
     return Focus(
       onFocusChange: (hasFocus) {
-        model.onFieldFocusChange(hasFocus);
+        // Focus change for email or password
+        if (isEmailFocus) {
+          model.onEmailFocusChange(hasFocus);
+        } else {
+          model.onPasswordFocusChange(hasFocus);
+        }
       },
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
-          fillColor: model.isFocused
-              ? focusfillColor
-              : enablefillColor, // Dynamically change fill color
+          fillColor: isEmailFocus
+              ? (model.isFocusEmail ? focusfillColor : enablefillColor)
+              : (model.isFocusPassword
+                  ? focusfillColor
+                  : enablefillColor), // Dynamically change fill color
           filled: true,
           hintText: HintText,
           hintStyle: hintStyle,
