@@ -143,7 +143,28 @@ class SigninView extends StatelessWidget {
                             color: Colors.grey,
                             fontFamily: 'Poppins Regular',
                             fontSize: screenHeight * 0.018));
-                  })
+                  }),
+                  SizedBox(
+                    height: screenHeight * 0.030,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: screenWidth * 0.020),
+                        child: InkWell(
+                          child: Text(
+                            'Forgot password?',
+                            style: TextStyle(
+                                color: AppColors.unFocusPrimaryColor,
+                                fontFamily: 'Poppins Medium',
+                                fontSize: screenHeight * 0.017),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+
                 ],
               ),
             )
