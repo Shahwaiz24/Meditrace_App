@@ -3,17 +3,22 @@ import 'package:provider/provider.dart';
 import 'package:meditrace_project/Views/Sign%20In%20View/signin_viewmodel.dart';
 
 class TextFields extends StatelessWidget {
-  const TextFields({
-    super.key,
-    required this.controller,
-    required this.enablefillColor,
-    required this.focusfillColor,
-    required this.outlineColor,
-    required this.radius,
-    required this.HintText,
-    required this.hintStyle,
-    required this.isEmailFocus,
-  });
+  const TextFields(
+      {super.key,
+      required this.controller,
+      required this.enablefillColor,
+      required this.focusfillColor,
+      required this.outlineColor,
+      required this.radius,
+      required this.isHidden,
+      required this.HintText,
+      required this.hintStyle,
+      required this.isEmailFocus,
+      required this.Prefix,
+      required this.Suffix,
+      required this.isSuffix,
+      required this.isPrefix,
+      required this.onChanged});
 
   final TextEditingController controller;
   final Color outlineColor;
@@ -23,6 +28,12 @@ class TextFields extends StatelessWidget {
   final String HintText;
   final TextStyle hintStyle;
   final bool isEmailFocus;
+  final bool isPrefix;
+  final Widget Prefix;
+  final bool isSuffix;
+  final Widget Suffix;
+  final Function onChanged;
+  final bool isHidden;
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +49,16 @@ class TextFields extends StatelessWidget {
         }
       },
       child: TextFormField(
+        onChanged: (string) {
+          onChanged();
+        },
         controller: controller,
+        obscureText: isHidden,
+        obscuringCharacter: '*',
         decoration: InputDecoration(
+          suffixIcon: isSuffix == true ? Suffix : Text(''),
+          prefixIcon: isPrefix == true ? Prefix : Text(''),
+
           fillColor: isEmailFocus
               ? (model.isFocusEmail ? focusfillColor : enablefillColor)
               : (model.isFocusPassword

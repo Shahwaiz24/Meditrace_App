@@ -60,11 +60,27 @@ class SigninView extends StatelessWidget {
                 children: [
                   Consumer<SigninViewmodel>(builder: (context, model, child) {
                     return TextFields(
-                      isEmailFocus: true,
+                        isHidden: false,
+                        onChanged: () {},
+                        isSuffix: false,
+                        Suffix: Text(''),
+                        Prefix: model.isFocusEmail == true
+                            ? const Icon(
+                                Icons.email_outlined,
+                              )
+                            : Icon(
+                                Icons.email_outlined,
+                                color: const Color(0xffA3A2A3).withOpacity(0.8),
+                                size: screenHeight * 0.032,
+                              ),
+                        isPrefix: true,
+                        isEmailFocus: true,
                         controller: emailController,
-                        enablefillColor: Color(0xffA3A2A3).withOpacity(0.1),
+                        enablefillColor:
+                            AppColors.unFocusPrimaryColor.withOpacity(0.1),
                         focusfillColor: AppColors.TextwhiteColor,
-                        outlineColor: Color(0xffA3A2A3).withOpacity(0.5),
+                        outlineColor:
+                            AppColors.unFocusPrimaryColor.withOpacity(0.5),
                         radius: screenHeight * 0.010,
                         HintText: 'Email Address',
                         hintStyle: TextStyle(
@@ -77,11 +93,50 @@ class SigninView extends StatelessWidget {
                   ),
                   Consumer<SigninViewmodel>(builder: (context, model, child) {
                     return TextFields(
-                      isEmailFocus: false,
+                        isHidden: model.isHiddenPassword,
+                        onChanged: () {
+                          model.onChanged(controller: passwordController);
+                        },
+                        isSuffix: model.isPasswordVisible,
+                        Suffix: passwordController.text.isEmpty
+                            ? const Text('')
+                            : Padding(
+                                padding:
+                                    EdgeInsets.only(right: screenWidth * 0.030),
+                                child: InkWell(
+                                  onTap: () {
+                                    model.hiddenText();
+                                  },
+                                  child: model.isHiddenPassword
+                                      ? const Icon(
+                                          Icons.visibility_off_outlined,
+                                          color: Colors.black,
+                                        )
+                                      : const Icon(
+                                          Icons.visibility_outlined,
+                                          color: Colors.black,
+                                        ),
+                                ),
+                              ),
+                        isPrefix: true,
+                        Prefix: model.isFocusPassword
+                            ? const Icon(
+                                Icons.lock_outline_rounded,
+                                color: Colors.black,
+                              )
+                            : Icon(
+                                Icons.lock_outline_rounded,
+                                color: AppColors.unFocusPrimaryColor
+                                    .withOpacity(0.8),
+                                size: screenHeight * 0.032,
+                              ),
+                        isEmailFocus: false,
                         controller: passwordController,
-                        enablefillColor: Color(0xffA3A2A3).withOpacity(0.1),
+                        enablefillColor:
+                            AppColors.unFocusPrimaryColor.withOpacity(0.1),
                         focusfillColor: AppColors.TextwhiteColor,
-                        outlineColor: Color(0xffA3A2A3).withOpacity(0.5),
+                        outlineColor:
+                            AppColors.unFocusPrimaryColor.withOpacity(0.5),
                         radius: screenHeight * 0.010,
                         HintText: 'Password',
                         hintStyle: TextStyle(
