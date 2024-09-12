@@ -4,6 +4,7 @@ import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Services/local_storage.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Sign%20In%20View/signin_view.dart';
+import 'package:meditrace_project/Views/Sign%20Up%20View/signup_view.dart';
 
 class SplashViewmodel with ChangeNotifier {
   bool _animate = false;
@@ -89,10 +90,8 @@ class SplashViewmodel with ChangeNotifier {
                 InkWell(
                   onTap: () {
                     print('Navigating to Sign In');
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>  SigninView()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SigninView()));
                   },
                   child: ButtonComponent(
                     screenHeight: screenHeight,
@@ -113,19 +112,28 @@ class SplashViewmodel with ChangeNotifier {
                   ),
                 ),
                 SizedBox(height: screenHeight * 0.020),
-                ButtonComponent(
-                  screenHeight: screenHeight,
-                  screenWidth: screenWidth,
-                  ButtonHeight: 0.070,
-                  radius: 0.070,
-                  backgroundColor: AppColors.ButtonBackColor,
-                  child: Center(
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        color: AppColors.TextwhiteColor,
-                        fontFamily: "Poppins Semi Bold",
-                        fontSize: screenHeight * 0.018,
+                InkWell(
+                  onTap: () {
+                    print('Navigating to Sign Up');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>  SignupView()));
+                  },
+                  child: ButtonComponent(
+                    screenHeight: screenHeight,
+                    screenWidth: screenWidth,
+                    ButtonHeight: 0.070,
+                    radius: 0.070,
+                    backgroundColor: AppColors.ButtonBackColor,
+                    child: Center(
+                      child: Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          color: AppColors.TextwhiteColor,
+                          fontFamily: "Poppins Semi Bold",
+                          fontSize: screenHeight * 0.018,
+                        ),
                       ),
                     ),
                   ),
