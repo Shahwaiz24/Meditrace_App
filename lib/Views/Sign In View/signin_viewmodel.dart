@@ -5,7 +5,7 @@ class SigninViewmodel with ChangeNotifier {
   bool isSignInStart = false;
   bool isUiFieldsFill = false;
   bool isHiddenPassword = true;
-  bool isFocusEmail = false; // Focus state track karne ke liye
+  bool isFocusEmail = false; 
   bool isSignUpError = false;
   void onEmailFocusChange(bool hasFocus) {
     isFocusEmail = hasFocus;

@@ -75,6 +75,8 @@ class SigninView extends StatelessWidget {
                 children: [
                   Consumer<SigninViewmodel>(builder: (context, model, child) {
                     return TextFields(
+                        modelName: 'SigninViewmodel',
+                        fieldName: '',
                         isHidden: false,
                         onChanged: () {
                           model.onChangedFocusOFUi(
@@ -117,13 +119,14 @@ class SigninView extends StatelessWidget {
                   ),
                   Consumer<SigninViewmodel>(builder: (context, model, child) {
                     return TextFields(
+                        modelName: 'SigninViewmodel',
+                        fieldName: '',
                         isHidden: model.isHiddenPassword,
                         onChanged: () {
                           model.onChanged(controller: passwordController);
                           model.onChangedFocusOFUi(
                               emailText: emailController.text,
                               PasswordText: passwordController.text);
-                              
                         },
                         isSuffix: model.isPasswordVisible,
                         Suffix: passwordController.text.isEmpty
