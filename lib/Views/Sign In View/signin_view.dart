@@ -75,6 +75,7 @@ class SigninView extends StatelessWidget {
                 children: [
                   Consumer<SigninViewmodel>(builder: (context, model, child) {
                     return TextFields(
+                        isNumberKeyboard: false,
                         modelName: 'SigninViewmodel',
                         fieldName: '',
                         isHidden: false,
@@ -119,6 +120,7 @@ class SigninView extends StatelessWidget {
                   ),
                   Consumer<SigninViewmodel>(builder: (context, model, child) {
                     return TextFields(
+                        isNumberKeyboard: false,
                         modelName: 'SigninViewmodel',
                         fieldName: '',
                         isHidden: model.isHiddenPassword,
@@ -209,12 +211,14 @@ class SigninView extends StatelessWidget {
                   Consumer<SigninViewmodel>(builder: (context, model, child) {
                     return InkWell(
                       onTap: () {
-                        model.signInFunction(
-                            Email: emailController.text,
-                            Password: passwordController.text,
-                            context: context);
-                        emailController.clear();
-                        passwordController.clear();
+                        if (model.isSignInStart == false) {
+                          model.signInFunction(
+                              Email: emailController.text,
+                              Password: passwordController.text,
+                              context: context);
+                          emailController.clear();
+                          passwordController.clear();
+                        }
                       },
                       child: ButtonComponent(
                           screenHeight: screenHeight,

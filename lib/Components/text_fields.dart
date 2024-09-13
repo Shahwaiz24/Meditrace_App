@@ -19,6 +19,7 @@ class TextFields extends StatelessWidget {
       required this.Prefix,
       required this.Suffix,
       required this.isSuffix,
+      required this.isNumberKeyboard,
       required this.fieldName,
       required this.isPrefix,
       required this.onChanged});
@@ -36,6 +37,7 @@ class TextFields extends StatelessWidget {
   final bool isSuffix;
   final Widget Suffix;
   final Function onChanged;
+  final bool isNumberKeyboard;
   final bool isHidden;
   final String modelName;
   final String fieldName;
@@ -118,6 +120,9 @@ class TextFields extends StatelessWidget {
         },
         controller: controller,
         obscureText: isHidden,
+        keyboardType: isNumberKeyboard == true
+            ? TextInputType.phone // Numbers wala keyboard
+            : TextInputType.text, // Default keyboard
         obscuringCharacter: '*',
         decoration: InputDecoration(
           suffixIcon: isSuffix == true ? Suffix : const SizedBox.shrink(),

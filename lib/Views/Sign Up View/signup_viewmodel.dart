@@ -13,6 +13,79 @@ class SignUpViewmodel with ChangeNotifier {
   bool isFocusPhoneNumber = false;
   bool isHiddenPassword = true;
 
+  naviagtion(
+      {required BuildContext context,
+      required bool isReplaceMent,
+      required bool isPop,
+      required navigationName}) {
+    if (isReplaceMent == true) {
+      isCheck = false;
+      isFocusEmail = false;
+      isFocusName = false;
+      isFocusPassword = false;
+      isFocusPhoneNumber = false;
+      isPasswordVisible = false;
+      isHiddenPassword = true;
+      isSignUpError = false;
+      isSignUpStart = false;
+      isUiFieldsFill = false;
+      notifyListeners();
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => navigationName()));
+    } else if (isPop == true) {
+      isCheck = false;
+      isFocusEmail = false;
+      isFocusName = false;
+      isFocusPassword = false;
+      isFocusPhoneNumber = false;
+      isPasswordVisible = false;
+      isHiddenPassword = true;
+      isSignUpError = false;
+      isSignUpStart = false;
+      isUiFieldsFill = false;
+      notifyListeners();
+      Navigator.pop(context);
+    } else {
+      isCheck = false;
+      isFocusEmail = false;
+      isFocusName = false;
+      isFocusPassword = false;
+      isFocusPhoneNumber = false;
+      isPasswordVisible = false;
+      isHiddenPassword = true;
+      isSignUpError = false;
+      isSignUpStart = false;
+      isUiFieldsFill = false;
+      notifyListeners();
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => navigationName));
+    }
+  }
+
+  onChangedFocusOFUi(
+      {required String emailText,
+      required String PasswordText,
+      required String fullName,
+      required String phoneNumber,
+      required bool ischeck}) {
+    final String number = phoneNumber.toString();
+
+    if ((emailText.length >= 5) &&
+        (PasswordText.length >= 4) &&
+        (number.length >= 10) &&
+        (fullName.isNotEmpty) &&
+        (ischeck == true)) {
+      isUiFieldsFill = true;
+      print('Check Box Hit Change Focus : ${ischeck}');
+      notifyListeners();
+    } else {
+      isUiFieldsFill = false;
+      print('Check Box Hit Change Focus : ${ischeck}');
+
+      notifyListeners();
+    }
+  }
+
   void onFocusChange(String field, bool hasFocus) {
     if (field == "fullName") {
       isFocusName = hasFocus;
@@ -32,6 +105,7 @@ class SignUpViewmodel with ChangeNotifier {
 
   checkBoxHit() {
     isCheck = !isCheck;
+    print('Check Box Hit : ${isCheck}');
     notifyListeners();
   }
 
@@ -76,5 +150,50 @@ class SignUpViewmodel with ChangeNotifier {
     isFocusPhoneNumber = hasFocus;
 
     notifyListeners();
+  }
+
+  validation(
+      {required String EmailText,
+      required String Password,
+      required String phoneNumber,
+      required String fullname}) {
+    if ((EmailText.contains('@') && (EmailText.contains('.com'))) &&
+        (Password.length >= 5) &&
+        (fullname.isNotEmpty) &&
+        (phoneNumber.length == 10) &&
+        (isCheck == true)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  signInFunction(
+      {required String Email,
+      required String phoneNumber,
+      required String fullname,
+      required String Password,
+      required BuildContext context}) async {
+    isSignUpStart = true;
+    notifyListeners();
+    bool validate = await validation(
+        EmailText: Email,
+        Password: Password,
+        fullname: fullname,
+        phoneNumber: phoneNumber);
+    if (validate == true) {
+      print('Navigating and SuccessFully Login');
+
+      isSignUpStart = false;
+      notifyListeners();
+    } else {
+      isSignUpStart = false;
+      isSignUpError = true;
+      isUiFieldsFill = false;
+      notifyListeners();
+      await Future.delayed(const Duration(seconds: 4));
+      isSignUpError = false;
+      notifyListeners();
+    }
   }
 }

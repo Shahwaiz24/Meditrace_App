@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Components/text_fields.dart';
 import 'package:meditrace_project/Services/utils.dart';
+import 'package:meditrace_project/Views/Sign%20In%20View/signin_view.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/signup_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +51,11 @@ class SignupView extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: InkWell(
                           onTap: () {
-                            Navigator.pop(context);
+                            model.naviagtion(
+                                context: context,
+                                isReplaceMent: false,
+                                isPop: true,
+                                navigationName: "");
                           },
                           child: Icon(
                             size: screenHeight * 0.030,
@@ -75,6 +80,7 @@ class SignupView extends StatelessWidget {
                       return TextFields(
                           fieldName: 'fullName',
                           modelName: 'SignUpViewmodel',
+                          isNumberKeyboard: false,
                           controller: fullName,
                           enablefillColor:
                               AppColors.unFocusPrimaryColor.withOpacity(0.1),
@@ -83,9 +89,13 @@ class SignupView extends StatelessWidget {
                               AppColors.unFocusPrimaryColor.withOpacity(0.5),
                           radius: screenHeight * 0.010,
                           isHidden: false,
-                          HintText: 'Full Name',
+                          HintText: model.isSignUpError == true
+                              ? "Enter Full Name"
+                              : 'Full Name',
                           hintStyle: TextStyle(
-                              color: Colors.grey,
+                              color: model.isSignUpError
+                                  ? Colors.red.withOpacity(0.5)
+                                  : Colors.grey,
                               fontFamily: 'Poppins Regular',
                               fontSize: screenHeight * 0.018),
                           isEmailFocus: true,
@@ -102,7 +112,14 @@ class SignupView extends StatelessWidget {
                           Suffix: Text(''),
                           isSuffix: false,
                           isPrefix: true,
-                          onChanged: () {});
+                          onChanged: () {
+                            model.onChangedFocusOFUi(
+                                ischeck: model.isCheck,
+                                phoneNumber: phoneNumberController.text,
+                                fullName: fullName.text,
+                                emailText: emailController.text,
+                                PasswordText: passwordController.text);
+                          });
                     }),
                     SizedBox(
                       height: screenHeight * 0.030,
@@ -110,18 +127,24 @@ class SignupView extends StatelessWidget {
                     Consumer<SignUpViewmodel>(builder: (context, model, child) {
                       return TextFields(
                           fieldName: 'email',
+                          isNumberKeyboard: false,
                           modelName: 'SignUpViewmodel',
                           controller: emailController,
                           enablefillColor:
                               AppColors.unFocusPrimaryColor.withOpacity(0.1),
                           focusfillColor: AppColors.TextwhiteColor,
-                          outlineColor:
-                              AppColors.unFocusPrimaryColor.withOpacity(0.5),
+                          outlineColor: model.isSignUpError
+                              ? Colors.red.withOpacity(0.5)
+                              : AppColors.unFocusPrimaryColor.withOpacity(0.5),
                           radius: screenHeight * 0.010,
                           isHidden: false,
-                          HintText: 'Email Address',
+                          HintText: model.isSignUpError == true
+                              ? "Enter Correct Email Address"
+                              : 'Email Address',
                           hintStyle: TextStyle(
-                              color: Colors.grey,
+                              color: model.isSignUpError
+                                  ? Colors.red.withOpacity(0.5)
+                                  : Colors.grey,
                               fontFamily: 'Poppins Regular',
                               fontSize: screenHeight * 0.018),
                           isEmailFocus: true,
@@ -138,7 +161,14 @@ class SignupView extends StatelessWidget {
                           Suffix: Text(''),
                           isSuffix: false,
                           isPrefix: true,
-                          onChanged: () {});
+                          onChanged: () {
+                            model.onChangedFocusOFUi(
+                                ischeck: model.isCheck,
+                                phoneNumber: phoneNumberController.text,
+                                fullName: fullName.text,
+                                emailText: emailController.text,
+                                PasswordText: passwordController.text);
+                          });
                     }),
                     SizedBox(
                       height: screenHeight * 0.030,
@@ -146,18 +176,24 @@ class SignupView extends StatelessWidget {
                     Consumer<SignUpViewmodel>(builder: (context, model, child) {
                       return TextFields(
                           fieldName: 'phoneNumber',
+                          isNumberKeyboard: true,
                           modelName: 'SignUpViewmodel',
                           controller: phoneNumberController,
                           enablefillColor:
                               AppColors.unFocusPrimaryColor.withOpacity(0.1),
                           focusfillColor: AppColors.TextwhiteColor,
-                          outlineColor:
-                              AppColors.unFocusPrimaryColor.withOpacity(0.5),
+                          outlineColor: model.isSignUpError
+                              ? Colors.red.withOpacity(0.5)
+                              : AppColors.unFocusPrimaryColor.withOpacity(0.5),
                           radius: screenHeight * 0.010,
                           isHidden: false,
-                          HintText: 'Phone Number',
+                          HintText: model.isSignUpError == true
+                              ? "Enter 10 Digits Number"
+                              : 'Phone Number',
                           hintStyle: TextStyle(
-                              color: Colors.grey,
+                              color: model.isSignUpError
+                                  ? Colors.red.withOpacity(0.5)
+                                  : Colors.grey,
                               fontFamily: 'Poppins Regular',
                               fontSize: screenHeight * 0.018),
                           isEmailFocus: true,
@@ -172,7 +208,14 @@ class SignupView extends StatelessWidget {
                           Suffix: Text(''),
                           isSuffix: false,
                           isPrefix: true,
-                          onChanged: () {});
+                          onChanged: () {
+                            model.onChangedFocusOFUi(
+                                ischeck: model.isCheck,
+                                phoneNumber: phoneNumberController.text,
+                                fullName: fullName.text,
+                                emailText: emailController.text,
+                                PasswordText: passwordController.text);
+                          });
                     }),
                     SizedBox(
                       height: screenHeight * 0.030,
@@ -180,18 +223,24 @@ class SignupView extends StatelessWidget {
                     Consumer<SignUpViewmodel>(builder: (context, model, child) {
                       return TextFields(
                           fieldName: 'password',
+                          isNumberKeyboard: false,
                           modelName: 'SignUpViewmodel',
                           controller: passwordController,
                           enablefillColor:
                               AppColors.unFocusPrimaryColor.withOpacity(0.1),
                           focusfillColor: AppColors.TextwhiteColor,
-                          outlineColor:
-                              AppColors.unFocusPrimaryColor.withOpacity(0.5),
+                          outlineColor: model.isSignUpError
+                              ? Colors.red.withOpacity(0.5)
+                              : AppColors.unFocusPrimaryColor.withOpacity(0.5),
                           radius: screenHeight * 0.010,
                           isHidden: model.isHiddenPassword,
-                          HintText: 'Password',
+                          HintText: model.isSignUpError == true
+                              ? "Enter Password with @, Capital, Number"
+                              : 'Password',
                           hintStyle: TextStyle(
-                              color: Colors.grey,
+                              color: model.isSignUpError
+                                  ? Colors.red.withOpacity(0.5)
+                                  : Colors.grey,
                               fontFamily: 'Poppins Regular',
                               fontSize: screenHeight * 0.018),
                           isEmailFocus: true,
@@ -229,6 +278,12 @@ class SignupView extends StatelessWidget {
                           isPrefix: true,
                           onChanged: () {
                             model.onChanged(controller: passwordController);
+                            model.onChangedFocusOFUi(
+                                ischeck: model.isCheck,
+                                phoneNumber: phoneNumberController.text,
+                                fullName: fullName.text,
+                                emailText: emailController.text,
+                                PasswordText: passwordController.text);
                           });
                     }),
                     SizedBox(
@@ -238,8 +293,14 @@ class SignupView extends StatelessWidget {
                       Consumer<SignUpViewmodel>(
                           builder: (context, model, child) {
                         return InkWell(
-                          onTap: () {
-                            model.checkBoxHit();
+                          onTap: () async {
+                            await model.checkBoxHit();
+                            await model.onChangedFocusOFUi(
+                                ischeck: model.isCheck,
+                                phoneNumber: phoneNumberController.text,
+                                fullName: fullName.text,
+                                emailText: emailController.text,
+                                PasswordText: passwordController.text);
                           },
                           child: Container(
                             height: checkboxSize,
@@ -311,30 +372,62 @@ class SignupView extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: screenHeight * 0.030),
                       child: Column(
                         children: [
-                          InkWell(
-                            child: ButtonComponent(
+                          Consumer<SignUpViewmodel>(
+                              builder: (context, model, child) {
+                            return InkWell(
+                              onTap: () {
+                                if (model.isSignUpStart == false) {
+                                  model.signInFunction(
+                                      Email: emailController.text,
+                                      phoneNumber: phoneNumberController.text,
+                                      fullname: fullName.text,
+                                      Password: passwordController.text,
+                                      context: context);
+                                  emailController.clear();
+                                  phoneNumberController.clear();
+                                  fullName.clear();
+                                  passwordController.clear();
+                                }
+                              },
+                              child: ButtonComponent(
                                 screenHeight: screenHeight,
                                 screenWidth: screenWidth,
                                 ButtonHeight: 0.075,
-                                child: Center(
-                                  child: Text(
-                                    'Sign In',
-                                    style: TextStyle(
-                                        color: AppColors.TextwhiteColor,
-                                        fontFamily: 'Poppins Semi Bold',
-                                        fontSize: screenHeight * 0.020),
-                                  ),
-                                ),
                                 radius: 0.080,
-                                backgroundColor: AppColors.PrimaryBlueColor),
-                          ),
+                                backgroundColor: model.isUiFieldsFill == true
+                                    ? AppColors.PrimaryBlueColor
+                                    : AppColors.unFocusPrimaryColor,
+                                child: model.isSignUpStart
+                                    ? Center(
+                                        child: CircularProgressIndicator(
+                                          color: AppColors.PrimaryBlueColor,
+                                        ),
+                                      )
+                                    : Center(
+                                        child: Text(
+                                          'Sign Up',
+                                          style: TextStyle(
+                                              color: AppColors.TextwhiteColor,
+                                              fontFamily: 'Poppins Semi Bold',
+                                              fontSize: screenHeight * 0.020),
+                                        ),
+                                      ),
+                              ),
+                            );
+                          }),
                           Padding(
                             padding: EdgeInsets.only(top: screenHeight * 0.020),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      model.naviagtion(
+                                          context: context,
+                                          isReplaceMent: false,
+                                          isPop: false,
+                                          navigationName: SigninView());
+                                    },
                                     child: Text(
                                       'Already have an account?',
                                       style: TextStyle(
@@ -343,7 +436,13 @@ class SignupView extends StatelessWidget {
                                           fontSize: screenHeight * 0.018),
                                     )),
                                 InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      model.naviagtion(
+                                          context: context,
+                                          isReplaceMent: false,
+                                          isPop: false,
+                                          navigationName: SigninView());
+                                    },
                                     child: Text(
                                       '  Sign in',
                                       style: TextStyle(
