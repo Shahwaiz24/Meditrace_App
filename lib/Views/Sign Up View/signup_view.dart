@@ -69,6 +69,7 @@ class SignupView extends StatelessWidget {
                 ),
               ],
             ),
+       
             Expanded(
               child: Center(
                 child: Column(
@@ -78,6 +79,8 @@ class SignupView extends StatelessWidget {
                     Spacer(),
                     Consumer<SignUpViewmodel>(builder: (context, model, child) {
                       return TextFields(
+                        isMedical: false,
+                       
                           fieldName: 'fullName',
                           modelName: 'SignUpViewmodel',
                           isNumberKeyboard: false,
@@ -118,6 +121,7 @@ class SignupView extends StatelessWidget {
                                 phoneNumber: phoneNumberController.text,
                                 fullName: fullName.text,
                                 emailText: emailController.text,
+                                
                                 PasswordText: passwordController.text);
                           });
                     }),
@@ -126,6 +130,7 @@ class SignupView extends StatelessWidget {
                     ),
                     Consumer<SignUpViewmodel>(builder: (context, model, child) {
                       return TextFields(
+                             isMedical: false,
                           fieldName: 'email',
                           isNumberKeyboard: false,
                           modelName: 'SignUpViewmodel',
@@ -175,6 +180,7 @@ class SignupView extends StatelessWidget {
                     ),
                     Consumer<SignUpViewmodel>(builder: (context, model, child) {
                       return TextFields(
+                             isMedical: false,
                           fieldName: 'phoneNumber',
                           isNumberKeyboard: true,
                           modelName: 'SignUpViewmodel',
@@ -222,6 +228,7 @@ class SignupView extends StatelessWidget {
                     ),
                     Consumer<SignUpViewmodel>(builder: (context, model, child) {
                       return TextFields(
+                             isMedical: false,
                           fieldName: 'password',
                           isNumberKeyboard: false,
                           modelName: 'SignUpViewmodel',

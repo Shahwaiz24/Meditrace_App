@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Views/Sign%20In%20View/signin_viewmodel.dart';
+import 'package:meditrace_project/Views/Sign%20Up%20View/Medical%20Information%20SignUp%20View/medical_information_viewModel_signUp.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/signup_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,7 @@ class TextFields extends StatelessWidget {
       required this.modelName,
       required this.Prefix,
       required this.Suffix,
+      required this.isMedical,
       required this.isSuffix,
       required this.isNumberKeyboard,
       required this.fieldName,
@@ -41,6 +43,7 @@ class TextFields extends StatelessWidget {
   final bool isHidden;
   final String modelName;
   final String fieldName;
+  final bool isMedical;
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +94,20 @@ class TextFields extends StatelessWidget {
           ),
         ),
       );
+    } else if (isMedical == true) {
+      final model = Provider.of<MedicalInformationSignUpViewModel>(context);
+      Color determineFillColor() {
+        switch (fieldName) {
+          case "allergies":
+            return model.isFocusAllergies ? focusfillColor : enablefillColor;
+          case "chronic":
+            return model.isFocusChronic ? focusfillColor : enablefillColor;
+          case "medication":
+            return model.isFocusMedication ? focusfillColor : enablefillColor;
+          default:
+            return enablefillColor; // Default color if no matching field
+        }
+      }
     }
     final model = Provider.of<SignUpViewmodel>(context);
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/local_storage.dart';
 import 'package:meditrace_project/Views/Sign%20In%20View/signin_viewmodel.dart';
+import 'package:meditrace_project/Views/Sign%20Up%20View/Medical%20Information%20SignUp%20View/medical_information_signUp.dart';
+import 'package:meditrace_project/Views/Sign%20Up%20View/Medical%20Information%20SignUp%20View/medical_information_viewModel_signUp.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/signup_viewmodel.dart';
 import 'package:meditrace_project/Views/Splash%20View/splash_view.dart';
 import 'package:meditrace_project/Views/Splash%20View/splash_viewmodel.dart';
@@ -21,12 +23,13 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => SplashViewmodel()),
         ChangeNotifierProvider(create: (_) => SigninViewmodel()),
-                ChangeNotifierProvider(create: (_) => SignUpViewmodel()),
-
+        ChangeNotifierProvider(create: (_) => SignUpViewmodel()),
+        ChangeNotifierProvider(
+            create: (_) => MedicalInformationSignUpViewModel()),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SplashView(),
+        home: MedicalInformationSignupView(),
       ),
     );
   }

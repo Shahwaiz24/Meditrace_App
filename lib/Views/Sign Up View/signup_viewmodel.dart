@@ -183,7 +183,6 @@ class SignUpViewmodel with ChangeNotifier {
         phoneNumber: phoneNumber);
     if (validate == true) {
       print('Navigating and SuccessFully Login');
-
       isSignUpStart = false;
       notifyListeners();
     } else {
