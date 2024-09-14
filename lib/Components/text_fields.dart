@@ -66,8 +66,8 @@ class TextFields extends StatelessWidget {
           obscureText: isHidden,
           obscuringCharacter: '*',
           decoration: InputDecoration(
-            suffixIcon: isSuffix == true ? Suffix : const SizedBox.shrink(),
-            prefixIcon: isPrefix == true ? Prefix : const SizedBox.shrink(),
+            suffixIcon: isSuffix == true ? Suffix : null,
+            prefixIcon: isPrefix == true ? Prefix : null,
             fillColor: isEmailFocus
                 ? (model.isFocusEmail ? focusfillColor : enablefillColor)
                 : (model.isFocusPassword
@@ -108,6 +108,47 @@ class TextFields extends StatelessWidget {
             return enablefillColor; // Default color if no matching field
         }
       }
+
+      return Focus(
+        onFocusChange: (hasFocus) {
+          model.onFocusChange(fieldName, hasFocus);
+        },
+        child: TextFormField(
+          onChanged: (string) {
+            onChanged();
+          },
+          controller: controller,
+          obscureText: isHidden,
+          keyboardType: isNumberKeyboard == true
+              ? TextInputType.phone // Numbers wala keyboard
+              : TextInputType.text, // Default keyboard
+          obscuringCharacter: '*',
+          decoration: InputDecoration(
+            suffixIcon: isSuffix == true ? Suffix : null,
+            prefixIcon: isPrefix == true ? Prefix : null,
+            fillColor: determineFillColor(), // Dynamically change fill color
+            filled: true,
+          
+            hintText: HintText,
+            hintStyle: hintStyle,
+            enabled: true,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(radius),
+              borderSide: BorderSide(
+                color: outlineColor.withOpacity(0.4),
+                width: 1,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(radius),
+              borderSide: BorderSide(
+                color: outlineColor.withOpacity(0.8), // Darker border on focus
+                width: 2, // Thicker border on focus
+              ),
+            ),
+          ),
+        ),
+      );
     }
     final model = Provider.of<SignUpViewmodel>(context);
 
@@ -142,8 +183,8 @@ class TextFields extends StatelessWidget {
             : TextInputType.text, // Default keyboard
         obscuringCharacter: '*',
         decoration: InputDecoration(
-          suffixIcon: isSuffix == true ? Suffix : const SizedBox.shrink(),
-          prefixIcon: isPrefix == true ? Prefix : const SizedBox.shrink(),
+          suffixIcon: isSuffix == true ? Suffix : null,
+          prefixIcon: isPrefix == true ? Prefix : null,
           fillColor: determineFillColor(), // Dynamically change fill color
           filled: true,
           hintText: HintText,

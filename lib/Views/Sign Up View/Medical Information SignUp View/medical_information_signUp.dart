@@ -15,6 +15,7 @@ class MedicalInformationSignupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = Provider.of<MedicalInformationSignUpViewModel>(context);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -26,6 +27,7 @@ class MedicalInformationSignupView extends StatelessWidget {
             left: screenWidth * 0.070,
             right: screenWidth * 0.070),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Tell us about your health.',
@@ -47,9 +49,97 @@ class MedicalInformationSignupView extends StatelessWidget {
               ),
             ),
             SizedBox(
+              height: screenHeight * 0.050,
+            ),
+            TextFields(
+                isMedical: true,
+                controller: knownAllergiesController,
+                enablefillColor: AppColors.unFocusPrimaryColor.withOpacity(0.1),
+                focusfillColor: AppColors.TextwhiteColor,
+                outlineColor: model.isError
+                    ? Colors.red.withOpacity(0.5)
+                    : AppColors.unFocusPrimaryColor.withOpacity(0.5),
+                radius: screenHeight * 0.010,
+                isHidden: false,
+                HintText: model.isError
+                    ? 'Enter Correct Allergies'
+                    : 'Known Allergies',
+                hintStyle: TextStyle(
+                    color: model.isError
+                        ? Colors.red.withOpacity(0.5)
+                        : Colors.grey,
+                    fontFamily: 'Poppins Regular',
+                    fontSize: screenHeight * 0.018),
+                isEmailFocus: false,
+                modelName: 'MedicalInformationSignUpViewModel',
+                Prefix: Text(''),
+                Suffix: Text(''),
+                isSuffix: false,
+                isNumberKeyboard: false,
+                fieldName: 'chronic',
+                isPrefix: false,
+                onChanged: () {}),
+            SizedBox(
               height: screenHeight * 0.030,
             ),
-           
+            TextFields(
+                isMedical: true,
+                controller: chronicConditionsController,
+                enablefillColor: AppColors.unFocusPrimaryColor.withOpacity(0.1),
+                focusfillColor: AppColors.TextwhiteColor,
+                outlineColor: model.isError
+                    ? Colors.red.withOpacity(0.5)
+                    : AppColors.unFocusPrimaryColor.withOpacity(0.5),
+                radius: screenHeight * 0.010,
+                isHidden: false,
+                HintText: model.isError
+                    ? 'Enter Correct Conditions'
+                    : 'Chronic Conditions',
+                hintStyle: TextStyle(
+                    color: model.isError
+                        ? Colors.red.withOpacity(0.5)
+                        : Colors.grey,
+                    fontFamily: 'Poppins Regular',
+                    fontSize: screenHeight * 0.018),
+                isEmailFocus: false,
+                modelName: 'MedicalInformationSignUpViewModel',
+                Prefix: Text(''),
+                Suffix: Text(''),
+                isSuffix: false,
+                isNumberKeyboard: false,
+                fieldName: 'chronic',
+                isPrefix: false,
+                onChanged: () {}),
+            SizedBox(
+              height: screenHeight * 0.030,
+            ),
+            TextFields(
+                isMedical: true,
+                controller: medicationsController,
+                enablefillColor: AppColors.unFocusPrimaryColor.withOpacity(0.1),
+                focusfillColor: AppColors.TextwhiteColor,
+                outlineColor: model.isError
+                    ? Colors.red.withOpacity(0.5)
+                    : AppColors.unFocusPrimaryColor.withOpacity(0.5),
+                radius: screenHeight * 0.010,
+                isHidden: false,
+                HintText:
+                    model.isError ? 'Enter Correct Medications' : 'Medications',
+                hintStyle: TextStyle(
+                    color: model.isError
+                        ? Colors.red.withOpacity(0.5)
+                        : Colors.grey,
+                    fontFamily: 'Poppins Regular',
+                    fontSize: screenHeight * 0.018),
+                isEmailFocus: false,
+                modelName: 'MedicalInformationSignUpViewModel',
+                Prefix: Text(''),
+                Suffix: Text(''),
+                isSuffix: false,
+                isNumberKeyboard: false,
+                fieldName: 'medication',
+                isPrefix: false,
+                onChanged: () {}),
           ],
         ),
       ),

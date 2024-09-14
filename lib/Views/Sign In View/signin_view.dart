@@ -75,6 +75,7 @@ class SigninView extends StatelessWidget {
                 children: [
                   Consumer<SigninViewmodel>(builder: (context, model, child) {
                     return TextFields(
+                        isMedical: false,
                         isNumberKeyboard: false,
                         modelName: 'SigninViewmodel',
                         fieldName: '',
@@ -120,6 +121,7 @@ class SigninView extends StatelessWidget {
                   ),
                   Consumer<SigninViewmodel>(builder: (context, model, child) {
                     return TextFields(
+                        isMedical: false,
                         isNumberKeyboard: false,
                         modelName: 'SigninViewmodel',
                         fieldName: '',
