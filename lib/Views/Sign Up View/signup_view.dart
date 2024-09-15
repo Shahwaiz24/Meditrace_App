@@ -384,7 +384,7 @@ class SignupView extends StatelessWidget {
                             return InkWell(
                               onTap: () {
                                 if (model.isSignUpStart == false) {
-                                  model.signInFunction(
+                                  model.signUpFunction(
                                       Email: emailController.text,
                                       phoneNumber: phoneNumberController.text,
                                       fullname: fullName.text,

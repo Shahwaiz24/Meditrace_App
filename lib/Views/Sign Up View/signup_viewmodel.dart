@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Services/global_Data.dart';
 
 class SignUpViewmodel with ChangeNotifier {
   bool isCheck = false;
@@ -157,9 +158,11 @@ class SignUpViewmodel with ChangeNotifier {
       required String Password,
       required String phoneNumber,
       required String fullname}) {
+    final number = int.parse(phoneNumber);
     if ((EmailText.contains('@') && (EmailText.contains('.com'))) &&
         (Password.length >= 5) &&
         (fullname.isNotEmpty) &&
+        (number != null) &&
         (phoneNumber.length == 10) &&
         (isCheck == true)) {
       return true;
@@ -168,7 +171,7 @@ class SignUpViewmodel with ChangeNotifier {
     }
   }
 
-  signInFunction(
+  signUpFunction(
       {required String Email,
       required String phoneNumber,
       required String fullname,
@@ -182,7 +185,11 @@ class SignUpViewmodel with ChangeNotifier {
         fullname: fullname,
         phoneNumber: phoneNumber);
     if (validate == true) {
-      print('Navigating and SuccessFully Login');
+      print('Navigating and SuccessFully SignUp');
+      SignUpGlobalData.finalFullName = fullname;
+      SignUpGlobalData.finalEmailAddress = Email;
+      SignUpGlobalData.finalPassword = Password;
+      SignUpGlobalData.finalPhoneNumber = phoneNumber;
       isSignUpStart = false;
       notifyListeners();
     } else {
