@@ -77,57 +77,7 @@ class SignupView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Spacer(),
-                    Consumer<SignUpViewmodel>(builder: (context, model, child) {
-                      return TextFields(
-                        isMedical: false,
-                       
-                          fieldName: 'fullName',
-                          modelName: 'SignUpViewmodel',
-                          isNumberKeyboard: false,
-                          controller: fullName,
-                          enablefillColor:
-                              AppColors.unFocusPrimaryColor.withOpacity(0.1),
-                          focusfillColor: AppColors.TextwhiteColor,
-                          outlineColor:
-                              AppColors.unFocusPrimaryColor.withOpacity(0.5),
-                          radius: screenHeight * 0.010,
-                          isHidden: false,
-                          HintText: model.isSignUpError == true
-                              ? "Enter Full Name"
-                              : 'Full Name',
-                          hintStyle: TextStyle(
-                              color: model.isSignUpError
-                                  ? Colors.red.withOpacity(0.5)
-                                  : Colors.grey,
-                              fontFamily: 'Poppins Regular',
-                              fontSize: screenHeight * 0.018),
-                          isEmailFocus: true,
-                          Prefix: model.isFocusName == true
-                              ? Icon(
-                                  Icons.person_outline_rounded,
-                                )
-                              : Icon(
-                                  Icons.person_outline_rounded,
-                                  color:
-                                      const Color(0xffA3A2A3).withOpacity(0.8),
-                                  size: screenHeight * 0.032,
-                                ),
-                          Suffix: Text(''),
-                          isSuffix: false,
-                          isPrefix: true,
-                          onChanged: () {
-                            model.onChangedFocusOFUi(
-                                ischeck: model.isCheck,
-                                phoneNumber: phoneNumberController.text,
-                                fullName: fullName.text,
-                                emailText: emailController.text,
-                                
-                                PasswordText: passwordController.text);
-                          });
-                    }),
-                    SizedBox(
-                      height: screenHeight * 0.030,
-                    ),
+                
                     Consumer<SignUpViewmodel>(builder: (context, model, child) {
                       return TextFields(
                              isMedical: false,
