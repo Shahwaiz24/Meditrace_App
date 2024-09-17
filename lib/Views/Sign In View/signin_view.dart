@@ -3,6 +3,8 @@ import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Components/text_fields.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Sign%20In%20View/signin_viewmodel.dart';
+import 'package:meditrace_project/Views/Sign%20Up%20View/signup_view.dart';
+import 'package:meditrace_project/Views/Splash%20View/splash_view.dart';
 import 'package:provider/provider.dart';
 
 class SigninView extends StatelessWidget {
@@ -45,16 +47,11 @@ class SigninView extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: InkWell(
                           onTap: () {
-                            model.isPasswordVisible = false;
-                            model.isUiFieldsFill = false;
-                            model.isHiddenPassword = false;
-                            model.isSignInStart = false;
-                            model.isSignUpError = false;
-                            emailController.clear();
-                            passwordController.clear();
-                            model.isFocusEmail = false;
-                            model.isHiddenPassword = true;
-                            Navigator.pop(context);
+                            model.naviagtion(
+                                context: context,
+                                isReplaceMent: false,
+                                isPop: true,
+                                navigationName: SplashView());
                           },
                           child: Icon(
                             size: screenHeight * 0.030,
@@ -252,7 +249,13 @@ class SigninView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            model.naviagtion(
+                                context: context,
+                                isReplaceMent: false,
+                                isPop: false,
+                                navigationName: SignupView());
+                          },
                           child: Text(
                             'Don’t have an account?',
                             style: TextStyle(
@@ -261,7 +264,13 @@ class SigninView extends StatelessWidget {
                                 fontSize: screenHeight * 0.018),
                           )),
                       InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            model.naviagtion(
+                                context: context,
+                                isReplaceMent: false,
+                                isPop: false,
+                                navigationName: SignupView());
+                          },
                           child: Text(
                             '  Sign up',
                             style: TextStyle(

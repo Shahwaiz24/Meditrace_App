@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/global_Data.dart';
+import 'package:meditrace_project/Views/Sign%20Up%20View/Personal%20Information%20View/personal_information_view.dart';
 
 class SignUpViewmodel with ChangeNotifier {
   bool isCheck = false;
@@ -12,6 +13,49 @@ class SignUpViewmodel with ChangeNotifier {
   bool isUiFieldsFill = false;
   bool isFocusPhoneNumber = false;
   bool isHiddenPassword = true;
+  bool isPhoneNumberNotEmpty = false;
+  bool isPasswordNotEmpty = false;
+  bool isEmailNotEmpty = false;
+
+  checkEmailEmpty({required String email}) {
+    if (email.isNotEmpty) {
+      isEmailNotEmpty = true;
+
+      notifyListeners();
+    } else {
+      isEmailNotEmpty = false;
+
+      notifyListeners();
+    }
+  }
+
+  checkPhoneNumberEmpty({required String phoneNumber}) {
+    if (phoneNumber.isNotEmpty) {
+      isPhoneNumberNotEmpty = true;
+
+      notifyListeners();
+    } else {
+      isPhoneNumberNotEmpty = false;
+
+      notifyListeners();
+    }
+  }
+
+  checkPasswordEmpty({required String password}) {
+    if (password.isNotEmpty) {
+      isPasswordVisible = true;
+      isSignUpError = false;
+      isPasswordNotEmpty = true;
+
+      notifyListeners();
+    } else {
+      isPasswordNotEmpty = false;
+      isPasswordVisible = false;
+      isSignUpError = false;
+
+      notifyListeners();
+    }
+  }
 
   naviagtion(
       {required BuildContext context,
@@ -71,11 +115,15 @@ class SignUpViewmodel with ChangeNotifier {
         (number.length >= 10) &&
         (ischeck == true)) {
       isUiFieldsFill = true;
+      print(
+          'Password : ${PasswordText} | Phone Number : ${phoneNumber} | Email : ${emailText} | bool : ${isUiFieldsFill}');
       print('Check Box Hit Change Focus : ${ischeck}');
       notifyListeners();
     } else {
       isUiFieldsFill = false;
       print('Check Box Hit Change Focus : ${ischeck}');
+      print(
+          'Password : ${PasswordText} | Phone Number : ${phoneNumber} | Email : ${emailText} | bool : ${isUiFieldsFill}');
 
       notifyListeners();
     }
@@ -112,20 +160,6 @@ class SignUpViewmodel with ChangeNotifier {
     notifyListeners();
   }
 
-  onChanged({required TextEditingController controller}) {
-    if (controller.text.isEmpty) {
-      isPasswordVisible = false;
-      isSignUpError = false;
-      notifyListeners();
-    } else {
-      isPasswordVisible = true;
-
-      isSignUpError = false;
-
-      notifyListeners();
-    }
-  }
-
   void onEmailFocusChange(bool hasFocus) {
     isFocusEmail = hasFocus;
 
@@ -143,14 +177,20 @@ class SignUpViewmodel with ChangeNotifier {
     required String Password,
     required String phoneNumber,
   }) {
-    final number = int.parse(phoneNumber);
-    if ((EmailText.contains('@') && (EmailText.contains('.com'))) &&
-        (Password.length >= 5) &&
-        (number != null) &&
-        (phoneNumber.length == 10) &&
-        (isCheck == true)) {
-      return true;
-    } else {
+    try {
+      final numericString = phoneNumber.replaceAll(' ', '');
+      int number = int.parse(numericString);
+      if ((EmailText.contains('@') && (EmailText.contains('.com'))) &&
+          (Password.length >= 5) &&
+          (number != null && number.runtimeType == int) &&
+          (phoneNumber.length == 10) &&
+          (isCheck == true)) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print('Erorr : ${e}');
       return false;
     }
   }
@@ -165,15 +205,20 @@ class SignUpViewmodel with ChangeNotifier {
     bool validate = await validation(
         EmailText: Email, Password: Password, phoneNumber: phoneNumber);
     if (validate == true) {
-      print('Navigating and SuccessFully SignUp');
-      // SignUpGlobalData.finalFullName = fullname;
+      isUiFieldsFill = false;
+      notifyListeners();
       SignUpGlobalData.finalEmailAddress = Email;
       SignUpGlobalData.finalPassword = Password;
       SignUpGlobalData.finalPhoneNumber = phoneNumber;
       isSignUpStart = false;
+
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => PersonalInformationView()));
+
       notifyListeners();
     } else {
       isSignUpStart = false;
+      isCheck = false;
       isSignUpError = true;
       isUiFieldsFill = false;
       notifyListeners();

@@ -28,7 +28,7 @@ class TextFields extends StatelessWidget {
   final Color outlineColor;
   final double radius;
   final Color focusfillColor;
-  
+
   final Color enablefillColor;
   final String HintText;
   final TextStyle hintStyle;
@@ -55,6 +55,8 @@ class TextFields extends StatelessWidget {
           onChanged();
         },
         controller: controller,
+        keyboardType:
+            isNumberKeyboard == true ? TextInputType.phone : TextInputType.name,
         obscureText: isHidden,
         obscuringCharacter: '*',
         decoration: InputDecoration(

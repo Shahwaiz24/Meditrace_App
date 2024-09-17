@@ -5,7 +5,7 @@ class SigninViewmodel with ChangeNotifier {
   bool isSignInStart = false;
   bool isUiFieldsFill = false;
   bool isHiddenPassword = true;
-  bool isFocusEmail = false; 
+  bool isFocusEmail = false;
   bool isSignUpError = false;
   void onEmailFocusChange(bool hasFocus) {
     isFocusEmail = hasFocus;
@@ -81,6 +81,48 @@ class SigninViewmodel with ChangeNotifier {
       await Future.delayed(const Duration(seconds: 3));
       isSignUpError = false;
       notifyListeners();
+    }
+  }
+
+  naviagtion(
+      {required BuildContext context,
+      required bool isReplaceMent,
+      required bool isPop,
+      required navigationName}) {
+    if (isReplaceMent == true) {
+      isFocusEmail = false;
+      isSignInStart = false;
+      isFocusPassword = false;
+      isPasswordVisible = false;
+      isHiddenPassword = true;
+      isSignUpError = false;
+      isUiFieldsFill = false;
+      notifyListeners();
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => navigationName()));
+    } else if (isPop == true) {
+      isFocusEmail = false;
+      isFocusPassword = false;
+      isPasswordVisible = false;
+      isSignInStart = false;
+
+      isHiddenPassword = true;
+      isSignUpError = false;
+      isUiFieldsFill = false;
+      notifyListeners();
+      Navigator.pop(context);
+    } else {
+      isFocusEmail = false;
+      isFocusPassword = false;
+      isPasswordVisible = false;
+      isHiddenPassword = true;
+      isSignInStart = false;
+
+      isSignUpError = false;
+      isUiFieldsFill = false;
+      notifyListeners();
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => navigationName));
     }
   }
 }

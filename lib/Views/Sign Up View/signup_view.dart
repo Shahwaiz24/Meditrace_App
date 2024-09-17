@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Components/text_fields.dart';
+import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Sign%20In%20View/signin_view.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/signup_viewmodel.dart';
@@ -79,13 +80,22 @@ class SignupView extends StatelessWidget {
                   // Spacer(),
                   Consumer<SignUpViewmodel>(builder: (context, model, child) {
                     return TextFields(
-                        contentStyle: TextStyle(),
-                        onFocus: (value) {},
+                        contentStyle: const TextStyle(
+                            fontFamily: 'Poppins Regular',
+                            fontWeight: FontWeight.w500),
+                        onFocus: (value) {
+                          model.onFocusChange('email', value);
+                        },
                         isNumberKeyboard: false,
                         controller: emailController,
                         enablefillColor:
                             AppColors.unFocusPrimaryColor.withOpacity(0.1),
-                        focusfillColor: AppColors.TextwhiteColor,
+                        focusfillColor: model.isFocusEmail == true
+                            ? AppColors.TextwhiteColor
+                            : model.isEmailNotEmpty == true
+                                ? AppColors.TextwhiteColor
+                                : AppColors.unFocusPrimaryColor
+                                    .withOpacity(0.1),
                         outlineColor: model.isSignUpError
                             ? Colors.red.withOpacity(0.5)
                             : AppColors.unFocusPrimaryColor.withOpacity(0.5),
@@ -112,11 +122,12 @@ class SignupView extends StatelessWidget {
                         Suffix: Text(''),
                         isSuffix: false,
                         isPrefix: true,
-                        onChanged: () {
-                          model.onChangedFocusOFUi(
+                        onChanged: () async {
+                          await model.checkEmailEmpty(
+                              email: emailController.text);
+                          await model.onChangedFocusOFUi(
                               ischeck: model.isCheck,
                               phoneNumber: phoneNumberController.text,
-                           
                               emailText: emailController.text,
                               PasswordText: passwordController.text);
                         });
@@ -126,13 +137,21 @@ class SignupView extends StatelessWidget {
                   ),
                   Consumer<SignUpViewmodel>(builder: (context, model, child) {
                     return TextFields(
-                        contentStyle: TextStyle(),
-                        onFocus: (value) {},
+                        contentStyle: const TextStyle(
+                            fontFamily: 'Poppins Regular',
+                            fontWeight: FontWeight.w500),
+                        onFocus: (value) {
+                          model.onFocusChange('phoneNumber', value);
+                        },
                         isNumberKeyboard: true,
                         controller: phoneNumberController,
-                        enablefillColor:
-                            AppColors.unFocusPrimaryColor.withOpacity(0.1),
-                        focusfillColor: AppColors.TextwhiteColor,
+                        enablefillColor: Colors.black,
+                        focusfillColor: model.isFocusPhoneNumber == true
+                            ? AppColors.TextwhiteColor
+                            : model.isPhoneNumberNotEmpty == true
+                                ? AppColors.TextwhiteColor
+                                : AppColors.unFocusPrimaryColor
+                                    .withOpacity(0.1),
                         outlineColor: model.isSignUpError
                             ? Colors.red.withOpacity(0.5)
                             : AppColors.unFocusPrimaryColor.withOpacity(0.5),
@@ -157,8 +176,10 @@ class SignupView extends StatelessWidget {
                         Suffix: Text(''),
                         isSuffix: false,
                         isPrefix: true,
-                        onChanged: () {
-                          model.onChangedFocusOFUi(
+                        onChanged: () async {
+                          await model.checkPhoneNumberEmpty(
+                              phoneNumber: phoneNumberController.text);
+                          await model.onChangedFocusOFUi(
                               ischeck: model.isCheck,
                               phoneNumber: phoneNumberController.text,
                               emailText: emailController.text,
@@ -170,13 +191,22 @@ class SignupView extends StatelessWidget {
                   ),
                   Consumer<SignUpViewmodel>(builder: (context, model, child) {
                     return TextFields(
-                        contentStyle: TextStyle(),
-                        onFocus: (value) {},
+                        contentStyle: const TextStyle(
+                            fontFamily: 'Poppins Regular',
+                            fontWeight: FontWeight.w500),
+                        onFocus: (value) {
+                          model.onFocusChange('password', value);
+                        },
                         isNumberKeyboard: false,
                         controller: passwordController,
                         enablefillColor:
                             AppColors.unFocusPrimaryColor.withOpacity(0.1),
-                        focusfillColor: AppColors.TextwhiteColor,
+                        focusfillColor: model.isFocusPassword == true
+                            ? AppColors.TextwhiteColor
+                            : model.isPasswordNotEmpty == true
+                                ? AppColors.TextwhiteColor
+                                : AppColors.unFocusPrimaryColor
+                                    .withOpacity(0.1),
                         outlineColor: model.isSignUpError
                             ? Colors.red.withOpacity(0.5)
                             : AppColors.unFocusPrimaryColor.withOpacity(0.5),
@@ -223,9 +253,10 @@ class SignupView extends StatelessWidget {
                               ),
                         isSuffix: model.isPasswordVisible,
                         isPrefix: true,
-                        onChanged: () {
-                          model.onChanged(controller: passwordController);
-                          model.onChangedFocusOFUi(
+                        onChanged: () async {
+                          await model.checkPasswordEmpty(
+                              password: passwordController.text);
+                          await model.onChangedFocusOFUi(
                               ischeck: model.isCheck,
                               phoneNumber: phoneNumberController.text,
                               emailText: emailController.text,
@@ -323,7 +354,8 @@ class SignupView extends StatelessWidget {
                               if (model.isSignUpStart == false) {
                                 model.signUpFunction(
                                     Email: emailController.text,
-                                    phoneNumber: phoneNumberController.text,
+                                    phoneNumber:
+                                        phoneNumberController.text,
                                     Password: passwordController.text,
                                     context: context);
                                 emailController.clear();
