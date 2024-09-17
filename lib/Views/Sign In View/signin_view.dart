@@ -77,7 +77,6 @@ class SigninView extends StatelessWidget {
                     return TextFields(
                         contentStyle: TextStyle(),
                         onFocus: (value) {},
-                   
                         isNumberKeyboard: false,
                         isHidden: false,
                         onChanged: () {
@@ -220,13 +219,15 @@ class SigninView extends StatelessWidget {
                         }
                       },
                       child: ButtonComponent(
+                          decoration: BoxDecoration(
+                              color: model.isUiFieldsFill
+                                  ? AppColors.PrimaryBlueColor
+                                  : AppColors.unFocusPrimaryColor,
+                              borderRadius:
+                                  BorderRadius.circular(screenWidth * 0.080)),
                           screenHeight: screenHeight,
                           screenWidth: screenWidth,
                           ButtonHeight: 0.075,
-                          radius: 0.080,
-                          backgroundColor: model.isUiFieldsFill
-                              ? AppColors.PrimaryBlueColor
-                              : AppColors.unFocusPrimaryColor,
                           child: model.isSignInStart
                               ? Center(
                                   child: CircularProgressIndicator(

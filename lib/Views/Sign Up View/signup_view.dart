@@ -172,7 +172,8 @@ class SignupView extends StatelessWidget {
                     ),
                     Consumer<SignUpViewmodel>(builder: (context, model, child) {
                       return TextFields(
-                          contentStyle: TextStyle(),
+                          contentStyle: TextStyle(
+                          ),
                           onFocus: (value) {},
                           isNumberKeyboard: false,
                           controller: passwordController,
@@ -339,13 +340,16 @@ class SignupView extends StatelessWidget {
                                 }
                               },
                               child: ButtonComponent(
+                                 decoration: BoxDecoration(
+                                    color:  model.isUiFieldsFill == true
+                                        ? AppColors.PrimaryBlueColor
+                                        : AppColors.unFocusPrimaryColor,
+                                    borderRadius: BorderRadius.circular(
+                                        screenWidth * 0.080)),
                                 screenHeight: screenHeight,
                                 screenWidth: screenWidth,
                                 ButtonHeight: 0.075,
-                                radius: 0.080,
-                                backgroundColor: model.isUiFieldsFill == true
-                                    ? AppColors.PrimaryBlueColor
-                                    : AppColors.unFocusPrimaryColor,
+                               
                                 child: model.isSignUpStart
                                     ? Center(
                                         child: CircularProgressIndicator(

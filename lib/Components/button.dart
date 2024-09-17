@@ -5,18 +5,17 @@ class ButtonComponent extends StatefulWidget {
       {super.key,
       required this.screenHeight,
       required this.screenWidth,
-    required this. ButtonHeight,
+      required this.ButtonHeight,
       required this.child,
-       required this.radius,
-      required this.backgroundColor});
+      required this.decoration,
+});
 
   final double screenHeight;
-  
-  final double radius;
+
+  final BoxDecoration decoration;
   final double ButtonHeight;
   final double screenWidth;
   final Widget child;
-  final Color backgroundColor;
 
   @override
   State<ButtonComponent> createState() => _ButtonComponentState();
@@ -27,10 +26,7 @@ class _ButtonComponentState extends State<ButtonComponent> {
   Widget build(BuildContext context) {
     return Container(
       height: widget.screenHeight * widget.ButtonHeight,
-      decoration: BoxDecoration(
-        color: widget.backgroundColor,
-        borderRadius: BorderRadius.circular(widget.screenWidth * widget.radius)
-      ),
+      decoration:widget.decoration,
       child: widget.child,
     );
   }

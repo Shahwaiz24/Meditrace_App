@@ -185,13 +185,16 @@ class MedicalInformationSignupView extends StatelessWidget {
                       }
                     },
                     child: ButtonComponent(
+                      decoration: BoxDecoration(
+                        color:  model.isUiFieldsFill
+                              ? AppColors.PrimaryBlueColor
+                              : AppColors.unFocusPrimaryColor,
+                              borderRadius: BorderRadius.circular(screenWidth * 0.080)
+                      ),
                       screenHeight: screenHeight,
                       screenWidth: screenWidth,
                       ButtonHeight: 0.075,
-                      radius: 0.080,
-                      backgroundColor: model.isUiFieldsFill
-                          ? AppColors.PrimaryBlueColor
-                          : AppColors.unFocusPrimaryColor,
+                    
                       child: Center(
                         child: model.isStart
                             ? Center(

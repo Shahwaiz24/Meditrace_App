@@ -94,11 +94,14 @@ class SplashViewmodel with ChangeNotifier {
                         MaterialPageRoute(builder: (context) => SigninView()));
                   },
                   child: ButtonComponent(
+                    decoration: BoxDecoration(
+                      color:       AppColors.ButtonBackColor,
+                    borderRadius: BorderRadius.circular(screenWidth *  0.070,)
+                    ),
                     screenHeight: screenHeight,
                     screenWidth: screenWidth,
                     ButtonHeight: 0.070,
-                    radius: 0.070,
-                    backgroundColor: AppColors.ButtonBackColor,
+                  
                     child: Center(
                       child: Text(
                         'Sign In',
@@ -121,11 +124,15 @@ class SplashViewmodel with ChangeNotifier {
                             builder: (context) =>  SignupView()));
                   },
                   child: ButtonComponent(
+                    decoration: BoxDecoration(
+                        color: AppColors.ButtonBackColor,
+                        borderRadius: BorderRadius.circular(
+                          screenWidth * 0.070,
+                        )),
                     screenHeight: screenHeight,
                     screenWidth: screenWidth,
                     ButtonHeight: 0.070,
-                    radius: 0.070,
-                    backgroundColor: AppColors.ButtonBackColor,
+                   
                     child: Center(
                       child: Text(
                         'Sign Up',
