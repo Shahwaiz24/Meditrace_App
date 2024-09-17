@@ -48,16 +48,32 @@ class PersonalInformationView extends StatelessWidget {
             Consumer<PersonalInformationViewmodel>(
                 builder: (context, model, child) {
               return CustomDropdown(
-                initialValue:
-                    'Mr', // This value should be part of the items list
-                decoration: const InputDecoration(),
-                items: [
-                  "Mr",
-                  "Mrs",
-                  "Gay"
-                ], // Ensure 'Mr' or any other value here is set as the initial value
+                icon: Icon(Icons.arrow_drop_down_rounded),
+                hint: Text(
+                  'Prefix',
+                  style: TextStyle(
+                      color: AppColors.unFocusPrimaryColor,
+                      fontFamily: 'Poppins Regular',
+                      fontSize: screenHeight * 0.022),
+                ),
+                decoration: InputDecoration(
+                  filled: true,
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(screenWidth * 0.020),
+                      borderSide: BorderSide(
+                          color: AppColors.unFocusPrimaryColor, width: 1)),
+                  enabled: true,
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(screenWidth * 0.020),
+                      borderSide: BorderSide(
+                          color: AppColors.unFocusPrimaryColor, width: 1)),
+                  fillColor: model.isPrefixSelect == true
+                      ? AppColors.TextwhiteColor
+                      : AppColors.DropDownUnfocusColor.withOpacity(0.2),
+                ),
+                items: ["Mr", "Mrs", "Gay"],
                 onChanged: (String? newValue) {
-                  print("$newValue");
+                  model.selectPrefix();
                 },
               );
             }),

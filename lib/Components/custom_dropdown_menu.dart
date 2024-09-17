@@ -4,14 +4,16 @@ class CustomDropdown extends StatefulWidget {
   final List<String> items;
   final ValueChanged<String?> onChanged;
   final InputDecoration? decoration;
-  final String? initialValue;
+  final Widget hint;
+  final Widget icon;
 
   const CustomDropdown({
     Key? key,
     required this.items,
     required this.onChanged,
     required this.decoration,
-    required this.initialValue,
+    required this.icon,
+    required this.hint,
   }) : super(key: key);
 
   @override
@@ -24,15 +26,13 @@ class _CustomDropdownState extends State<CustomDropdown> {
   @override
   void initState() {
     super.initState();
-    _selectedValue = widget.initialValue ??
-        widget
-            .items[0]; // Default to first item if no initial value is provided
   }
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-      hint: Text('Prefix'),
+      icon: widget.icon,
+      hint: widget.hint,
       decoration: widget.decoration ??
           const InputDecoration(), // Use passed decoration or a default one
       items: widget.items.map<DropdownMenuItem<String>>((String value) {
