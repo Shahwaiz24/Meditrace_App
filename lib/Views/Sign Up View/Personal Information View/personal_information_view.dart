@@ -92,11 +92,9 @@ class PersonalInformationView extends StatelessWidget {
                 onChanged: (String? newValue) {
                   model.selectPrefix(prefix: newValue!);
                   model.checkallFields(
-                      firstName: SignUpGlobalData.finalFirstName,
-                      lastName: SignUpGlobalData.finalLastName,
-                      prefix: SignUpGlobalData.finalPrefix,
-                      gender: SignUpGlobalData.finalGender,
-                      dateOfBirth: SignUpGlobalData.finalDateOfBirth);
+                    firstName: firstNameController.text,
+                    lastName: lastNameController.text,
+                  );
                 },
               );
             }),
@@ -136,11 +134,9 @@ class PersonalInformationView extends StatelessWidget {
                     model.checkFirstNameEmpty(
                         firstName: firstNameController.text);
                     model.checkallFields(
-                        firstName: SignUpGlobalData.finalFirstName,
-                        lastName: SignUpGlobalData.finalLastName,
-                        prefix: SignUpGlobalData.finalPrefix,
-                        gender: SignUpGlobalData.finalGender,
-                        dateOfBirth: SignUpGlobalData.finalDateOfBirth);
+                      firstName: firstNameController.text,
+                      lastName: lastNameController.text,
+                    );
                   });
             }),
             SizedBox(
@@ -179,11 +175,9 @@ class PersonalInformationView extends StatelessWidget {
                   onChanged: () {
                     model.checkLastNameEmpty(lastName: lastNameController.text);
                     model.checkallFields(
-                        firstName: SignUpGlobalData.finalFirstName,
-                        lastName: SignUpGlobalData.finalLastName,
-                        prefix: SignUpGlobalData.finalPrefix,
-                        gender: SignUpGlobalData.finalGender,
-                        dateOfBirth: SignUpGlobalData.finalDateOfBirth);
+                      firstName: firstNameController.text,
+                      lastName: lastNameController.text,
+                    );
                   });
             }),
             SizedBox(
@@ -235,11 +229,9 @@ class PersonalInformationView extends StatelessWidget {
                 onChanged: (String? newValue) async {
                   model.selectGender(gender: newValue!);
                   await model.checkallFields(
-                      firstName: SignUpGlobalData.finalFirstName,
-                      lastName: SignUpGlobalData.finalLastName,
-                      prefix: SignUpGlobalData.finalPrefix,
-                      gender: SignUpGlobalData.finalGender,
-                      dateOfBirth: SignUpGlobalData.finalDateOfBirth);
+                    firstName: firstNameController.text,
+                    lastName: lastNameController.text,
+                  );
                 },
               );
             }),
@@ -262,11 +254,9 @@ class PersonalInformationView extends StatelessWidget {
                               isDialogOpen: true);
                         });
                     await model.checkallFields(
-                        firstName: SignUpGlobalData.finalFirstName,
-                        lastName: SignUpGlobalData.finalLastName,
-                        prefix: SignUpGlobalData.finalPrefix,
-                        gender: SignUpGlobalData.finalGender,
-                        dateOfBirth: SignUpGlobalData.finalDateOfBirth);
+                      firstName: firstNameController.text,
+                      lastName: lastNameController.text,
+                    );
                   }
                 },
                 child: ButtonComponent(
@@ -289,7 +279,7 @@ class PersonalInformationView extends StatelessWidget {
                       children: [
                         Text(
                           model.isBirthDatePicked == true
-                              ? SignUpGlobalData.finalDateOfBirth
+                              ? model.SelectedBirth
                               : 'Date of Birth',
                           style: TextStyle(
                               color: model.isBirthDatePicked == true
@@ -318,7 +308,13 @@ class PersonalInformationView extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     if (model.isUiFieldsFill == true) {
-                      model.next(context: context);
+                      model.next(
+                          context: context,
+                          firstName: firstNameController.text,
+                          lastName: lastNameController.text,
+                          Birthdate: model.SelectedBirth,
+                          Gender: model.Selectedgender,
+                          Prefix: model.Selectedprefix);
                     }
                   },
                   child: ButtonComponent(

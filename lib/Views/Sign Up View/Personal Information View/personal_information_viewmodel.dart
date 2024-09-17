@@ -12,31 +12,44 @@ class PersonalInformationViewmodel with ChangeNotifier {
   bool isLastNameNotEmpty = false;
   bool isFocusLastName = false;
   bool isFirstNameNotEmpty = false;
+  String Selectedgender = '';
+  String Selectedprefix = '';
+  String SelectedBirth = '';
 
   onDateSelect({required String date}) {
     isBirthDatePicked = true;
-    SignUpGlobalData.finalDateOfBirth = date;
+    SelectedBirth = date;
     notifyListeners();
   }
 
-  next({required BuildContext context}) {
+  next(
+      {required BuildContext context,
+      required String firstName,
+      required String lastName,
+      required String Gender,
+      required String Prefix,
+      required String Birthdate}) {
+    SignUpGlobalData.finalFirstName = firstName;
+    SignUpGlobalData.finalLastName = lastName;
+    SignUpGlobalData.finalDateOfBirth = Birthdate;
+    SignUpGlobalData.finalGender = Gender;
+    SignUpGlobalData.finalPrefix = Prefix;
+
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) => MedicalInformationSignupView()));
   }
 
-  checkallFields(
-      {required String firstName,
-      required String lastName,
-      required String prefix,
-      required String gender,
-      required String dateOfBirth}) {
+  checkallFields({
+    required String firstName,
+    required String lastName,
+  }) {
     if ((firstName.isNotEmpty) &&
         (lastName.isNotEmpty) &&
-        (prefix.isNotEmpty) &&
-        (gender.isNotEmpty) &&
-        (dateOfBirth.isNotEmpty)) {
+        (Selectedprefix.isNotEmpty) &&
+        (Selectedgender.isNotEmpty) &&
+        (SelectedBirth.isNotEmpty)) {
       isUiFieldsFill = true;
       notifyListeners();
     } else {
@@ -48,8 +61,8 @@ class PersonalInformationViewmodel with ChangeNotifier {
   void selectGender({required String gender}) {
     isGenderSelect = true;
     if (gender != null) {
-      SignUpGlobalData.finalGender = gender;
-      print('Gender : ${SignUpGlobalData.finalGender}');
+      Selectedgender = gender;
+      print('Gender : $Selectedgender}');
       notifyListeners();
     }
   }
@@ -57,8 +70,8 @@ class PersonalInformationViewmodel with ChangeNotifier {
   void selectPrefix({required String prefix}) {
     isPrefixSelect = true;
     if (prefix != null) {
-      SignUpGlobalData.finalPrefix = prefix;
-      print('Prefix : ${SignUpGlobalData.finalPrefix}');
+      Selectedprefix = prefix;
+      print('Prefix : ${Selectedprefix}');
     }
     notifyListeners();
   }
@@ -77,16 +90,12 @@ class PersonalInformationViewmodel with ChangeNotifier {
 
   void checkFirstNameEmpty({required String firstName}) {
     if (firstName.isNotEmpty) {
-      SignUpGlobalData.finalFirstName = firstName;
       isFirstNameNotEmpty = true;
-      print(
-          "First Name : ${SignUpGlobalData.finalFirstName} | Bool : ${isFirstNameNotEmpty}");
+      print("First Name : ${firstName} | Bool : ${isFirstNameNotEmpty}");
       notifyListeners();
     } else {
-      SignUpGlobalData.finalFirstName = firstName;
       isFirstNameNotEmpty = false;
-      print(
-          "First Name : ${SignUpGlobalData.finalFirstName} | Bool : ${isFirstNameNotEmpty}");
+      print("First Name : ${firstName} | Bool : ${isFirstNameNotEmpty}");
       notifyListeners();
     }
   }
@@ -94,13 +103,10 @@ class PersonalInformationViewmodel with ChangeNotifier {
   void checkLastNameEmpty({required String lastName}) {
     if (lastName.isNotEmpty) {
       isLastNameNotEmpty = true;
-      SignUpGlobalData.finalLastName = lastName;
-      print(
-          "Last Name : ${SignUpGlobalData.finalLastName} | Bool : ${isLastNameNotEmpty}");
+      print("Last Name : ${lastName} | Bool : ${isLastNameNotEmpty}");
       notifyListeners();
     } else {
       isLastNameNotEmpty = false;
-      SignUpGlobalData.finalLastName = lastName;
       notifyListeners();
     }
   }
