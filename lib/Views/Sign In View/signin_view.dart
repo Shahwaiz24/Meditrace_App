@@ -75,10 +75,10 @@ class SigninView extends StatelessWidget {
                 children: [
                   Consumer<SigninViewmodel>(builder: (context, model, child) {
                     return TextFields(
-                        isMedical: false,
+                        contentStyle: TextStyle(),
+                        onFocus: (value) {},
+                   
                         isNumberKeyboard: false,
-                        modelName: 'SigninViewmodel',
-                        fieldName: '',
                         isHidden: false,
                         onChanged: () {
                           model.onChangedFocusOFUi(
@@ -97,7 +97,6 @@ class SigninView extends StatelessWidget {
                                 size: screenHeight * 0.032,
                               ),
                         isPrefix: true,
-                        isEmailFocus: true,
                         controller: emailController,
                         enablefillColor:
                             AppColors.unFocusPrimaryColor.withOpacity(0.1),
@@ -121,10 +120,9 @@ class SigninView extends StatelessWidget {
                   ),
                   Consumer<SigninViewmodel>(builder: (context, model, child) {
                     return TextFields(
-                        isMedical: false,
+                        contentStyle: TextStyle(),
+                        onFocus: (value) {},
                         isNumberKeyboard: false,
-                        modelName: 'SigninViewmodel',
-                        fieldName: '',
                         isHidden: model.isHiddenPassword,
                         onChanged: () {
                           model.onChanged(controller: passwordController);
@@ -165,7 +163,6 @@ class SigninView extends StatelessWidget {
                                     .withOpacity(0.8),
                                 size: screenHeight * 0.032,
                               ),
-                        isEmailFocus: false,
                         controller: passwordController,
                         enablefillColor:
                             AppColors.unFocusPrimaryColor.withOpacity(0.1),

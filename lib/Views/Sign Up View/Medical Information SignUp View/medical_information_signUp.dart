@@ -55,7 +55,8 @@ class MedicalInformationSignupView extends StatelessWidget {
             Consumer<MedicalInformationSignUpViewModel>(
                 builder: (context, model, child) {
               return TextFields(
-                  isMedical: true,
+                  contentStyle: TextStyle(),
+                    onFocus: (value) {},
                   controller: knownAllergiesController,
                   enablefillColor:
                       AppColors.unFocusPrimaryColor.withOpacity(0.1),
@@ -74,13 +75,11 @@ class MedicalInformationSignupView extends StatelessWidget {
                           : Colors.grey,
                       fontFamily: 'Poppins Regular',
                       fontSize: screenHeight * 0.018),
-                  isEmailFocus: false,
-                  modelName: 'MedicalInformationSignUpViewModel',
+        
                   Prefix: Text(''),
                   Suffix: Text(''),
                   isSuffix: false,
                   isNumberKeyboard: false,
-                  fieldName: 'chronic',
                   isPrefix: false,
                   onChanged: () {
                     model.onChangedFocusOFUi(
@@ -95,7 +94,8 @@ class MedicalInformationSignupView extends StatelessWidget {
             Consumer<MedicalInformationSignUpViewModel>(
                 builder: (context, model, child) {
               return TextFields(
-                  isMedical: true,
+                  contentStyle: TextStyle(),
+                    onFocus: (value) {},
                   controller: chronicConditionsController,
                   enablefillColor:
                       AppColors.unFocusPrimaryColor.withOpacity(0.1),
@@ -114,13 +114,11 @@ class MedicalInformationSignupView extends StatelessWidget {
                           : Colors.grey,
                       fontFamily: 'Poppins Regular',
                       fontSize: screenHeight * 0.018),
-                  isEmailFocus: false,
-                  modelName: 'MedicalInformationSignUpViewModel',
+
                   Prefix: Text(''),
                   Suffix: Text(''),
                   isSuffix: false,
                   isNumberKeyboard: false,
-                  fieldName: 'chronic',
                   isPrefix: false,
                   onChanged: () {
                     model.onChangedFocusOFUi(
@@ -135,7 +133,8 @@ class MedicalInformationSignupView extends StatelessWidget {
             Consumer<MedicalInformationSignUpViewModel>(
                 builder: (context, model, child) {
               return TextFields(
-                  isMedical: true,
+                  contentStyle: TextStyle(),
+                    onFocus: (value) {},
                   controller: medicationsController,
                   enablefillColor:
                       AppColors.unFocusPrimaryColor.withOpacity(0.1),
@@ -154,13 +153,11 @@ class MedicalInformationSignupView extends StatelessWidget {
                           : Colors.grey,
                       fontFamily: 'Poppins Regular',
                       fontSize: screenHeight * 0.018),
-                  isEmailFocus: false,
-                  modelName: 'MedicalInformationSignUpViewModel',
+
                   Prefix: Text(''),
                   Suffix: Text(''),
                   isSuffix: false,
                   isNumberKeyboard: false,
-                  fieldName: 'medication',
                   isPrefix: false,
                   onChanged: () {
                     model.onChangedFocusOFUi(

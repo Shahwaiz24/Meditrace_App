@@ -6,7 +6,7 @@ class CustomDropdown extends StatefulWidget {
   final InputDecoration? decoration;
   final Widget hint;
   final Widget icon;
-
+  final TextStyle itemstyle;
   const CustomDropdown({
     Key? key,
     required this.items,
@@ -14,6 +14,7 @@ class CustomDropdown extends StatefulWidget {
     required this.decoration,
     required this.icon,
     required this.hint,
+    required this.itemstyle,
   }) : super(key: key);
 
   @override
@@ -37,8 +38,12 @@ class _CustomDropdownState extends State<CustomDropdown> {
           const InputDecoration(), // Use passed decoration or a default one
       items: widget.items.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
+          // alignment: Alignment.bottomCenter,
           value: value,
-          child: Text(value),
+          child: Text(
+            value,
+            style: widget.itemstyle,
+          ),
         );
       }).toList(),
       onChanged: (String? newValue) {

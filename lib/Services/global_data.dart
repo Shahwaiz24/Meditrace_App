@@ -6,4 +6,5 @@ class SignUpGlobalData {
   static String finalPhoneNumber = '';
   static String finalEmailAddress = '';
   static String finalPassword = '';
+  static String finalPrefix = '';
 }

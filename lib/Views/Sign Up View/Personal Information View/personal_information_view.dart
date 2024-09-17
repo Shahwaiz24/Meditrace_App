@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/custom_dropdown_menu.dart';
+import 'package:meditrace_project/Components/text_fields.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Personal%20Information%20View/personal_information_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class PersonalInformationView extends StatelessWidget {
-  const PersonalInformationView({super.key});
+  PersonalInformationView({super.key});
+
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +52,7 @@ class PersonalInformationView extends StatelessWidget {
             Consumer<PersonalInformationViewmodel>(
                 builder: (context, model, child) {
               return CustomDropdown(
-                icon: Icon(Icons.arrow_drop_down_rounded),
+                icon: Icon(Icons.keyboard_arrow_down_outlined),
                 hint: Text(
                   'Prefix',
                   style: TextStyle(
@@ -71,12 +75,46 @@ class PersonalInformationView extends StatelessWidget {
                       ? AppColors.TextwhiteColor
                       : AppColors.DropDownUnfocusColor.withOpacity(0.2),
                 ),
-                items: ["Mr", "Mrs", "Gay"],
+                items: ["Mr.", "Mrs.", "Miss."],
+                itemstyle: TextStyle(fontFamily: 'Poppins Medium'),
                 onChanged: (String? newValue) {
-                  model.selectPrefix();
+                  model.selectPrefix(prefix: newValue!);
                 },
               );
             }),
+            SizedBox(
+              height: screenHeight * 0.020,
+            ),
+            Consumer<PersonalInformationViewmodel>(
+                builder: (context, model, child) {
+              return TextFields(
+                  onFocus: (value) {
+                    model.onFirstNameFocusChange(value);
+                  },
+                  controller: firstNameController,
+                  enablefillColor:
+                      AppColors.DropDownUnfocusColor.withOpacity(0.2),
+                  focusfillColor: model.isFocusFirstName == true
+                      ? AppColors.TextwhiteColor
+                      : AppColors.DropDownUnfocusColor.withOpacity(0.2),
+                  outlineColor: AppColors.unFocusPrimaryColor,
+                  radius: screenWidth * 0.020,
+                  isHidden: false,
+                  HintText: 'First Name',
+                  hintStyle: TextStyle(
+                      color: AppColors.unFocusPrimaryColor,
+                      fontFamily: 'Poppins Regular',
+                      fontSize: screenHeight * 0.022),
+                  Prefix: Text(''),
+                  Suffix: Text(''),
+                  contentStyle: TextStyle(),
+                  isSuffix: false,
+                  isNumberKeyboard: false,
+                  isPrefix: false,
+                  onChanged: () {
+                    model.checkFirstNameEmpty(controller: firstNameController);
+                  });
+            })
           ],
         ),
       ),

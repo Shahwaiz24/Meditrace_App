@@ -69,7 +69,6 @@ class SignupView extends StatelessWidget {
                 ),
               ],
             ),
-       
             Expanded(
               child: Center(
                 child: Column(
@@ -77,13 +76,11 @@ class SignupView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Spacer(),
-                
                     Consumer<SignUpViewmodel>(builder: (context, model, child) {
                       return TextFields(
-                             isMedical: false,
-                          fieldName: 'email',
+                          contentStyle: TextStyle(),
+                          onFocus: (value) {},
                           isNumberKeyboard: false,
-                          modelName: 'SignUpViewmodel',
                           controller: emailController,
                           enablefillColor:
                               AppColors.unFocusPrimaryColor.withOpacity(0.1),
@@ -102,7 +99,6 @@ class SignupView extends StatelessWidget {
                                   : Colors.grey,
                               fontFamily: 'Poppins Regular',
                               fontSize: screenHeight * 0.018),
-                          isEmailFocus: true,
                           Prefix: model.isFocusEmail == true
                               ? Icon(
                                   Icons.email_outlined,
@@ -130,10 +126,9 @@ class SignupView extends StatelessWidget {
                     ),
                     Consumer<SignUpViewmodel>(builder: (context, model, child) {
                       return TextFields(
-                             isMedical: false,
-                          fieldName: 'phoneNumber',
+                          contentStyle: TextStyle(),
+                          onFocus: (value) {},
                           isNumberKeyboard: true,
-                          modelName: 'SignUpViewmodel',
                           controller: phoneNumberController,
                           enablefillColor:
                               AppColors.unFocusPrimaryColor.withOpacity(0.1),
@@ -152,7 +147,6 @@ class SignupView extends StatelessWidget {
                                   : Colors.grey,
                               fontFamily: 'Poppins Regular',
                               fontSize: screenHeight * 0.018),
-                          isEmailFocus: true,
                           Prefix: model.isFocusPhoneNumber == true
                               ? Icon(Icons.call_outlined)
                               : Icon(
@@ -178,10 +172,9 @@ class SignupView extends StatelessWidget {
                     ),
                     Consumer<SignUpViewmodel>(builder: (context, model, child) {
                       return TextFields(
-                             isMedical: false,
-                          fieldName: 'password',
+                          contentStyle: TextStyle(),
+                          onFocus: (value) {},
                           isNumberKeyboard: false,
-                          modelName: 'SignUpViewmodel',
                           controller: passwordController,
                           enablefillColor:
                               AppColors.unFocusPrimaryColor.withOpacity(0.1),
@@ -200,7 +193,6 @@ class SignupView extends StatelessWidget {
                                   : Colors.grey,
                               fontFamily: 'Poppins Regular',
                               fontSize: screenHeight * 0.018),
-                          isEmailFocus: true,
                           Prefix: model.isFocusPassword == true
                               ? Icon(
                                   Icons.lock_outline_rounded,
