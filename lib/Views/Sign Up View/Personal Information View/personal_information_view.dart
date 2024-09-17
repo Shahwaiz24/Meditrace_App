@@ -91,6 +91,12 @@ class PersonalInformationView extends StatelessWidget {
                     fontFamily: 'Poppins Regular', fontWeight: FontWeight.w500),
                 onChanged: (String? newValue) {
                   model.selectPrefix(prefix: newValue!);
+                  model.checkallFields(
+                      firstName: SignUpGlobalData.finalFirstName,
+                      lastName: SignUpGlobalData.finalLastName,
+                      prefix: SignUpGlobalData.finalPrefix,
+                      gender: SignUpGlobalData.finalGender,
+                      dateOfBirth: SignUpGlobalData.finalDateOfBirth);
                 },
               );
             }),
@@ -129,6 +135,12 @@ class PersonalInformationView extends StatelessWidget {
                   onChanged: () {
                     model.checkFirstNameEmpty(
                         firstName: firstNameController.text);
+                    model.checkallFields(
+                        firstName: SignUpGlobalData.finalFirstName,
+                        lastName: SignUpGlobalData.finalLastName,
+                        prefix: SignUpGlobalData.finalPrefix,
+                        gender: SignUpGlobalData.finalGender,
+                        dateOfBirth: SignUpGlobalData.finalDateOfBirth);
                   });
             }),
             SizedBox(
@@ -166,6 +178,12 @@ class PersonalInformationView extends StatelessWidget {
                   isPrefix: false,
                   onChanged: () {
                     model.checkLastNameEmpty(lastName: lastNameController.text);
+                    model.checkallFields(
+                        firstName: SignUpGlobalData.finalFirstName,
+                        lastName: SignUpGlobalData.finalLastName,
+                        prefix: SignUpGlobalData.finalPrefix,
+                        gender: SignUpGlobalData.finalGender,
+                        dateOfBirth: SignUpGlobalData.finalDateOfBirth);
                   });
             }),
             SizedBox(
@@ -214,8 +232,14 @@ class PersonalInformationView extends StatelessWidget {
                 ],
                 itemstyle: const TextStyle(
                     fontFamily: 'Poppins Regular', fontWeight: FontWeight.w500),
-                onChanged: (String? newValue) {
+                onChanged: (String? newValue) async {
                   model.selectGender(gender: newValue!);
+                  await model.checkallFields(
+                      firstName: SignUpGlobalData.finalFirstName,
+                      lastName: SignUpGlobalData.finalLastName,
+                      prefix: SignUpGlobalData.finalPrefix,
+                      gender: SignUpGlobalData.finalGender,
+                      dateOfBirth: SignUpGlobalData.finalDateOfBirth);
                 },
               );
             }),
@@ -225,7 +249,7 @@ class PersonalInformationView extends StatelessWidget {
             Consumer<PersonalInformationViewmodel>(
                 builder: (context, model, child) {
               return InkWell(
-                onTap: () {
+                onTap: () async {
                   if (model.isBirthDatePicked == false) {
                     showDialog(
                         context: context,
@@ -237,6 +261,12 @@ class PersonalInformationView extends StatelessWidget {
                               isDateOfBirth: true,
                               isDialogOpen: true);
                         });
+                    await model.checkallFields(
+                        firstName: SignUpGlobalData.finalFirstName,
+                        lastName: SignUpGlobalData.finalLastName,
+                        prefix: SignUpGlobalData.finalPrefix,
+                        gender: SignUpGlobalData.finalGender,
+                        dateOfBirth: SignUpGlobalData.finalDateOfBirth);
                   }
                 },
                 child: ButtonComponent(
@@ -277,6 +307,39 @@ class PersonalInformationView extends StatelessWidget {
                       ],
                     ),
                   ),
+                ),
+              );
+            }),
+            const Spacer(),
+            Consumer<PersonalInformationViewmodel>(
+                builder: (context, model, child) {
+              return Padding(
+                padding: EdgeInsets.only(bottom: screenHeight * 0.030),
+                child: InkWell(
+                  onTap: () {
+                    if (model.isUiFieldsFill == true) {
+                      model.next(context: context);
+                    }
+                  },
+                  child: ButtonComponent(
+                      screenHeight: screenHeight,
+                      screenWidth: screenWidth,
+                      ButtonHeight: 0.075,
+                      decoration: BoxDecoration(
+                          color: model.isUiFieldsFill == true
+                              ? AppColors.PrimaryBlueColor
+                              : AppColors.unFocusPrimaryColor,
+                          borderRadius:
+                              BorderRadius.circular(screenWidth * 0.080)),
+                      child: Center(
+                        child: Text(
+                          'Next',
+                          style: TextStyle(
+                              color: AppColors.TextwhiteColor,
+                              fontFamily: 'Poppins Semi Bold',
+                              fontSize: screenHeight * 0.020),
+                        ),
+                      )),
                 ),
               );
             }),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/global_data.dart';
+import 'package:meditrace_project/Views/Sign%20Up%20View/Medical%20Information%20SignUp%20View/medical_information_signUp.dart';
 
 class PersonalInformationViewmodel with ChangeNotifier {
   bool isPrefixSelect = false;
+  bool isUiFieldsFill = false;
   bool isGenderSelect = false;
   bool isBirthDatePicked = false;
   bool isFirstNameError = false;
@@ -17,13 +19,39 @@ class PersonalInformationViewmodel with ChangeNotifier {
     notifyListeners();
   }
 
+  next({required BuildContext context}) {
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MedicalInformationSignupView()));
+  }
+
+  checkallFields(
+      {required String firstName,
+      required String lastName,
+      required String prefix,
+      required String gender,
+      required String dateOfBirth}) {
+    if ((firstName.isNotEmpty) &&
+        (lastName.isNotEmpty) &&
+        (prefix.isNotEmpty) &&
+        (gender.isNotEmpty) &&
+        (dateOfBirth.isNotEmpty)) {
+      isUiFieldsFill = true;
+      notifyListeners();
+    } else {
+      isUiFieldsFill = false;
+      notifyListeners();
+    }
+  }
+
   void selectGender({required String gender}) {
     isGenderSelect = true;
     if (gender != null) {
       SignUpGlobalData.finalGender = gender;
-      print('Gender : ${SignUpGlobalData.finalPrefix}');
+      print('Gender : ${SignUpGlobalData.finalGender}');
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   void selectPrefix({required String prefix}) {
@@ -49,12 +77,16 @@ class PersonalInformationViewmodel with ChangeNotifier {
 
   void checkFirstNameEmpty({required String firstName}) {
     if (firstName.isNotEmpty) {
+      SignUpGlobalData.finalFirstName = firstName;
       isFirstNameNotEmpty = true;
-      print("First Name : ${firstName} | Bool : ${isFirstNameNotEmpty}");
+      print(
+          "First Name : ${SignUpGlobalData.finalFirstName} | Bool : ${isFirstNameNotEmpty}");
       notifyListeners();
     } else {
+      SignUpGlobalData.finalFirstName = firstName;
       isFirstNameNotEmpty = false;
-      print("First Name : ${firstName} | Bool : ${isFirstNameNotEmpty}");
+      print(
+          "First Name : ${SignUpGlobalData.finalFirstName} | Bool : ${isFirstNameNotEmpty}");
       notifyListeners();
     }
   }
@@ -62,10 +94,13 @@ class PersonalInformationViewmodel with ChangeNotifier {
   void checkLastNameEmpty({required String lastName}) {
     if (lastName.isNotEmpty) {
       isLastNameNotEmpty = true;
-      print("Last Name : ${lastName} | Bool : ${isLastNameNotEmpty}");
+      SignUpGlobalData.finalLastName = lastName;
+      print(
+          "Last Name : ${SignUpGlobalData.finalLastName} | Bool : ${isLastNameNotEmpty}");
       notifyListeners();
     } else {
       isLastNameNotEmpty = false;
+      SignUpGlobalData.finalLastName = lastName;
       notifyListeners();
     }
   }

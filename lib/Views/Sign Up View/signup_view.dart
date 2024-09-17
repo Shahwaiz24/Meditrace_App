@@ -12,7 +12,6 @@ class SignupView extends StatelessWidget {
 
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController fullName = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
 
   @override
@@ -70,347 +69,343 @@ class SignupView extends StatelessWidget {
               ],
             ),
             Expanded(
-              child: Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Spacer(),
-                    Consumer<SignUpViewmodel>(builder: (context, model, child) {
-                      return TextFields(
-                          contentStyle: TextStyle(),
-                          onFocus: (value) {},
-                          isNumberKeyboard: false,
-                          controller: emailController,
-                          enablefillColor:
-                              AppColors.unFocusPrimaryColor.withOpacity(0.1),
-                          focusfillColor: AppColors.TextwhiteColor,
-                          outlineColor: model.isSignUpError
-                              ? Colors.red.withOpacity(0.5)
-                              : AppColors.unFocusPrimaryColor.withOpacity(0.5),
-                          radius: screenHeight * 0.010,
-                          isHidden: false,
-                          HintText: model.isSignUpError == true
-                              ? "Enter Correct Email Address"
-                              : 'Email Address',
-                          hintStyle: TextStyle(
-                              color: model.isSignUpError
-                                  ? Colors.red.withOpacity(0.5)
-                                  : Colors.grey,
-                              fontFamily: 'Poppins Regular',
-                              fontSize: screenHeight * 0.018),
-                          Prefix: model.isFocusEmail == true
-                              ? Icon(
-                                  Icons.email_outlined,
-                                )
-                              : Icon(
-                                  Icons.email_outlined,
-                                  color:
-                                      const Color(0xffA3A2A3).withOpacity(0.8),
-                                  size: screenHeight * 0.032,
-                                ),
-                          Suffix: Text(''),
-                          isSuffix: false,
-                          isPrefix: true,
-                          onChanged: () {
-                            model.onChangedFocusOFUi(
-                                ischeck: model.isCheck,
-                                phoneNumber: phoneNumberController.text,
-                                fullName: fullName.text,
-                                emailText: emailController.text,
-                                PasswordText: passwordController.text);
-                          });
-                    }),
-                    SizedBox(
-                      height: screenHeight * 0.030,
-                    ),
-                    Consumer<SignUpViewmodel>(builder: (context, model, child) {
-                      return TextFields(
-                          contentStyle: TextStyle(),
-                          onFocus: (value) {},
-                          isNumberKeyboard: true,
-                          controller: phoneNumberController,
-                          enablefillColor:
-                              AppColors.unFocusPrimaryColor.withOpacity(0.1),
-                          focusfillColor: AppColors.TextwhiteColor,
-                          outlineColor: model.isSignUpError
-                              ? Colors.red.withOpacity(0.5)
-                              : AppColors.unFocusPrimaryColor.withOpacity(0.5),
-                          radius: screenHeight * 0.010,
-                          isHidden: false,
-                          HintText: model.isSignUpError == true
-                              ? "Enter 10 Digits Number"
-                              : 'Phone Number',
-                          hintStyle: TextStyle(
-                              color: model.isSignUpError
-                                  ? Colors.red.withOpacity(0.5)
-                                  : Colors.grey,
-                              fontFamily: 'Poppins Regular',
-                              fontSize: screenHeight * 0.018),
-                          Prefix: model.isFocusPhoneNumber == true
-                              ? Icon(Icons.call_outlined)
-                              : Icon(
-                                  Icons.call_outlined,
-                                  color:
-                                      const Color(0xffA3A2A3).withOpacity(0.8),
-                                  size: screenHeight * 0.032,
-                                ),
-                          Suffix: Text(''),
-                          isSuffix: false,
-                          isPrefix: true,
-                          onChanged: () {
-                            model.onChangedFocusOFUi(
-                                ischeck: model.isCheck,
-                                phoneNumber: phoneNumberController.text,
-                                fullName: fullName.text,
-                                emailText: emailController.text,
-                                PasswordText: passwordController.text);
-                          });
-                    }),
-                    SizedBox(
-                      height: screenHeight * 0.030,
-                    ),
-                    Consumer<SignUpViewmodel>(builder: (context, model, child) {
-                      return TextFields(
-                          contentStyle: TextStyle(
-                          ),
-                          onFocus: (value) {},
-                          isNumberKeyboard: false,
-                          controller: passwordController,
-                          enablefillColor:
-                              AppColors.unFocusPrimaryColor.withOpacity(0.1),
-                          focusfillColor: AppColors.TextwhiteColor,
-                          outlineColor: model.isSignUpError
-                              ? Colors.red.withOpacity(0.5)
-                              : AppColors.unFocusPrimaryColor.withOpacity(0.5),
-                          radius: screenHeight * 0.010,
-                          isHidden: model.isHiddenPassword,
-                          HintText: model.isSignUpError == true
-                              ? "Enter Password with @, Capital, Number"
-                              : 'Password',
-                          hintStyle: TextStyle(
-                              color: model.isSignUpError
-                                  ? Colors.red.withOpacity(0.5)
-                                  : Colors.grey,
-                              fontFamily: 'Poppins Regular',
-                              fontSize: screenHeight * 0.018),
-                          Prefix: model.isFocusPassword == true
-                              ? Icon(
-                                  Icons.lock_outline_rounded,
-                                )
-                              : Icon(
-                                  Icons.lock_outline_rounded,
-                                  color: AppColors.unFocusPrimaryColor
-                                      .withOpacity(0.8),
-                                  size: screenHeight * 0.032,
-                                ),
-                          Suffix: passwordController.text.isEmpty
-                              ? const Text('')
-                              : Padding(
-                                  padding: EdgeInsets.only(
-                                      right: screenWidth * 0.030),
-                                  child: InkWell(
-                                    onTap: () {
-                                      model.hiddenText();
-                                    },
-                                    child: model.isHiddenPassword
-                                        ? const Icon(
-                                            Icons.visibility_off_outlined,
-                                            color: Colors.black,
-                                          )
-                                        : const Icon(
-                                            Icons.visibility_outlined,
-                                            color: Colors.black,
-                                          ),
-                                  ),
-                                ),
-                          isSuffix: model.isPasswordVisible,
-                          isPrefix: true,
-                          onChanged: () {
-                            model.onChanged(controller: passwordController);
-                            model.onChangedFocusOFUi(
-                                ischeck: model.isCheck,
-                                phoneNumber: phoneNumberController.text,
-                                fullName: fullName.text,
-                                emailText: emailController.text,
-                                PasswordText: passwordController.text);
-                          });
-                    }),
-                    SizedBox(
-                      height: screenHeight * 0.030,
-                    ),
-                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                      Consumer<SignUpViewmodel>(
-                          builder: (context, model, child) {
-                        return InkWell(
-                          onTap: () async {
-                            await model.checkBoxHit();
-                            await model.onChangedFocusOFUi(
-                                ischeck: model.isCheck,
-                                phoneNumber: phoneNumberController.text,
-                                fullName: fullName.text,
-                                emailText: emailController.text,
-                                PasswordText: passwordController.text);
-                          },
-                          child: Container(
-                            height: checkboxSize,
-                            width: checkboxSize,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(screenWidth * 0.010),
-                                border: Border.all(
-                                    color: AppColors.TextblackColor.withOpacity(
-                                        0.4))),
-                            child: model.isCheck == true
-                                ? Center(
-                                    child: Icon(
-                                      size: checkboxSize,
-                                      Icons.check_outlined,
-                                      color: AppColors.unFocusPrimaryColor,
-                                    ),
-                                  )
-                                : Text(''),
-                          ),
-                        );
-                      }),
-                      SizedBox(
-                        width: screenWidth * 0.050,
-                      ),
-                      Expanded(
-                          child: RichText(
-                        text: TextSpan(
-                          style: TextStyle(
-                            color: AppColors.TextblackColor,
-                            fontSize: screenHeight * 0.018,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: screenHeight * 0.080,
+                  ),
+                  // Spacer(),
+                  Consumer<SignUpViewmodel>(builder: (context, model, child) {
+                    return TextFields(
+                        contentStyle: TextStyle(),
+                        onFocus: (value) {},
+                        isNumberKeyboard: false,
+                        controller: emailController,
+                        enablefillColor:
+                            AppColors.unFocusPrimaryColor.withOpacity(0.1),
+                        focusfillColor: AppColors.TextwhiteColor,
+                        outlineColor: model.isSignUpError
+                            ? Colors.red.withOpacity(0.5)
+                            : AppColors.unFocusPrimaryColor.withOpacity(0.5),
+                        radius: screenHeight * 0.010,
+                        isHidden: false,
+                        HintText: model.isSignUpError == true
+                            ? "Enter Correct Email Address"
+                            : 'Email Address',
+                        hintStyle: TextStyle(
+                            color: model.isSignUpError
+                                ? Colors.red.withOpacity(0.5)
+                                : Colors.grey,
                             fontFamily: 'Poppins Regular',
-                          ),
-                          children: [
-                            TextSpan(text: 'I agree to the '),
-                            TextSpan(
-                              text: 'Terms of Service',
-                              style: TextStyle(
-                                color: AppColors.PrimaryBlueColor,
-                                fontSize: screenHeight * 0.018,
-                                fontFamily: 'Poppins Regular',
+                            fontSize: screenHeight * 0.018),
+                        Prefix: model.isFocusEmail == true
+                            ? Icon(
+                                Icons.email_outlined,
+                              )
+                            : Icon(
+                                Icons.email_outlined,
+                                color: const Color(0xffA3A2A3).withOpacity(0.8),
+                                size: screenHeight * 0.032,
                               ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  // Handle "Terms of Service" link tap
-                                  print("Terms of Service tapped");
-                                },
-                            ),
-                            TextSpan(text: ' \nand '),
-                            TextSpan(
-                              text: 'Privacy Policy',
-                              style: TextStyle(
-                                fontSize: screenHeight * 0.018,
-                                fontFamily: 'Poppins Regular',
-                                color: AppColors.PrimaryBlueColor,
+                        Suffix: Text(''),
+                        isSuffix: false,
+                        isPrefix: true,
+                        onChanged: () {
+                          model.onChangedFocusOFUi(
+                              ischeck: model.isCheck,
+                              phoneNumber: phoneNumberController.text,
+                              fullName: fullName.text,
+                              emailText: emailController.text,
+                              PasswordText: passwordController.text);
+                        });
+                  }),
+                  SizedBox(
+                    height: screenHeight * 0.030,
+                  ),
+                  Consumer<SignUpViewmodel>(builder: (context, model, child) {
+                    return TextFields(
+                        contentStyle: TextStyle(),
+                        onFocus: (value) {},
+                        isNumberKeyboard: true,
+                        controller: phoneNumberController,
+                        enablefillColor:
+                            AppColors.unFocusPrimaryColor.withOpacity(0.1),
+                        focusfillColor: AppColors.TextwhiteColor,
+                        outlineColor: model.isSignUpError
+                            ? Colors.red.withOpacity(0.5)
+                            : AppColors.unFocusPrimaryColor.withOpacity(0.5),
+                        radius: screenHeight * 0.010,
+                        isHidden: false,
+                        HintText: model.isSignUpError == true
+                            ? "Enter 10 Digits Number"
+                            : 'Phone Number',
+                        hintStyle: TextStyle(
+                            color: model.isSignUpError
+                                ? Colors.red.withOpacity(0.5)
+                                : Colors.grey,
+                            fontFamily: 'Poppins Regular',
+                            fontSize: screenHeight * 0.018),
+                        Prefix: model.isFocusPhoneNumber == true
+                            ? Icon(Icons.call_outlined)
+                            : Icon(
+                                Icons.call_outlined,
+                                color: const Color(0xffA3A2A3).withOpacity(0.8),
+                                size: screenHeight * 0.032,
                               ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  // Handle "Privacy Policy" link tap
-                                  print("Privacy Policy tapped");
-                                },
-                            ),
-                          ],
+                        Suffix: Text(''),
+                        isSuffix: false,
+                        isPrefix: true,
+                        onChanged: () {
+                          model.onChangedFocusOFUi(
+                              ischeck: model.isCheck,
+                              phoneNumber: phoneNumberController.text,
+                              fullName: fullName.text,
+                              emailText: emailController.text,
+                              PasswordText: passwordController.text);
+                        });
+                  }),
+                  SizedBox(
+                    height: screenHeight * 0.030,
+                  ),
+                  Consumer<SignUpViewmodel>(builder: (context, model, child) {
+                    return TextFields(
+                        contentStyle: TextStyle(),
+                        onFocus: (value) {},
+                        isNumberKeyboard: false,
+                        controller: passwordController,
+                        enablefillColor:
+                            AppColors.unFocusPrimaryColor.withOpacity(0.1),
+                        focusfillColor: AppColors.TextwhiteColor,
+                        outlineColor: model.isSignUpError
+                            ? Colors.red.withOpacity(0.5)
+                            : AppColors.unFocusPrimaryColor.withOpacity(0.5),
+                        radius: screenHeight * 0.010,
+                        isHidden: model.isHiddenPassword,
+                        HintText: model.isSignUpError == true
+                            ? "Enter Password with @, Capital, Number"
+                            : 'Password',
+                        hintStyle: TextStyle(
+                            color: model.isSignUpError
+                                ? Colors.red.withOpacity(0.5)
+                                : Colors.grey,
+                            fontFamily: 'Poppins Regular',
+                            fontSize: screenHeight * 0.018),
+                        Prefix: model.isFocusPassword == true
+                            ? Icon(
+                                Icons.lock_outline_rounded,
+                              )
+                            : Icon(
+                                Icons.lock_outline_rounded,
+                                color: AppColors.unFocusPrimaryColor
+                                    .withOpacity(0.8),
+                                size: screenHeight * 0.032,
+                              ),
+                        Suffix: passwordController.text.isEmpty
+                            ? const Text('')
+                            : Padding(
+                                padding:
+                                    EdgeInsets.only(right: screenWidth * 0.030),
+                                child: InkWell(
+                                  onTap: () {
+                                    model.hiddenText();
+                                  },
+                                  child: model.isHiddenPassword
+                                      ? const Icon(
+                                          Icons.visibility_off_outlined,
+                                          color: Colors.black,
+                                        )
+                                      : const Icon(
+                                          Icons.visibility_outlined,
+                                          color: Colors.black,
+                                        ),
+                                ),
+                              ),
+                        isSuffix: model.isPasswordVisible,
+                        isPrefix: true,
+                        onChanged: () {
+                          model.onChanged(controller: passwordController);
+                          model.onChangedFocusOFUi(
+                              ischeck: model.isCheck,
+                              phoneNumber: phoneNumberController.text,
+                              fullName: fullName.text,
+                              emailText: emailController.text,
+                              PasswordText: passwordController.text);
+                        });
+                  }),
+                  SizedBox(
+                    height: screenHeight * 0.030,
+                  ),
+                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                    Consumer<SignUpViewmodel>(builder: (context, model, child) {
+                      return InkWell(
+                        onTap: () async {
+                          await model.checkBoxHit();
+                          await model.onChangedFocusOFUi(
+                              ischeck: model.isCheck,
+                              phoneNumber: phoneNumberController.text,
+                              fullName: fullName.text,
+                              emailText: emailController.text,
+                              PasswordText: passwordController.text);
+                        },
+                        child: Container(
+                          height: checkboxSize,
+                          width: checkboxSize,
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(screenWidth * 0.010),
+                              border: Border.all(
+                                  color: AppColors.TextblackColor.withOpacity(
+                                      0.4))),
+                          child: model.isCheck == true
+                              ? Center(
+                                  child: Icon(
+                                    size: checkboxSize,
+                                    Icons.check_outlined,
+                                    color: AppColors.unFocusPrimaryColor,
+                                  ),
+                                )
+                              : Text(''),
                         ),
-                      ))
-                    ]),
-                    Spacer(),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: screenHeight * 0.030),
-                      child: Column(
+                      );
+                    }),
+                    SizedBox(
+                      width: screenWidth * 0.050,
+                    ),
+                    Expanded(
+                        child: RichText(
+                      text: TextSpan(
+                        style: TextStyle(
+                          color: AppColors.TextblackColor,
+                          fontSize: screenHeight * 0.018,
+                          fontFamily: 'Poppins Regular',
+                        ),
                         children: [
-                          Consumer<SignUpViewmodel>(
-                              builder: (context, model, child) {
-                            return InkWell(
-                              onTap: () {
-                                if (model.isSignUpStart == false) {
-                                  model.signUpFunction(
-                                      Email: emailController.text,
-                                      phoneNumber: phoneNumberController.text,
-                                      fullname: fullName.text,
-                                      Password: passwordController.text,
-                                      context: context);
-                                  emailController.clear();
-                                  phoneNumberController.clear();
-                                  fullName.clear();
-                                  passwordController.clear();
-                                }
-                              },
-                              child: ButtonComponent(
-                                 decoration: BoxDecoration(
-                                    color:  model.isUiFieldsFill == true
-                                        ? AppColors.PrimaryBlueColor
-                                        : AppColors.unFocusPrimaryColor,
-                                    borderRadius: BorderRadius.circular(
-                                        screenWidth * 0.080)),
-                                screenHeight: screenHeight,
-                                screenWidth: screenWidth,
-                                ButtonHeight: 0.075,
-                               
-                                child: model.isSignUpStart
-                                    ? Center(
-                                        child: CircularProgressIndicator(
-                                          color: AppColors.PrimaryBlueColor,
-                                        ),
-                                      )
-                                    : Center(
-                                        child: Text(
-                                          'Sign Up',
-                                          style: TextStyle(
-                                              color: AppColors.TextwhiteColor,
-                                              fontFamily: 'Poppins Semi Bold',
-                                              fontSize: screenHeight * 0.020),
-                                        ),
-                                      ),
-                              ),
-                            );
-                          }),
-                          Padding(
-                            padding: EdgeInsets.only(top: screenHeight * 0.020),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                    onTap: () {
-                                      model.naviagtion(
-                                          context: context,
-                                          isReplaceMent: false,
-                                          isPop: false,
-                                          navigationName: SigninView());
-                                    },
-                                    child: Text(
-                                      'Already have an account?',
-                                      style: TextStyle(
-                                          color: AppColors.TextblackColor,
-                                          fontFamily: 'Poppins Medium',
-                                          fontSize: screenHeight * 0.018),
-                                    )),
-                                InkWell(
-                                    onTap: () {
-                                      model.naviagtion(
-                                          context: context,
-                                          isReplaceMent: false,
-                                          isPop: false,
-                                          navigationName: SigninView());
-                                    },
-                                    child: Text(
-                                      '  Sign in',
-                                      style: TextStyle(
-                                          color: AppColors.PrimaryBlueColor,
-                                          fontFamily: 'Poppins Bold',
-                                          fontSize: screenHeight * 0.018),
-                                    ))
-                              ],
+                          TextSpan(text: 'I agree to the '),
+                          TextSpan(
+                            text: 'Terms of Service',
+                            style: TextStyle(
+                              color: AppColors.PrimaryBlueColor,
+                              fontSize: screenHeight * 0.018,
+                              fontFamily: 'Poppins Regular',
                             ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                // Handle "Terms of Service" link tap
+                                print("Terms of Service tapped");
+                              },
+                          ),
+                          TextSpan(text: ' \nand '),
+                          TextSpan(
+                            text: 'Privacy Policy',
+                            style: TextStyle(
+                              fontSize: screenHeight * 0.018,
+                              fontFamily: 'Poppins Regular',
+                              color: AppColors.PrimaryBlueColor,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                // Handle "Privacy Policy" link tap
+                                print("Privacy Policy tapped");
+                              },
                           ),
                         ],
                       ),
+                    ))
+                  ]),
+                  Spacer(),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: screenHeight * 0.030),
+                    child: Column(
+                      children: [
+                        Consumer<SignUpViewmodel>(
+                            builder: (context, model, child) {
+                          return InkWell(
+                            onTap: () {
+                              if (model.isSignUpStart == false) {
+                                model.signUpFunction(
+                                    Email: emailController.text,
+                                    phoneNumber: phoneNumberController.text,
+                                    fullname: fullName.text,
+                                    Password: passwordController.text,
+                                    context: context);
+                                emailController.clear();
+                                phoneNumberController.clear();
+                                fullName.clear();
+                                passwordController.clear();
+                              }
+                            },
+                            child: ButtonComponent(
+                              decoration: BoxDecoration(
+                                  color: model.isUiFieldsFill == true
+                                      ? AppColors.PrimaryBlueColor
+                                      : AppColors.unFocusPrimaryColor,
+                                  borderRadius: BorderRadius.circular(
+                                      screenWidth * 0.080)),
+                              screenHeight: screenHeight,
+                              screenWidth: screenWidth,
+                              ButtonHeight: 0.075,
+                              child: model.isSignUpStart
+                                  ? Center(
+                                      child: CircularProgressIndicator(
+                                        color: AppColors.PrimaryBlueColor,
+                                      ),
+                                    )
+                                  : Center(
+                                      child: Text(
+                                        'Sign Up',
+                                        style: TextStyle(
+                                            color: AppColors.TextwhiteColor,
+                                            fontFamily: 'Poppins Semi Bold',
+                                            fontSize: screenHeight * 0.020),
+                                      ),
+                                    ),
+                            ),
+                          );
+                        }),
+                        Padding(
+                          padding: EdgeInsets.only(top: screenHeight * 0.020),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                  onTap: () {
+                                    model.naviagtion(
+                                        context: context,
+                                        isReplaceMent: false,
+                                        isPop: false,
+                                        navigationName: SigninView());
+                                  },
+                                  child: Text(
+                                    'Already have an account?',
+                                    style: TextStyle(
+                                        color: AppColors.TextblackColor,
+                                        fontFamily: 'Poppins Medium',
+                                        fontSize: screenHeight * 0.018),
+                                  )),
+                              InkWell(
+                                  onTap: () {
+                                    model.naviagtion(
+                                        context: context,
+                                        isReplaceMent: false,
+                                        isPop: false,
+                                        navigationName: SigninView());
+                                  },
+                                  child: Text(
+                                    '  Sign in',
+                                    style: TextStyle(
+                                        color: AppColors.PrimaryBlueColor,
+                                        fontFamily: 'Poppins Bold',
+                                        fontSize: screenHeight * 0.018),
+                                  ))
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

@@ -186,7 +186,7 @@ class SignUpViewmodel with ChangeNotifier {
         phoneNumber: phoneNumber);
     if (validate == true) {
       print('Navigating and SuccessFully SignUp');
-      SignUpGlobalData.finalFullName = fullname;
+      // SignUpGlobalData.finalFullName = fullname;
       SignUpGlobalData.finalEmailAddress = Email;
       SignUpGlobalData.finalPassword = Password;
       SignUpGlobalData.finalPhoneNumber = phoneNumber;
