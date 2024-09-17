@@ -116,7 +116,7 @@ class SignupView extends StatelessWidget {
                           model.onChangedFocusOFUi(
                               ischeck: model.isCheck,
                               phoneNumber: phoneNumberController.text,
-                              fullName: fullName.text,
+                           
                               emailText: emailController.text,
                               PasswordText: passwordController.text);
                         });
@@ -161,7 +161,6 @@ class SignupView extends StatelessWidget {
                           model.onChangedFocusOFUi(
                               ischeck: model.isCheck,
                               phoneNumber: phoneNumberController.text,
-                              fullName: fullName.text,
                               emailText: emailController.text,
                               PasswordText: passwordController.text);
                         });
@@ -229,7 +228,6 @@ class SignupView extends StatelessWidget {
                           model.onChangedFocusOFUi(
                               ischeck: model.isCheck,
                               phoneNumber: phoneNumberController.text,
-                              fullName: fullName.text,
                               emailText: emailController.text,
                               PasswordText: passwordController.text);
                         });
@@ -245,7 +243,6 @@ class SignupView extends StatelessWidget {
                           await model.onChangedFocusOFUi(
                               ischeck: model.isCheck,
                               phoneNumber: phoneNumberController.text,
-                              fullName: fullName.text,
                               emailText: emailController.text,
                               PasswordText: passwordController.text);
                         },
@@ -327,12 +324,10 @@ class SignupView extends StatelessWidget {
                                 model.signUpFunction(
                                     Email: emailController.text,
                                     phoneNumber: phoneNumberController.text,
-                                    fullname: fullName.text,
                                     Password: passwordController.text,
                                     context: context);
                                 emailController.clear();
                                 phoneNumberController.clear();
-                                fullName.clear();
                                 passwordController.clear();
                               }
                             },

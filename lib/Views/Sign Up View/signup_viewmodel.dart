@@ -10,7 +10,6 @@ class SignUpViewmodel with ChangeNotifier {
   bool isFocusPassword = false;
   bool isFocusEmail = false;
   bool isUiFieldsFill = false;
-  bool isFocusName = false;
   bool isFocusPhoneNumber = false;
   bool isHiddenPassword = true;
 
@@ -22,7 +21,6 @@ class SignUpViewmodel with ChangeNotifier {
     if (isReplaceMent == true) {
       isCheck = false;
       isFocusEmail = false;
-      isFocusName = false;
       isFocusPassword = false;
       isFocusPhoneNumber = false;
       isPasswordVisible = false;
@@ -36,7 +34,6 @@ class SignUpViewmodel with ChangeNotifier {
     } else if (isPop == true) {
       isCheck = false;
       isFocusEmail = false;
-      isFocusName = false;
       isFocusPassword = false;
       isFocusPhoneNumber = false;
       isPasswordVisible = false;
@@ -49,7 +46,6 @@ class SignUpViewmodel with ChangeNotifier {
     } else {
       isCheck = false;
       isFocusEmail = false;
-      isFocusName = false;
       isFocusPassword = false;
       isFocusPhoneNumber = false;
       isPasswordVisible = false;
@@ -66,7 +62,6 @@ class SignUpViewmodel with ChangeNotifier {
   onChangedFocusOFUi(
       {required String emailText,
       required String PasswordText,
-      required String fullName,
       required String phoneNumber,
       required bool ischeck}) {
     final String number = phoneNumber.toString();
@@ -74,7 +69,6 @@ class SignUpViewmodel with ChangeNotifier {
     if ((emailText.length >= 5) &&
         (PasswordText.length >= 4) &&
         (number.length >= 10) &&
-        (fullName.isNotEmpty) &&
         (ischeck == true)) {
       isUiFieldsFill = true;
       print('Check Box Hit Change Focus : ${ischeck}');
@@ -88,10 +82,7 @@ class SignUpViewmodel with ChangeNotifier {
   }
 
   void onFocusChange(String field, bool hasFocus) {
-    if (field == "fullName") {
-      isFocusName = hasFocus;
-      notifyListeners();
-    } else if (field == "email") {
+    if (field == "email") {
       isFocusEmail = hasFocus;
       notifyListeners();
     } else if (field == "phoneNumber") {
@@ -141,27 +132,20 @@ class SignUpViewmodel with ChangeNotifier {
     notifyListeners();
   }
 
-  void onNameFocusChange(bool hasFocus) {
-    isFocusName = hasFocus;
-
-    notifyListeners();
-  }
-
   void onPhoneNumberFocusChange(bool hasFocus) {
     isFocusPhoneNumber = hasFocus;
 
     notifyListeners();
   }
 
-  validation(
-      {required String EmailText,
-      required String Password,
-      required String phoneNumber,
-      required String fullname}) {
+  validation({
+    required String EmailText,
+    required String Password,
+    required String phoneNumber,
+  }) {
     final number = int.parse(phoneNumber);
     if ((EmailText.contains('@') && (EmailText.contains('.com'))) &&
         (Password.length >= 5) &&
-        (fullname.isNotEmpty) &&
         (number != null) &&
         (phoneNumber.length == 10) &&
         (isCheck == true)) {
@@ -174,16 +158,12 @@ class SignUpViewmodel with ChangeNotifier {
   signUpFunction(
       {required String Email,
       required String phoneNumber,
-      required String fullname,
       required String Password,
       required BuildContext context}) async {
     isSignUpStart = true;
     notifyListeners();
     bool validate = await validation(
-        EmailText: Email,
-        Password: Password,
-        fullname: fullname,
-        phoneNumber: phoneNumber);
+        EmailText: Email, Password: Password, phoneNumber: phoneNumber);
     if (validate == true) {
       print('Navigating and SuccessFully SignUp');
       // SignUpGlobalData.finalFullName = fullname;
