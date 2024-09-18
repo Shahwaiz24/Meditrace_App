@@ -122,7 +122,7 @@ class SignupView extends StatelessWidget {
                         Suffix: Text(''),
                         isSuffix: false,
                         isPrefix: true,
-                        onChanged: () async {
+                        onChanged: (value) async {
                           await model.checkEmailEmpty(
                               email: emailController.text);
                           await model.onChangedFocusOFUi(
@@ -176,7 +176,7 @@ class SignupView extends StatelessWidget {
                         Suffix: Text(''),
                         isSuffix: false,
                         isPrefix: true,
-                        onChanged: () async {
+                        onChanged: (value) async {
                           await model.checkPhoneNumberEmpty(
                               phoneNumber: phoneNumberController.text);
                           await model.onChangedFocusOFUi(
@@ -253,7 +253,7 @@ class SignupView extends StatelessWidget {
                               ),
                         isSuffix: model.isPasswordVisible,
                         isPrefix: true,
-                        onChanged: () async {
+                        onChanged: (value) async {
                           await model.checkPasswordEmpty(
                               password: passwordController.text);
                           await model.onChangedFocusOFUi(

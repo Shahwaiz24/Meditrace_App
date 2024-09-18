@@ -76,7 +76,7 @@ class SigninView extends StatelessWidget {
                         onFocus: (value) {},
                         isNumberKeyboard: false,
                         isHidden: false,
-                        onChanged: () {
+                        onChanged: (value) {
                           model.onChangedFocusOFUi(
                               emailText: emailController.text,
                               PasswordText: passwordController.text);
@@ -120,7 +120,7 @@ class SigninView extends StatelessWidget {
                         onFocus: (value) {},
                         isNumberKeyboard: false,
                         isHidden: model.isHiddenPassword,
-                        onChanged: () {
+                        onChanged: (value) {
                           model.onChanged(controller: passwordController);
                           model.onChangedFocusOFUi(
                               emailText: emailController.text,

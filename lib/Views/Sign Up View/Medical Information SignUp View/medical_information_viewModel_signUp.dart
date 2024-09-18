@@ -83,21 +83,29 @@ class MedicalInformationSignUpViewModel with ChangeNotifier {
         (height != null && height.isNotEmpty) &&
         (weight != null && weight.isNotEmpty) &&
         (bloodGroup.isNotEmpty)) {
+      print(
+          'Boolean : ${isUiFieldsFill} | Chronic : ${chronic} | Allergies : ${allergies} | Height : ${height} | Weight : ${weight} | Blood Group : ${bloodGroup}');
+
       isUiFieldsFill = true;
+
       notifyListeners();
     } else {
+      print(
+          'Boolean : ${isUiFieldsFill} | Chronic : ${chronic} | Allergies : ${allergies} | Height : ${height} | Weight : ${weight} | Blood Group : ${bloodGroup}');
       isUiFieldsFill = false;
       notifyListeners();
     }
   }
 
   validation(
-      {required String chronic,
-      required String allergies,
-      required String medication}) {
+      {required List<String> chronic,
+      required List<String> allergies,
+      required String height,
+      required String weight,
+      required String bloodGroup}) {
     if ((chronic != null && chronic.isNotEmpty) &&
         (allergies != null && allergies.isNotEmpty) &&
-        (medication != null && medication.isNotEmpty)) {
+        (height != null && height.isNotEmpty)) {
       return true;
     } else {
       return false;
@@ -105,14 +113,20 @@ class MedicalInformationSignUpViewModel with ChangeNotifier {
   }
 
   nextSignInFunction(
-      {required String chronic,
-      required String allergies,
-      required String medication,
+      {required List<String> chronic,
+      required List<String> allergies,
+      required String height,
+      required String bloodGroup,
+      required String weight,
       required BuildContext context}) async {
     isStart = true;
     notifyListeners();
     bool validate = await validation(
-        chronic: chronic, allergies: allergies, medication: medication);
+        weight: weight,
+        height: height,
+        chronic: chronic,
+        allergies: allergies,
+        bloodGroup: bloodGroup);
     if (validate == true) {
       print('Navigating and SuccessFully Login');
 
@@ -142,6 +156,7 @@ class MedicalInformationSignUpViewModel with ChangeNotifier {
     selectedChronicConditions.remove(condition); // Remove the condition
     notifyListeners();
   }
+
   void removeAllergie(String condition) {
     selectedAllergies.remove(condition); // Remove the condition
     notifyListeners();
@@ -172,7 +187,7 @@ class MedicalInformationSignUpViewModel with ChangeNotifier {
 
   onAllergiesSelect({required String allergies}) {
     isAllergiesSelected = true;
-     if (!selectedAllergies.contains(allergies)) {
+    if (!selectedAllergies.contains(allergies)) {
       selectedAllergies.add(allergies);
       isAllergiesSelected = true;
       if (selectedAllergies.isEmpty) {
@@ -191,6 +206,24 @@ class MedicalInformationSignUpViewModel with ChangeNotifier {
   }
 
   // Filter out selected items from the dropdown
-  
-  onWeightChanged({required String weight}) {}
+
+  onWeightChanged({required String weight}) {
+    if (weight.isNotEmpty) {
+      isWeightNotEmpty = true;
+      notifyListeners();
+    } else {
+      isWeightNotEmpty = false;
+      notifyListeners();
+    }
+  }
+
+  onHeightChanged({required String height}) {
+    if (height.isNotEmpty) {
+      isHeightNotEmpty = true;
+      notifyListeners();
+    } else {
+      isHeightNotEmpty = false;
+      notifyListeners();
+    }
+  }
 }

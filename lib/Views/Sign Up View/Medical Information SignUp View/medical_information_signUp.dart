@@ -139,14 +139,29 @@ class MedicalInformationSignupView extends StatelessWidget {
                   isSuffix: false,
                   isNumberKeyboard: true,
                   isPrefix: false,
-                  onChanged: () {
-                    // Ensure 'lbs' is added only once
-                    if (!weightController.text.contains('lbs')) {
-                      weightController.text += ' lbs';
-                      weightController.selection = TextSelection.fromPosition(
-                        TextPosition(offset: weightController.text.length - 4),
-                      );
+                  onChanged: (value) {
+                    // Check if the text already ends with ' lbs' and remove it for proper manipulation
+                    if (value!.endsWith(' lbs')) {
+                      value = value.substring(0, value.length - 4);
                     }
+
+                    // Remove any spaces or non-digit characters and validate if the input is a number
+                    String numericPart =
+                        value.trim(); // Trim any accidental spaces
+
+                    if (numericPart.isNotEmpty &&
+                        double.tryParse(numericPart) != null) {
+                      // If the input is valid, add ' lbs' and update the text
+                      weightController.text = numericPart + ' lbs';
+                      // Set the cursor to the correct position (before the ' lbs')
+                      weightController.selection = TextSelection.fromPosition(
+                        TextPosition(offset: numericPart.length),
+                      );
+                    } else if (numericPart.isEmpty) {
+                      // If the input is empty, clear the entire text (including ' lbs')
+                      weightController.text = '';
+                    }
+                    model.onWeightChanged(weight: weightController.text);
                     model.onChangedFocusOFUi(
                         bloodGroup: model.selectedBloodGroup,
                         allergies: model.selectedAllergies,
@@ -196,28 +211,50 @@ class MedicalInformationSignupView extends StatelessWidget {
                   isSuffix: false,
                   isNumberKeyboard: true,
                   isPrefix: false,
-                  onChanged: () {
-                    if (!heightController.text.contains('cm')) {
-                      heightController.text += ' cms';
-                      heightController.selection = TextSelection.fromPosition(
-                        TextPosition(offset: heightController.text.length - 4),
-                      );
+                  onChanged: (value) {
+                    // Remove ' cm' suffix if it exists for proper manipulation
+                    if (value!.endsWith(' cm')) {
+                      value = value.substring(
+                          0, value.length - 3); // Adjust to remove only ' cm'
                     }
+
+                    // Trim spaces and handle the numeric part
+                    String numericPart =
+                        value.trim(); // Clean up accidental spaces
+
+                    if (numericPart.isNotEmpty &&
+                        double.tryParse(numericPart) != null) {
+                      // Update the controller text with ' cm' appended if valid input
+                      heightController.text = numericPart + ' cm';
+
+                      // Set the cursor before ' cm', but ensure the index is valid
+                      heightController.selection = TextSelection.fromPosition(
+                        TextPosition(
+                            offset: numericPart.length), // Ensure valid length
+                      );
+                    } else {
+                      // If invalid or empty, clear the controller's text
+                      heightController.text = '';
+                    }
+
+                    // Notify the model about the change
+                    model.onHeightChanged(height: heightController.text);
                     model.onChangedFocusOFUi(
-                        bloodGroup: model.selectedBloodGroup,
-                        allergies: model.selectedAllergies,
-                        chronic: model.selectedChronicConditions,
-                        weight: weightController.text,
-                        height: heightController.text);
+                      bloodGroup: model.selectedBloodGroup,
+                      allergies: model.selectedAllergies,
+                      chronic: model.selectedChronicConditions,
+                      weight: weightController.text,
+                      height: heightController.text,
+                    );
                   });
             }),
             SizedBox(
               height: screenHeight * 0.030,
             ),
-
             Consumer<MedicalInformationSignUpViewModel>(
                 builder: (context, model, child) {
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomDropdown(
                     items: model.allAllergies,
@@ -233,19 +270,21 @@ class MedicalInformationSignupView extends StatelessWidget {
                     decoration: InputDecoration(
                       filled: true,
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(screenWidth * 0.020),
+                          borderRadius:
+                              BorderRadius.circular(screenWidth * 0.020),
                           borderSide: BorderSide(
                               color: AppColors.unFocusPrimaryColor, width: 1)),
                       enabled: true,
                       enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(screenWidth * 0.020),
+                          borderRadius:
+                              BorderRadius.circular(screenWidth * 0.020),
                           borderSide: BorderSide(
                               color: AppColors.unFocusPrimaryColor, width: 1)),
-                      fillColor: model.isBloodGroupSelect == true
+                      fillColor: model.isAllergiesSelected == true
                           ? AppColors.TextwhiteColor
                           : AppColors.unFocusPrimaryColor.withOpacity(0.1),
                     ),
-                    icon: model.isBloodGroupSelect == true
+                    icon: model.isAllergiesSelected == true
                         ? Icon(
                             Icons.keyboard_arrow_down_outlined,
                             color: AppColors.TextblackColor,
@@ -262,9 +301,10 @@ class MedicalInformationSignupView extends StatelessWidget {
                       ),
                     ),
                     itemstyle: const TextStyle(
-                        fontFamily: 'Poppins Regular', fontWeight: FontWeight.w500),
+                        fontFamily: 'Poppins Regular',
+                        fontWeight: FontWeight.w500),
                   ),
-                    SizedBox(height: screenHeight * 0.020),
+                  SizedBox(height: screenHeight * 0.020),
 
                   // Display selected items as chips
                   Wrap(
@@ -297,7 +337,6 @@ class MedicalInformationSignupView extends StatelessWidget {
             SizedBox(
               height: screenHeight * 0.030,
             ),
-
             Consumer<MedicalInformationSignUpViewModel>(
               builder: (context, model, child) {
                 return Column(
@@ -384,8 +423,6 @@ class MedicalInformationSignupView extends StatelessWidget {
                 );
               },
             ),
-
-           
             const Spacer(),
             Padding(
                 padding: EdgeInsets.only(bottom: screenHeight * 0.030),

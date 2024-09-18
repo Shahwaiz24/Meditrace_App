@@ -38,7 +38,7 @@ class TextFields extends StatelessWidget {
   final bool isSuffix;
   final Widget Suffix;
   final ValueChanged<bool> onFocus;
-  final Function onChanged;
+  final ValueChanged<String?> onChanged;
   final bool isNumberKeyboard;
   final bool isHidden;
   final TextStyle contentStyle;
@@ -52,7 +52,7 @@ class TextFields extends StatelessWidget {
       child: TextFormField(
         style: contentStyle,
         onChanged: (string) {
-          onChanged();
+          onChanged(string);
         },
         controller: controller,
         keyboardType:

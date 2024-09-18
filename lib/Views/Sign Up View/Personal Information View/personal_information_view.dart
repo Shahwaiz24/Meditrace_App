@@ -130,7 +130,7 @@ class PersonalInformationView extends StatelessWidget {
                   isSuffix: false,
                   isNumberKeyboard: false,
                   isPrefix: false,
-                  onChanged: () {
+                  onChanged: (value) {
                     model.checkFirstNameEmpty(
                         firstName: firstNameController.text);
                     model.checkallFields(
@@ -172,7 +172,7 @@ class PersonalInformationView extends StatelessWidget {
                   isSuffix: false,
                   isNumberKeyboard: false,
                   isPrefix: false,
-                  onChanged: () {
+                  onChanged: (value) {
                     model.checkLastNameEmpty(lastName: lastNameController.text);
                     model.checkallFields(
                       firstName: firstNameController.text,
