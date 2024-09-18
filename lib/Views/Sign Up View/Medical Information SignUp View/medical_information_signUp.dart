@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/button.dart';
+import 'package:meditrace_project/Components/custom_dropdown_menu.dart';
 import 'package:meditrace_project/Components/text_fields.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Medical%20Information%20SignUp%20View/medical_information_viewModel_signUp.dart';
@@ -54,9 +55,22 @@ class MedicalInformationSignupView extends StatelessWidget {
             ),
             Consumer<MedicalInformationSignUpViewModel>(
                 builder: (context, model, child) {
+              return CustomDropdown(
+                  items: [],
+                  onChanged: (value) {},
+                  decoration: InputDecoration(),
+                  icon: Icon(Icons.keyboard_arrow_down_outlined),
+                  hint: Text('Blood Group'),
+                  itemstyle: TextStyle());
+            }),
+            SizedBox(
+              height: screenHeight * 0.030,
+            ),
+            Consumer<MedicalInformationSignUpViewModel>(
+                builder: (context, model, child) {
               return TextFields(
                   contentStyle: TextStyle(),
-                    onFocus: (value) {},
+                  onFocus: (value) {},
                   controller: knownAllergiesController,
                   enablefillColor:
                       AppColors.unFocusPrimaryColor.withOpacity(0.1),
@@ -75,7 +89,6 @@ class MedicalInformationSignupView extends StatelessWidget {
                           : Colors.grey,
                       fontFamily: 'Poppins Regular',
                       fontSize: screenHeight * 0.018),
-        
                   Prefix: Text(''),
                   Suffix: Text(''),
                   isSuffix: false,
@@ -95,7 +108,7 @@ class MedicalInformationSignupView extends StatelessWidget {
                 builder: (context, model, child) {
               return TextFields(
                   contentStyle: TextStyle(),
-                    onFocus: (value) {},
+                  onFocus: (value) {},
                   controller: chronicConditionsController,
                   enablefillColor:
                       AppColors.unFocusPrimaryColor.withOpacity(0.1),
@@ -114,7 +127,6 @@ class MedicalInformationSignupView extends StatelessWidget {
                           : Colors.grey,
                       fontFamily: 'Poppins Regular',
                       fontSize: screenHeight * 0.018),
-
                   Prefix: Text(''),
                   Suffix: Text(''),
                   isSuffix: false,
@@ -134,7 +146,7 @@ class MedicalInformationSignupView extends StatelessWidget {
                 builder: (context, model, child) {
               return TextFields(
                   contentStyle: TextStyle(),
-                    onFocus: (value) {},
+                  onFocus: (value) {},
                   controller: medicationsController,
                   enablefillColor:
                       AppColors.unFocusPrimaryColor.withOpacity(0.1),
@@ -153,7 +165,6 @@ class MedicalInformationSignupView extends StatelessWidget {
                           : Colors.grey,
                       fontFamily: 'Poppins Regular',
                       fontSize: screenHeight * 0.018),
-
                   Prefix: Text(''),
                   Suffix: Text(''),
                   isSuffix: false,
@@ -186,15 +197,14 @@ class MedicalInformationSignupView extends StatelessWidget {
                     },
                     child: ButtonComponent(
                       decoration: BoxDecoration(
-                        color:  model.isUiFieldsFill
+                          color: model.isUiFieldsFill
                               ? AppColors.PrimaryBlueColor
                               : AppColors.unFocusPrimaryColor,
-                              borderRadius: BorderRadius.circular(screenWidth * 0.080)
-                      ),
+                          borderRadius:
+                              BorderRadius.circular(screenWidth * 0.080)),
                       screenHeight: screenHeight,
                       screenWidth: screenWidth,
                       ButtonHeight: 0.075,
-                    
                       child: Center(
                         child: model.isStart
                             ? Center(
