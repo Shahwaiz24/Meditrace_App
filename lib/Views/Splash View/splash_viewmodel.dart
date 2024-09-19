@@ -34,7 +34,8 @@ class SplashViewmodel with ChangeNotifier {
           showNewColumn();
         });
       }
-      // Delay before showing the new column with buttons
+
+// //
     });
   }
 
