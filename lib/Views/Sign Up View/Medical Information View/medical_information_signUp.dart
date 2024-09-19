@@ -3,7 +3,7 @@ import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Components/custom_dropdown_menu.dart';
 import 'package:meditrace_project/Components/text_fields.dart';
 import 'package:meditrace_project/Services/utils.dart';
-import 'package:meditrace_project/Views/Sign%20Up%20View/Medical%20Information%20SignUp%20View/medical_information_viewModel_signUp.dart';
+import 'package:meditrace_project/Views/Sign%20Up%20View/Medical%20Information%20View/medical_information_viewModel_signUp.dart';
 import 'package:provider/provider.dart';
 
 class MedicalInformationSignupView extends StatelessWidget {
@@ -430,17 +430,15 @@ class MedicalInformationSignupView extends StatelessWidget {
                     builder: (context, model, child) {
                   return InkWell(
                     onTap: () async {
-                      // if (model.isStart == false &&
-                      //     (chronicConditionsController.text.isNotEmpty) &&
-                      //     (medicationsController.text.isNotEmpty) &&
-                      //     (knownAllergiesController.text.isNotEmpty)) {
-                      //   await model.nextSignInFunction(
-                      //       context: context,
-                      //       chronic: chronicConditionsController.text,
-                      //       medication: medicationsController.text,
-                      //       allergies: knownAllergiesController.text);
-                      //   }
-                      // },}
+                      if (model.isUiFieldsFill == true) {
+                        await model.nextSignInFunction(
+                            context: context,
+                            chronic: model.selectedChronicConditions,
+                            allergies: model.selectedAllergies,
+                            weight: weightController.text,
+                            height: heightController.text,
+                            bloodGroup: model.selectedBloodGroup);
+                      }
                     },
                     child: ButtonComponent(
                       decoration: BoxDecoration(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Views/Sign%20In%20View/signin_viewmodel.dart';
-import 'package:meditrace_project/Views/Sign%20Up%20View/Medical%20Information%20SignUp%20View/medical_information_viewModel_signUp.dart';
+import 'package:meditrace_project/Views/Sign%20Up%20View/Medical%20Information%20View/medical_information_viewModel_signUp.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/signup_viewmodel.dart';
 import 'package:provider/provider.dart';
 

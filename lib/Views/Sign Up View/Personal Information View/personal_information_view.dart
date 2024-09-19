@@ -8,6 +8,7 @@ import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Personal%20Information%20View/personal_information_viewmodel.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class PersonalInformationView extends StatelessWidget {
   PersonalInformationView({super.key});
 

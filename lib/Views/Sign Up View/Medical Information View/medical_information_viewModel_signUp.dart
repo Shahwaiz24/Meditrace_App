@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Services/global_data.dart';
 
 class MedicalInformationSignUpViewModel with ChangeNotifier {
   bool isFocusAllergies = false;
@@ -120,6 +121,7 @@ class MedicalInformationSignUpViewModel with ChangeNotifier {
       required String weight,
       required BuildContext context}) async {
     isStart = true;
+    isUiFieldsFill = false;
     notifyListeners();
     bool validate = await validation(
         weight: weight,
@@ -130,10 +132,17 @@ class MedicalInformationSignUpViewModel with ChangeNotifier {
     if (validate == true) {
       print('Navigating and SuccessFully Login');
 
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (context) => HomeView()));
+     
       isStart = false;
+      SignUpGlobalData.allergies = allergies;
+      SignUpGlobalData.chronic = chronic;
+      SignUpGlobalData.finalBloodGroup = bloodGroup;
+      SignUpGlobalData.finalHeight = height;
+      SignUpGlobalData.finalWeight = weight;
+      
       notifyListeners();
+       // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => HomeView()));
     } else {
       isStart = false;
       isError = true;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/global_data.dart';
-import 'package:meditrace_project/Views/Sign%20Up%20View/Medical%20Information%20SignUp%20View/medical_information_signUp.dart';
+import 'package:meditrace_project/Views/Sign%20Up%20View/Medical%20Information%20View/medical_information_signUp.dart';
 
 class PersonalInformationViewmodel with ChangeNotifier {
   bool isPrefixSelect = false;
