@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Components/text_fields.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Emergency%20Contact%20View/emergency_contact_viewmodel.dart';
@@ -16,6 +17,7 @@ class EmergencyContactView extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.ScaffoldColor,
       body: Padding(
         padding: EdgeInsets.only(
@@ -32,7 +34,7 @@ class EmergencyContactView extends StatelessWidget {
                   color: AppColors.PrimaryBlueColor,
                   fontFamily: 'Poppins Medium',
                   fontSize: screenHeight * 0.018,
-                  fontWeight: FontWeight.w700),
+                  fontWeight: FontWeight.w500),
             ),
             SizedBox(
               height: screenHeight * 0.020,
@@ -42,6 +44,7 @@ class EmergencyContactView extends StatelessWidget {
               style: TextStyle(
                 color: AppColors.TextblackColor,
                 fontFamily: 'Poppins Bold',
+                fontWeight: FontWeight.w700,
                 fontSize: screenHeight * 0.022,
               ),
             ),
@@ -53,14 +56,20 @@ class EmergencyContactView extends StatelessWidget {
               return TextFields(
                   controller: contactNameContrller,
                   enablefillColor: Colors.black,
-                  focusfillColor:
-                      AppColors.unFocusPrimaryColor.withOpacity(0.1),
-                  outlineColor: AppColors.unFocusPrimaryColor,
+                  focusfillColor: model.isContactNameFocus == true
+                      ? AppColors.TextwhiteColor
+                      : model.isContactNameNotEmpty == true
+                          ? AppColors.TextwhiteColor
+                          : AppColors.unFocusPrimaryColor.withOpacity(0.1),
+                  outlineColor:
+                      model.error ? Colors.red : AppColors.unFocusPrimaryColor,
                   radius: screenWidth * 0.020,
                   isHidden: false,
-                  HintText: 'Contact Name',
+                  HintText: model.error ? "Enter Correct Name" : 'Contact Name',
                   hintStyle: TextStyle(
-                    color: AppColors.unFocusPrimaryColor,
+                    color: model.error
+                        ? Colors.red
+                        : AppColors.unFocusPrimaryColor,
                     fontFamily: 'Poppins Regular',
                   ),
                   Prefix: Text(''),
@@ -68,11 +77,19 @@ class EmergencyContactView extends StatelessWidget {
                   isSuffix: false,
                   isNumberKeyboard: false,
                   isPrefix: false,
-                  onFocus: (focus) {},
+                  onFocus: (focus) {
+                    model.onContactNameFocus(focus: focus);
+                  },
                   contentStyle: const TextStyle(
                       fontFamily: 'Poppins Regular',
                       fontWeight: FontWeight.w500),
-                  onChanged: (value) {});
+                  onChanged: (value) {
+                    model.isContactNameEmptyCheck(
+                        contactName: contactNameContrller.text);
+                    model.checkallFields(
+                        contactName: contactNameContrller.text,
+                        contactNumber: contactNumberContrller.text);
+                  });
             }),
             SizedBox(
               height: screenHeight * 0.030,
@@ -82,14 +99,22 @@ class EmergencyContactView extends StatelessWidget {
               return TextFields(
                   controller: contactNumberContrller,
                   enablefillColor: Colors.black,
-                  focusfillColor:
-                      AppColors.unFocusPrimaryColor.withOpacity(0.1),
-                  outlineColor: AppColors.unFocusPrimaryColor,
+                  focusfillColor: model.isContactNumberFocus == true
+                      ? AppColors.TextwhiteColor
+                      : model.isContactNumberNotEmpty == true
+                          ? AppColors.TextwhiteColor
+                          : AppColors.unFocusPrimaryColor.withOpacity(0.1),
+                  outlineColor:
+                      model.error ? Colors.red : AppColors.unFocusPrimaryColor,
                   radius: screenWidth * 0.020,
                   isHidden: false,
-                  HintText: 'Contact Number',
+                  HintText: model.error
+                      ? 'Enter Number in 10 Digits'
+                      : 'Contact Number',
                   hintStyle: TextStyle(
-                    color: AppColors.unFocusPrimaryColor,
+                    color: model.error
+                        ? Colors.red
+                        : AppColors.unFocusPrimaryColor,
                     fontFamily: 'Poppins Regular',
                   ),
                   Prefix: Text(''),
@@ -97,11 +122,57 @@ class EmergencyContactView extends StatelessWidget {
                   isSuffix: false,
                   isNumberKeyboard: true,
                   isPrefix: false,
-                  onFocus: (focus) {},
+                  onFocus: (focus) {
+                    model.isContactNumberEmptyCheck(
+                        contactNumber: contactNameContrller.text);
+                    model.onContactPhoneNumberFocus(focus: focus);
+                  },
                   contentStyle: const TextStyle(
                       fontFamily: 'Poppins Regular',
                       fontWeight: FontWeight.w500),
-                  onChanged: (value) {});
+                  onChanged: (value) {
+                    model.checkallFields(
+                        contactName: contactNameContrller.text,
+                        contactNumber: contactNumberContrller.text);
+                  });
+            }),
+            const Spacer(),
+            Consumer<EmergencyContactViewmodel>(
+                builder: (context, model, child) {
+              return Padding(
+                padding: EdgeInsets.only(bottom: screenHeight * 0.030),
+                child: InkWell(
+                  onTap: () {
+                    if (model.isUiFieldsFill == true &&
+                        model.isStart == false) {
+                      model.nextOntap(
+                          contactName: contactNameContrller.text,
+                          contactNumber: contactNumberContrller.text);
+                      contactNameContrller.clear();
+                      contactNumberContrller.clear();
+                    }
+                  },
+                  child: ButtonComponent(
+                      screenHeight: screenHeight,
+                      screenWidth: screenWidth,
+                      ButtonHeight: 0.075,
+                      decoration: BoxDecoration(
+                          color: model.isUiFieldsFill == true
+                              ? AppColors.PrimaryBlueColor
+                              : AppColors.unFocusPrimaryColor,
+                          borderRadius:
+                              BorderRadius.circular(screenWidth * 0.080)),
+                      child: Center(
+                        child: Text(
+                          'Next',
+                          style: TextStyle(
+                              color: AppColors.TextwhiteColor,
+                              fontFamily: 'Poppins Semi Bold',
+                              fontSize: screenHeight * 0.020),
+                        ),
+                      )),
+                ),
+              );
             }),
           ],
         ),

@@ -50,6 +50,7 @@ class TextFields extends StatelessWidget {
         onFocus(hasFocus);
       },
       child: TextFormField(
+        enableSuggestions: false,
         style: contentStyle,
         onChanged: (string) {
           onChanged(string);

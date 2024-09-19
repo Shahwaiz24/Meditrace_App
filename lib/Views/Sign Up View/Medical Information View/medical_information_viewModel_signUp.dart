@@ -1,5 +1,8 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/global_data.dart';
+import 'package:meditrace_project/Views/Sign%20Up%20View/Emergency%20Contact%20View/emergency_contact_view.dart';
 
 class MedicalInformationSignUpViewModel with ChangeNotifier {
   bool isFocusAllergies = false;
@@ -121,7 +124,7 @@ class MedicalInformationSignUpViewModel with ChangeNotifier {
       required String weight,
       required BuildContext context}) async {
     isStart = true;
-    isUiFieldsFill = false;
+
     notifyListeners();
     bool validate = await validation(
         weight: weight,
@@ -132,17 +135,16 @@ class MedicalInformationSignUpViewModel with ChangeNotifier {
     if (validate == true) {
       print('Navigating and SuccessFully Login');
 
-     
-      isStart = false;
       SignUpGlobalData.allergies = allergies;
       SignUpGlobalData.chronic = chronic;
       SignUpGlobalData.finalBloodGroup = bloodGroup;
       SignUpGlobalData.finalHeight = height;
       SignUpGlobalData.finalWeight = weight;
-      
+      isUiFieldsFill = false;
+      isStart = false;
       notifyListeners();
-       // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (context) => HomeView()));
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => EmergencyContactView()));
     } else {
       isStart = false;
       isError = true;
