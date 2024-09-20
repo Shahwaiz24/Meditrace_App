@@ -13,7 +13,8 @@ class EmergencyContactView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<EmergencyContactViewmodel>(context);
+    final model =
+        Provider.of<EmergencyContactViewmodel>(context, listen: false);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -141,36 +142,56 @@ class EmergencyContactView extends StatelessWidget {
                 builder: (context, model, child) {
               return Padding(
                 padding: EdgeInsets.only(bottom: screenHeight * 0.030),
-                child: InkWell(
-                  onTap: () {
-                    if (model.isUiFieldsFill == true &&
-                        model.isStart == false) {
-                      model.nextOntap(
-                          contactName: contactNameContrller.text,
-                          contactNumber: contactNumberContrller.text);
-                      contactNameContrller.clear();
-                      contactNumberContrller.clear();
-                    }
-                  },
-                  child: ButtonComponent(
-                      screenHeight: screenHeight,
-                      screenWidth: screenWidth,
-                      ButtonHeight: 0.075,
-                      decoration: BoxDecoration(
-                          color: model.isUiFieldsFill == true
-                              ? AppColors.PrimaryBlueColor
-                              : AppColors.unFocusPrimaryColor,
-                          borderRadius:
-                              BorderRadius.circular(screenWidth * 0.080)),
-                      child: Center(
-                        child: Text(
-                          'Next',
-                          style: TextStyle(
-                              color: AppColors.TextwhiteColor,
-                              fontFamily: 'Poppins Semi Bold',
-                              fontSize: screenHeight * 0.020),
-                        ),
-                      )),
+                child: Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        if (model.isUiFieldsFill == true &&
+                            model.isStart == false) {
+                          model.nextOntap(
+                              contactName: contactNameContrller.text,
+                              contactNumber: contactNumberContrller.text);
+                          contactNameContrller.clear();
+                          contactNumberContrller.clear();
+                        }
+                      },
+                      child: ButtonComponent(
+                          screenHeight: screenHeight,
+                          screenWidth: screenWidth,
+                          ButtonHeight: 0.075,
+                          decoration: BoxDecoration(
+                              color: model.isUiFieldsFill == true
+                                  ? AppColors.PrimaryBlueColor
+                                  : AppColors.unFocusPrimaryColor,
+                              borderRadius:
+                                  BorderRadius.circular(screenWidth * 0.080)),
+                          child: Center(
+                            child: Text(
+                              'Next',
+                              style: TextStyle(
+                                  color: AppColors.TextwhiteColor,
+                                  fontFamily: 'Poppins Semi Bold',
+                                  fontSize: screenHeight * 0.020),
+                            ),
+                          )),
+                    ),
+                    SizedBox(height: screenHeight * 0.010),
+                    InkWell(
+                      onTap: () {
+                        if (model.isUiFieldsFill == true &&
+                            model.isStart == false) {
+                          model.onSetupLater(context: context);
+                        }
+                      },
+                      child: Text(
+                        'Set up Later',
+                        style: TextStyle(
+                            color: AppColors.PrimaryBlueColor,
+                            fontFamily: "Poppins Bold",
+                            fontSize: screenHeight * 0.018),
+                      ),
+                    )
+                  ],
                 ),
               );
             }),

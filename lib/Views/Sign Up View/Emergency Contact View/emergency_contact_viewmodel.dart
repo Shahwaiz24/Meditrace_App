@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/global_data.dart';
+import 'package:meditrace_project/Views/Sign%20Up%20View/Sign%20Up%20Completed/signup_completed_view.dart';
 
 class EmergencyContactViewmodel with ChangeNotifier {
   bool isContactNameFocus = false;
@@ -55,6 +56,19 @@ class EmergencyContactViewmodel with ChangeNotifier {
 
       return false;
     }
+  }
+
+  onSetupLater({required BuildContext context}) {
+    isStart = true;
+    isUiFieldsFill = false;
+    notifyListeners();
+    print("Api Working Started");
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const SignupCompletedView()),
+      (Route<dynamic> route) => false,
+    );
   }
 
   nextOntap(

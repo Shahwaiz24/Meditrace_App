@@ -96,13 +96,13 @@ class SplashViewmodel with ChangeNotifier {
                   },
                   child: ButtonComponent(
                     decoration: BoxDecoration(
-                      color:       AppColors.ButtonBackColor,
-                    borderRadius: BorderRadius.circular(screenWidth *  0.070,)
-                    ),
+                        color: AppColors.ButtonBackColor,
+                        borderRadius: BorderRadius.circular(
+                          screenWidth * 0.070,
+                        )),
                     screenHeight: screenHeight,
                     screenWidth: screenWidth,
                     ButtonHeight: 0.070,
-                  
                     child: Center(
                       child: Text(
                         'Sign In',
@@ -119,10 +119,8 @@ class SplashViewmodel with ChangeNotifier {
                 InkWell(
                   onTap: () {
                     print('Navigating to Sign Up');
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>  SignupView()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SignupView()));
                   },
                   child: ButtonComponent(
                     decoration: BoxDecoration(
@@ -133,7 +131,6 @@ class SplashViewmodel with ChangeNotifier {
                     screenHeight: screenHeight,
                     screenWidth: screenWidth,
                     ButtonHeight: 0.070,
-                   
                     child: Center(
                       child: Text(
                         'Sign Up',
