@@ -179,9 +179,10 @@ class EmergencyContactView extends StatelessWidget {
                     SizedBox(height: screenHeight * 0.010),
                     InkWell(
                       onTap: () {
-                        if (model.isStart == false) {
-                          model.onSetupLater(context: context);
-                        }
+                        // if (model.isStart == false) {
+                        //   model.onSetupLater(context: context);
+                        // }
+                        model.onSetupLater(context: context);
                       },
                       child: Text(
                         'Set up Later',

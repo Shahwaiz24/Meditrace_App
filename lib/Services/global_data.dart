@@ -18,6 +18,7 @@ class SignUpGlobalData {
 // User Global Data After SignUp or Login //
 
 class UserGlobalData {
+  static bool userHomePageCheck = false;
   static String userFirstName = '';
   static String userLastName = '';
   static List userBag = [];

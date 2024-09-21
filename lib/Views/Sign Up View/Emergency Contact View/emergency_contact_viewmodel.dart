@@ -66,13 +66,17 @@ class EmergencyContactViewmodel with ChangeNotifier {
 
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => const SignupCompletedView()),
+      MaterialPageRoute(
+          builder: (context) => const SignupCompletedView(
+                isError: false,
+              )),
       (Route<dynamic> route) => false,
     );
   }
 
   nextOntap(
-      {required String contactName, required String contactNumber,
+      {required String contactName,
+      required String contactNumber,
       required BuildContext context}) async {
     isStart = true;
 
@@ -83,9 +87,12 @@ class EmergencyContactViewmodel with ChangeNotifier {
       SignUpGlobalData.contactName = contactName;
       SignUpGlobalData.contactNumber = contactNumber;
       print('Sign Up Completed');
-       Navigator.pushAndRemoveUntil(
+      Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const SignupCompletedView()),
+        MaterialPageRoute(
+            builder: (context) => const SignupCompletedView(
+                  isError: true,
+                )),
         (Route<dynamic> route) => false,
       );
 

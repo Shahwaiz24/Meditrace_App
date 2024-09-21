@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 import 'package:meditrace_project/Views/Splash%20View/splash_view.dart';
 
 class SignupCompletedViewmodel with ChangeNotifier {
@@ -32,11 +33,12 @@ class SignupCompletedViewmodel with ChangeNotifier {
     } else {
       isLoading = true;
       notifyListeners();
-      // Api Work Here and Navigation if Has Error then isError = true and then NotifyListner
-      await Future.delayed(Duration(seconds: 4));
-      isLoading = false;
-      isError = true;
-      notifyListeners();
+      // Api Work Here and Navigatio n if Has Error then isError = true and then NotifyListner
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeView()),
+        (Route<dynamic> route) => false,
+      );
     }
   }
 
