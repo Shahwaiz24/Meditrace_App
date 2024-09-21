@@ -15,3 +15,11 @@ class SignUpGlobalData {
   static String finalGender = '';
   static String finalDateOfBirth = '';
 }
+// User Global Data After SignUp or Login //
+
+class UserGlobalData {
+  static String userFirstName = '';
+  static String userLastName = '';
+  static List userBag = [];
+  // static String user
+}

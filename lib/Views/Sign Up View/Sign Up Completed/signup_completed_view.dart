@@ -49,7 +49,7 @@ class SignupCompletedView extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "Emergency Contact\n             Not Added!",
+                            "Your Profile Setup Not\n             Completed!",
                             style: TextStyle(
                                 color: AppColors.TextblackColor,
                                 fontFamily: "Poppins Bold",
@@ -110,7 +110,7 @@ class SignupCompletedView extends StatelessWidget {
                                 'assets/images/signUp_completed_image.png'),
                           ),
                           Text(
-                            "Emergency Contact\n               Added!",
+                            "Your Profile Setup has\n      been Completed!",
                             style: TextStyle(
                                 color: AppColors.TextblackColor,
                                 fontFamily: "Poppins Bold",
@@ -120,7 +120,7 @@ class SignupCompletedView extends StatelessWidget {
                             height: screenHeight * 0.020,
                           ),
                           Text(
-                            'Your emergency contact information\n    has been successfully updated.',
+                            '       Your profile has been successfully\n completed! You\'re all set to start exploring!',
                             style: TextStyle(
                                 color: AppColors.unFocusPrimaryColor,
                                 fontSize: screenHeight * 0.020,
