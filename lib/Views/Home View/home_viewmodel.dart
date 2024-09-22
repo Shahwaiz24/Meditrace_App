@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:meditrace_project/Components/button.dart';
+import 'package:meditrace_project/Services/utils.dart';
 
 class HomeViewmodel with ChangeNotifier {
   String day = '';
@@ -37,15 +40,18 @@ class HomeViewmodel with ChangeNotifier {
   // Animate the circular progress
   void startProgressAnimation() {
     Timer.periodic(const Duration(milliseconds: 100), (Timer timer) {
-      if (progressValue < 0.75) {
-        // Stop at 75%
-        progressValue += 0.05; // Increase progress
-        notifyListeners();
-      } else {
-        // Once progress reaches 75%, show the circular border
-        notifyListeners();
-        timer.cancel(); // Stop the timer
+      if(containerOpacity == 1.0){
+        if (progressValue < 0.75) {
+          // Stop at 75%
+          progressValue += 0.05; // Increase progress
+          notifyListeners();
+        } else {
+          // Once progress reaches 75%, show the circular border
+          notifyListeners();
+          timer.cancel(); // Stop the timer
+        }
       }
+     
     });
   }
 
@@ -61,18 +67,18 @@ class HomeViewmodel with ChangeNotifier {
           height: screenHeight * 0.10,
           width: screenHeight * 0.10,
           child: CircularProgressIndicator(
-            value: progressValue, // Dynamic progress value
+            value: progressValue, 
             strokeWidth: screenWidth * 0.020,
-            valueColor: const AlwaysStoppedAnimation<Color>(Colors.orange),
+            valueColor: AlwaysStoppedAnimation<Color>(AppColors.AppTextColor1),
             backgroundColor: Colors.grey[300],
             semanticsLabel: 'Profile Setup Progress',
           ),
         ),
-        // Briefcase icon at the center of the chart
+       
         Icon(
           Icons.medical_services_outlined, // Briefcase icon
           size: screenHeight * 0.04,
-          color: Colors.white,
+          color: AppColors.TextwhiteColor,
         ),
       ],
     );
@@ -92,8 +98,8 @@ class HomeViewmodel with ChangeNotifier {
               width: screenWidth,
               padding: EdgeInsets.all(screenWidth * 0.05),
               decoration: BoxDecoration(
-                color: containerColor.withOpacity(0.9),
-                borderRadius: BorderRadius.circular(15),
+                color: AppColors.BagContainer,
+                borderRadius: BorderRadius.circular(screenWidth * 0.050),
               ),
               child: Row(
                 children: [
@@ -106,9 +112,9 @@ class HomeViewmodel with ChangeNotifier {
                       Text(
                         'Your Profile Setup is\n almost complete!',
                         style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Poppins Bold',
-                          fontSize: screenHeight * 0.020,
+                          color: AppColors.TextwhiteColor,
+                          fontFamily: 'Poppins Semi Bold',
+                          fontSize: screenHeight * 0.022,
                         ),
                       ),
                       SizedBox(height: screenHeight * 0.010),
@@ -117,7 +123,7 @@ class HomeViewmodel with ChangeNotifier {
                       Text(
                         'Set up your Smart Bag!',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.TextwhiteColor,
                           fontFamily: 'Poppins Regular',
                           fontSize: screenHeight * 0.018,
                         ),
@@ -125,21 +131,31 @@ class HomeViewmodel with ChangeNotifier {
                       SizedBox(height: screenHeight * 0.020),
 
                       // Button: "Set up now"
-                      ElevatedButton(
-                        onPressed: () {
-                          // Action to be performed on button click
-                        },
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: screenWidth * 0.05,
-                            vertical: screenHeight * 0.015,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+
+                      ButtonComponent(
+                        screenHeight: screenHeight,
+                        screenWidth: screenWidth,
+                        ButtonHeight: 0.050,
+                        decoration: BoxDecoration(
+                            color: AppColors.AppTextColor1,
+                            // color: AppColors.TextblackColor,
+                            borderRadius:
+                                BorderRadius.circular(screenWidth * 0.080)),
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.060),
+                            child: Text(
+                              'Set up Now',
+                              style: TextStyle(
+                                color: AppColors.TextwhiteColor,
+                                fontFamily: 'Poppins Regular',
+                                fontSize: screenHeight * 0.018,
+                              ),
+                            ),
                           ),
                         ),
-                        child: Text('Set up now'),
-                      ),
+                      )
                     ],
                   ),
                   const Spacer(),

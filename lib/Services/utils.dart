@@ -8,6 +8,8 @@ class AppColors {
   static Color TextwhiteColor = Color(0xffFCFFFE);
   static Color DropDownUnfocusColor = Color(0xffE6E9E8);
 
+  static Color BagContainer = Color(0xff44BFB9);
+
   static Color TextblackColor = Color(0xff434343);
   static Color PrimaryBlueColor = Color(0xff22938C);
   static Color unFocusPrimaryColor = Color(0xffA3A2A3);

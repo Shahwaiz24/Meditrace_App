@@ -35,6 +35,7 @@ class _HomeViewState extends State<HomeView> {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
@@ -93,7 +94,28 @@ class _HomeViewState extends State<HomeView> {
                 screenHeight: screenHeight,
                 containerColor: AppColors.PrimaryBlueColor,
               );
-            })
+            }),
+            SizedBox(
+              height: screenHeight * 0.020,
+            ),
+            Text(
+              'Today’s Medicines',
+              style: TextStyle(
+                color: AppColors.TextblackColor,
+                fontFamily: 'Poppins Semi Bold',
+                fontSize: screenHeight * 0.020,
+              ),
+            ),
+            SizedBox(
+              height: screenHeight * 0.010,
+            ),
+            Text(
+              'Mark your daily progress here!',
+              style: TextStyle(
+                  color: AppColors.PrimaryBlueColor,
+                  fontFamily: 'Poppins Regular',
+                  fontSize: screenHeight * 0.017),
+            )
           ],
         ),
       ),
