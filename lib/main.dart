@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/local_storage.dart';
+import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 import 'package:meditrace_project/Views/Home%20View/home_viewmodel.dart';
 import 'package:meditrace_project/Views/Sign%20In%20View/signin_viewmodel.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Emergency%20Contact%20View/emergency_contact_view.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: EmergencyContactView(),
+        home: HomeView(),
       ),
     );
   }
