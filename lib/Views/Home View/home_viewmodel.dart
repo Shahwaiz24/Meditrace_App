@@ -1,5 +1,153 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class HomeViewmodel  with ChangeNotifier{
-  
+class HomeViewmodel with ChangeNotifier {
+  String day = '';
+  String date = '';
+  bool showContainer = false;
+  double containerOpacity = 0.0;
+
+  // Progress variables
+  double progressValue = 0.0;
+  bool showBorder = false;
+
+  // Initialize date and time
+  getDateandDay() async {
+    DateTime now = DateTime.now();
+    day = DateFormat('EEEE').format(now); // e.g., Wednesday
+    date = DateFormat('d\'th\' MMMM, yyyy')
+        .format(now); // e.g., 16th September, 2024
+  }
+
+  // Trigger the fade-in effect and start the progress animation
+  void triggerFadeInAnimation() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(const Duration(seconds: 2), () {
+        showContainer = true;
+      });
+
+      await Future.delayed(const Duration(milliseconds: 100), () {
+        containerOpacity = 1.0;
+        startProgressAnimation(); // Start the progress bar animation
+      });
+    });
+  }
+
+  // Animate the circular progress
+  void startProgressAnimation() {
+    Timer.periodic(const Duration(milliseconds: 100), (Timer timer) {
+      if (progressValue < 0.75) {
+        // Stop at 75%
+        progressValue += 0.05; // Increase progress
+        notifyListeners();
+      } else {
+        // Once progress reaches 75%, show the circular border
+        notifyListeners();
+        timer.cancel(); // Stop the timer
+      }
+    });
+  }
+
+  // Custom chart widget with the briefcase icon and circular border
+  Widget _buildCustomChart(double screenWidth, double screenHeight) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        // Conditional border when progress is complete
+
+        // Circular progress indicator with rounded ends
+        SizedBox(
+          height: screenHeight * 0.10,
+          width: screenHeight * 0.10,
+          child: CircularProgressIndicator(
+            value: progressValue, // Dynamic progress value
+            strokeWidth: screenWidth * 0.020,
+            valueColor: const AlwaysStoppedAnimation<Color>(Colors.orange),
+            backgroundColor: Colors.grey[300],
+            semanticsLabel: 'Profile Setup Progress',
+          ),
+        ),
+        // Briefcase icon at the center of the chart
+        Icon(
+          Icons.medical_services_outlined, // Briefcase icon
+          size: screenHeight * 0.04,
+          color: Colors.white,
+        ),
+      ],
+    );
+  }
+
+  // Main animated container with the custom chart and other UI elements
+  Widget getAnimatedContainer({
+    required double screenWidth,
+    required double screenHeight,
+    required Color containerColor,
+  }) {
+    return AnimatedOpacity(
+      opacity: containerOpacity,
+      duration: const Duration(seconds: 3),
+      child: showContainer
+          ? Container(
+              width: screenWidth,
+              padding: EdgeInsets.all(screenWidth * 0.05),
+              decoration: BoxDecoration(
+                color: containerColor.withOpacity(0.9),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Custom chart with the briefcase icon and circular border
+
+                      // Text "Your Profile Setup is almost complete!"
+                      Text(
+                        'Your Profile Setup is\n almost complete!',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Poppins Bold',
+                          fontSize: screenHeight * 0.020,
+                        ),
+                      ),
+                      SizedBox(height: screenHeight * 0.010),
+
+                      // Subtitle: "Set up your Smart Bag!"
+                      Text(
+                        'Set up your Smart Bag!',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Poppins Regular',
+                          fontSize: screenHeight * 0.018,
+                        ),
+                      ),
+                      SizedBox(height: screenHeight * 0.020),
+
+                      // Button: "Set up now"
+                      ElevatedButton(
+                        onPressed: () {
+                          // Action to be performed on button click
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: screenWidth * 0.05,
+                            vertical: screenHeight * 0.015,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        child: Text('Set up now'),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  _buildCustomChart(screenWidth, screenHeight),
+                ],
+              ),
+            )
+          : const SizedBox.shrink(),
+    );
+  }
 }
