@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Services/utils.dart';
+import 'package:meditrace_project/Views/Bag%20View/bag_view.dart';
 import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 
 class HomeViewmodel with ChangeNotifier {
@@ -28,8 +29,8 @@ class HomeViewmodel with ChangeNotifier {
           context, MaterialPageRoute(builder: (context) => const HomeView()));
     } else if (selectedBottomBarIndex == 1) {
       print('Bag View');
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: (context) => const BagView()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const BagView()));
     } else if (selectedBottomBarIndex == 2) {
       print('Medicine View');
       // Navigator.push(

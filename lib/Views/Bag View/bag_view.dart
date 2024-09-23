@@ -1,37 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/bottom_bar.dart';
-import 'package:provider/provider.dart';
 import 'package:meditrace_project/Services/utils.dart';
-import 'package:meditrace_project/Views/Home%20View/home_viewmodel.dart';
+import 'package:meditrace_project/Views/Bag%20View/bag_viewmodel.dart';
+import 'package:provider/provider.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({super.key});
-
-  @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-  @override
-  void initState() {
-    super.initState();
-    final model = Provider.of<HomeViewmodel>(context, listen: false);
-    model.getDateandDay();
-    model.triggerFadeInAnimation(); // Start the fade-in animation
-  }
+class BagView extends StatelessWidget {
+  const BagView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<HomeViewmodel>(context);
+    final model = Provider.of<BagViewmodel>(context);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
-      backgroundColor: AppColors.ScaffoldColor,
-      bottomNavigationBar: BottomNavBar(
-        screenHeight: screenHeight,
-        screenWidth: screenWidth,
-      ),
+      bottomNavigationBar:
+          BottomNavBar(screenHeight: screenHeight, screenWidth: screenWidth),
       body: Padding(
         padding: EdgeInsets.only(
           top: screenHeight * 0.100,
@@ -71,47 +54,50 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ],
             ),
-           
-            SizedBox(height: screenHeight * 0.020),
+            SizedBox(
+              height: screenHeight * 0.015,
+            ),
+            Text(
+              'My Bag',
+              style: TextStyle(
+                  color: AppColors.TextblackColor,
+                  fontFamily: 'Poppins Semi Bold',
+                  fontSize: screenHeight * 0.018),
+            ),
+            SizedBox(
+              height: screenHeight * 0.025,
+            ),
             Row(
               children: [
-                Text(
-                  '${model.day}, ',
-                  style: TextStyle(
-                      color: AppColors.unFocusPrimaryColor,
-                      fontFamily: 'Poppins Medium',
-                      fontSize: screenHeight * 0.017),
+                Icon(
+                  Icons.add_box_rounded,
+                  color: AppColors.PrimaryBlueColor,
+                  size: screenHeight * 0.032,
+                ),
+                SizedBox(
+                  width: screenWidth * 0.020,
                 ),
                 Text(
-                  model.date,
+                  'Add New Bag',
                   style: TextStyle(
-                      color: AppColors.TextblackColor,
+                      color: AppColors.PrimaryBlueColor,
                       fontFamily: 'Poppins Medium',
-                      fontSize: screenHeight * 0.017),
-                ),
+                      fontSize: screenHeight * 0.016),
+                )
               ],
             ),
-            SizedBox(height: screenHeight * 0.040),
-
-            // Animated container that fades in after 2 seconds
-            Consumer<HomeViewmodel>(builder: (context, model, child) {
-              return model.getAnimatedContainer(
-                screenWidth: screenWidth,
-                screenHeight: screenHeight,
-                containerColor: AppColors.PrimaryBlueColor,
-              );
-            }),
             SizedBox(
-              height: screenHeight * 0.020,
+              height: screenHeight * 0.130,
             ),
-            Consumer<HomeViewmodel>(builder: (context, model, child) {
-              return Expanded(
-                child: model.afterContainerAnimation(
-                  screenWidth: screenWidth,
-                  screenHeight: screenHeight,
-                ),
-              );
-            }),
+            Center(
+              child: Text(
+                'Set up your smart bag to view details here!',
+                style: TextStyle(
+                    color: AppColors.unFocusPrimaryColor,
+                    fontFamily: 'Poppins Regular',
+                    fontSize: screenHeight * 0.017),
+              ),
+            )
           ],
         ),
       ),
