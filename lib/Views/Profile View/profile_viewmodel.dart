@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ProfileViewmodel with ChangeNotifier {
-  int calculateAge(String dob) {
+  bool isLoading = false;
+
+  String userAge = '';
+  String weightinKg = '';
+  calculateAge(String dob) {
     // Define the input format of the date
     DateFormat dateFormat = DateFormat('d-MM-yyyy');
 
@@ -22,6 +26,22 @@ class ProfileViewmodel with ChangeNotifier {
       age--;
     }
 
-    return age;
+    userAge = age.toString();
+  }
+
+  lbsToKg(double lbs) {
+    const double conversionFactor = 0.45359237;
+    final weight = lbs * conversionFactor;
+    weightinKg = weight.toStringAsFixed(1);
+  }
+
+  initStateFunction({required double lbs, required String dateofBirth}) async {
+    isLoading = true;
+    await lbsToKg(lbs);
+    await calculateAge(dateofBirth);
+    print('Good');
+    await Future.delayed(Duration(seconds: 1));
+    isLoading = false;
+    notifyListeners();
   }
 }
