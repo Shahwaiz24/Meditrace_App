@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Components/bottom_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Home%20View/home_viewmodel.dart';
@@ -27,6 +28,7 @@ class _HomeViewState extends State<HomeView> {
 
     return Scaffold(
       backgroundColor: AppColors.ScaffoldColor,
+      bottomNavigationBar: const BottomNavBar(),
       body: Padding(
         padding: EdgeInsets.only(
           top: screenHeight * 0.100,
@@ -98,24 +100,14 @@ class _HomeViewState extends State<HomeView> {
             SizedBox(
               height: screenHeight * 0.020,
             ),
-            Text(
-              'Today’s Medicines',
-              style: TextStyle(
-                color: AppColors.TextblackColor,
-                fontFamily: 'Poppins Semi Bold',
-                fontSize: screenHeight * 0.020,
-              ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.010,
-            ),
-            Text(
-              'Mark your daily progress here!',
-              style: TextStyle(
-                  color: AppColors.PrimaryBlueColor,
-                  fontFamily: 'Poppins Regular',
-                  fontSize: screenHeight * 0.017),
-            )
+            Consumer<HomeViewmodel>(builder: (context, model, child) {
+              return Expanded(
+                child: model.afterContainerAnimation(
+                  screenWidth: screenWidth,
+                  screenHeight: screenHeight,
+                ),
+              );
+            }),
           ],
         ),
       ),

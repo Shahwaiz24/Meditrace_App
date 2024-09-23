@@ -10,6 +10,15 @@ class HomeViewmodel with ChangeNotifier {
   String date = '';
   bool showContainer = false;
   double containerOpacity = 0.0;
+  double medicines_text_opacity = 0.0;
+  double progress_text_opacity = 0.0;
+  double center_text_opacity = 0.0;
+  int selectedBottomBarIndex = 0;
+
+  onBottomBarSelected({required int index}) {
+    selectedBottomBarIndex = index;
+    notifyListeners();
+  }
 
   // Progress variables
   double progressValue = 0.0;
@@ -32,7 +41,18 @@ class HomeViewmodel with ChangeNotifier {
 
       await Future.delayed(const Duration(milliseconds: 100), () {
         containerOpacity = 1.0;
-        startProgressAnimation(); // Start the progress bar animation
+        startProgressAnimation();
+      });
+      await Future.delayed(const Duration(seconds: 1), () {
+        medicines_text_opacity = 1.0;
+      });
+      await Future.delayed(const Duration(seconds: 1), () {
+        progress_text_opacity = 1.0;
+        notifyListeners();
+      });
+      await Future.delayed(const Duration(seconds: 1), () {
+        center_text_opacity = 1.0;
+        notifyListeners();
       });
     });
   }
@@ -40,7 +60,7 @@ class HomeViewmodel with ChangeNotifier {
   // Animate the circular progress
   void startProgressAnimation() {
     Timer.periodic(const Duration(milliseconds: 100), (Timer timer) {
-      if(containerOpacity == 1.0){
+      if (containerOpacity == 1.0) {
         if (progressValue < 0.75) {
           // Stop at 75%
           progressValue += 0.05; // Increase progress
@@ -51,7 +71,6 @@ class HomeViewmodel with ChangeNotifier {
           timer.cancel(); // Stop the timer
         }
       }
-     
     });
   }
 
@@ -67,14 +86,14 @@ class HomeViewmodel with ChangeNotifier {
           height: screenHeight * 0.10,
           width: screenHeight * 0.10,
           child: CircularProgressIndicator(
-            value: progressValue, 
+            value: progressValue,
             strokeWidth: screenWidth * 0.020,
             valueColor: AlwaysStoppedAnimation<Color>(AppColors.AppTextColor1),
             backgroundColor: Colors.grey[300],
             semanticsLabel: 'Profile Setup Progress',
           ),
         ),
-       
+
         Icon(
           Icons.medical_services_outlined, // Briefcase icon
           size: screenHeight * 0.04,
@@ -164,6 +183,58 @@ class HomeViewmodel with ChangeNotifier {
               ),
             )
           : const SizedBox.shrink(),
+    );
+  }
+
+  Widget afterContainerAnimation({
+    required double screenWidth,
+    required double screenHeight,
+  }) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AnimatedOpacity(
+          opacity: medicines_text_opacity,
+          duration: const Duration(seconds: 1),
+          child: Text(
+            'Today’s Medicines',
+            style: TextStyle(
+              color: AppColors.TextblackColor,
+              fontFamily: 'Poppins Semi Bold',
+              fontSize: screenHeight * 0.020,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: screenHeight * 0.010,
+        ),
+        AnimatedOpacity(
+            opacity: progress_text_opacity,
+            duration: const Duration(seconds: 1),
+            child: Text(
+              'Mark your daily progress here!',
+              style: TextStyle(
+                  color: AppColors.PrimaryBlueColor,
+                  fontFamily: 'Poppins Regular',
+                  fontSize: screenHeight * 0.017),
+            )),
+        SizedBox(
+          height: screenHeight * 0.070,
+        ),
+        AnimatedOpacity(
+            opacity: center_text_opacity,
+            duration: const Duration(seconds: 1),
+            child: Center(
+              child: Text(
+                'Set up your smart bag to display the\n                 medications here!',
+                style: TextStyle(
+                    color: AppColors.unFocusPrimaryColor,
+                    fontFamily: 'Poppins Regular',
+                    fontSize: screenHeight * 0.016),
+              ),
+            ))
+      ],
     );
   }
 }
