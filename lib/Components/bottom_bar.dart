@@ -27,10 +27,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
         showUnselectedLabels: false, // Hides labels
         items: [
           BottomNavigationBarItem(
-            tooltip: '',
             icon: model.selectedBottomBarIndex == 0
-                ? ImageIcon(
-                    AssetImage('assets/icon/bottom_bar_icon/home_active.png'))
+                ? ImageIcon(AssetImage(
+                    'assets/images/icon/bottom_bar_icon/home_active.png'))
                 : Icon(Icons.home_outlined),
             label: '',
           ),
