@@ -3,6 +3,7 @@ import 'package:meditrace_project/Services/local_storage.dart';
 import 'package:meditrace_project/Views/Bag%20View/bag_viewmodel.dart';
 import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 import 'package:meditrace_project/Views/Home%20View/home_viewmodel.dart';
+import 'package:meditrace_project/Views/Medicine%20View/medicine_viewmodel.dart';
 import 'package:meditrace_project/Views/Sign%20In%20View/signin_viewmodel.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Emergency%20Contact%20View/emergency_contact_view.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Emergency%20Contact%20View/emergency_contact_viewmodel.dart';
@@ -37,6 +38,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SignupCompletedViewmodel()),
         ChangeNotifierProvider(create: (_) => BagViewmodel()),        
         ChangeNotifierProvider(create: (_) => HomeViewmodel()),
+        ChangeNotifierProvider(create: (_) => MedicineViewmodel()),        
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

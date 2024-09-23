@@ -5,6 +5,7 @@ import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Bag%20View/bag_view.dart';
 import 'package:meditrace_project/Views/Home%20View/home_view.dart';
+import 'package:meditrace_project/Views/Medicine%20View/medicine_view.dart';
 
 class HomeViewmodel with ChangeNotifier {
   String day = '';
@@ -33,8 +34,8 @@ class HomeViewmodel with ChangeNotifier {
           context, MaterialPageRoute(builder: (context) => const BagView()));
     } else if (selectedBottomBarIndex == 2) {
       print('Medicine View');
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: (context) => const BagView()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const MedicineView()));
     } else if (selectedBottomBarIndex == 3) {
       print('Profile View');
       // Navigator.push(

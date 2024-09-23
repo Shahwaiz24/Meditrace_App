@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/bottom_bar.dart';
 import 'package:meditrace_project/Services/utils.dart';
-import 'package:meditrace_project/Views/Bag%20View/bag_viewmodel.dart';
+import 'package:meditrace_project/Views/Medicine%20View/medicine_viewmodel.dart';
 import 'package:provider/provider.dart';
 
-class BagView extends StatelessWidget {
-  const BagView({super.key});
+class MedicineView extends StatelessWidget {
+  const MedicineView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<BagViewmodel>(context);
+    final model = Provider.of<MedicineViewmodel>(context);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -58,7 +58,7 @@ class BagView extends StatelessWidget {
               height: screenHeight * 0.015,
             ),
             Text(
-              'My Bag',
+              'My Medicines',
               style: TextStyle(
                   color: AppColors.TextblackColor,
                   fontFamily: 'Poppins Semi Bold',
@@ -78,7 +78,7 @@ class BagView extends StatelessWidget {
                   width: screenWidth * 0.020,
                 ),
                 Text(
-                  'Add New Bag',
+                  'Add New Medicine',
                   style: TextStyle(
                       color: AppColors.PrimaryBlueColor,
                       fontFamily: 'Poppins Medium',
@@ -91,7 +91,7 @@ class BagView extends StatelessWidget {
             ),
             Center(
               child: Text(
-                'Set up your smart bag to view details here!',
+                'Set up your smart bag to view Medicine here!',
                 style: TextStyle(
                     color: AppColors.unFocusPrimaryColor,
                     fontFamily: 'Poppins Regular',
