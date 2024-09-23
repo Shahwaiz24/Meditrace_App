@@ -18,6 +18,12 @@ class HomeViewmodel with ChangeNotifier {
   onBottomBarSelected({required int index, required BuildContext context}) {
     selectedBottomBarIndex = index;
     if (selectedBottomBarIndex == 0) {
+      showContainer = false;
+      containerOpacity = 0.0;
+      medicines_text_opacity = 0.0;
+      progress_text_opacity = 0.0;
+      center_text_opacity = 0.0;
+      progressValue = 0.0;
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const HomeView()));
     } else if (selectedBottomBarIndex == 1) {
@@ -50,6 +56,7 @@ class HomeViewmodel with ChangeNotifier {
 
   // Trigger the fade-in effect and start the progress animation
   void triggerFadeInAnimation() {
+    print('Start Animatiion');
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(seconds: 2), () {
         showContainer = true;
@@ -109,12 +116,16 @@ class HomeViewmodel with ChangeNotifier {
             semanticsLabel: 'Profile Setup Progress',
           ),
         ),
-
-        Icon(
-          Icons.medical_services_outlined, // Briefcase icon
+        ImageIcon(
+          const AssetImage('assets/images/icon/medical_bag.png'),
           size: screenHeight * 0.04,
           color: AppColors.TextwhiteColor,
         ),
+        // Icon(
+        //   Icons.medical_services_outlined,
+        //   size: screenHeight * 0.04,
+        //   color: AppColors.TextwhiteColor,
+        // ),
       ],
     );
   }
