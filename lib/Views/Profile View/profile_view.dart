@@ -375,12 +375,91 @@ class _ProfileViewState extends State<ProfileView> {
                                       ),
                                     ),
                                   ],
-                                )
+                                ),
                               ],
                             ),
                           )),
-                   SizedBox()
-                   
+                      SizedBox(
+                        height: screenHeight * 0.025,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: screenWidth * 0.020),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Emergency Contacts',
+                              style: TextStyle(
+                                  color: AppColors.TextblackColor,
+                                  fontFamily: 'Poppins Semi Bold',
+                                  fontSize: screenHeight * 0.018),
+                            ),
+                            SizedBox(
+                              height: screenHeight * 0.025,
+                            ),
+                            ButtonComponent(
+                                screenHeight: screenHeight,
+                                screenWidth: screenWidth,
+                                ButtonHeight: 0.080,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                        screenWidth * 0.040),
+                                    color:
+                                        AppColors.PrimaryBlueColor.withOpacity(
+                                            0.1)),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      left: screenWidth * 0.040,
+                                      right: screenWidth * 0.040),
+                                  child: Row(
+                                    children: [
+                                      ImageIcon(
+                                        AssetImage(
+                                            'assets/images/icon/bottom_bar_icon/profile.png'),
+                                        color: AppColors.PrimaryBlueColor,
+                                        size: screenHeight * 0.040,
+                                      ),
+                                      SizedBox(
+                                        width: screenWidth * 0.020,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'John Doe',
+                                            style: TextStyle(
+                                                color: AppColors.TextblackColor,
+                                                fontFamily: 'Poppins Semi Bold',
+                                                fontSize: screenHeight * 0.016),
+                                          ),
+                                          SizedBox(
+                                            height: screenHeight * 0.005,
+                                          ),
+                                          Text('+1 000 000 000',
+                                              style: TextStyle(
+                                                  color: AppColors
+                                                      .unFocusPrimaryColor,
+                                                  fontFamily: 'Poppins Regular',
+                                                  fontSize:
+                                                      screenHeight * 0.015))
+                                        ],
+                                      ),
+                                      Spacer(),
+                                      Icon(
+                                        Icons.edit_outlined,
+                                        color: AppColors.PrimaryBlueColor,
+                                        size: screenHeight * 0.03,
+                                      )
+                                    ],
+                                  ),
+                                ))
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 )

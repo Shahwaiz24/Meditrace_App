@@ -16,7 +16,7 @@ class SignUpViewmodel with ChangeNotifier {
   bool isPhoneNumberNotEmpty = false;
   bool isPasswordNotEmpty = false;
   bool isEmailNotEmpty = false;
-
+  String formattedNumber = '';
   checkEmailEmpty({required String email}) {
     if (email.isNotEmpty) {
       isEmailNotEmpty = true;
@@ -185,7 +185,26 @@ class SignUpViewmodel with ChangeNotifier {
           (number != null && number.runtimeType == int) &&
           (phoneNumber.length == 10) &&
           (isCheck == true)) {
-        return true;
+        // Remove any existing spaces from the input number
+        String cleanedNumber = phoneNumber.replaceAll(' ', '');
+
+        // Check if the number already starts with +1, if not, add it
+        if (!cleanedNumber.startsWith('+1')) {
+          cleanedNumber = '+1' + cleanedNumber;
+        }
+
+        // Ensure that the number contains exactly 11 digits after +1
+        String digitsOnly = cleanedNumber.replaceAll(
+            RegExp(r'\D'), ''); // Remove non-digit characters
+        if (digitsOnly.length != 11) {
+          return false;
+        } else {
+          formattedNumber =
+              '+1 ${digitsOnly.substring(1, 4)} ${digitsOnly.substring(4, 7)} ${digitsOnly.substring(7, 11)}';
+          return true;
+        }
+
+        // Format the number into +1 XXX XXX XXXX
       } else {
         return false;
       }
@@ -209,7 +228,7 @@ class SignUpViewmodel with ChangeNotifier {
       notifyListeners();
       SignUpGlobalData.finalEmailAddress = Email;
       SignUpGlobalData.finalPassword = Password;
-      SignUpGlobalData.finalPhoneNumber = phoneNumber;
+      SignUpGlobalData.finalPhoneNumber = formattedNumber;
       isSignUpStart = false;
 
       Navigator.pushReplacement(context,

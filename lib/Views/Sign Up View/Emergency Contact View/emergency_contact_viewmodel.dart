@@ -7,6 +7,7 @@ class EmergencyContactViewmodel with ChangeNotifier {
   bool isStart = false;
   bool isContactNumberFocus = false;
   bool isContactNameNotEmpty = false;
+  String formattedNumber = '';
   bool isContactNumberNotEmpty = false;
   bool isUiFieldsFill = false;
   bool error = false;
@@ -47,7 +48,23 @@ class EmergencyContactViewmodel with ChangeNotifier {
       if ((contactName.isNotEmpty) &&
           (contactNumber.isNotEmpty && contactNumber.length == 10) &&
           (number != null)) {
-        return true;
+        String cleanedNumber = contactNumber.replaceAll(' ', '');
+
+        // Check if the number already starts with +1, if not, add it
+        if (!cleanedNumber.startsWith('+1')) {
+          cleanedNumber = '+1' + cleanedNumber;
+        }
+
+        // Ensure that the number contains exactly 11 digits after +1
+        String digitsOnly = cleanedNumber.replaceAll(
+            RegExp(r'\D'), ''); // Remove non-digit characters
+        if (digitsOnly.length != 11) {
+          return false;
+        } else {
+          formattedNumber =
+              '+1 ${digitsOnly.substring(1, 4)} ${digitsOnly.substring(4, 7)} ${digitsOnly.substring(7, 11)}';
+          return true;
+        }
       } else {
         return false;
       }
@@ -85,7 +102,7 @@ class EmergencyContactViewmodel with ChangeNotifier {
         await validate(contactName: contactName, contactNumber: contactNumber);
     if (validation == true) {
       SignUpGlobalData.contactName = contactName;
-      SignUpGlobalData.contactNumber = contactNumber;
+      SignUpGlobalData.contactNumber = formattedNumber;
       print('Sign Up Completed');
       Navigator.pushAndRemoveUntil(
         context,
