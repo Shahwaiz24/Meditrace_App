@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Services/utils.dart';
+import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 
 class HomeViewmodel with ChangeNotifier {
   String day = '';
@@ -15,8 +15,24 @@ class HomeViewmodel with ChangeNotifier {
   double center_text_opacity = 0.0;
   int selectedBottomBarIndex = 0;
 
-  onBottomBarSelected({required int index}) {
+  onBottomBarSelected({required int index, required BuildContext context}) {
     selectedBottomBarIndex = index;
+    if (selectedBottomBarIndex == 0) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const HomeView()));
+    } else if (selectedBottomBarIndex == 1) {
+      print('Bag View');
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => const BagView()));
+    } else if (selectedBottomBarIndex == 2) {
+      print('Medicine View');
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => const BagView()));
+    } else if (selectedBottomBarIndex == 3) {
+      print('Profile View');
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => const BagView()));
+    }
     notifyListeners();
   }
 

@@ -28,7 +28,10 @@ class _HomeViewState extends State<HomeView> {
 
     return Scaffold(
       backgroundColor: AppColors.ScaffoldColor,
-      bottomNavigationBar: const BottomNavBar(),
+      bottomNavigationBar: BottomNavBar(
+        screenHeight: screenHeight,
+        screenWidth: screenWidth,
+      ),
       body: Padding(
         padding: EdgeInsets.only(
           top: screenHeight * 0.100,
