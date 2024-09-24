@@ -201,6 +201,8 @@ class SignUpViewmodel with ChangeNotifier {
         } else {
           formattedNumber =
               '+1 ${digitsOnly.substring(1, 4)} ${digitsOnly.substring(4, 7)} ${digitsOnly.substring(7, 11)}';
+
+          print("Formated Number ${formattedNumber}");
           return true;
         }
 
