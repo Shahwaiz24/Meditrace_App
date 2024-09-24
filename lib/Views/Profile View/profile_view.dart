@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_is_empty
+
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/bottom_bar.dart';
 import 'package:meditrace_project/Components/button.dart';
+import 'package:meditrace_project/Components/gridview_medicines.dart';
 import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Profile%20View/profile_viewmodel.dart';
@@ -387,9 +390,60 @@ class _ProfileViewState extends State<ProfileView> {
                                 ],
                               ),
                             )),
+                        Consumer(builder: (context, model, child) {
+                          if (UserGlobalData.userMedicines.length >= 4) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: screenHeight * 0.025,
+                                ),
+                                Text(
+                                  'My Medicines',
+                                  style: TextStyle(
+                                      color: AppColors.TextblackColor,
+                                      fontFamily: 'Poppins Semi Bold',
+                                      fontSize: screenHeight * 0.018),
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.025,
+                                ),
+                              ],
+                            );
+                          } else {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: screenHeight * 0.025,
+                                ),
+                                Text(
+                                  'My Medicines',
+                                  style: TextStyle(
+                                      color: AppColors.TextblackColor,
+                                      fontFamily: 'Poppins Semi Bold',
+                                      fontSize: screenHeight * 0.018),
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.025,
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.200,
+                                  child: GridviewMedicines(
+                                      screenHeight: screenHeight,
+                                      screenWidth: screenWidth),
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.025,
+                                ),
+                              ],
+                            );
+                          }
+                        }),
                         Consumer<ProfileViewmodel>(
                             builder: (context, model, child) {
-                          if (SignUpGlobalData.emergencyContacts.length != 0) {
+                          if (UserGlobalData.userEmegerncyContacts.length !=
+                              0) {
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -427,7 +481,7 @@ class _ProfileViewState extends State<ProfileView> {
                                             child: Row(
                                               children: [
                                                 ImageIcon(
-                                                  AssetImage(
+                                                  const AssetImage(
                                                       'assets/images/icon/bottom_bar_icon/profile.png'),
                                                   color: AppColors
                                                       .PrimaryBlueColor,
