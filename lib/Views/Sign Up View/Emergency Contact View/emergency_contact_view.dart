@@ -10,6 +10,8 @@ class EmergencyContactView extends StatelessWidget {
 
   TextEditingController contactNameContrller = TextEditingController();
   TextEditingController contactNumberContrller = TextEditingController();
+  TextEditingController contactNameSecondContrller = TextEditingController();
+  TextEditingController contactNumberSecondContrller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +90,9 @@ class EmergencyContactView extends StatelessWidget {
                     model.isContactNameEmptyCheck(
                         contactName: contactNameContrller.text);
                     model.checkallFields(
+                        isEnable: model.isSecondContactEnable,
+                        secondContactName: contactNameSecondContrller.text,
+                        secondContactNumber: contactNumberSecondContrller.text,
                         contactName: contactNameContrller.text,
                         contactNumber: contactNumberContrller.text);
                   });
@@ -133,9 +138,171 @@ class EmergencyContactView extends StatelessWidget {
                       fontWeight: FontWeight.w500),
                   onChanged: (value) {
                     model.checkallFields(
+                        isEnable: model.isSecondContactEnable,
+                        secondContactName: contactNameSecondContrller.text,
+                        secondContactNumber: contactNumberSecondContrller.text,
                         contactName: contactNameContrller.text,
                         contactNumber: contactNumberContrller.text);
                   });
+            }),
+            SizedBox(
+              height: screenHeight * 0.020,
+            ),
+            Consumer<EmergencyContactViewmodel>(
+                builder: (context, model, child) {
+              if (model.isSecondContactEnable == true) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Contact 2',
+                      style: TextStyle(
+                        color: AppColors.TextblackColor,
+                        fontFamily: 'Poppins Medium',
+                        fontSize: screenHeight * 0.020,
+                      ),
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.020,
+                    ),
+                    Consumer<EmergencyContactViewmodel>(
+                        builder: (context, model, child) {
+                      return TextFields(
+                          controller: contactNameSecondContrller,
+                          enablefillColor: Colors.black,
+                          focusfillColor: model.onSecondContactNameFocus == true
+                              ? AppColors.TextwhiteColor
+                              : model.isSecondContactNameNotEmpty == true
+                                  ? AppColors.TextwhiteColor
+                                  : AppColors.unFocusPrimaryColor
+                                      .withOpacity(0.1),
+                          outlineColor: model.error
+                              ? Colors.red
+                              : AppColors.unFocusPrimaryColor,
+                          radius: screenWidth * 0.020,
+                          isHidden: false,
+                          HintText: model.error
+                              ? "Enter Correct Name"
+                              : 'Contact Name',
+                          hintStyle: TextStyle(
+                            color: model.error
+                                ? Colors.red
+                                : AppColors.unFocusPrimaryColor,
+                            fontFamily: 'Poppins Regular',
+                          ),
+                          Prefix: Text(''),
+                          Suffix: Text(''),
+                          isSuffix: false,
+                          isNumberKeyboard: false,
+                          isPrefix: false,
+                          onFocus: (focus) {
+                            model.onSecondContactNameFocusChange(focus: focus);
+                          },
+                          contentStyle: const TextStyle(
+                              fontFamily: 'Poppins Regular',
+                              fontWeight: FontWeight.w500),
+                          onChanged: (value) {
+                            model.isSecondContactNameEmptyCheck(
+                                secondContactName:
+                                    contactNameSecondContrller.text);
+                            model.checkallFields(
+                                isEnable: model.isSecondContactEnable,
+                                secondContactName:
+                                    contactNameSecondContrller.text,
+                                secondContactNumber:
+                                    contactNumberSecondContrller.text,
+                                contactName: contactNameContrller.text,
+                                contactNumber: contactNumberContrller.text);
+                          });
+                    }),
+                    SizedBox(
+                      height: screenHeight * 0.030,
+                    ),
+                    Consumer<EmergencyContactViewmodel>(
+                        builder: (context, model, child) {
+                      return TextFields(
+                          controller: contactNumberSecondContrller,
+                          enablefillColor: Colors.black,
+                          focusfillColor:
+                              model.onSecondContactNumberFocus == true
+                                  ? AppColors.TextwhiteColor
+                                  : model.isSecondContactNumberNotEmpty == true
+                                      ? AppColors.TextwhiteColor
+                                      : AppColors.unFocusPrimaryColor
+                                          .withOpacity(0.1),
+                          outlineColor: model.error
+                              ? Colors.red
+                              : AppColors.unFocusPrimaryColor,
+                          radius: screenWidth * 0.020,
+                          isHidden: false,
+                          HintText: model.error
+                              ? "Enter Correct Number"
+                              : 'Contact Number',
+                          hintStyle: TextStyle(
+                            color: model.error
+                                ? Colors.red
+                                : AppColors.unFocusPrimaryColor,
+                            fontFamily: 'Poppins Regular',
+                          ),
+                          Prefix: Text(''),
+                          Suffix: Text(''),
+                          isSuffix: false,
+                          isNumberKeyboard: true,
+                          isPrefix: false,
+                          onFocus: (focus) {
+                            model.onSecondContactNumberFocusChange(
+                                focus: focus);
+                          },
+                          contentStyle: const TextStyle(
+                              fontFamily: 'Poppins Regular',
+                              fontWeight: FontWeight.w500),
+                          onChanged: (value) {
+                            model.isSecondContactNumberEmptyCheck(
+                                secondContactNumber:
+                                    contactNumberSecondContrller.text);
+                            model.checkallFields(
+                                isEnable: model.isSecondContactEnable,
+                                secondContactName:
+                                    contactNameSecondContrller.text,
+                                secondContactNumber:
+                                    contactNumberSecondContrller.text,
+                                contactName: contactNameContrller.text,
+                                contactNumber: contactNumberContrller.text);
+                          });
+                    }),
+                  ],
+                );
+              } else {
+                return Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        model.onSecondEnable();
+                      },
+                      child: Icon(
+                        Icons.add_box_rounded,
+                        color: AppColors.PrimaryBlueColor,
+                        size: screenHeight * 0.032,
+                      ),
+                    ),
+                    SizedBox(
+                      width: screenWidth * 0.020,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        model.onSecondEnable();
+                      },
+                      child: Text(
+                        'Add New Contact',
+                        style: TextStyle(
+                            color: AppColors.PrimaryBlueColor,
+                            fontFamily: 'Poppins Medium',
+                            fontSize: screenHeight * 0.018),
+                      ),
+                    )
+                  ],
+                );
+              }
             }),
             const Spacer(),
             Consumer<EmergencyContactViewmodel>(
@@ -149,6 +316,9 @@ class EmergencyContactView extends StatelessWidget {
                         if (model.isUiFieldsFill == true &&
                             model.isStart == false) {
                           model.nextOntap(
+                            isEnable: model.isSecondContactEnable,
+                            secondContactName: contactNameSecondContrller.text,
+                            secondContactNumber: contactNumberSecondContrller.text,
                               context: context,
                               contactName: contactNameContrller.text,
                               contactNumber: contactNumberContrller.text);

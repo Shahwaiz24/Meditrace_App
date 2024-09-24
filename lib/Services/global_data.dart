@@ -6,6 +6,7 @@ class SignUpGlobalData {
   static List<String> chronic = [];
   static String contactName = '';
   static String contactNumber = '';
+  static List emergencyContacts = [];
   static String finalFirstName = "";
   static String finalLastName = "";
   static String finalPhoneNumber = '';
