@@ -316,14 +316,18 @@ class EmergencyContactView extends StatelessWidget {
                         if (model.isUiFieldsFill == true &&
                             model.isStart == false) {
                           model.nextOntap(
-                            isEnable: model.isSecondContactEnable,
-                            secondContactName: contactNameSecondContrller.text,
-                            secondContactNumber: contactNumberSecondContrller.text,
+                              isEnable: model.isSecondContactEnable,
+                              secondContactName:
+                                  contactNameSecondContrller.text,
+                              secondContactNumber:
+                                  contactNumberSecondContrller.text,
                               context: context,
                               contactName: contactNameContrller.text,
                               contactNumber: contactNumberContrller.text);
                           contactNameContrller.clear();
                           contactNumberContrller.clear();
+                          contactNameSecondContrller.clear();
+                          contactNumberSecondContrller.clear();
                         }
                       },
                       child: ButtonComponent(

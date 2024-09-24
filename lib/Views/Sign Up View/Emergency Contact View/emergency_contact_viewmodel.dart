@@ -88,74 +88,75 @@ class EmergencyContactViewmodel with ChangeNotifier {
     }
   }
 
-  validate(
-      {required String contactName,
-      required String secondContactNumber,
-      required bool isEnable,
-      required String contactNumber,
-      required String secondContactName}) {
+  validate({
+    required String contactName,
+    required String secondContactNumber,
+    required bool isEnable,
+    required String contactNumber,
+    required String secondContactName,
+  }) {
     try {
       if (isEnable == true) {
-        final int firstNumber = int.parse(contactNumber);
-        final int secondNumber = int.parse(secondContactNumber);
         if ((secondContactName.isNotEmpty) &&
             (contactNumber.isNotEmpty && contactNumber.length == 10) &&
             (secondContactNumber.isNotEmpty &&
-                secondContactNumber.length == 10) &&
-            (firstNumber != null && secondNumber != null)) {
+                secondContactNumber.length == 10)) {
+          // Clean the contact numbers by removing spaces
           String cleanedNumberOne = contactNumber.replaceAll(' ', '');
-          String cleanedNumberTwo = contactNumber.replaceAll(' ', '');
+          String cleanedNumberTwo = secondContactNumber.replaceAll(' ', '');
 
-          // Check if the number already starts with +1, if not, add it
-          if (!cleanedNumberOne.startsWith('+1') &&
-              !cleanedNumberTwo.startsWith('+1')) {
-            cleanedNumberOne = '+1' + cleanedNumberOne;
-            cleanedNumberTwo = '+1' + cleanedNumberTwo;
-          }
-
-          // Ensure that the number contains exactly 11 digits after +1
+          // Remove non-digit characters
           String digitsOnlyOne = cleanedNumberOne.replaceAll(RegExp(r'\D'), '');
           String digitsOnlyTwo = cleanedNumberTwo.replaceAll(RegExp(r'\D'), '');
-          if (digitsOnlyOne.length != 11 && digitsOnlyTwo.length != 11) {
-            return false;
-          } else {
-            firstContactNumberFormatted =
-                '+1 ${digitsOnlyOne.substring(1, 4)} ${digitsOnlyOne.substring(4, 7)} ${digitsOnlyOne.substring(7, 11)}';
 
-            firstContactNumberFormatted =
-                '+1 ${digitsOnlyTwo.substring(1, 4)} ${digitsOnlyTwo.substring(4, 7)} ${digitsOnlyTwo.substring(7, 11)}';
-            return true;
+          // Check for leading zeros and ensure the number has 10 digits
+          if (digitsOnlyOne.startsWith('0') || digitsOnlyTwo.startsWith('0')) {
+            return false; // Leading zero found
           }
+
+          if (digitsOnlyOne.length != 10 || digitsOnlyTwo.length != 10) {
+            return false; // Must have exactly 10 digits
+          }
+
+          // Format the numbers as +1 XXX XXX XXXX
+          firstContactNumberFormatted =
+              '+1 ${digitsOnlyOne.substring(0, 3)} ${digitsOnlyOne.substring(3, 6)} ${digitsOnlyOne.substring(6, 10)}';
+
+          secondContactNumberFormatted =
+              '+1 ${digitsOnlyTwo.substring(0, 3)} ${digitsOnlyTwo.substring(3, 6)} ${digitsOnlyTwo.substring(6, 10)}';
+
+          return true; // Both numbers are valid
         }
       } else {
-        final int number = int.parse(contactNumber);
-        if ((contactName.isNotEmpty) &&
-            (contactNumber.isNotEmpty && contactNumber.length == 10) &&
-            (number != null)) {
+        if (contactName.isNotEmpty &&
+            contactNumber.isNotEmpty &&
+            contactNumber.length == 10) {
+          // Clean the contact number by removing spaces
           String cleanedNumber = contactNumber.replaceAll(' ', '');
 
-          // Check if the number already starts with +1, if not, add it
-          if (!cleanedNumber.startsWith('+1')) {
-            cleanedNumber = '+1' + cleanedNumber;
+          // Remove non-digit characters
+          String digitsOnly = cleanedNumber.replaceAll(RegExp(r'\D'), '');
+
+          // Check for leading zero and ensure the number has 10 digits
+          if (digitsOnly.startsWith('0')) {
+            return false; // Leading zero found
           }
 
-          // Ensure that the number contains exactly 11 digits after +1
-          String digitsOnly = cleanedNumber.replaceAll(
-              RegExp(r'\D'), ''); // Remove non-digit characters
-          if (digitsOnly.length != 11) {
-            return false;
-          } else {
-            formattedNumber =
-                '+1 ${digitsOnly.substring(1, 4)} ${digitsOnly.substring(4, 7)} ${digitsOnly.substring(7, 11)}';
-            return true;
+          if (digitsOnly.length != 10) {
+            return false; // Must have exactly 10 digits
           }
+
+          // Format the number as +1 XXX XXX XXXX
+          formattedNumber =
+              '+1 ${digitsOnly.substring(0, 3)} ${digitsOnly.substring(3, 6)} ${digitsOnly.substring(6, 10)}';
+
+          return true; // Valid number
         } else {
-          return false;
+          return false; // Invalid input data
         }
       }
     } on Exception catch (e) {
-      print('Erorr Parsing Number ${e}');
-
+      print('Error Parsing Number: $e');
       return false;
     }
   }
@@ -205,6 +206,9 @@ class EmergencyContactViewmodel with ChangeNotifier {
       SignUpGlobalData.emergencyContacts.add(firstContact);
       SignUpGlobalData.emergencyContacts.add(SecondContact);
 
+      print(
+          'First Number : ${firstContactNumberFormatted} | Second Number : ${secondContactNumberFormatted}');
+
       print('Api Work Here for 2 Emergency Contacts');
       print('Sign Up Completed');
       Navigator.pushAndRemoveUntil(
@@ -220,14 +224,13 @@ class EmergencyContactViewmodel with ChangeNotifier {
       isStart = false;
 
       notifyListeners();
-    } 
-    else if(validation == true && isEnable != true){
-       Map<String, dynamic> contact = {
+    } else if (validation == true && isEnable != true) {
+      Map<String, dynamic> contact = {
         "contact_name": contactName,
         "contact_number": formattedNumber,
       };
-            SignUpGlobalData.emergencyContacts.add(contact);
-
+      SignUpGlobalData.emergencyContacts.add(contact);
+      print('Number Formated : ${formattedNumber}');
 
       print('Api Work Here for One Emergency Contact');
       print('Sign Up Completed');
@@ -244,11 +247,18 @@ class EmergencyContactViewmodel with ChangeNotifier {
       isStart = false;
 
       notifyListeners();
-    }
-    else {
+    } else {
       isStart = false;
       isUiFieldsFill = false;
       error = true;
+      isContactNameFocus = false;
+      isContactNameNotEmpty = false;
+      isContactNumberFocus = false;
+      isContactNumberNotEmpty = false;
+      onSecondContactNameFocus = false;
+      onSecondContactNumberFocus = false;
+      isSecondContactNameNotEmpty = false;
+      isSecondContactNumberNotEmpty = false;
       notifyListeners();
       await Future.delayed(Duration(seconds: 4));
       error = false;
