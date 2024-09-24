@@ -215,7 +215,7 @@ class EmergencyContactViewmodel with ChangeNotifier {
         context,
         MaterialPageRoute(
             builder: (context) => const SignupCompletedView(
-                  isError: true,
+                  isError: false,
                 )),
         (Route<dynamic> route) => false,
       );
@@ -238,7 +238,7 @@ class EmergencyContactViewmodel with ChangeNotifier {
         context,
         MaterialPageRoute(
             builder: (context) => const SignupCompletedView(
-                  isError: true,
+                  isError: false,
                 )),
         (Route<dynamic> route) => false,
       );

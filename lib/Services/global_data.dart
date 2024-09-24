@@ -23,5 +23,8 @@ class UserGlobalData {
   static String userFirstName = '';
   static String userLastName = '';
   static List userBag = [];
+  static List userEmegerncyContacts = [];
+  static List userMedicines = [];
+
   // static String user
 }
