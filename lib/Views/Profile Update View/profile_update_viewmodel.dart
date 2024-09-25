@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Components/bottom_sheet.dart';
 
 class ProfileUpdateViewmodel with ChangeNotifier {
   bool isFocusFirstName = false;
@@ -11,6 +12,19 @@ class ProfileUpdateViewmodel with ChangeNotifier {
   bool isEmailNotEmpty = false;
   bool isPhoneNotEmpty = false;
   bool isDateofBirthNotEmpty = false;
+  bool allFieldFill = false;
+
+  void showCustomBottomSheet(BuildContext context,{required double screenHeight,required double screenWidth}){
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // Allows the bottom sheet to take full height
+      backgroundColor: Colors.transparent, // To see the rounded corners effect
+      builder: (context) =>  CustomBottomSheet(screenHeight: screenHeight,screenWidth: screenWidth,),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+    );
+  }
 
   void onFirstNameFocusChange(bool hasFocus) {
     isFocusFirstName = hasFocus;
@@ -98,6 +112,26 @@ class ProfileUpdateViewmodel with ChangeNotifier {
     } else {
       isDateofBirthNotEmpty = true;
       print("Email : ${birth} | Bool : ${isDateofBirthNotEmpty}");
+      notifyListeners();
+    }
+  }
+
+  void checkFields(
+      {required String birth,
+      required String firstName,
+      required String lastName,
+      required String email,
+      required String phone}) {
+    if ((birth.isNotEmpty) &&
+        (firstName.isNotEmpty) &&
+        (lastName.isNotEmpty) &&
+        (email.isNotEmpty) &&
+        (email.contains('@') && email.contains(".com")) &&
+        (phone.isNotEmpty && phone.length == 10)) {
+      allFieldFill = true;
+      notifyListeners();
+    } else {
+      allFieldFill = false;
       notifyListeners();
     }
   }

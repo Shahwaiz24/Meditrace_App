@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Components/text_fields.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Profile%20Update%20View/profile_update_viewmodel.dart';
@@ -16,8 +17,8 @@ class ProfileUpdateView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<ProfileUpdateViewmodel>(context, listen: false);
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.ScaffoldColor,
@@ -65,11 +66,17 @@ class ProfileUpdateView extends StatelessWidget {
               height: screenHeight * 0.035,
             ),
             Center(
-              child: Container(
-                decoration: const BoxDecoration(shape: BoxShape.circle),
-                child: CircleAvatar(
-                  maxRadius: screenHeight * 0.060,
-                  backgroundColor: Colors.black,
+              child: InkWell(
+                onTap: () {
+                  model.showCustomBottomSheet(context,
+                      screenHeight: screenHeight, screenWidth: screenWidth);
+                },
+                child: Container(
+                  decoration: const BoxDecoration(shape: BoxShape.circle),
+                  child: CircleAvatar(
+                    maxRadius: screenHeight * 0.060,
+                    backgroundColor: Colors.black,
+                  ),
                 ),
               ),
             ),
@@ -133,12 +140,13 @@ class ProfileUpdateView extends StatelessWidget {
                   isNumberKeyboard: false,
                   isPrefix: true,
                   onChanged: (value) {
-                    model.checkFirstNameEmpty(
-                        firstName: firstName.text);
-                    // model.checkallFields(
-                    //   firstName: firstNameController.text,
-                    //   lastName: lastNameController.text,
-                    // );
+                    model.checkFirstNameEmpty(firstName: firstName.text);
+                    model.checkFields(
+                        birth: dateofBirth.text,
+                        firstName: firstName.text,
+                        lastName: lastName.text,
+                        email: email.text,
+                        phone: phone.text);
                   });
             }),
             SizedBox(
@@ -189,12 +197,13 @@ class ProfileUpdateView extends StatelessWidget {
                   isNumberKeyboard: false,
                   isPrefix: true,
                   onChanged: (value) {
-                    model.checkLastNameEmpty(
-                        lastName: lastName.text);
-                    // model.checkallFields(
-                    //   firstName: firstNameController.text,
-                    //   lastName: lastNameController.text,
-                    // );
+                    model.checkLastNameEmpty(lastName: lastName.text);
+                    model.checkFields(
+                        birth: dateofBirth.text,
+                        firstName: firstName.text,
+                        lastName: lastName.text,
+                        email: email.text,
+                        phone: phone.text);
                   });
             }),
             SizedBox(
@@ -244,12 +253,13 @@ class ProfileUpdateView extends StatelessWidget {
                   isNumberKeyboard: false,
                   isPrefix: true,
                   onChanged: (value) {
-                    model.checkEmailEmpty(
-                        email: email.text);
-                    // model.checkallFields(
-                    //   firstName: firstNameController.text,
-                    //   lastName: lastNameController.text,
-                    // );
+                    model.checkEmailEmpty(email: email.text);
+                    model.checkFields(
+                        birth: dateofBirth.text,
+                        firstName: firstName.text,
+                        lastName: lastName.text,
+                        email: email.text,
+                        phone: phone.text);
                   });
             }),
 
@@ -300,12 +310,13 @@ class ProfileUpdateView extends StatelessWidget {
                   isNumberKeyboard: true,
                   isPrefix: true,
                   onChanged: (value) {
-                    model.checkPhoneEmpty(
+                    model.checkPhoneEmpty(phone: phone.text);
+                    model.checkFields(
+                        birth: dateofBirth.text,
+                        firstName: firstName.text,
+                        lastName: lastName.text,
+                        email: email.text,
                         phone: phone.text);
-                    // model.checkallFields(
-                    //   firstName: firstNameController.text,
-                    //   lastName: lastNameController.text,
-                    // );
                   });
             }),
 
@@ -357,14 +368,60 @@ class ProfileUpdateView extends StatelessWidget {
                   isNumberKeyboard: false,
                   isPrefix: true,
                   onChanged: (value) {
-                    model.checkdateBirthEmpty(
-                        birth: dateofBirth.text);
-                    // model.checkallFields(
-                    //   firstName: firstNameController.text,
-                    //   lastName: lastNameController.text,
-                    // );
+                    model.checkdateBirthEmpty(birth: dateofBirth.text);
+                    model.checkFields(
+                        birth: dateofBirth.text,
+                        firstName: firstName.text,
+                        lastName: lastName.text,
+                        email: email.text,
+                        phone: phone.text);
                   });
             }),
+            const Spacer(),
+            Consumer<ProfileUpdateViewmodel>(builder: (context, model, child) {
+              return Padding(
+                padding: EdgeInsets.only(bottom: screenHeight * 0.030),
+                child: InkWell(
+                  onTap: () {
+                    if (model.allFieldFill == true) {}
+                  },
+                  child: ButtonComponent(
+                      screenHeight: screenHeight,
+                      screenWidth: screenWidth,
+                      ButtonHeight: 0.080,
+                      decoration: BoxDecoration(
+                          color: model.allFieldFill == true
+                              ? AppColors.PrimaryBlueColor
+                              : AppColors.unFocusPrimaryColor,
+                          borderRadius:
+                              BorderRadius.circular(screenWidth * 0.080)),
+                      child: Center(
+                        child: Text(
+                          'Save Changes',
+                          style: TextStyle(
+                              color: AppColors.TextwhiteColor,
+                              fontFamily: 'Poppins Semi Bold',
+                              fontSize: screenHeight * 0.020),
+                        ),
+                      )),
+                ),
+              );
+            }),
+
+            // Padding(
+            //     padding: EdgeInsets.only(
+            //         bottom: screenHeight * 0.030,
+            //         left: screenWidth * 0.040,
+            //         right: screenWidth * 0.040),
+            //     child: ButtonComponent(
+            //       screenHeight: screenHeight,
+            //       screenWidth: screenWidth,
+            //       ButtonHeight: 0.080,
+            //       decoration: BoxDecoration(
+            //           color: AppColors.PrimaryBlueColor,
+            //           borderRadius: BorderRadius.circular(screenWidth * 0.080)),
+            //       child: Center(),
+            //     ))
           ],
         ),
       ),
