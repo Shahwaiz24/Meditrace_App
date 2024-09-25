@@ -390,56 +390,6 @@ class _ProfileViewState extends State<ProfileView> {
                                 ],
                               ),
                             )),
-                        Consumer(builder: (context, model, child) {
-                          if (UserGlobalData.userMedicines.length >= 4) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: screenHeight * 0.025,
-                                ),
-                                Text(
-                                  'My Medicines',
-                                  style: TextStyle(
-                                      color: AppColors.TextblackColor,
-                                      fontFamily: 'Poppins Semi Bold',
-                                      fontSize: screenHeight * 0.018),
-                                ),
-                                SizedBox(
-                                  height: screenHeight * 0.025,
-                                ),
-                              ],
-                            );
-                          } else {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: screenHeight * 0.025,
-                                ),
-                                Text(
-                                  'My Medicines',
-                                  style: TextStyle(
-                                      color: AppColors.TextblackColor,
-                                      fontFamily: 'Poppins Semi Bold',
-                                      fontSize: screenHeight * 0.018),
-                                ),
-                                SizedBox(
-                                  height: screenHeight * 0.025,
-                                ),
-                                SizedBox(
-                                  height: screenHeight * 0.200,
-                                  child: GridviewMedicines(
-                                      screenHeight: screenHeight,
-                                      screenWidth: screenWidth),
-                                ),
-                                SizedBox(
-                                  height: screenHeight * 0.025,
-                                ),
-                              ],
-                            );
-                          }
-                        }),
                         Consumer<ProfileViewmodel>(
                             builder: (context, model, child) {
                           if (UserGlobalData.userEmegerncyContacts.length !=
