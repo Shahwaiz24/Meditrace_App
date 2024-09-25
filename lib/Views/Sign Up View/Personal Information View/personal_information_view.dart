@@ -139,7 +139,9 @@ class PersonalInformationView extends StatelessWidget {
                       lastName: lastNameController.text,
                     );
                   });
-            }),
+
+
+}),
             SizedBox(
               height: screenHeight * 0.020,
             ),

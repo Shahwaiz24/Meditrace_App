@@ -48,6 +48,6 @@ class ProfileViewmodel with ChangeNotifier {
 
   navigateToUpdateProfile({required BuildContext context}) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const ProfileUpdateView()));
+        context, MaterialPageRoute(builder: (context) =>  ProfileUpdateView()));
   }
 }
