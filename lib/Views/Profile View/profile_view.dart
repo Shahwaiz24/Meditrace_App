@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/bottom_bar.dart';
 import 'package:meditrace_project/Components/button.dart';
-import 'package:meditrace_project/Components/gridview_medicines.dart';
 import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Profile%20View/profile_viewmodel.dart';
@@ -592,10 +591,10 @@ class _ProfileViewState extends State<ProfileView> {
                                 ),
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: screenWidth * 0.100),
+                                      horizontal: screenWidth * 0.085),
                                   child: Center(
                                     child: Text(
-                                      'Settings',
+                                      'Edit Profile',
                                       style: TextStyle(
                                         color: AppColors.TextwhiteColor,
                                         fontFamily: 'Poppins Semi Bold',
@@ -627,10 +626,10 @@ class _ProfileViewState extends State<ProfileView> {
                                 ),
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: screenWidth * 0.100),
+                                      horizontal: screenWidth * 0.120),
                                   child: Center(
                                     child: Text(
-                                      'Settings',
+                                      'About',
                                       style: TextStyle(
                                         color: AppColors.TextwhiteColor,
                                         fontFamily: 'Poppins Semi Bold',
@@ -651,10 +650,10 @@ class _ProfileViewState extends State<ProfileView> {
                                 ),
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: screenWidth * 0.100),
+                                      horizontal: screenWidth * 0.120),
                                   child: Center(
                                     child: Text(
-                                      'Settings',
+                                      'Logout',
                                       style: TextStyle(
                                         color: AppColors.TextwhiteColor,
                                         fontFamily: 'Poppins Semi Bold',
