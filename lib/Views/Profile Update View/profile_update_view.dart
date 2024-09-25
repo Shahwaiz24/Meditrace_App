@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Components/text_fields.dart';
+import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Profile%20Update%20View/profile_update_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -49,7 +50,14 @@ class ProfileUpdateView extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            lastName.clear();
+                            firstName.clear();
+                            phone.clear();
+                            dateofBirth.clear();
+                            email.clear();
+                            model.navigateToback(context: context);
+                          },
                           child: Icon(
                             size: screenHeight * 0.030,
                             Icons.arrow_back_ios_new,
@@ -74,9 +82,21 @@ class ProfileUpdateView extends StatelessWidget {
                 child: Container(
                   decoration: const BoxDecoration(shape: BoxShape.circle),
                   child: CircleAvatar(
-                    maxRadius: screenHeight * 0.060,
-                    backgroundColor: Colors.black,
-                  ),
+                      maxRadius: screenHeight * 0.060,
+                      backgroundColor: Colors.white,
+                      child: UserGlobalData.userProfilePhoto.isEmpty
+                          ? ImageIcon(
+                              AssetImage(
+                                'assets/images/icon/bottom_bar_icon/profile.png',
+                              ),
+                              size: screenHeight * 0.04,
+                              color: AppColors.PrimaryBlueColor,
+                            )
+                          : Image(
+                              image:
+                                  NetworkImage(UserGlobalData.userProfilePhoto),
+                              fit: BoxFit.cover,
+                            )),
                 ),
               ),
             ),

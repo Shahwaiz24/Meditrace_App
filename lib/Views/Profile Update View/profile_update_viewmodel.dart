@@ -13,13 +13,25 @@ class ProfileUpdateViewmodel with ChangeNotifier {
   bool isPhoneNotEmpty = false;
   bool isDateofBirthNotEmpty = false;
   bool allFieldFill = false;
+  navigateToback({required BuildContext context}) {
+    isFirstNameNotEmpty = false;
+    isLastNameNotEmpty = false;
+    isDateofBirthNotEmpty = false;
+    isPhoneNotEmpty = false;
+    allFieldFill = false;
+    Navigator.pop(context);
+  }
 
-  void showCustomBottomSheet(BuildContext context,{required double screenHeight,required double screenWidth}){
+  void showCustomBottomSheet(BuildContext context,
+      {required double screenHeight, required double screenWidth}) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true, // Allows the bottom sheet to take full height
       backgroundColor: Colors.transparent, // To see the rounded corners effect
-      builder: (context) =>  CustomBottomSheet(screenHeight: screenHeight,screenWidth: screenWidth,),
+      builder: (context) => CustomBottomSheet(
+        screenHeight: screenHeight,
+        screenWidth: screenWidth,
+      ),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),

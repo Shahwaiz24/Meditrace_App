@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/bottom_bar.dart';
+import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Bag%20View/bag_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -49,9 +50,27 @@ class BagView extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                const CircleAvatar(
-                  backgroundColor: Colors.black,
-                ),
+                InkWell(
+                  onTap: () {
+                    model.onAvatarClick(context: context);
+                  },
+                  child: CircleAvatar(
+                      maxRadius: screenHeight * 0.030,
+                      backgroundColor: Colors.white,
+                      child: UserGlobalData.userProfilePhoto.isEmpty
+                          ? ImageIcon(
+                              AssetImage(
+                                'assets/images/icon/bottom_bar_icon/profile.png',
+                              ),
+                              size: screenHeight * 0.03,
+                              color: AppColors.PrimaryBlueColor,
+                            )
+                          : Image(
+                              image:
+                                  NetworkImage(UserGlobalData.userProfilePhoto),
+                              fit: BoxFit.cover,
+                            )),
+                )
               ],
             ),
             SizedBox(

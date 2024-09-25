@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Home%20View/home_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +22,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
     return Consumer<HomeViewmodel>(builder: (context, model, child) {
       return BottomNavigationBar(
-        currentIndex: model.selectedBottomBarIndex,
+        currentIndex: UserGlobalData.selectedBottomBarIndex,
         onTap: (index) {
           model.onBottomBarSelected(index: index, context: context);
         },
@@ -33,7 +34,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         showUnselectedLabels: false, // Hides labels
         items: [
           BottomNavigationBarItem(
-            icon: model.selectedBottomBarIndex == 0
+            icon: UserGlobalData.selectedBottomBarIndex == 0
                 ? ImageIcon(
                     const AssetImage(
                         'assets/images/icon/bottom_bar_icon/home_active.png'),
@@ -47,7 +48,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: model.selectedBottomBarIndex == 1
+            icon: UserGlobalData.selectedBottomBarIndex == 1
                 ? ImageIcon(
                     const AssetImage(
                         'assets/images/icon/bottom_bar_icon/medical_bag_active.png'),
@@ -61,7 +62,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: model.selectedBottomBarIndex == 2
+            icon: UserGlobalData.selectedBottomBarIndex == 2
                 ? ImageIcon(
                     const AssetImage(
                         'assets/images/icon/bottom_bar_icon/medicine_active.png'),
@@ -75,7 +76,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: model.selectedBottomBarIndex == 3
+            icon: UserGlobalData.selectedBottomBarIndex == 3
                 ? ImageIcon(
                     const AssetImage(
                         'assets/images/icon/bottom_bar_icon/profile_active.png'),

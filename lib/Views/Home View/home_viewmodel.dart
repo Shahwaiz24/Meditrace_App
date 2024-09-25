@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meditrace_project/Components/button.dart';
+import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Bag%20View/bag_view.dart';
 import 'package:meditrace_project/Views/Home%20View/home_view.dart';
@@ -16,11 +17,19 @@ class HomeViewmodel with ChangeNotifier {
   double medicines_text_opacity = 0.0;
   double progress_text_opacity = 0.0;
   double center_text_opacity = 0.0;
-  int selectedBottomBarIndex = 0;
+
+  onAvatarClick({required BuildContext context}) {
+    UserGlobalData.selectedBottomBarIndex = 3;
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const ProfileView()),
+      (Route<dynamic> route) => false,
+    );
+  }
 
   onBottomBarSelected({required int index, required BuildContext context}) {
-    selectedBottomBarIndex = index;
-    if (selectedBottomBarIndex == 0) {
+    UserGlobalData.selectedBottomBarIndex = index;
+    if (UserGlobalData.selectedBottomBarIndex == 0) {
       showContainer = false;
       containerOpacity = 0.0;
       medicines_text_opacity = 0.0;
@@ -29,15 +38,15 @@ class HomeViewmodel with ChangeNotifier {
       progressValue = 0.0;
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const HomeView()));
-    } else if (selectedBottomBarIndex == 1) {
+    } else if (UserGlobalData.selectedBottomBarIndex == 1) {
       print('Bag View');
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const BagView()));
-    } else if (selectedBottomBarIndex == 2) {
+    } else if (UserGlobalData.selectedBottomBarIndex == 2) {
       print('Medicine View');
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => const MedicineView()));
-    } else if (selectedBottomBarIndex == 3) {
+    } else if (UserGlobalData.selectedBottomBarIndex == 3) {
       print('Profile View');
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => const ProfileView()));
@@ -58,28 +67,27 @@ class HomeViewmodel with ChangeNotifier {
   }
 
   // Trigger the fade-in effect and start the progress animation
-  void triggerFadeInAnimation() {
+  void triggerFadeInAnimation() async {
     print('Start Animatiion');
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(const Duration(seconds: 2), () {
-        showContainer = true;
-      });
 
-      await Future.delayed(const Duration(milliseconds: 100), () {
-        containerOpacity = 1.0;
-        startProgressAnimation();
-      });
-      await Future.delayed(const Duration(seconds: 1), () {
-        medicines_text_opacity = 1.0;
-      });
-      await Future.delayed(const Duration(seconds: 1), () {
-        progress_text_opacity = 1.0;
-        notifyListeners();
-      });
-      await Future.delayed(const Duration(seconds: 1), () {
-        center_text_opacity = 1.0;
-        notifyListeners();
-      });
+    await Future.delayed(const Duration(seconds: 1), () {
+      showContainer = true;
+    });
+
+    await Future.delayed(const Duration(milliseconds: 100), () {
+      containerOpacity = 1.0;
+      startProgressAnimation();
+    });
+    await Future.delayed(const Duration(seconds: 1), () {
+      medicines_text_opacity = 1.0;
+    });
+    await Future.delayed(const Duration(seconds: 1), () {
+      progress_text_opacity = 1.0;
+      notifyListeners();
+    });
+    await Future.delayed(const Duration(seconds: 1), () {
+      center_text_opacity = 1.0;
+      notifyListeners();
     });
   }
 

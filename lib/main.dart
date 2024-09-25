@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: ProfileView(),
+        home: HomeView(),
       ),
     );
   }

@@ -98,9 +98,22 @@ class _ProfileViewState extends State<ProfileView> {
                                         width: screenWidth * 0.005),
                                     shape: BoxShape.circle),
                                 child: CircleAvatar(
-                                  maxRadius: screenHeight * 0.070,
-                                  backgroundColor: Colors.black,
-                                ),
+                                    maxRadius: screenHeight * 0.060,
+                                    backgroundColor: Colors.white,
+                                    child: UserGlobalData
+                                            .userProfilePhoto.isEmpty
+                                        ? ImageIcon(
+                                            AssetImage(
+                                              'assets/images/icon/bottom_bar_icon/profile.png',
+                                            ),
+                                            size: screenHeight * 0.04,
+                                            color: AppColors.PrimaryBlueColor,
+                                          )
+                                        : Image(
+                                            image: NetworkImage(UserGlobalData
+                                                .userProfilePhoto),
+                                            fit: BoxFit.cover,
+                                          )),
                               ),
                               SizedBox(
                                 height: screenHeight * 0.020,

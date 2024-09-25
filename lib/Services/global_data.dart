@@ -18,10 +18,13 @@ class SignUpGlobalData {
 }
 // User Global Data After SignUp or Login //
 
+
 class UserGlobalData {
+  static int selectedBottomBarIndex = 0;
   static bool userHomePageCheck = false;
   static String userFirstName = '';
   static String userLastName = '';
+  static String userProfilePhoto = '';
   static List userBag = [];
   static List userEmegerncyContacts = [];
   static List userMedicines = [];
