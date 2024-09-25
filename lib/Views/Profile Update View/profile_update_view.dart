@@ -9,6 +9,9 @@ class ProfileUpdateView extends StatelessWidget {
 
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  TextEditingController dateofBirth = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +93,7 @@ class ProfileUpdateView extends StatelessWidget {
                   onFocus: (value) {
                     model.onFirstNameFocusChange(value);
                   },
-                  controller: lastName,
+                  controller: firstName,
                   enablefillColor: Colors.black,
                   focusfillColor: model.isFocusFirstName == true
                       ? AppColors.TextwhiteColor
@@ -105,17 +108,33 @@ class ProfileUpdateView extends StatelessWidget {
                     color: AppColors.unFocusPrimaryColor,
                     fontFamily: 'Poppins Regular',
                   ),
-                  Prefix: const Text(''),
+                  Prefix: model.isFocusFirstName == true
+                      ? ImageIcon(
+                          const AssetImage(
+                              "assets/images/icon/bottom_bar_icon/profile.png"),
+                          color: AppColors.TextblackColor,
+                        )
+                      : model.isFirstNameNotEmpty == true
+                          ? ImageIcon(
+                              const AssetImage(
+                                  "assets/images/icon/bottom_bar_icon/profile.png"),
+                              color: AppColors.TextblackColor,
+                            )
+                          : ImageIcon(
+                              const AssetImage(
+                                  "assets/images/icon/bottom_bar_icon/profile.png"),
+                              color: AppColors.unFocusPrimaryColor,
+                            ),
                   Suffix: const Text(''),
                   contentStyle: const TextStyle(
                       fontFamily: 'Poppins Regular',
                       fontWeight: FontWeight.w500),
                   isSuffix: false,
                   isNumberKeyboard: false,
-                  isPrefix: false,
+                  isPrefix: true,
                   onChanged: (value) {
-                    // model.checkFirstNameEmpty(
-                    //     firstName: firstNameController.text);
+                    model.checkFirstNameEmpty(
+                        firstName: firstName.text);
                     // model.checkallFields(
                     //   firstName: firstNameController.text,
                     //   lastName: lastNameController.text,
@@ -145,17 +164,33 @@ class ProfileUpdateView extends StatelessWidget {
                     color: AppColors.unFocusPrimaryColor,
                     fontFamily: 'Poppins Regular',
                   ),
-                  Prefix: const Text(''),
+                  Prefix: model.isFocusLastName == true
+                      ? ImageIcon(
+                          const AssetImage(
+                              "assets/images/icon/bottom_bar_icon/profile.png"),
+                          color: AppColors.TextblackColor,
+                        )
+                      : model.isLastNameNotEmpty == true
+                          ? ImageIcon(
+                              const AssetImage(
+                                  "assets/images/icon/bottom_bar_icon/profile.png"),
+                              color: AppColors.TextblackColor,
+                            )
+                          : ImageIcon(
+                              const AssetImage(
+                                  "assets/images/icon/bottom_bar_icon/profile.png"),
+                              color: AppColors.unFocusPrimaryColor,
+                            ),
                   Suffix: const Text(''),
                   contentStyle: const TextStyle(
                       fontFamily: 'Poppins Regular',
                       fontWeight: FontWeight.w500),
                   isSuffix: false,
                   isNumberKeyboard: false,
-                  isPrefix: false,
+                  isPrefix: true,
                   onChanged: (value) {
-                    // model.checkFirstNameEmpty(
-                    //     firstName: firstNameController.text);
+                    model.checkLastNameEmpty(
+                        lastName: lastName.text);
                     // model.checkallFields(
                     //   firstName: firstNameController.text,
                     //   lastName: lastNameController.text,
@@ -170,7 +205,7 @@ class ProfileUpdateView extends StatelessWidget {
                   onFocus: (value) {
                     model.onEmailFocusChange(value);
                   },
-                  controller: firstName,
+                  controller: email,
                   enablefillColor: Colors.black,
                   focusfillColor: model.isFocusEmail == true
                       ? AppColors.TextwhiteColor
@@ -185,17 +220,32 @@ class ProfileUpdateView extends StatelessWidget {
                     color: AppColors.unFocusPrimaryColor,
                     fontFamily: 'Poppins Regular',
                   ),
-                  Prefix: const Text(''),
+                  Prefix: model.isFocusEmail == true
+                      ? ImageIcon(
+                          const AssetImage("assets/images/icon/email_icon.png"),
+                          color: AppColors.TextblackColor,
+                        )
+                      : model.isEmailNotEmpty == true
+                          ? ImageIcon(
+                              const AssetImage(
+                                  "assets/images/icon/email_icon.png"),
+                              color: AppColors.TextblackColor,
+                            )
+                          : ImageIcon(
+                              const AssetImage(
+                                  "assets/images/icon/email_icon.png"),
+                              color: AppColors.unFocusPrimaryColor,
+                            ),
                   Suffix: const Text(''),
                   contentStyle: const TextStyle(
                       fontFamily: 'Poppins Regular',
                       fontWeight: FontWeight.w500),
                   isSuffix: false,
                   isNumberKeyboard: false,
-                  isPrefix: false,
+                  isPrefix: true,
                   onChanged: (value) {
-                    // model.checkFirstNameEmpty(
-                    //     firstName: firstNameController.text);
+                    model.checkEmailEmpty(
+                        email: email.text);
                     // model.checkallFields(
                     //   firstName: firstNameController.text,
                     //   lastName: lastNameController.text,
@@ -211,7 +261,7 @@ class ProfileUpdateView extends StatelessWidget {
                   onFocus: (value) {
                     model.onPhoneFocusChange(value);
                   },
-                  controller: firstName,
+                  controller: phone,
                   enablefillColor: Colors.black,
                   focusfillColor: model.isFocusPhone == true
                       ? AppColors.TextwhiteColor
@@ -226,17 +276,32 @@ class ProfileUpdateView extends StatelessWidget {
                     color: AppColors.unFocusPrimaryColor,
                     fontFamily: 'Poppins Regular',
                   ),
-                  Prefix: const Text(''),
+                  Prefix: model.isFocusPhone == true
+                      ? ImageIcon(
+                          const AssetImage("assets/images/icon/phone_icon.png"),
+                          color: AppColors.TextblackColor,
+                        )
+                      : model.isPhoneNotEmpty == true
+                          ? ImageIcon(
+                              const AssetImage(
+                                  "assets/images/icon/phone_icon.png"),
+                              color: AppColors.TextblackColor,
+                            )
+                          : ImageIcon(
+                              const AssetImage(
+                                  "assets/images/icon/phone_icon.png"),
+                              color: AppColors.unFocusPrimaryColor,
+                            ),
                   Suffix: const Text(''),
                   contentStyle: const TextStyle(
                       fontFamily: 'Poppins Regular',
                       fontWeight: FontWeight.w500),
                   isSuffix: false,
                   isNumberKeyboard: true,
-                  isPrefix: false,
+                  isPrefix: true,
                   onChanged: (value) {
-                    // model.checkFirstNameEmpty(
-                    //     firstName: firstNameController.text);
+                    model.checkPhoneEmpty(
+                        phone: phone.text);
                     // model.checkallFields(
                     //   firstName: firstNameController.text,
                     //   lastName: lastNameController.text,
@@ -252,7 +317,7 @@ class ProfileUpdateView extends StatelessWidget {
                   onFocus: (value) {
                     model.onDateOfBirthFocusChange(value);
                   },
-                  controller: firstName,
+                  controller: dateofBirth,
                   enablefillColor: Colors.black,
                   focusfillColor: model.isFocusDateofBirth == true
                       ? AppColors.TextwhiteColor
@@ -267,17 +332,33 @@ class ProfileUpdateView extends StatelessWidget {
                     color: AppColors.unFocusPrimaryColor,
                     fontFamily: 'Poppins Regular',
                   ),
-                  Prefix: const Text(''),
+                  Prefix: model.isFocusDateofBirth == true
+                      ? ImageIcon(
+                          const AssetImage(
+                              "assets/images/icon/calendar_icon.png"),
+                          color: AppColors.TextblackColor,
+                        )
+                      : model.isDateofBirthNotEmpty == true
+                          ? ImageIcon(
+                              const AssetImage(
+                                  "assets/images/icon/calendar_icon.png"),
+                              color: AppColors.TextblackColor,
+                            )
+                          : ImageIcon(
+                              const AssetImage(
+                                  "assets/images/icon/calendar_icon.png"),
+                              color: AppColors.unFocusPrimaryColor,
+                            ),
                   Suffix: const Text(''),
                   contentStyle: const TextStyle(
                       fontFamily: 'Poppins Regular',
                       fontWeight: FontWeight.w500),
                   isSuffix: false,
                   isNumberKeyboard: false,
-                  isPrefix: false,
+                  isPrefix: true,
                   onChanged: (value) {
-                    // model.checkFirstNameEmpty(
-                    //     firstName: firstNameController.text);
+                    model.checkdateBirthEmpty(
+                        birth: dateofBirth.text);
                     // model.checkallFields(
                     //   firstName: firstNameController.text,
                     //   lastName: lastNameController.text,
