@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:meditrace_project/Views/Profile%20Update%20View/profile_update_view.dart';
 
 class ProfileViewmodel with ChangeNotifier {
   bool isLoading = false;
@@ -45,5 +46,8 @@ class ProfileViewmodel with ChangeNotifier {
     notifyListeners();
   }
 
-  
+  navigateToUpdateProfile({required BuildContext context}) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const ProfileUpdateView()));
+  }
 }

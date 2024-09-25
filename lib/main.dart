@@ -4,6 +4,7 @@ import 'package:meditrace_project/Views/Bag%20View/bag_viewmodel.dart';
 import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 import 'package:meditrace_project/Views/Home%20View/home_viewmodel.dart';
 import 'package:meditrace_project/Views/Medicine%20View/medicine_viewmodel.dart';
+import 'package:meditrace_project/Views/Profile%20Update%20View/profile_update_viewmodel.dart';
 import 'package:meditrace_project/Views/Profile%20View/profile_view.dart';
 import 'package:meditrace_project/Views/Profile%20View/profile_viewmodel.dart';
 import 'package:meditrace_project/Views/Sign%20In%20View/signin_viewmodel.dart';
@@ -43,6 +44,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => HomeViewmodel()),
         ChangeNotifierProvider(create: (_) => MedicineViewmodel()),
         ChangeNotifierProvider(create: (_) => ProfileViewmodel()),
+        ChangeNotifierProvider(create: (_) => ProfileUpdateViewmodel()),
+
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
