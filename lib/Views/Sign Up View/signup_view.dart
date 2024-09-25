@@ -69,6 +69,7 @@ class SignupView extends StatelessWidget {
                 ),
               ],
             ),
+          
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
