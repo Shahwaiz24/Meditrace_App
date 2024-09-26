@@ -7,6 +7,7 @@ import 'package:meditrace_project/Views/Medicine%20View/medicine_viewmodel.dart'
 import 'package:meditrace_project/Views/Profile%20Update%20View/profile_update_viewmodel.dart';
 import 'package:meditrace_project/Views/Profile%20View/profile_view.dart';
 import 'package:meditrace_project/Views/Profile%20View/profile_viewmodel.dart';
+import 'package:meditrace_project/Views/Settings%20View/setting_viewmodel.dart';
 import 'package:meditrace_project/Views/Sign%20In%20View/signin_viewmodel.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Emergency%20Contact%20View/emergency_contact_view.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Emergency%20Contact%20View/emergency_contact_viewmodel.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => MedicineViewmodel()),
         ChangeNotifierProvider(create: (_) => ProfileViewmodel()),
         ChangeNotifierProvider(create: (_) => ProfileUpdateViewmodel()),
+        ChangeNotifierProvider(create: (_) => SettingViewmodel()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

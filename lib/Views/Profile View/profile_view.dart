@@ -569,25 +569,30 @@ class _ProfileViewState extends State<ProfileView> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              ButtonComponent(
-                                screenHeight: screenHeight,
-                                screenWidth: screenWidth,
-                                ButtonHeight: 0.060,
-                                decoration: BoxDecoration(
-                                  color: AppColors.BagContainer,
-                                  borderRadius: BorderRadius.circular(
-                                      screenWidth * 0.040),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: screenWidth * 0.100),
-                                  child: Center(
-                                    child: Text(
-                                      'Settings',
-                                      style: TextStyle(
-                                        color: AppColors.TextwhiteColor,
-                                        fontFamily: 'Poppins Semi Bold',
-                                        fontSize: screenHeight * 0.018,
+                              InkWell(
+                                onTap: () {
+                                  model.navigateToSettings(context: context);
+                                },
+                                child: ButtonComponent(
+                                  screenHeight: screenHeight,
+                                  screenWidth: screenWidth,
+                                  ButtonHeight: 0.060,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.BagContainer,
+                                    borderRadius: BorderRadius.circular(
+                                        screenWidth * 0.040),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: screenWidth * 0.100),
+                                    child: Center(
+                                      child: Text(
+                                        'Settings',
+                                        style: TextStyle(
+                                          color: AppColors.TextwhiteColor,
+                                          fontFamily: 'Poppins Semi Bold',
+                                          fontSize: screenHeight * 0.018,
+                                        ),
                                       ),
                                     ),
                                   ),
