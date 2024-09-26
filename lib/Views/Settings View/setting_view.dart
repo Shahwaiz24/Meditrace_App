@@ -58,127 +58,147 @@ class SettingView extends StatelessWidget {
             SizedBox(
               height: screenHeight * 0.040,
             ),
-            ButtonComponent(
-                screenHeight: screenHeight,
-                screenWidth: screenWidth,
-                ButtonHeight: 0.065,
-                decoration: BoxDecoration(
-                    color: AppColors.BagContainer.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(screenWidth * 0.040)),
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: screenWidth * 0.035),
-                  child: Row(
-                    children: [
-                      Text(
-                        "My Account",
-                        style: TextStyle(
-                            color: AppColors.TextblackColor,
-                            fontFamily: "Poppins Medium",
-                            fontSize: screenHeight * 0.020),
-                      ),
-                      const Spacer(),
-                      Icon(
-                        Icons.keyboard_arrow_right_sharp,
-                        color: AppColors.TextblackColor,
-                        size: screenHeight * 0.04,
-                      )
-                    ],
-                  ),
-                )),
+            InkWell(
+              onTap: () {
+                model.onMyAccountTap(context: context);
+              },
+              child: ButtonComponent(
+                  screenHeight: screenHeight,
+                  screenWidth: screenWidth,
+                  ButtonHeight: 0.065,
+                  decoration: BoxDecoration(
+                      color: AppColors.BagContainer.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(screenWidth * 0.040)),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.035),
+                    child: Row(
+                      children: [
+                        Text(
+                          "My Account",
+                          style: TextStyle(
+                              color: AppColors.TextblackColor,
+                              fontFamily: "Poppins Medium",
+                              fontSize: screenHeight * 0.020),
+                        ),
+                        const Spacer(),
+                        Icon(
+                          Icons.keyboard_arrow_right_sharp,
+                          color: AppColors.TextblackColor,
+                          size: screenHeight * 0.04,
+                        )
+                      ],
+                    ),
+                  )),
+            ),
             SizedBox(
               height: screenHeight * 0.020,
             ),
-            ButtonComponent(
-                screenHeight: screenHeight,
-                screenWidth: screenWidth,
-                ButtonHeight: 0.065,
-                decoration: BoxDecoration(
-                    color: AppColors.BagContainer.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(screenWidth * 0.040)),
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: screenWidth * 0.035),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Notifications",
-                        style: TextStyle(
-                            color: AppColors.TextblackColor,
-                            fontFamily: "Poppins Medium",
-                            fontSize: screenHeight * 0.020),
-                      ),
-                      const Spacer(),
-                      Icon(
-                        Icons.keyboard_arrow_right_sharp,
-                        color: AppColors.TextblackColor,
-                        size: screenHeight * 0.04,
-                      )
-                    ],
-                  ),
-                )),
+            InkWell(
+              onTap: () {
+                model.onNotificationsTap(context: context);
+              },
+              child: ButtonComponent(
+                  screenHeight: screenHeight,
+                  screenWidth: screenWidth,
+                  ButtonHeight: 0.065,
+                  decoration: BoxDecoration(
+                      color: AppColors.BagContainer.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(screenWidth * 0.040)),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.035),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Notifications",
+                          style: TextStyle(
+                              color: AppColors.TextblackColor,
+                              fontFamily: "Poppins Medium",
+                              fontSize: screenHeight * 0.020),
+                        ),
+                        const Spacer(),
+                        Icon(
+                          Icons.keyboard_arrow_right_sharp,
+                          color: AppColors.TextblackColor,
+                          size: screenHeight * 0.04,
+                        )
+                      ],
+                    ),
+                  )),
+            ),
             SizedBox(
               height: screenHeight * 0.020,
             ),
-            ButtonComponent(
-                screenHeight: screenHeight,
-                screenWidth: screenWidth,
-                ButtonHeight: 0.065,
-                decoration: BoxDecoration(
-                    color: AppColors.BagContainer.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(screenWidth * 0.040)),
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: screenWidth * 0.035),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Help",
-                        style: TextStyle(
-                            color: AppColors.TextblackColor,
-                            fontFamily: "Poppins Medium",
-                            fontSize: screenHeight * 0.020),
-                      ),
-                      const Spacer(),
-                      Icon(
-                        Icons.keyboard_arrow_right_sharp,
-                        color: AppColors.TextblackColor,
-                        size: screenHeight * 0.04,
-                      )
-                    ],
-                  ),
-                )),
+            InkWell(
+              onTap: () {
+                model.onHelpTap(context: context);
+              },
+              child: ButtonComponent(
+                  screenHeight: screenHeight,
+                  screenWidth: screenWidth,
+                  ButtonHeight: 0.065,
+                  decoration: BoxDecoration(
+                      color: AppColors.BagContainer.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(screenWidth * 0.040)),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.035),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Help",
+                          style: TextStyle(
+                              color: AppColors.TextblackColor,
+                              fontFamily: "Poppins Medium",
+                              fontSize: screenHeight * 0.020),
+                        ),
+                        const Spacer(),
+                        Icon(
+                          Icons.keyboard_arrow_right_sharp,
+                          color: AppColors.TextblackColor,
+                          size: screenHeight * 0.04,
+                        )
+                      ],
+                    ),
+                  )),
+            ),
             SizedBox(
               height: screenHeight * 0.020,
             ),
-            ButtonComponent(
-                screenHeight: screenHeight,
-                screenWidth: screenWidth,
-                ButtonHeight: 0.065,
-                decoration: BoxDecoration(
-                    color: AppColors.BagContainer.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(screenWidth * 0.040)),
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: screenWidth * 0.035),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Terms and conditions",
-                        style: TextStyle(
-                            color: AppColors.TextblackColor,
-                            fontFamily: "Poppins Medium",
-                            fontSize: screenHeight * 0.020),
-                      ),
-                      const Spacer(),
-                      Icon(
-                        Icons.keyboard_arrow_right_sharp,
-                        color: AppColors.TextblackColor,
-                        size: screenHeight * 0.04,
-                      )
-                    ],
-                  ),
-                ))
+            InkWell(
+              onTap: () {
+                model.onConditionsTap(context: context);
+              },
+              child: ButtonComponent(
+                  screenHeight: screenHeight,
+                  screenWidth: screenWidth,
+                  ButtonHeight: 0.065,
+                  decoration: BoxDecoration(
+                      color: AppColors.BagContainer.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(screenWidth * 0.040)),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.035),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Terms and conditions",
+                          style: TextStyle(
+                              color: AppColors.TextblackColor,
+                              fontFamily: "Poppins Medium",
+                              fontSize: screenHeight * 0.020),
+                        ),
+                        const Spacer(),
+                        Icon(
+                          Icons.keyboard_arrow_right_sharp,
+                          color: AppColors.TextblackColor,
+                          size: screenHeight * 0.04,
+                        )
+                      ],
+                    ),
+                  )),
+            )
           ],
         ),
       ),
