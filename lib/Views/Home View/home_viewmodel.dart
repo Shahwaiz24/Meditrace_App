@@ -36,20 +36,32 @@ class HomeViewmodel with ChangeNotifier {
       progress_text_opacity = 0.0;
       center_text_opacity = 0.0;
       progressValue = 0.0;
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomeView()));
+     Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeView()),
+        (Route<dynamic> route) => false,
+      );
     } else if (UserGlobalData.selectedBottomBarIndex == 1) {
       print('Bag View');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const BagView()));
+        Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const BagView()),
+      (Route<dynamic> route) => false,
+    );
     } else if (UserGlobalData.selectedBottomBarIndex == 2) {
       print('Medicine View');
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const MedicineView()));
+      Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const MedicineView()),
+      (Route<dynamic> route) => false,
+    );
     } else if (UserGlobalData.selectedBottomBarIndex == 3) {
       print('Profile View');
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const ProfileView()));
+        Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const ProfileView()),
+        (Route<dynamic> route) => false,
+      );
     }
     notifyListeners();
   }

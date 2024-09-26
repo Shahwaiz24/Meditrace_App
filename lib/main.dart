@@ -45,7 +45,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => MedicineViewmodel()),
         ChangeNotifierProvider(create: (_) => ProfileViewmodel()),
         ChangeNotifierProvider(create: (_) => ProfileUpdateViewmodel()),
-
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
