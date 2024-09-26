@@ -42,7 +42,9 @@ class SettingView extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            model.navigateToBack(context: context);
+                          },
                           child: Icon(
                             size: screenHeight * 0.030,
                             Icons.arrow_back_ios_new,

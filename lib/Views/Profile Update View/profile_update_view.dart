@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Components/text_fields.dart';
 import 'package:meditrace_project/Services/global_data.dart';
@@ -79,25 +80,10 @@ class ProfileUpdateView extends StatelessWidget {
                   model.showCustomBottomSheet(context,
                       screenHeight: screenHeight, screenWidth: screenWidth);
                 },
-                child: Container(
-                  decoration: const BoxDecoration(shape: BoxShape.circle),
-                  child: CircleAvatar(
-                      maxRadius: screenHeight * 0.060,
-                      backgroundColor: Colors.white,
-                      child: UserGlobalData.userProfilePhoto.isEmpty
-                          ? ImageIcon(
-                              AssetImage(
-                                'assets/images/icon/bottom_bar_icon/profile.png',
-                              ),
-                              size: screenHeight * 0.04,
-                              color: AppColors.PrimaryBlueColor,
-                            )
-                          : Image(
-                              image:
-                                  NetworkImage(UserGlobalData.userProfilePhoto),
-                              fit: BoxFit.cover,
-                            )),
-                ),
+                child: Consumer<ProfileUpdateViewmodel>(
+                    builder: (context, model, child) {
+                  return model.buildProfileImage(screenHeight, model);
+                }),
               ),
             ),
             SizedBox(
@@ -162,6 +148,7 @@ class ProfileUpdateView extends StatelessWidget {
                   onChanged: (value) {
                     model.checkFirstNameEmpty(firstName: firstName.text);
                     model.checkFields(
+                        selectedImage: model.selectedImage!,
                         birth: dateofBirth.text,
                         firstName: firstName.text,
                         lastName: lastName.text,
@@ -219,6 +206,7 @@ class ProfileUpdateView extends StatelessWidget {
                   onChanged: (value) {
                     model.checkLastNameEmpty(lastName: lastName.text);
                     model.checkFields(
+                        selectedImage: model.selectedImage!,
                         birth: dateofBirth.text,
                         firstName: firstName.text,
                         lastName: lastName.text,
@@ -275,6 +263,7 @@ class ProfileUpdateView extends StatelessWidget {
                   onChanged: (value) {
                     model.checkEmailEmpty(email: email.text);
                     model.checkFields(
+                        selectedImage: model.selectedImage!,
                         birth: dateofBirth.text,
                         firstName: firstName.text,
                         lastName: lastName.text,
@@ -332,6 +321,7 @@ class ProfileUpdateView extends StatelessWidget {
                   onChanged: (value) {
                     model.checkPhoneEmpty(phone: phone.text);
                     model.checkFields(
+                        selectedImage: model.selectedImage!,
                         birth: dateofBirth.text,
                         firstName: firstName.text,
                         lastName: lastName.text,
@@ -390,6 +380,7 @@ class ProfileUpdateView extends StatelessWidget {
                   onChanged: (value) {
                     model.checkdateBirthEmpty(birth: dateofBirth.text);
                     model.checkFields(
+                        selectedImage: model.selectedImage!,
                         birth: dateofBirth.text,
                         firstName: firstName.text,
                         lastName: lastName.text,
@@ -427,21 +418,6 @@ class ProfileUpdateView extends StatelessWidget {
                 ),
               );
             }),
-
-            // Padding(
-            //     padding: EdgeInsets.only(
-            //         bottom: screenHeight * 0.030,
-            //         left: screenWidth * 0.040,
-            //         right: screenWidth * 0.040),
-            //     child: ButtonComponent(
-            //       screenHeight: screenHeight,
-            //       screenWidth: screenWidth,
-            //       ButtonHeight: 0.080,
-            //       decoration: BoxDecoration(
-            //           color: AppColors.PrimaryBlueColor,
-            //           borderRadius: BorderRadius.circular(screenWidth * 0.080)),
-            //       child: Center(),
-            //     ))
           ],
         ),
       ),
