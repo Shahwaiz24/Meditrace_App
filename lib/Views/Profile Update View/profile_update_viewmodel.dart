@@ -70,10 +70,8 @@ class ProfileUpdateViewmodel with ChangeNotifier {
       );
     }
 
-    // Case 3: Profile photo exists (from network)
     else if (UserGlobalData.userProfilePhoto.isNotEmpty &&
         model.imageSelected == false) {
-      // Show profile photo from network
       return Container(
         width: screenHeight * 0.12,
         height: screenHeight * 0.12,
