@@ -12,5 +12,5 @@ class AppColors {
 
   static Color TextblackColor = Color(0xff434343);
   static Color PrimaryBlueColor = Color(0xff22938C);
-  static Color unFocusPrimaryColor = Color.fromARGB(255, 12, 9, 12);
+  static Color unFocusPrimaryColor = Color(0xffA3A2A3);
 }

@@ -222,7 +222,8 @@ class EmergencyContactView extends StatelessWidget {
                         builder: (context, model, child) {
                       return TextFields(
                           controller: contactNumberSecondContrller,
-                          enablefillColor: Colors.black,
+                          enablefillColor:
+                              AppColors.unFocusPrimaryColor.withOpacity(0.1),
                           focusfillColor:
                               model.onSecondContactNumberFocus == true
                                   ? AppColors.TextwhiteColor
