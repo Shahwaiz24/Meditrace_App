@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Components/text_fields.dart';
 import 'package:meditrace_project/Services/utils.dart';
-import 'package:meditrace_project/Views/Forgot%20Password%20View/forgot_password_viewmodel.dart';
+import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20Email%20View/forgot_password_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class ForgotPasswordView extends StatelessWidget {
@@ -149,7 +149,7 @@ class ForgotPasswordView extends StatelessWidget {
                           child: Center(
                             child: model.isStart == true
                                 ? CircularProgressIndicator(
-                                    color: AppColors.PrimaryBlueColor,
+                                    color: AppColors.TextwhiteColor,
                                   )
                                 : Text(
                                     'Send Code',
@@ -163,9 +163,9 @@ class ForgotPasswordView extends StatelessWidget {
                     SizedBox(height: screenHeight * 0.010),
                     InkWell(
                       onTap: () {
-                        // if (model.isStart == false) {
-                        //   model.onSetupLater(context: context);
-                        // }
+                        if (model.isStart == false) {
+                          model.navigateToback(context: context);
+                        }
                       },
                       child: Text(
                         'Go Back',

@@ -35,9 +35,11 @@ class ForgotPasswordViewmodel with ChangeNotifier {
     }
   }
 
-void navigateToback({required BuildContext context}){
-
-}
+  void navigateToback({required BuildContext context}) {
+    isStart = false;
+    fieldsFill = false;
+    Navigator.pop(context);
+  }
 
   sentOtpTap({required String email}) {
     if (fieldsFill == true && isStart == false) {
@@ -46,6 +48,7 @@ void navigateToback({required BuildContext context}){
       notifyListeners();
       print(
           "All Okay and Api Work Have to be Here \n Navigate to Next Otp Verifying Screen");
+          
     }
   }
 }
