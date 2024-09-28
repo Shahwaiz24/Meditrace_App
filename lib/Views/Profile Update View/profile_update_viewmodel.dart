@@ -53,7 +53,6 @@ class ProfileUpdateViewmodel with ChangeNotifier {
       );
     }
 
-    // Case 2: Image selected but profile photo is not empty
     else if (UserGlobalData.userProfilePhoto.isNotEmpty &&
         model.imageSelected == true) {
       // Show selected image from file

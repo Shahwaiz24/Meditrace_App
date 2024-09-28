@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/local_storage.dart';
 import 'package:meditrace_project/Views/Bag%20View/bag_viewmodel.dart';
+import 'package:meditrace_project/Views/Forgot%20Password%20View/forgot_password_viewmodel.dart';
 import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 import 'package:meditrace_project/Views/Home%20View/home_viewmodel.dart';
 import 'package:meditrace_project/Views/Medicine%20View/medicine_viewmodel.dart';
@@ -47,6 +48,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProfileViewmodel()),
         ChangeNotifierProvider(create: (_) => ProfileUpdateViewmodel()),
         ChangeNotifierProvider(create: (_) => SettingViewmodel()),
+         ChangeNotifierProvider(create: (_) => ForgotPasswordViewmodel()),
+
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
