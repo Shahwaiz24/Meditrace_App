@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Components/otp_textfield.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20OTP%20View/entering_otp_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -50,8 +51,16 @@ class EnteringOtpView extends StatelessWidget {
                     fontFamily: "Poppins Regular",
                     fontSize: screenHeight * 0.018)),
             SizedBox(
-              height: screenHeight * 0.020,
+              height: screenHeight * 0.040,
             ),
+            OtpFieldComponent(
+              completed: (value) {
+                model.onComplete(completedString: value!);
+              },
+              screenHeight: screenHeight,
+              screenWidth: screenWidth,
+              isError: false,
+            )
           ],
         ),
       ),
