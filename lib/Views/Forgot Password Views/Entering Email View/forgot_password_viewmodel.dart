@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20OTP%20View/entering_otp_view.dart';
 
 class ForgotPasswordViewmodel with ChangeNotifier {
   bool isFocusEmail = false;
@@ -41,14 +42,17 @@ class ForgotPasswordViewmodel with ChangeNotifier {
     Navigator.pop(context);
   }
 
-  sentOtpTap({required String email}) {
+  sentOtpTap({required String email, required BuildContext context}) async {
     if (fieldsFill == true && isStart == false) {
       isStart = true;
       fieldsFill = false;
       notifyListeners();
       print(
           "All Okay and Api Work Have to be Here \n Navigate to Next Otp Verifying Screen");
-          
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const EnteringOtpView()));
+      await Future.delayed( const Duration(seconds: 1));
+      isStart = false;
     }
   }
 }

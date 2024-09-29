@@ -117,12 +117,20 @@ class ForgotPasswordView extends StatelessWidget {
                       fontFamily: "Poppins Medium",
                       fontSize: screenHeight * 0.017),
                 ),
-                Text(
-                  " Resend",
-                  style: TextStyle(
-                      color: AppColors.PrimaryBlueColor,
-                      fontFamily: "Poppins Medium",
-                      fontSize: screenHeight * 0.017),
+                InkWell(
+                  onTap: () {
+                    if (model.isStart == false) {
+                      model.sentOtpTap(
+                          email: emailController.text, context: context);
+                    }
+                  },
+                  child: Text(
+                    " Resend",
+                    style: TextStyle(
+                        color: AppColors.PrimaryBlueColor,
+                        fontFamily: "Poppins Medium",
+                        fontSize: screenHeight * 0.017),
+                  ),
                 )
               ],
             ),
@@ -134,7 +142,10 @@ class ForgotPasswordView extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        model.sentOtpTap(email: emailController.text);
+                        if (model.isStart == false) {
+                          model.sentOtpTap(
+                              email: emailController.text, context: context);
+                        }
                       },
                       child: ButtonComponent(
                           screenHeight: screenHeight,
