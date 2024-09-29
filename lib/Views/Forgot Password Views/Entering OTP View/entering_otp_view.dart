@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Components/otp_textfield.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20OTP%20View/entering_otp_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class EnteringOtpView extends StatelessWidget {
-  const EnteringOtpView({super.key});
+  EnteringOtpView({super.key});
+
+  final TextEditingController otpController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -54,13 +57,103 @@ class EnteringOtpView extends StatelessWidget {
               height: screenHeight * 0.040,
             ),
             OtpFieldComponent(
+              controller: otpController,
               completed: (value) {
-                model.onComplete(completedString: value!);
+                model.onCompletePin(completedString: value!);
               },
               screenHeight: screenHeight,
               screenWidth: screenWidth,
-              isError: false,
-            )
+              isError: model.isError,
+            ),
+            SizedBox(
+              height: screenHeight * 0.040,
+            ),
+            Text(
+              "Your 4-digit code is on it’s way. It may take a \nfew moments to arrive. If you still don’t see it,\nyou can resend the code",
+              style: TextStyle(
+                  color: AppColors.unFocusPrimaryColor,
+                  fontFamily: "Poppins Regular",
+                  fontSize: screenHeight * 0.017),
+            ),
+            SizedBox(
+              height: screenHeight * 0.020,
+            ),
+            Consumer<EnteringOtpViewmodel>(builder: (context, model, child) {
+              return InkWell(
+                onTap: () {
+                  if (model.isStart == false) {
+                    otpController.clear();
+                  }
+                },
+                child: Text(
+                  "Send new code",
+                  style: TextStyle(
+                      color: model.isFieldFills == true
+                          ? AppColors.PrimaryBlueColor
+                          : AppColors.unFocusPrimaryColor,
+                      fontFamily: "Poppins Medium",
+                      fontSize: screenHeight * 0.018),
+                ),
+              );
+            }),
+            const Spacer(),
+            Consumer<EnteringOtpViewmodel>(builder: (context, model, child) {
+              return Padding(
+                padding: EdgeInsets.only(bottom: screenHeight * 0.030),
+                child: Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        if (model.isStart == false) {
+                          model.onTapConfirm(
+                              context: context, Otp: model.completedOtp);
+                          otpController.clear();
+                        }
+                      },
+                      child: ButtonComponent(
+                          screenHeight: screenHeight,
+                          screenWidth: screenWidth,
+                          ButtonHeight: 0.075,
+                          decoration: BoxDecoration(
+                              color: model.isFieldFills == true
+                                  ? AppColors.PrimaryBlueColor
+                                  : AppColors.unFocusPrimaryColor,
+                              borderRadius:
+                                  BorderRadius.circular(screenWidth * 0.080)),
+                          child: Center(
+                            child: model.isStart == true
+                                ? CircularProgressIndicator(
+                                    color: AppColors.TextwhiteColor,
+                                  )
+                                : Text(
+                                    'Confirm',
+                                    style: TextStyle(
+                                        color: AppColors.TextwhiteColor,
+                                        fontFamily: 'Poppins Semi Bold',
+                                        fontSize: screenHeight * 0.020),
+                                  ),
+                          )),
+                    ),
+                    SizedBox(height: screenHeight * 0.010),
+                    InkWell(
+                      onTap: () {
+                        if (model.isStart == false) {
+                          otpController.clear();
+                          model.navigateToback(context: context);
+                        }
+                      },
+                      child: Text(
+                        'Go Back',
+                        style: TextStyle(
+                            color: AppColors.PrimaryBlueColor,
+                            fontFamily: "Poppins Bold",
+                            fontSize: screenHeight * 0.018),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            }),
           ],
         ),
       ),

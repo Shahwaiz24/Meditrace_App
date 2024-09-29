@@ -1,11 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Services/global_data.dart';
 
 class EnteringOtpViewmodel with ChangeNotifier {
   String completedOtp = '';
+  bool isError = false;
+  bool isFieldFills = false;
+  bool isStart = false;
 
-  onComplete({required String completedString}) {
-    completedOtp = completedString;
-    print("OTP : $completedOtp");
+  onCompletePin({required String completedString}) {
+    if (completedString != null || completedString.isNotEmpty) {
+      completedOtp = completedString;
+      isFieldFills = true;
+      print("OTP : $completedOtp");
+      notifyListeners();
+    } else {
+      isFieldFills = false;
+      notifyListeners();
+    }
+  }
+
+  void navigateToback({required BuildContext context}) {
+    isStart = false;
+    isFieldFills = false;
+    Navigator.pop(context);
+  }
+
+  onTapConfirm({required BuildContext context, required String Otp}) async {
+    isStart = true;
+    isFieldFills = false;
     notifyListeners();
+    if (Otp != null && Otp.isNotEmpty && Otp == OTPvalue.otp) {
+      print("OTP Alright and Navigating");
+      await Future.delayed(const Duration(seconds: 2));
+      isStart = false;
+      notifyListeners();
+    } else {
+      isStart = false;
+      isError = true;
+      notifyListeners();
+      await Future.delayed(Duration(seconds: 1));
+      isError = false;
+      notifyListeners();
+    }
   }
 }

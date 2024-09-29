@@ -16,8 +16,12 @@ class SignUpGlobalData {
   static String finalGender = '';
   static String finalDateOfBirth = '';
 }
-// User Global Data After SignUp or Login //
 
+// Forgot Password OTP global Value
+class OTPvalue {
+ static String otp = '';
+}
+// User Global Data After SignUp or Login //
 
 class UserGlobalData {
   static int selectedBottomBarIndex = 0;

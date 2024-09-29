@@ -8,10 +8,11 @@ class OtpFieldComponent extends StatefulWidget {
       required this.completed,
       required this.screenHeight,
       required this.screenWidth,
-      required this.isError});
+      required this.isError, required this.controller });
 
   final double screenHeight;
   final double screenWidth;
+  final TextEditingController controller;
   final bool isError;
   final ValueChanged<String?> completed;
 
@@ -44,7 +45,7 @@ class _OtpFieldComponentState extends State<OtpFieldComponent> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(widget.screenWidth * 0.040),
         border: Border.all(
-            width: 2,
+            width: widget.isError == true ? 1 : 2,
             color: widget.isError == true
                 ? Colors.red
                 : AppColors.unFocusPrimaryColor.withOpacity(0.4)),
@@ -62,7 +63,7 @@ class _OtpFieldComponentState extends State<OtpFieldComponent> {
             child: Pinput(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               length: 4,
-              controller: pinController,
+              controller: widget.controller,
               defaultPinTheme: defaultPinTheme,
               hapticFeedbackType: HapticFeedbackType.lightImpact,
               onCompleted: (pin) {
@@ -76,7 +77,7 @@ class _OtpFieldComponentState extends State<OtpFieldComponent> {
                 children: [],
               ),
               focusedPinTheme: PinTheme(
-                width: widget.screenWidth * 0.1530,
+                width: widget.screenWidth * 0.150,
                 height: widget.screenHeight * 0.070,
                 textStyle: TextStyle(
                   fontSize: widget.screenHeight * 0.025,
@@ -86,7 +87,7 @@ class _OtpFieldComponentState extends State<OtpFieldComponent> {
                   borderRadius:
                       BorderRadius.circular(widget.screenWidth * 0.040),
                   border: Border.all(
-                      width: 2,
+                      width: widget.isError == true ? 1 : 2,
                       color: widget.isError == true
                           ? Colors.red
                           : AppColors.BagContainer),
