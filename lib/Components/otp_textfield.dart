@@ -39,7 +39,7 @@ class _OtpFieldComponentState extends State<OtpFieldComponent> {
       height: widget.screenHeight * 0.070,
       textStyle: TextStyle(
         fontSize: widget.screenHeight * 0.025,
-        color: AppColors.TextblackColor.withOpacity(0.4),
+        color: AppColors.TextblackColor.withOpacity(0.6),
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(widget.screenWidth * 0.040),
@@ -73,14 +73,7 @@ class _OtpFieldComponentState extends State<OtpFieldComponent> {
               },
               cursor: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 9),
-                    width: 24,
-                    height: 2,
-                    color: Colors.black,
-                  ),
-                ],
+                children: [],
               ),
               focusedPinTheme: PinTheme(
                 width: widget.screenWidth * 0.1530,
