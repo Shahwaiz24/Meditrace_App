@@ -22,6 +22,8 @@ class EmergencyContactViewmodel with ChangeNotifier {
   String firstContactNumberFormatted = '';
   String secondContactNumberFormatted = '';
 
+  bool isSetupLater = false;
+
   isSecondContactNameEmptyCheck({required String secondContactName}) {
     if (secondContactName.isNotEmpty) {
       isSecondContactNameNotEmpty = true;
@@ -177,6 +179,42 @@ class EmergencyContactViewmodel with ChangeNotifier {
     );
   }
 
+  onContinueOntap(
+      {required BuildContext context,
+      required bool isSetupLater,
+      required String userFirstName,
+      required String userLastName,
+      required String userEmailAddress,
+      required String userPhoneNumber,
+      required String userGender,
+      required String userPrefix,
+      required String userDateofBirth,
+      required String userPassword,
+      required String userBloodGroup,
+      required String userHeight,
+      required String userWeight,
+      required List userKnownAllergies,
+      required List userChronicCondition,
+      required List userEmergency}) async {
+    if (isSetupLater == true) {
+      isLoading = true;
+      notifyListeners();
+// Api Work Here and Navigation if Has Error then isError = true and then NotifyListner
+      await Future.delayed(Duration(seconds: 4));
+      isLoading = false;
+      notifyListeners();
+    } else {
+      isLoading = true;
+      notifyListeners();
+      // Api Work Here and Navigatio n if Has Error then isError = true and then NotifyListner
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeView()),
+        (Route<dynamic> route) => false,
+      );
+    }
+  }
+
   nextOntap(
       {required String contactName,
       required String contactNumber,
@@ -210,6 +248,7 @@ class EmergencyContactViewmodel with ChangeNotifier {
           'First Number : ${firstContactNumberFormatted} | Second Number : ${secondContactNumberFormatted}');
 
       print('Api Work Here for 2 Emergency Contacts');
+
       print('Sign Up Completed');
       Navigator.pushAndRemoveUntil(
         context,

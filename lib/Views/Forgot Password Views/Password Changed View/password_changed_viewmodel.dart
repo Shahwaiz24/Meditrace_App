@@ -9,7 +9,7 @@ class PasswordChangedViewModel with ChangeNotifier {
   bool get isVisible => _isVisible;
 
   void showPage() async {
-    await Future.delayed(Duration(milliseconds: 2000));
+    await Future.delayed(const Duration(milliseconds: 1000));
     _isVisible = true;
     notifyListeners();
   }
