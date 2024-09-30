@@ -66,9 +66,13 @@ class ForgotPasswordView extends StatelessWidget {
                       : model.isEmailNotEmpty == true
                           ? AppColors.TextwhiteColor
                           : AppColors.unFocusPrimaryColor.withOpacity(0.1),
-                  outlineColor: model.isError == true
+                  outlineColor: 
+                  
+                  model.isError == true
                       ? Colors.red
                       : AppColors.unFocusPrimaryColor.withOpacity(0.5),
+
+                      
                   radius: screenWidth * 0.020,
                   isHidden: false,
                   HintText: model.isError == true
@@ -95,7 +99,7 @@ class ForgotPasswordView extends StatelessWidget {
                             ),
                   Suffix: Text(''),
                   isSuffix: false,
-                  isNumberKeyboard: true,
+                  isNumberKeyboard: false,
                   isPrefix: true,
                   onFocus: (focus) {
                     model.onEmailFocusChange(focus: focus);

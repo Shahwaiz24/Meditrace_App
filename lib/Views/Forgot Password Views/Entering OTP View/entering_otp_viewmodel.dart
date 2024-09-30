@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/global_data.dart';
+import 'package:meditrace_project/Views/Forgot%20Password%20Views/Create%20New%20Password%20View/create_newpassword_view.dart';
 
 class EnteringOtpViewmodel with ChangeNotifier {
   String completedOtp = '';
@@ -31,6 +32,8 @@ class EnteringOtpViewmodel with ChangeNotifier {
     notifyListeners();
     if (Otp != null && Otp.isNotEmpty && Otp == OTPvalue.otp) {
       print("OTP Alright and Navigating");
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => CreateNewpasswordView()));
       await Future.delayed(const Duration(seconds: 2));
       isStart = false;
       notifyListeners();
@@ -38,7 +41,7 @@ class EnteringOtpViewmodel with ChangeNotifier {
       isStart = false;
       isError = true;
       notifyListeners();
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
       isError = false;
       notifyListeners();
     }

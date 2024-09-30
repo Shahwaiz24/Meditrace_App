@@ -89,8 +89,8 @@ class EnteringOtpView extends StatelessWidget {
                   "Send new code",
                   style: TextStyle(
                       color: model.isFieldFills == true
-                          ? AppColors.PrimaryBlueColor
-                          : AppColors.unFocusPrimaryColor,
+                          ? AppColors.unFocusPrimaryColor
+                          : AppColors.PrimaryBlueColor,
                       fontFamily: "Poppins Medium",
                       fontSize: screenHeight * 0.018),
                 ),

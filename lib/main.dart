@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/local_storage.dart';
 import 'package:meditrace_project/Views/Bag%20View/bag_viewmodel.dart';
+import 'package:meditrace_project/Views/Forgot%20Password%20Views/Create%20New%20Password%20View/create_newpassword_viewmodel.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20Email%20View/forgot_password_view.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20Email%20View/forgot_password_viewmodel.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20OTP%20View/entering_otp_viewmodel.dart';
@@ -30,7 +31,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  // This Class is the Root of Application 
+  // This Class is the Root of Application
 
   @override
   Widget build(BuildContext context) {
@@ -50,12 +51,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProfileViewmodel()),
         ChangeNotifierProvider(create: (_) => ProfileUpdateViewmodel()),
         ChangeNotifierProvider(create: (_) => SettingViewmodel()),
-         ChangeNotifierProvider(create: (_) => ForgotPasswordViewmodel()),
-                 ChangeNotifierProvider(create: (_) => EnteringOtpViewmodel()),
-
-
+        ChangeNotifierProvider(create: (_) => ForgotPasswordViewmodel()),
+        ChangeNotifierProvider(create: (_) => EnteringOtpViewmodel()),
+        ChangeNotifierProvider(create: (_) => CreateNewpasswordViewmodel()),
       ],
-      child:  MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: SplashView(),
       ),
