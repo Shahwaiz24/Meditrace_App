@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Views/Forgot%20Password%20Views/Password%20Changed%20View/password_changed_view.dart';
 
 class CreateNewpasswordViewmodel with ChangeNotifier {
   bool isFocusPassword = false;
@@ -77,6 +78,8 @@ class CreateNewpasswordViewmodel with ChangeNotifier {
       await Future.delayed(Duration(seconds: 1));
       isStart = false;
       notifyListeners();
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => PasswordChangedView(isError: false,)));
     } else {
       isStart = false;
       isError = true;

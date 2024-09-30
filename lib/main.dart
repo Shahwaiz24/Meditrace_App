@@ -5,6 +5,8 @@ import 'package:meditrace_project/Views/Forgot%20Password%20Views/Create%20New%2
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20Email%20View/forgot_password_view.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20Email%20View/forgot_password_viewmodel.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20OTP%20View/entering_otp_viewmodel.dart';
+import 'package:meditrace_project/Views/Forgot%20Password%20Views/Password%20Changed%20View/password_changed_view.dart';
+import 'package:meditrace_project/Views/Forgot%20Password%20Views/Password%20Changed%20View/password_changed_viewmodel.dart';
 import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 import 'package:meditrace_project/Views/Home%20View/home_viewmodel.dart';
 import 'package:meditrace_project/Views/Medicine%20View/medicine_viewmodel.dart';
@@ -54,10 +56,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ForgotPasswordViewmodel()),
         ChangeNotifierProvider(create: (_) => EnteringOtpViewmodel()),
         ChangeNotifierProvider(create: (_) => CreateNewpasswordViewmodel()),
+        ChangeNotifierProvider(create: (_) => PasswordChangedViewModel()),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SplashView(),
+        home: PasswordChangedView(
+          isError: true,
+        ),
       ),
     );
   }
