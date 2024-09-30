@@ -17,7 +17,6 @@ import 'package:meditrace_project/Views/Sign%20Up%20View/Emergency%20Contact%20V
 import 'package:meditrace_project/Views/Sign%20Up%20View/Medical%20Information%20View/medical_information_viewModel_signUp.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Personal%20Information%20View/personal_information_viewmodel.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Sign%20Up%20Completed/signup_completed_viewmodel.dart';
-import 'package:meditrace_project/Views/Sign%20Up%20View/signup_view.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/signup_viewmodel.dart';
 import 'package:meditrace_project/Views/Splash%20View/splash_view.dart';
 import 'package:meditrace_project/Views/Splash%20View/splash_viewmodel.dart';
@@ -58,7 +57,7 @@ class MyApp extends StatelessWidget {
       ],
       child:  MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: ForgotPasswordView(),
+        home: SplashView(),
       ),
     );
   }

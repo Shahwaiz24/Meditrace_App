@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20Email%20View/forgot_password_view.dart';
 
 class SigninViewmodel with ChangeNotifier {
   bool isPasswordVisible = false;
@@ -7,10 +8,31 @@ class SigninViewmodel with ChangeNotifier {
   bool isHiddenPassword = true;
   bool isFocusEmail = false;
   bool isSignUpError = false;
+  bool isEmailNotEmpty = false;
+  bool isPasswordNotEmpty = false;
   void onEmailFocusChange(bool hasFocus) {
     isFocusEmail = hasFocus;
 
     notifyListeners();
+  }
+
+  isEmailEmptyCheck({required String email}) {
+    if (email.isNotEmpty) {
+      isEmailNotEmpty = true;
+      notifyListeners();
+    } else {
+      isEmailNotEmpty = false;
+      notifyListeners();
+    }
+  }
+    isPasswordEmptyCheck({required String password}) {
+    if (password.isNotEmpty) {
+      isPasswordNotEmpty = true;
+      notifyListeners();
+    } else {
+      isPasswordNotEmpty = false;
+      notifyListeners();
+    }
   }
 
   hiddenText() {
@@ -57,6 +79,14 @@ class SigninViewmodel with ChangeNotifier {
     } else {
       return false;
     }
+  }
+
+  void navigateToForgotPassword({required BuildContext context}) {
+    isUiFieldsFill = false;
+    isSignInStart = false;
+    isSignUpError = false;
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ForgotPasswordView()));
   }
 
   signInFunction(

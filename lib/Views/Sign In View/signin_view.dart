@@ -72,11 +72,16 @@ class SigninView extends StatelessWidget {
                 children: [
                   Consumer<SigninViewmodel>(builder: (context, model, child) {
                     return TextFields(
-                        contentStyle: TextStyle(),
-                        onFocus: (value) {},
+                        contentStyle: const TextStyle(
+                            fontFamily: 'Poppins Regular',
+                            fontWeight: FontWeight.w500),
+                        onFocus: (value) {
+                          model.onEmailFocusChange(value);
+                        },
                         isNumberKeyboard: false,
                         isHidden: false,
                         onChanged: (value) {
+                          model.isEmailEmptyCheck(email: emailController.text);
                           model.onChangedFocusOFUi(
                               emailText: emailController.text,
                               PasswordText: passwordController.text);
@@ -87,7 +92,9 @@ class SigninView extends StatelessWidget {
                             ? const Icon(
                                 Icons.email_outlined,
                               )
-                            : Icon(
+                            : model.isEmailNotEmpty == true ? const Icon(
+                                Icons.email_outlined,
+                              ) : Icon(
                                 Icons.email_outlined,
                                 color: const Color(0xffA3A2A3).withOpacity(0.8),
                                 size: screenHeight * 0.032,
@@ -116,11 +123,17 @@ class SigninView extends StatelessWidget {
                   ),
                   Consumer<SigninViewmodel>(builder: (context, model, child) {
                     return TextFields(
-                        contentStyle: TextStyle(),
-                        onFocus: (value) {},
+                        contentStyle: const TextStyle(
+                            fontFamily: 'Poppins Regular',
+                            fontWeight: FontWeight.w500),
+                        onFocus: (value) {
+                          model.onPasswordFocusChange(value);
+                        },
                         isNumberKeyboard: false,
                         isHidden: model.isHiddenPassword,
                         onChanged: (value) {
+                          model.isPasswordEmptyCheck(
+                              password: passwordController.text);
                           model.onChanged(controller: passwordController);
                           model.onChangedFocusOFUi(
                               emailText: emailController.text,
@@ -153,7 +166,10 @@ class SigninView extends StatelessWidget {
                                 Icons.lock_outline_rounded,
                                 color: Colors.black,
                               )
-                            : Icon(
+                            : model.isPasswordNotEmpty == true ? const Icon(
+                                Icons.lock_outline_rounded,
+                                color: Colors.black,
+                              )  : Icon(
                                 Icons.lock_outline_rounded,
                                 color: AppColors.unFocusPrimaryColor
                                     .withOpacity(0.8),
@@ -185,14 +201,18 @@ class SigninView extends StatelessWidget {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(right: screenWidth * 0.020),
-                        child: InkWell(child: Consumer<SigninViewmodel>(
+                        child: InkWell(onTap: () {
+                          if (model.isSignInStart == false) {
+                            model.navigateToForgotPassword(context: context);
+                          }
+                        }, child: Consumer<SigninViewmodel>(
                             builder: (context, model, child) {
                           return Text(
                             'Forgot password?',
                             style: TextStyle(
-                                color: model.isUiFieldsFill
-                                    ? AppColors.PrimaryBlueColor
-                                    : AppColors.unFocusPrimaryColor,
+                                color: model.isSignInStart == true
+                                    ? AppColors.unFocusPrimaryColor
+                                    : AppColors.PrimaryBlueColor,
                                 fontFamily: 'Poppins Medium',
                                 fontSize: screenHeight * 0.017),
                           );

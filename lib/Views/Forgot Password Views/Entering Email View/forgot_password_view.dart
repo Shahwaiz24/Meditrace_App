@@ -84,11 +84,15 @@ class ForgotPasswordView extends StatelessWidget {
                       ? const Icon(
                           Icons.email_outlined,
                         )
-                      : Icon(
-                          Icons.email_outlined,
-                          color: const Color(0xffA3A2A3).withOpacity(0.8),
-                          size: screenHeight * 0.032,
-                        ),
+                      : model.isEmailNotEmpty == true
+                          ? const Icon(
+                              Icons.email_outlined,
+                            )
+                          : Icon(
+                              Icons.email_outlined,
+                              color: const Color(0xffA3A2A3).withOpacity(0.8),
+                              size: screenHeight * 0.032,
+                            ),
                   Suffix: Text(''),
                   isSuffix: false,
                   isNumberKeyboard: true,
