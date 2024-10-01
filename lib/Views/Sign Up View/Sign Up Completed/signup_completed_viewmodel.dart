@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/button.dart';
+import 'package:meditrace_project/Services/local_storage.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 import 'package:meditrace_project/Views/Splash%20View/splash_view.dart';
@@ -18,6 +19,7 @@ class SignupCompletedViewmodel with ChangeNotifier {
       {required BuildContext context,
       required bool isError,
       required double screenHeight,
+      required String userId,
       required double screenWidth}) {
     return AnimatedOpacity(
       opacity: isvisible ? 1.0 : 0.0,
@@ -129,7 +131,7 @@ class SignupCompletedViewmodel with ChangeNotifier {
                         EdgeInsets.symmetric(horizontal: screenWidth * 0.070),
                     child: InkWell(
                       onTap: () {
-                    
+                        onContinueTap(context: context, userId: userId);
                       },
                       child: ButtonComponent(
                         screenHeight: screenHeight,
@@ -164,8 +166,16 @@ class SignupCompletedViewmodel with ChangeNotifier {
       (Route<dynamic> route) => false,
     );
   }
-  onContinueTap({required BuildContext context,required String userId}){
-    // Object id for Fetching Latest User Data 
 
+  onContinueTap({required BuildContext context, required String userId}) {
+    // Object id for Fetching Latest User Data and Save User Logined
+    LocalStorage.userLogin();
+    LocalStorage.saveUserId(userId: userId);
+    print("Saved Id and Login ");
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const HomeView()),
+      (Route<dynamic> route) => false,
+    );
   }
 }

@@ -21,6 +21,7 @@ class EmergencyContactViewmodel with ChangeNotifier {
 
   String firstContactNumberFormatted = '';
   String secondContactNumberFormatted = '';
+  String userId = "";
 
   bool isSetupLater = false;
 
@@ -183,11 +184,13 @@ class EmergencyContactViewmodel with ChangeNotifier {
     isUiFieldsFill = false;
     notifyListeners();
     print("Api Working Started");
+    userId = "000023232435453asvsd";
 
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
-          builder: (context) => const SignupCompletedView(
+          builder: (context) => SignupCompletedView(
+                userId: userId,
                 isError: false,
               )),
       (Route<dynamic> route) => false,
@@ -215,11 +218,13 @@ class EmergencyContactViewmodel with ChangeNotifier {
     notifyListeners();
     await Future.delayed(Duration(seconds: 2));
 
-    // Api Work Here and Navigatio n if Has Error then isError = true and then NotifyListner
+    // Api Work Here and Navigatio n if Has Error then isError = true and then NotifyListner and Get Response of User id
+    userId = "0000232132qa2";
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
-          builder: (context) => const SignupCompletedView(
+          builder: (context) => SignupCompletedView(
+                userId: userId,
                 isError: false,
               )),
       (Route<dynamic> route) => false,
@@ -276,20 +281,9 @@ class EmergencyContactViewmodel with ChangeNotifier {
           userKnownAllergies: SignUpGlobalData.allergies,
           userChronicCondition: SignUpGlobalData.chronic,
           userEmergency: SignUpGlobalData.emergencyContacts);
-      print('Sign Up Completed');
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const SignupCompletedView(
-                  isError: false,
-                )),
-        (Route<dynamic> route) => false,
-      );
 
       isUiFieldsFill = false;
       isStart = false;
-
-      notifyListeners();
     } else if (validation == true && isEnable != true) {
       Map<String, dynamic> contact = {
         "contact_name": contactName,
@@ -316,20 +310,8 @@ class EmergencyContactViewmodel with ChangeNotifier {
           userChronicCondition: SignUpGlobalData.chronic,
           userEmergency: SignUpGlobalData.emergencyContacts);
 
-      print('Sign Up Completed');
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const SignupCompletedView(
-                  isError: false,
-                )),
-        (Route<dynamic> route) => false,
-      );
-
       isUiFieldsFill = false;
       isStart = false;
-
-      notifyListeners();
     } else {
       isStart = false;
       isUiFieldsFill = false;

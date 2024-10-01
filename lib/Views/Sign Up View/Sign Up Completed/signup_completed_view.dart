@@ -6,8 +6,9 @@ import 'package:meditrace_project/Views/Sign%20Up%20View/Sign%20Up%20Completed/s
 import 'package:provider/provider.dart';
 
 class SignupCompletedView extends StatelessWidget {
-  const SignupCompletedView({super.key, required this.isError});
+  const SignupCompletedView({super.key, required this.isError,required this.userId});
   final bool isError;
+  final String userId;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class SignupCompletedView extends StatelessWidget {
         body: Consumer<SignupCompletedViewmodel>(
             builder: (context, model, child) {
           return model.animatedWidget(
+              userId: userId,
               context: context,
               isError: isError,
               screenHeight: screenHeight,

@@ -17,4 +17,12 @@ class LocalStorage {
       return false;
     }
   }
+
+  static userLogin() async {
+    await prefs.setBool('User Logined', true);
+  }
+
+  static saveUserId({required String userId}) async {
+    await prefs.setString("User_Id", userId);
+  }
 }

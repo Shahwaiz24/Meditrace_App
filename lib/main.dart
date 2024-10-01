@@ -63,6 +63,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: SignupCompletedView(
           isError: false,
+          userId: "",
         ),
       ),
     );
