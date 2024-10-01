@@ -6,7 +6,6 @@ import 'package:meditrace_project/Views/Splash%20View/splash_view.dart';
 
 class SignupCompletedViewmodel with ChangeNotifier {
   bool isLoading = false;
-  bool isError = false;
   bool isvisible = false;
 
   void start() async {
@@ -14,44 +13,6 @@ class SignupCompletedViewmodel with ChangeNotifier {
     isvisible = true;
     notifyListeners();
   }
-
-  onContinueOntap(
-      {required BuildContext context,
-      required bool isSetupLater,
-      required String userFirstName,
-      required String userLastName,
-      required String userEmailAddress,
-      required String userPhoneNumber,
-      required String userGender,
-      required String userPrefix,
-      required String userDateofBirth,
-      required String userPassword,
-      required String userBloodGroup,
-      required String userHeight,
-      required String userWeight,
-      required List userKnownAllergies,
-      required List userChronicCondition,
-      required List userEmergency}) async {
-    if (isSetupLater == true) {
-      isLoading = true;
-      notifyListeners();
-// Api Work Here and Navigation if Has Error then isError = true and then NotifyListner
-      await Future.delayed(Duration(seconds: 4));
-      isLoading = false;
-      notifyListeners();
-    } else {
-      isLoading = true;
-      notifyListeners();
-      // Api Work Here and Navigatio n if Has Error then isError = true and then NotifyListner
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeView()),
-        (Route<dynamic> route) => false,
-      );
-    }
-  }
-
-
 
   Widget animatedWidget(
       {required BuildContext context,
@@ -168,32 +129,7 @@ class SignupCompletedViewmodel with ChangeNotifier {
                         EdgeInsets.symmetric(horizontal: screenWidth * 0.070),
                     child: InkWell(
                       onTap: () {
-                        // model.onContinueOntap(
-                        //     context: context,
-                        //     isSetupLater: false,
-                        //     userFirstName: SignUpGlobalData.finalFirstName,
-                        //     userLastName: SignUpGlobalData.finalLastName,
-                        //     userEmailAddress:
-                        //         SignUpGlobalData.finalEmailAddress,
-                        //     userPhoneNumber:
-                        //         SignUpGlobalData.finalPhoneNumber,
-                        //     userGender: SignUpGlobalData.finalGender,
-                        //     userPrefix: SignUpGlobalData.finalPrefix,
-                        //     userDateofBirth:
-                        //         SignUpGlobalData.finalDateOfBirth,
-                        //     userPassword: SignUpGlobalData.finalPassword,
-                        //     userBloodGroup: SignUpGlobalData.finalBloodGroup,
-                        //     userHeight: SignUpGlobalData.finalHeight,
-                        //     userWeight: SignUpGlobalData.finalWeight,
-                        //     userKnownAllergies: SignUpGlobalData.allergies,
-                        //     userChronicCondition: SignUpGlobalData.chronic,
-                        //     userEmergency: [
-                        //       {
-                        //         "Contact Name": SignUpGlobalData.contactName,
-                        //         "Contact Number":
-                        //             SignUpGlobalData.contactNumber
-                        //       }
-                        //     ]);
+                    
                       },
                       child: ButtonComponent(
                         screenHeight: screenHeight,
@@ -222,11 +158,14 @@ class SignupCompletedViewmodel with ChangeNotifier {
   }
 
   onTryAgainTap({required BuildContext context}) {
-    isError = false;
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => const SplashView()),
       (Route<dynamic> route) => false,
     );
+  }
+  onContinueTap({required BuildContext context,required String userId}){
+    // Object id for Fetching Latest User Data 
+
   }
 }

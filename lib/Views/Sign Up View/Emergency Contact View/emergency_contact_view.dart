@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Components/text_fields.dart';
+import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Emergency%20Contact%20View/emergency_contact_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -354,10 +355,29 @@ class EmergencyContactView extends StatelessWidget {
                     SizedBox(height: screenHeight * 0.010),
                     InkWell(
                       onTap: () {
-                        // if (model.isStart == false) {
-                        //   model.onSetupLater(context: context);
-                        // }
-                        model.onSetupLater(context: context);
+                        if (model.isStart == false) {
+                           model.onSetupLaterOntap(
+                            context: context,
+                            userFirstName: SignUpGlobalData.finalFirstName,
+                            userLastName: SignUpGlobalData.finalLastName,
+                            userEmailAddress:
+                                SignUpGlobalData.finalEmailAddress,
+                            userPhoneNumber:
+                                SignUpGlobalData.finalPhoneNumber,
+                            userGender: SignUpGlobalData.finalGender,
+                            userPrefix: SignUpGlobalData.finalPrefix,
+                            userDateofBirth:
+                                SignUpGlobalData.finalDateOfBirth,
+                            userPassword: SignUpGlobalData.finalPassword,
+                            userBloodGroup: SignUpGlobalData.finalBloodGroup,
+                            userHeight: SignUpGlobalData.finalHeight,
+                            userWeight: SignUpGlobalData.finalWeight,
+                            userKnownAllergies: SignUpGlobalData.allergies,
+                            userChronicCondition: SignUpGlobalData.chronic,
+                            userEmergency: SignUpGlobalData.emergencyContacts
+                            );
+                        }
+                        
                       },
                       child: Text(
                         'Set up Later',

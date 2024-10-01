@@ -163,7 +163,22 @@ class EmergencyContactViewmodel with ChangeNotifier {
     }
   }
 
-  onSetupLater({required BuildContext context}) {
+  onSetupLaterOntap(
+      {required BuildContext context,
+      required String userFirstName,
+      required String userLastName,
+      required String userEmailAddress,
+      required String userPhoneNumber,
+      required String userGender,
+      required String userPrefix,
+      required String userDateofBirth,
+      required String userPassword,
+      required String userBloodGroup,
+      required String userHeight,
+      required String userWeight,
+      required List userKnownAllergies,
+      required List userChronicCondition,
+      required List userEmergency}) async {
     isStart = true;
     isUiFieldsFill = false;
     notifyListeners();
@@ -181,7 +196,6 @@ class EmergencyContactViewmodel with ChangeNotifier {
 
   onContinueOntap(
       {required BuildContext context,
-      required bool isSetupLater,
       required String userFirstName,
       required String userLastName,
       required String userEmailAddress,
@@ -196,23 +210,21 @@ class EmergencyContactViewmodel with ChangeNotifier {
       required List userKnownAllergies,
       required List userChronicCondition,
       required List userEmergency}) async {
-    if (isSetupLater == true) {
-      isLoading = true;
-      notifyListeners();
-// Api Work Here and Navigation if Has Error then isError = true and then NotifyListner
-      await Future.delayed(Duration(seconds: 4));
-      isLoading = false;
-      notifyListeners();
-    } else {
-      isLoading = true;
-      notifyListeners();
-      // Api Work Here and Navigatio n if Has Error then isError = true and then NotifyListner
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeView()),
-        (Route<dynamic> route) => false,
-      );
-    }
+    isStart = true;
+    isUiFieldsFill = false;
+    notifyListeners();
+    await Future.delayed(Duration(seconds: 2));
+
+    // Api Work Here and Navigatio n if Has Error then isError = true and then NotifyListner
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+          builder: (context) => const SignupCompletedView(
+                isError: false,
+              )),
+      (Route<dynamic> route) => false,
+    );
+    isStart = false;
   }
 
   nextOntap(
@@ -248,7 +260,22 @@ class EmergencyContactViewmodel with ChangeNotifier {
           'First Number : ${firstContactNumberFormatted} | Second Number : ${secondContactNumberFormatted}');
 
       print('Api Work Here for 2 Emergency Contacts');
-
+      await onContinueOntap(
+          context: context,
+          userFirstName: SignUpGlobalData.finalFirstName,
+          userLastName: SignUpGlobalData.finalLastName,
+          userEmailAddress: SignUpGlobalData.finalEmailAddress,
+          userPhoneNumber: SignUpGlobalData.finalPhoneNumber,
+          userGender: SignUpGlobalData.finalGender,
+          userPrefix: SignUpGlobalData.finalPrefix,
+          userDateofBirth: SignUpGlobalData.finalDateOfBirth,
+          userPassword: SignUpGlobalData.finalPassword,
+          userBloodGroup: SignUpGlobalData.finalBloodGroup,
+          userHeight: SignUpGlobalData.finalHeight,
+          userWeight: SignUpGlobalData.finalWeight,
+          userKnownAllergies: SignUpGlobalData.allergies,
+          userChronicCondition: SignUpGlobalData.chronic,
+          userEmergency: SignUpGlobalData.emergencyContacts);
       print('Sign Up Completed');
       Navigator.pushAndRemoveUntil(
         context,
@@ -272,6 +299,23 @@ class EmergencyContactViewmodel with ChangeNotifier {
       print('Number Formated : ${formattedNumber}');
 
       print('Api Work Here for One Emergency Contact');
+      await onContinueOntap(
+          context: context,
+          userFirstName: SignUpGlobalData.finalFirstName,
+          userLastName: SignUpGlobalData.finalLastName,
+          userEmailAddress: SignUpGlobalData.finalEmailAddress,
+          userPhoneNumber: SignUpGlobalData.finalPhoneNumber,
+          userGender: SignUpGlobalData.finalGender,
+          userPrefix: SignUpGlobalData.finalPrefix,
+          userDateofBirth: SignUpGlobalData.finalDateOfBirth,
+          userPassword: SignUpGlobalData.finalPassword,
+          userBloodGroup: SignUpGlobalData.finalBloodGroup,
+          userHeight: SignUpGlobalData.finalHeight,
+          userWeight: SignUpGlobalData.finalWeight,
+          userKnownAllergies: SignUpGlobalData.allergies,
+          userChronicCondition: SignUpGlobalData.chronic,
+          userEmergency: SignUpGlobalData.emergencyContacts);
+
       print('Sign Up Completed');
       Navigator.pushAndRemoveUntil(
         context,
@@ -299,7 +343,7 @@ class EmergencyContactViewmodel with ChangeNotifier {
       isSecondContactNameNotEmpty = false;
       isSecondContactNumberNotEmpty = false;
       notifyListeners();
-      await Future.delayed(Duration(seconds: 4));
+      await Future.delayed(Duration(seconds: 2));
       error = false;
       notifyListeners();
     }

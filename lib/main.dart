@@ -59,9 +59,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CreateNewpasswordViewmodel()),
         ChangeNotifierProvider(create: (_) => PasswordChangedViewModel()),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: PasswordChangedView(
+        home: SignupCompletedView(
           isError: false,
         ),
       ),
