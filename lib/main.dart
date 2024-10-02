@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_background_service/flutter_background_service.dart';
+import 'package:meditrace_project/Services/back_ground_service.dart';
 import 'package:meditrace_project/Services/local_storage.dart';
 import 'package:meditrace_project/Views/Bag%20View/bag_viewmodel.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Create%20New%20Password%20View/create_newpassword_viewmodel.dart';
@@ -28,6 +30,8 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Initialize notification plugin
+  await BackGroundService.initializeService();
   await LocalStorage.initialized();
   runApp(const MyApp());
 }
