@@ -1,19 +1,20 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:meditrace_project/Services/global_Data.dart';
 
-class NotificationService {
+class NotificationService  {
    static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 // Notification sending function
   static Future<void> sendNotification(String medicineName, String time) async {
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails(
-      'medication_channel', // channel ID
-      'Medication Alerts', // channel name
-      channelDescription: 'Channel for medication time alerts',
-      importance: Importance.max,
-      priority: Priority.high,
-    );
+    
+   const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
+  'medication_channel',
+  'Medication Alerts',
+  channelDescription: 'Channel for medication time alerts',
+  importance: Importance.max,
+  priority: Priority.high,
+  icon: "ic_launcher"
+);
 
     const NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);

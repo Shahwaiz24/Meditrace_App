@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:meditrace_project/Services/back_ground_service.dart';
 import 'package:meditrace_project/Services/local_storage.dart';
+import 'package:meditrace_project/Services/notification_service.dart';
 import 'package:meditrace_project/Views/Bag%20View/bag_viewmodel.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Create%20New%20Password%20View/create_newpassword_viewmodel.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20Email%20View/forgot_password_viewmodel.dart';
@@ -24,9 +26,27 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Initialize notification plugin
-  await BackGroundService.initializeService();
-  await LocalStorage.initialized();
+
+  // Initialize local notifications
+  try {
+    await NotificationService.flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()!
+        .requestNotificationsPermission();
+    print("Is Started");
+    await NotificationService.flutterLocalNotificationsPlugin.initialize(
+      InitializationSettings(
+        android: AndroidInitializationSettings(
+            '@mipmap/ic_launcher'), // Use your launcher icon or another icon
+      ),
+    );
+
+    await BackGroundService.initializeService();
+    await LocalStorage.initialized();
+  } catch (e) {
+    print("Error during initialization: $e");
+  }
+
   runApp(const MyApp());
 }
 

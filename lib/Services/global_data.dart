@@ -34,7 +34,10 @@ class UserGlobalData {
   static List userMedicines = [
 {
   "medicine_name" : "Ibruofen",
-  "time" : "3:01 AM"
+  "time" : "3:15 AM"
+},{
+  "medicine_name" : "Panadol",
+  "time" : "3:11 AM"
 }
   ];
 

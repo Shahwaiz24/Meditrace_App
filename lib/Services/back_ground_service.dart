@@ -6,18 +6,46 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:meditrace_project/Services/notification_service.dart'; // Required for Android specific service
 
 class BackGroundService {
- 
+  static Future<bool> onStart(ServiceInstance service) async {
+    // Create a notification channel
+    AndroidNotificationChannel channel = AndroidNotificationChannel(
+      'my_foreground_channel', // id
+      'Foreground Service', // title
+      description:
+          'This notification indicates the background service is running.',
+      importance: Importance.max,
+    );
 
-   static Future<bool> onStart(ServiceInstance service) async {
-    Timer.periodic(const Duration(minutes: 1), (timer) async {
+    await NotificationService.flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+
+    // Show notification immediately
+  
+
+    // Schedule periodic check for medicine times
+    Timer.periodic(const Duration(seconds: 4), (timer) async {
       print("Background service running at ${DateTime.now()}");
-
-      // Check if it's time for any medicine
-     NotificationService.checkMedicineTimes();
+      // NotificationService.checkMedicineTimes();
+       await NotificationService.flutterLocalNotificationsPlugin.show(
+  888, // Notification ID
+  'Service Running',
+  'Your background service is active.',
+  const NotificationDetails(
+    android: AndroidNotificationDetails(
+      'my_foreground_channel', // Ensure this matches the channel ID
+      'Foreground Service',
+      channelDescription: 'This notification indicates the background service is running.',
+      importance: Importance.max,
+      priority: Priority.high,
+    ),
+  ),
+);
     });
     return true;
   }
-// Initialize the background service
+
   static Future<void> initializeService() async {
     final service = FlutterBackgroundService();
 
@@ -26,7 +54,8 @@ class BackGroundService {
         onStart: onStart,
         autoStart: true,
         isForegroundMode: true,
-        notificationChannelId: 'my_foreground',
+        notificationChannelId:
+            'my_foreground_channel', // Use the same channel ID
         initialNotificationTitle: 'Service Running',
         initialNotificationContent: 'Your service is active.',
         foregroundServiceNotificationId: 888,
