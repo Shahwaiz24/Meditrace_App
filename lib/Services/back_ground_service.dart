@@ -22,26 +22,26 @@ class BackGroundService {
         ?.createNotificationChannel(channel);
 
     // Show notification immediately
-  
 
     // Schedule periodic check for medicine times
     Timer.periodic(const Duration(seconds: 4), (timer) async {
       print("Background service running at ${DateTime.now()}");
       // NotificationService.checkMedicineTimes();
-       await NotificationService.flutterLocalNotificationsPlugin.show(
-  888, // Notification ID
-  'Service Running',
-  'Your background service is active.',
-  const NotificationDetails(
-    android: AndroidNotificationDetails(
-      'my_foreground_channel', // Ensure this matches the channel ID
-      'Foreground Service',
-      channelDescription: 'This notification indicates the background service is running.',
-      importance: Importance.max,
-      priority: Priority.high,
-    ),
-  ),
-);
+      await NotificationService.flutterLocalNotificationsPlugin.show(
+        888, // Notification ID
+        'Your Time to Get Medicine',
+        'Medicine Name',
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'my_foreground_channel', // Ensure this matches the channel ID
+            'Foreground Service',
+            channelDescription:
+                'This notification indicates the background service is running.',
+            importance: Importance.max,
+            priority: Priority.high,
+          ),
+        ),
+      );
     });
     return true;
   }
