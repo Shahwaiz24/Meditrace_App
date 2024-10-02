@@ -28,24 +28,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize local notifications
-  try {
-    await NotificationService.flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()!
-        .requestNotificationsPermission();
-    print("Is Started");
-    await NotificationService.flutterLocalNotificationsPlugin.initialize(
-      InitializationSettings(
-        android: AndroidInitializationSettings(
-            '@mipmap/ic_launcher'), // Use your launcher icon or another icon
-      ),
-    );
-
-    await BackGroundService.initializeService();
-    await LocalStorage.initialized();
-  } catch (e) {
-    print("Error during initialization: $e");
-  }
+  BackGroundService.initializing();
 
   runApp(const MyApp());
 }

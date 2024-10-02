@@ -4,20 +4,35 @@ import 'package:meditrace_project/Services/global_Data.dart';
 class NotificationService  {
    static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+          static  const AndroidNotificationDetails androidPlatformChannelSpecifics =
+          AndroidNotificationDetails(
+        'my_foreground_channel',
+        'Foreground Service',
+        channelDescription:
+            'This notification indicates the background service is running.',
+        importance: Importance.max,
+        priority: Priority.high,
+      );
+
+      // Define notification details for iOS
+     static const DarwinNotificationDetails iosPlatformChannelSpecifics =
+          DarwinNotificationDetails(
+        presentAlert: true,
+        presentBadge: true,
+        presentSound: true,
+      );
+
+      // Combine notification details for both platforms
+    static  const NotificationDetails platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+        iOS: iosPlatformChannelSpecifics,
+      );
 // Notification sending function
   static Future<void> sendNotification(String medicineName, String time) async {
     
-   const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
-  'medication_channel',
-  'Medication Alerts',
-  channelDescription: 'Channel for medication time alerts',
-  importance: Importance.max,
-  priority: Priority.high,
-  icon: "ic_launcher"
-);
+   
 
-    const NotificationDetails platformChannelSpecifics =
-        NotificationDetails(android: androidPlatformChannelSpecifics);
+
 
     await flutterLocalNotificationsPlugin.show(
       0, // Notification ID
