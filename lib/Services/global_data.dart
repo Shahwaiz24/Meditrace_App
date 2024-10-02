@@ -31,7 +31,12 @@ class UserGlobalData {
   static String userProfilePhoto = '';
   static List userBag = [];
   static List userEmegerncyContacts = [];
-  static List userMedicines = [];
+  static List userMedicines = [
+{
+  "medicine_name" : "Ibruofen",
+  "time" : "3:01 AM"
+}
+  ];
 
   // static String user
 }

@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
-import 'package:flutter_background_service_android/flutter_background_service_android.dart'; // Required for Android specific service
+import 'package:flutter_background_service_android/flutter_background_service_android.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart'; // Required for Android specific service
 
 class BackGroundService {
+ 
+
   static Future<bool> onStart(ServiceInstance service) async {
-    Timer.periodic(const Duration(seconds: 3), (timer) async {
+    Timer.periodic(const Duration(seconds: 10), (timer) async {
       // Perform your periodic task here
       print("Background service running at ${DateTime.now()}");
     });
