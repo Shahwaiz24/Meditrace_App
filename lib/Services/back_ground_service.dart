@@ -30,13 +30,13 @@ class BackGroundService {
     Timer.periodic(const Duration(seconds: 6), (timer) async {
       print("Background service running at ${DateTime.now()}");
 
-      NotificationService.checkMedicineTimes();
+      // NotificationService.checkMedicineTimes();
     });
     return true;
   }
 
   static Future<void> initializeService() async {
-    final service = FlutterBackgroundService();
+    final service = await FlutterBackgroundService();
 
     await service.configure(
       androidConfiguration: AndroidConfiguration(

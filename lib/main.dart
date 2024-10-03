@@ -28,7 +28,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize local notifications
-  BackGroundService.initializing();
+ await BackGroundService.initializing();
 
   runApp(const MyApp());
 }

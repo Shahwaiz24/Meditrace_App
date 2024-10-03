@@ -2,16 +2,19 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:meditrace_project/Services/global_Data.dart';
 
 class NotificationService  {
+  
    static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
           static  const AndroidNotificationDetails androidPlatformChannelSpecifics =
           AndroidNotificationDetails(
         'my_foreground_channel',
         'Foreground Service',
+        icon: "@mipmap/ic_launcher",
         channelDescription:
             'This notification indicates the background service is running.',
         importance: Importance.max,
-        priority: Priority.high,
+        priority: Priority.high
+        
       );
 
       // Define notification details for iOS
@@ -40,6 +43,7 @@ class NotificationService  {
       'It\'s time to take your medicine: $medicineName at $time', // Notification Body
       platformChannelSpecifics,
       payload: 'Medication Alert', // Optional payload
+    
     );
   }
 
