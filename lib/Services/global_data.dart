@@ -19,7 +19,7 @@ class SignUpGlobalData {
 
 // Forgot Password OTP global Value
 class OTPvalue {
- static String otp = '';
+  static String otp = '';
 }
 // User Global Data After SignUp or Login //
 
@@ -32,14 +32,7 @@ class UserGlobalData {
   static List userBag = [];
   static List userEmegerncyContacts = [];
   static List userMedicines = [
-{
-  "medicine_name" : "Ibruofen",
-  "time" : "10:25 AM"
-},{
-  "medicine_name" : "Panadol",
-  "time" : "10:27 AM"
-}
+    {"medicine_name": "Ibruofen", "time": "10:25 AM"},
+    {"medicine_name": "Panadol", "time": "10:32 AM"}
   ];
-
-  // static String user
 }
