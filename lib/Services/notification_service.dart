@@ -9,11 +9,11 @@ class NotificationService  {
           AndroidNotificationDetails(
         'my_foreground_channel',
         'Foreground Service',
-        icon: "@mipmap/ic_launcher",
         channelDescription:
             'This notification indicates the background service is running.',
         importance: Importance.max,
-        priority: Priority.high
+        priority: Priority.high,
+    icon: '@mipmap/ic_launcher',
         
       );
 

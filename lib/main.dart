@@ -25,7 +25,7 @@ import 'package:meditrace_project/Views/Splash%20View/splash_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+ await WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize local notifications
  await BackGroundService.initializing();
