@@ -1,84 +1,83 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:meditrace_project/Services/global_Data.dart';
+import 'package:meditrace_project/Services/utils.dart';
 
-class NotificationService  {
-  
-   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-          static  const AndroidNotificationDetails androidPlatformChannelSpecifics =
-          AndroidNotificationDetails(
-        'my_foreground_channel',
-        'Foreground Service',
-        channelDescription:
-            'This notification indicates the background service is running.',
-        importance: Importance.max,
-        priority: Priority.high,
-    icon: '@mipmap/ic_launcher',
-        
-      );
+class NotificationService {
+//   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+//       FlutterLocalNotificationsPlugin();
 
-      // Define notification details for iOS
-     static const DarwinNotificationDetails iosPlatformChannelSpecifics =
-          DarwinNotificationDetails(
-        presentAlert: true,
-        presentBadge: true,
-        presentSound: true,
-      );
+//   static AndroidNotificationDetails androidPlatformChannelSpecifics =
+//      const AndroidNotificationDetails(
+//           'my_foreground_channel', // Channel ID
+//           'Foreground Service', // Channel name
+//           channelDescription:
+//               'This notification indicates the background service is running.',
+//           importance: Importance.max,
+//           priority: Priority.high,
+//           icon: '@mipmap/ic_launcher',
+//           sound: const RawResourceAndroidNotificationSound('bell_notification'),
+//           styleInformation: BigTextStyleInformation(
+//             "",
+//             htmlFormatContent: true, 
+//             htmlFormatTitle: true, 
+//           ));
 
-      // Combine notification details for both platforms
-    static  const NotificationDetails platformChannelSpecifics = NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iosPlatformChannelSpecifics,
-      );
-// Notification sending function
-  static Future<void> sendNotification(String medicineName, String time) async {
-    
-   
+//   // Define notification details for iOS
+//   static const DarwinNotificationDetails iosPlatformChannelSpecifics =
+//       DarwinNotificationDetails(
+//     presentAlert: true,
+//     presentBadge: true,
+//     sound: 'bell_notification',
+//     presentSound: true,
+//   );
 
+//   // Combine notification details for both platforms
+//   static NotificationDetails platformChannelSpecifics = NotificationDetails(
+//     android: androidPlatformChannelSpecifics,
+//     iOS: iosPlatformChannelSpecifics,
+//   );
+// // Notification sending function
+//   static Future<void> sendNotification(String medicineName, String time) async {
+//     await flutterLocalNotificationsPlugin.show(
+//       0, // Notification ID
+//       '<div style="color: #434343; font-family: Poppins, sans-serif; font-size: 24px;">Missed a dose? Don’t worry—take your\n ${medicineName} now.</div>', // Notification Title
+//       '', // HTML styled body text
+//       platformChannelSpecifics,
+//       payload: 'Medication Alert', // Optional payload
+//     );
+//   }
 
+//   // Function to check if it's time for medicine
+//   static void checkMedicineTimes() {
+//     final currentTime = DateTime.now();
 
-    await flutterLocalNotificationsPlugin.show(
-      0, // Notification ID
-      'Medicine Time Reached', // Notification Title
-      'It\'s time to take your medicine: $medicineName at $time', // Notification Body
-      platformChannelSpecifics,
-      payload: 'Medication Alert', // Optional payload
-    
-    );
-  }
+//     for (var medicine in UserGlobalData.userMedicines) {
+//       String medicineName = medicine['medicine_name'] ?? 'Unknown';
+//       String medicineTime = medicine['time'] ?? '';
 
-    // Function to check if it's time for medicine
-  static void checkMedicineTimes() {
-    final currentTime = DateTime.now();
+//       DateTime? parsedTime = _parseMedicineTime(medicineTime);
 
-    for (var medicine in UserGlobalData.userMedicines) {
-      String medicineName = medicine['medicine_name'] ?? 'Unknown';
-      String medicineTime = medicine['time'] ?? '';
+//       if (parsedTime != null &&
+//           currentTime.hour == parsedTime.hour &&
+//           currentTime.minute == parsedTime.minute) {
+//         // If time matches, send notification
+//         sendNotification(medicineName, medicineTime);
+//       }
+//     }
+//   }
 
-      DateTime? parsedTime = _parseMedicineTime(medicineTime);
-
-      if (parsedTime != null &&
-          currentTime.hour == parsedTime.hour &&
-          currentTime.minute == parsedTime.minute) {
-        // If time matches, send notification
-        sendNotification(medicineName, medicineTime);
-      }
-    }
-  }
-   // Function to parse time string to DateTime
-  static DateTime? _parseMedicineTime(String time) {
-    try {
-      return DateTime(
-        DateTime.now().year,
-        DateTime.now().month,
-        DateTime.now().day,
-        int.parse(time.split(":")[0]),
-        int.parse(time.split(":")[1].split(" ")[0]),
-      );
-    } catch (e) {
-      return null;
-    }
-  }
-
-
+//   // Function to parse time string to DateTime
+//   static DateTime? _parseMedicineTime(String time) {
+    // try {
+    //   return DateTime(
+    //     DateTime.now().year,
+    //     DateTime.now().month,
+    //     DateTime.now().day,
+    //     int.parse(time.split(":")[0]),
+    //     int.parse(time.split(":")[1].split(" ")[0]),
+    //   );
+    // } catch (e) {
+    //   return null;
+    // }
+  // }
 }

@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:meditrace_project/Services/local_storage.dart';
-import 'package:meditrace_project/Services/notification_service.dart'; // Required for Android specific service
+import 'package:meditrace_project/Services/notification_service.dart'; 
 
 class BackGroundService {
   static initializing() async {
@@ -32,18 +33,26 @@ class BackGroundService {
 
   // Local notification initialization with proper drawable icon
   static Future<void> _initializeLocalNotifications() async {
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings(
-            '@mipmap/ic_launcher'); // Use a drawable icon
+    // const AndroidInitializationSettings initializationSettingsAndroid =
+    //     AndroidInitializationSettings(
+    //         '@mipmap/ic_launcher'); // Use a drawable icon
 
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-      android: initializationSettingsAndroid,
-    );
+    // final InitializationSettings initializationSettings =
+    //     InitializationSettings(
+    //   android: initializationSettingsAndroid,
+    // );
 
-    await NotificationService.flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
-    );
+    // await NotificationService.flutterLocalNotificationsPlugin.initialize(
+    //   initializationSettings,
+    // );
+    // if(Platform.isAndroid == true){
+    //  await NotificationService.flutterLocalNotificationsPlugin
+    // .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()!.requestNotificationsPermission();
+
+    // }
+    // await NotificationService.flutterLocalNotificationsPlugin
+    // .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
+    // ?.requestPermissions(alert: true, badge: true, sound: true);
   }
 
   static Future<bool> onStart(ServiceInstance service) async {
@@ -55,7 +64,7 @@ class BackGroundService {
 
      await Future.microtask(() async {
         // Run your task here asynchronously
-         NotificationService.checkMedicineTimes();  // Keep it non-blocking
+        //  NotificationService.checkMedicineTimes();  // Keep it non-blocking
       });
     });
     return true;
