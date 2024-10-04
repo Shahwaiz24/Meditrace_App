@@ -6,13 +6,15 @@ class NotificationService {
   static Future<void> sendNotification(String medicineName, String time) async {
     AwesomeNotifications().createNotification(
         content: NotificationContent(
-      largeIcon: "asset://assets/images/notification_icon.png",
+      // largeIcon: "asset://assets/images/notification_icon.png",
       // icon: "asset://assets/images/notification_icon.png",
 
-      customSound: 'asset://assets/notification_sound/bell_notification.mp3',
+// customSound: 'resource://raw/bell_notification',
       id: 10,
       channelKey: 'notification_channel',
+      // hideLargeIconOnExpand: true,
       actionType: ActionType.Default,
+      // roundedLargeIcon: true,
       notificationLayout: NotificationLayout.Default,
       title: 'Missed a dose? Don’t worry—take your\n ${medicineName} now.',
     ));

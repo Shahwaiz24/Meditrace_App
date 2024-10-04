@@ -14,30 +14,39 @@ class BackGroundService {
     await LocalStorage.initialized();
   }
 
-  
   // Local notification initialization with proper drawable icon
   static Future<void> _initializeLocalNotifications() async {
     await AwesomeNotifications().initialize(
-      null,
-      [
-        NotificationChannel(
-            channelGroupKey: 'basic_channel_group',
-            channelKey: 'notification_channel',
-            channelName: 'Basic notifications',
-            channelDescription: 'Notification channel for basic tests',
-            defaultColor: Color(0xFF9D50DD),
-            playSound: true,
-            ledColor: Colors.white)
-      ],
-      // Channel groups are only visual and are not required
-      channelGroups: [
-        NotificationChannelGroup(
-            channelGroupKey: 'basic_channel_group',
-            channelGroupName: 'Basic group')
-      ],
-      debug: true,
-    );
-
+    null,  // Ensure this is set correctly
+    [
+      NotificationChannel(
+        channelGroupKey: 'basic_channel_group',
+        channelKey: 'notification_channel',  // Regular notification channel
+        channelName: 'Notification Channel',
+        channelDescription: 'This channel is used for reminder notifications',
+        defaultColor: Color(0xFF9D50DD),
+        ledColor: Colors.white,
+        playSound: true,
+        enableVibration: true,
+        enableLights: true,
+      ),
+      NotificationChannel(
+        channelKey: 'my_foreground_channel',  // Foreground service notification channel
+        channelName: 'Foreground Service Channel',
+        channelDescription: 'This channel is used for foreground service notifications',
+        importance: NotificationImportance.High,  // Set the importance level for foreground services
+        playSound: false,  // Foreground service notifications often don't have sound
+        enableVibration: false,  // You can adjust these settings as needed
+      ),
+    ],
+    channelGroups: [
+      NotificationChannelGroup(
+        channelGroupKey: 'basic_channel_group',
+        channelGroupName: 'Basic group',
+      )
+    ],
+    debug: true,
+  ); 
     await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
         // This is just a basic example. For real apps, you must show some
@@ -46,7 +55,6 @@ class BackGroundService {
         AwesomeNotifications().requestPermissionToSendNotifications();
       }
     });
-  
   }
 
   static Future<bool> onStart(ServiceInstance service) async {
@@ -64,27 +72,26 @@ class BackGroundService {
     return true;
   }
 
-  static Future<void> initializeService() async {
-    final service = FlutterBackgroundService();
+ static Future<void> initializeService() async {
+  final service = FlutterBackgroundService();
 
-    await service.configure(
-      androidConfiguration: AndroidConfiguration(
-        onStart: onStart,
-        autoStart: true,
-        isForegroundMode: true,
-        notificationChannelId: 'my_foreground_channel', // Channel ID
-        initialNotificationTitle:
-            'Meditrace Service Active', // Foreground notification title
-        initialNotificationContent:
-            'Checking Medicines ', // Notification content
-        foregroundServiceNotificationId: 888, // Notification ID
-      ),
-      iosConfiguration: IosConfiguration(
-        autoStart: true,
-        onBackground: onStart,
-      ),
-    );
+  await service.configure(
+    androidConfiguration: AndroidConfiguration(
+      onStart: onStart,
+      autoStart: true,
+      isForegroundMode: true,
+      notificationChannelId: 'my_foreground_channel',  // Foreground service channel
+      initialNotificationTitle: 'Meditrace Service Active',
+      initialNotificationContent: 'Checking Medicines ',
+      foregroundServiceNotificationId: 888,  // Notification ID
+    ),
+    iosConfiguration: IosConfiguration(
+      autoStart: true,
+      onBackground: onStart,
+    ),
+  );
 
-    print("Services Configured");
-  }
+  print("Services Configured");
+}
+
 }
