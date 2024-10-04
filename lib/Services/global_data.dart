@@ -33,6 +33,6 @@ class UserGlobalData {
   static List userEmegerncyContacts = [];
   static List userMedicines = [
     {"medicine_name": "Ibruofen", "time": "2:55 AM"},
-    {"medicine_name": "Panadol", "time": "4:03 AM"}
+    {"medicine_name": "Panadol", "time": "5:10 AM"}
   ];
 }
