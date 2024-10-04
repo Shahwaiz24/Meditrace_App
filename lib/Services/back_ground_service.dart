@@ -8,6 +8,7 @@ import 'package:meditrace_project/Services/local_storage.dart';
 import 'package:meditrace_project/Services/notification_service.dart';
 
 class BackGroundService {
+  static int id = 0;
   static initializing() async {
     await _initializeLocalNotifications(); // Initialize notifications with a valid drawable icon
     await BackGroundService.initializeService();
@@ -17,41 +18,61 @@ class BackGroundService {
   // Local notification initialization with proper drawable icon
   static Future<void> _initializeLocalNotifications() async {
     await AwesomeNotifications().initialize(
-    null,  // Ensure this is set correctly
-    [
-      NotificationChannel(
-        channelGroupKey: 'basic_channel_group',
-        channelKey: 'notification_channel',  // Regular notification channel
-        channelName: 'Notification Channel',
-        channelDescription: 'This channel is used for reminder notifications',
-        defaultColor: Color(0xFF9D50DD),
-        ledColor: Colors.white,
-        playSound: true,
-        enableVibration: true,
-        enableLights: true,
-      ),
-      NotificationChannel(
-        channelKey: 'my_foreground_channel',  // Foreground service notification channel
-        channelName: 'Foreground Service Channel',
-        channelDescription: 'This channel is used for foreground service notifications',
-        importance: NotificationImportance.High,  // Set the importance level for foreground services
-        playSound: false,  // Foreground service notifications often don't have sound
-        enableVibration: false,  // You can adjust these settings as needed
-      ),
-    ],
-    channelGroups: [
-      NotificationChannelGroup(
-        channelGroupKey: 'basic_channel_group',
-        channelGroupName: 'Basic group',
-      )
-    ],
-    debug: true,
-  ); 
+      "resource://mipmap/ic_launcher", // Ensure this is set correctly
+      [
+        NotificationChannel(
+          
+          channelGroupKey: 'basic_channel_group',
+          channelKey: 'notification_channel', // Regular notification channel
+          channelName: 'Notification Channel',
+          channelDescription: 'This channel is used for reminder notifications',
+          defaultColor: Color(0xFF9D50DD),
+          ledColor: Colors.black,
+          playSound: true,
+          soundSource: 'resource://raw/bell_notification',
+          enableVibration: true,
+          enableLights: true,
+        ),
+        
+        NotificationChannel(
+          channelKey:
+              'my_foreground_channel', // Foreground service notification channel
+          channelName: 'Foreground Service Channel',
+          channelDescription:
+              'This channel is used for foreground service notifications',
+          importance: NotificationImportance
+              .High, // Set the importance level for foreground services
+          playSound:
+              false, // Foreground service notifications often don't have sound
+          enableVibration: false, // You can adjust these settings as needed
+        ),
+      ],
+    
+      
+      
+      channelGroups: [
+        NotificationChannelGroup(
+          channelGroupKey: 'basic_channel_group',
+          channelGroupName: 'Basic group',
+        )
+      ],
+      debug: true,
+    );
+      await AwesomeNotifications().setListeners(
+        onActionReceivedMethod: (receivedAction) async {
+      if (receivedAction.buttonKeyPressed == 'SNOOZE') {
+        print('Snooze button pressed!');
+        await AwesomeNotifications().cancel(id);
+        print("SuccessFully Canceled");
+        // Call your custom snooze function here
+      } else if (receivedAction.buttonKeyPressed == 'TAKE') {
+        print('Take button pressed!');
+        // Call your custom take function here
+      }
+      return Future.value();
+    });
     await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
-        // This is just a basic example. For real apps, you must show some
-        // friendly dialog box before call the request method.
-        // This is very important to not harm the user experience
         AwesomeNotifications().requestPermissionToSendNotifications();
       }
     });
@@ -72,26 +93,26 @@ class BackGroundService {
     return true;
   }
 
- static Future<void> initializeService() async {
-  final service = FlutterBackgroundService();
+  static Future<void> initializeService() async {
+    final service = FlutterBackgroundService();
 
-  await service.configure(
-    androidConfiguration: AndroidConfiguration(
-      onStart: onStart,
-      autoStart: true,
-      isForegroundMode: true,
-      notificationChannelId: 'my_foreground_channel',  // Foreground service channel
-      initialNotificationTitle: 'Meditrace Service Active',
-      initialNotificationContent: 'Checking Medicines ',
-      foregroundServiceNotificationId: 888,  // Notification ID
-    ),
-    iosConfiguration: IosConfiguration(
-      autoStart: true,
-      onBackground: onStart,
-    ),
-  );
+    await service.configure(
+      androidConfiguration: AndroidConfiguration(
+        onStart: onStart,
+        autoStart: true,
+        isForegroundMode: true,
+        notificationChannelId:
+            'my_foreground_channel', // Foreground service channel
+        initialNotificationTitle: 'Meditrace Service Active',
+        initialNotificationContent: 'Checking Medicines ',
+        foregroundServiceNotificationId: 888, // Notification ID
+      ),
+      iosConfiguration: IosConfiguration(
+        autoStart: true,
+        onBackground: onStart,
+      ),
+    );
 
-  print("Services Configured");
-}
-
+    print("Services Configured");
+  }
 }
