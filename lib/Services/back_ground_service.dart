@@ -9,30 +9,12 @@ import 'package:meditrace_project/Services/notification_service.dart';
 
 class BackGroundService {
   static initializing() async {
-    // await _createNotificationChannel(); // Create notification channel
     await _initializeLocalNotifications(); // Initialize notifications with a valid drawable icon
     await BackGroundService.initializeService();
     await LocalStorage.initialized();
   }
 
-  static Future<void> _createNotificationChannel() async {
-    const AndroidNotificationChannel channel = AndroidNotificationChannel(
-      'my_foreground_channel', // ID
-      'Background Service Channel', // Name
-      description:
-          'This channel is used for background service notifications', // Description
-      importance: Importance.low, // Set appropriate importance
-    );
-
-    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
-
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(channel);
-  }
-
+  
   // Local notification initialization with proper drawable icon
   static Future<void> _initializeLocalNotifications() async {
     await AwesomeNotifications().initialize(
@@ -64,26 +46,7 @@ class BackGroundService {
         AwesomeNotifications().requestPermissionToSendNotifications();
       }
     });
-    // const AndroidInitializationSettings initializationSettingsAndroid =
-    //     AndroidInitializationSettings(
-    //         '@mipmap/ic_launcher'); // Use a drawable icon
-
-    // final InitializationSettings initializationSettings =
-    //     InitializationSettings(
-    //   android: initializationSettingsAndroid,
-    // );
-
-    // await NotificationService.flutterLocalNotificationsPlugin.initialize(
-    //   initializationSettings,
-    // );
-    // if(Platform.isAndroid == true){
-    //  await NotificationService.flutterLocalNotificationsPlugin
-    // .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()!.requestNotificationsPermission();
-
-    // }
-    // await NotificationService.flutterLocalNotificationsPlugin
-    // .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
-    // ?.requestPermissions(alert: true, badge: true, sound: true);
+  
   }
 
   static Future<bool> onStart(ServiceInstance service) async {
