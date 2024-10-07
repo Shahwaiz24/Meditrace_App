@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class AllergiesWidget extends StatelessWidget {
-  final bool isAllergiesSelected;
-  final List<String> selectedAllergies; // Assume this list is populated
-  final Function(String) onAllergiesRemove;
+class ChronicWidget extends StatelessWidget {
+  final bool isChronicSelected;
+  final List<String> selectedChronics; // Assume this list is populated
+  final Function(String) onChronicDelete;
 
-  AllergiesWidget({
-    required this.isAllergiesSelected,
-    required this.selectedAllergies,
-    required this.onAllergiesRemove,
+  ChronicWidget({
+    required this.isChronicSelected,
+    required this.selectedChronics,
+    required this.onChronicDelete,
   });
 
   @override
@@ -16,14 +16,14 @@ class AllergiesWidget extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return isAllergiesSelected
+    return isChronicSelected
         ? SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: screenWidth * 0.020),
               child: Wrap(
                 spacing: screenWidth * 0.010,
-                children: selectedAllergies.map((condition) {
+                children: selectedChronics.map((condition) {
                   return Chip(
                     label: Text(
                       condition,
@@ -35,9 +35,9 @@ class AllergiesWidget extends StatelessWidget {
                       ),
                     ),
                     onDeleted: () {
-                      onAllergiesRemove(condition); // Toggle selection
+                      onChronicDelete(condition); 
                     },
-                    deleteIcon: Icon(
+                    deleteIcon: const Icon(
                       Icons.close_rounded,
                       color: Colors
                           .black, // Update this to AppColors.TextblackColor

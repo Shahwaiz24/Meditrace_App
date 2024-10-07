@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/allergies_widget.dart';
 import 'package:meditrace_project/Components/button.dart';
+import 'package:meditrace_project/Components/chronic_widget.dart';
 import 'package:meditrace_project/Components/custom_dropdown_menu.dart';
 import 'package:meditrace_project/Components/text_fields.dart';
 import 'package:meditrace_project/Services/utils.dart';
@@ -305,15 +306,13 @@ class MedicalInformationSignupView extends StatelessWidget {
                         fontFamily: 'Poppins Regular',
                         fontWeight: FontWeight.w500),
                   ),
-
                   AllergiesWidget(
                     isAllergiesSelected: model.isAllergiesSelected,
                     selectedAllergies: model.selectedAllergies,
-                    onAllergiesSelect: (string) {
-                      model.onAllergiesSelect(allergies: string);
+                    onAllergiesRemove: (string) {
+                      model.removeAllergie(string);
                     },
                   ),
-                
                 ],
               );
             }),
@@ -369,46 +368,17 @@ class MedicalInformationSignupView extends StatelessWidget {
                           fontFamily: 'Poppins Regular',
                           fontWeight: FontWeight.w500),
                     ),
-                    // Dropdown for selecting chronic conditions
-
-                    // Display selected items as chips
-                    model.isChronicSelected == true
-                        ? Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: screenHeight * 0.010),
-                            child: Wrap(
-                              spacing: screenWidth * 0.010,
-                              children: model.selectedChronicConditions
-                                  .map((condition) {
-                                return Chip(
-                                  label: Text(
-                                    condition,
-                                    style: TextStyle(
-                                        fontFamily: 'Poppins Regular',
-                                        color: AppColors.TextblackColor,
-                                        fontSize: screenHeight * 0.020),
-                                  ),
-                                  onDeleted: () {
-                                    model.onChronicSelect(
-                                        condition:
-                                            condition); // Toggle selection
-                                  },
-                                  deleteIcon: Icon(
-                                    Icons.close_rounded,
-                                    color: AppColors.TextblackColor,
-                                  ),
-                                  backgroundColor: AppColors
-                                      .TextwhiteColor, // Change chip color as needed
-                                );
-                              }).toList(),
-                            ),
-                          )
-                        : Text(""),
+                    ChronicWidget(
+                        isChronicSelected: model.isChronicSelected,
+                        selectedChronics: model.selectedChronicConditions,
+                        onChronicDelete: (value) {
+                          model.removeChronicCondition(value);
+                        }),
                   ],
                 );
               },
             ),
-            // const Spacer(),
+            const Spacer(),
             Padding(
                 padding: EdgeInsets.only(bottom: screenHeight * 0.020),
                 child: Consumer<MedicalInformationSignUpViewModel>(
