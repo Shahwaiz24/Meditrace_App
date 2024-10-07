@@ -67,7 +67,6 @@ class BackGroundService {
         // Call your custom snooze function here
       } else if (receivedAction.buttonKeyPressed == 'TAKE') {
         print('Take button pressed!');
-        // Call your custom take function here
       }
       return Future.value();
     });
