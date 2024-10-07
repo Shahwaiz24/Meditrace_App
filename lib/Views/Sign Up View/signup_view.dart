@@ -377,7 +377,7 @@ class SignupView extends StatelessWidget {
                               child: model.isSignUpStart
                                   ? Center(
                                       child: CircularProgressIndicator(
-                                        color: AppColors.PrimaryBlueColor,
+                                        color: AppColors.TextwhiteColor,
                                       ),
                                     )
                                   : Center(

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Services/api_service.dart';
 import 'package:meditrace_project/Services/global_Data.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Personal%20Information%20View/personal_information_view.dart';
 
@@ -222,21 +225,41 @@ class SignUpViewmodel with ChangeNotifier {
       required String Password,
       required BuildContext context}) async {
     isSignUpStart = true;
+    isUiFieldsFill = false;
     notifyListeners();
     bool validate = await validation(
         EmailText: Email, Password: Password, phoneNumber: phoneNumber);
     if (validate == true) {
       isUiFieldsFill = false;
       notifyListeners();
-      SignUpGlobalData.finalEmailAddress = Email;
-      SignUpGlobalData.finalPassword = Password;
-      SignUpGlobalData.finalPhoneNumber = formattedNumber;
-      isSignUpStart = false;
 
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => PersonalInformationView()));
+      var mapApiCheck = {
+        "email": Email.toString(),
+      };
+      var jsonBody = jsonEncode(mapApiCheck);
 
-      notifyListeners();
+      bool apiCheck = await ApiService.checkUserForSignUp(body: jsonBody);
+
+      if (apiCheck == true) {
+        SignUpGlobalData.finalEmailAddress = Email;
+        SignUpGlobalData.finalPassword = Password;
+        SignUpGlobalData.finalPhoneNumber = formattedNumber;
+        isSignUpStart = false;
+        isUiFieldsFill = false;
+        notifyListeners();
+
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => PersonalInformationView()));
+      } else {
+        isSignUpStart = false;
+        isCheck = false;
+        isSignUpError = true;
+        isUiFieldsFill = false;
+        notifyListeners();
+        await Future.delayed(const Duration(milliseconds: 1500));
+        isSignUpError = false;
+        notifyListeners();
+      }
     } else {
       isSignUpStart = false;
       isCheck = false;
@@ -248,6 +271,4 @@ class SignUpViewmodel with ChangeNotifier {
       notifyListeners();
     }
   }
-
-
 }
