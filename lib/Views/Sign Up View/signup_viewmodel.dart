@@ -248,4 +248,6 @@ class SignUpViewmodel with ChangeNotifier {
       notifyListeners();
     }
   }
+
+
 }

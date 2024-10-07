@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:meditrace_project/Services/back_ground_service.dart';
-import 'package:meditrace_project/Services/local_storage.dart';
-import 'package:meditrace_project/Services/notification_service.dart';
 import 'package:meditrace_project/Views/Bag%20View/bag_viewmodel.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Create%20New%20Password%20View/create_newpassword_viewmodel.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20Email%20View/forgot_password_viewmodel.dart';
@@ -17,7 +14,6 @@ import 'package:meditrace_project/Views/Sign%20In%20View/signin_viewmodel.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Emergency%20Contact%20View/emergency_contact_viewmodel.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Medical%20Information%20View/medical_information_viewModel_signUp.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Personal%20Information%20View/personal_information_viewmodel.dart';
-import 'package:meditrace_project/Views/Sign%20Up%20View/Sign%20Up%20Completed/signup_completed_view.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Sign%20Up%20Completed/signup_completed_viewmodel.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/signup_viewmodel.dart';
 import 'package:meditrace_project/Views/Splash%20View/splash_view.dart';
@@ -62,10 +58,7 @@ class MyApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SignupCompletedView(
-          isError: false,
-          userId: "",
-        ),
+        home: SplashView()
       ),
     );
   }

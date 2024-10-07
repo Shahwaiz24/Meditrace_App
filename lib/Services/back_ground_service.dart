@@ -86,7 +86,7 @@ class BackGroundService {
 
       await Future.microtask(() async {
         // Run your task here asynchronously
-        NotificationService.checkMedicineTimes();
+        // NotificationService.checkMedicineTimes();
       });
     });
     return true;
