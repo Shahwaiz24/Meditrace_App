@@ -164,12 +164,21 @@ class MedicalInformationSignUpViewModel with ChangeNotifier {
 
   // Method to remove an item from the list (called when cancel icon is clicked)
   void removeChronicCondition(String condition) {
-    selectedChronicConditions.remove(condition); // Remove the condition
+    selectedChronicConditions.remove(condition);
+
+    if (selectedChronicConditions.isEmpty) {
+      isChronicSelected = false;
+      notifyListeners();
+    }
     notifyListeners();
   }
 
   void removeAllergie(String condition) {
-    selectedAllergies.remove(condition); // Remove the condition
+    selectedAllergies.remove(condition);
+    if (selectedAllergies.isEmpty) {
+      isAllergiesSelected = false;
+      notifyListeners();
+    }
     notifyListeners();
   }
 

@@ -261,13 +261,15 @@ class MedicalInformationSignupView extends StatelessWidget {
                   CustomDropdown(
                     items: model.allAllergies,
                     onChanged: (value) {
-                      model.onAllergiesSelect(allergies: value!);
-                      model.onChangedFocusOFUi(
-                          bloodGroup: model.selectedBloodGroup,
-                          allergies: model.selectedAllergies,
-                          chronic: model.selectedChronicConditions,
-                          weight: weightController.text,
-                          height: heightController.text);
+                      if (value != null && value.isNotEmpty) {
+                        model.onAllergiesSelect(allergies: value);
+                        model.onChangedFocusOFUi(
+                            bloodGroup: model.selectedBloodGroup,
+                            allergies: model.selectedAllergies,
+                            chronic: model.selectedChronicConditions,
+                            weight: weightController.text,
+                            height: heightController.text);
+                      }
                     },
                     decoration: InputDecoration(
                       filled: true,
@@ -325,8 +327,13 @@ class MedicalInformationSignupView extends StatelessWidget {
                       items: model.allChronicConditions,
                       onChanged: (value) {
                         if (value != null) {
-                          model.onChronicSelect(
-                              condition: value); // Toggle selection
+                          model.onChronicSelect(condition: value);
+                          model.onChangedFocusOFUi(
+                              bloodGroup: model.selectedBloodGroup,
+                              allergies: model.selectedAllergies,
+                              chronic: model.selectedChronicConditions,
+                              weight: weightController.text,
+                              height: heightController.text);
                         }
                       },
                       decoration: InputDecoration(
@@ -380,7 +387,7 @@ class MedicalInformationSignupView extends StatelessWidget {
             ),
             const Spacer(),
             Padding(
-                padding: EdgeInsets.only(bottom: screenHeight * 0.020),
+                padding: EdgeInsets.only(bottom: screenHeight * 0.030),
                 child: Consumer<MedicalInformationSignUpViewModel>(
                     builder: (context, model, child) {
                   return InkWell(
@@ -409,7 +416,7 @@ class MedicalInformationSignupView extends StatelessWidget {
                         child: model.isStart
                             ? Center(
                                 child: CircularProgressIndicator(
-                                  color: AppColors.PrimaryBlueColor,
+                                  color: AppColors.TextblackColor,
                                 ),
                               )
                             : Center(

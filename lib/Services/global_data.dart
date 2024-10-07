@@ -4,8 +4,6 @@ class SignUpGlobalData {
   static String finalHeight = '';
   static List<String> allergies = [];
   static List<String> chronic = [];
-  static String contactName = '';
-  static String contactNumber = '';
   static List emergencyContacts = [];
   static String finalFirstName = "";
   static String finalLastName = "";
