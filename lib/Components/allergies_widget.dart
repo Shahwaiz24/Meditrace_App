@@ -37,7 +37,7 @@ class AllergiesWidget extends StatelessWidget {
                     onDeleted: () {
                       onAllergiesRemove(condition); // Toggle selection
                     },
-                    deleteIcon: Icon(
+                    deleteIcon: const Icon(
                       Icons.close_rounded,
                       color: Colors
                           .black, // Update this to AppColors.TextblackColor

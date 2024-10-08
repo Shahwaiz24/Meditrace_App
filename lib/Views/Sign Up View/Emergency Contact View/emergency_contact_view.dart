@@ -317,15 +317,7 @@ class EmergencyContactView extends StatelessWidget {
                       onTap: () {
                         if (model.isUiFieldsFill == true &&
                             model.isStart == false) {
-                          model.nextOntap(
-                              isEnable: model.isSecondContactEnable,
-                              secondContactName:
-                                  contactNameSecondContrller.text,
-                              secondContactNumber:
-                                  contactNumberSecondContrller.text,
-                              context: context,
-                              contactName: contactNameContrller.text,
-                              contactNumber: contactNumberContrller.text);
+                         
                           contactNameContrller.clear();
                           contactNumberContrller.clear();
                           contactNameSecondContrller.clear();
@@ -344,7 +336,7 @@ class EmergencyContactView extends StatelessWidget {
                                   BorderRadius.circular(screenWidth * 0.080)),
                           child: Center(
                             child: Text(
-                              'Next',
+                              'Continue',
                               style: TextStyle(
                                   color: AppColors.TextwhiteColor,
                                   fontFamily: 'Poppins Semi Bold',
@@ -356,26 +348,7 @@ class EmergencyContactView extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         if (model.isStart == false) {
-                           model.onSetupLaterOntap(
-                            context: context,
-                            userFirstName: SignUpGlobalData.finalFirstName,
-                            userLastName: SignUpGlobalData.finalLastName,
-                            userEmailAddress:
-                                SignUpGlobalData.finalEmailAddress,
-                            userPhoneNumber:
-                                SignUpGlobalData.finalPhoneNumber,
-                            userGender: SignUpGlobalData.finalGender,
-                            userPrefix: SignUpGlobalData.finalPrefix,
-                            userDateofBirth:
-                                SignUpGlobalData.finalDateOfBirth,
-                            userPassword: SignUpGlobalData.finalPassword,
-                            userBloodGroup: SignUpGlobalData.finalBloodGroup,
-                            userHeight: SignUpGlobalData.finalHeight,
-                            userWeight: SignUpGlobalData.finalWeight,
-                            userKnownAllergies: SignUpGlobalData.allergies,
-                            userChronicCondition: SignUpGlobalData.chronic,
-                            userEmergency: SignUpGlobalData.emergencyContacts
-                            );
+                 
                         }
                         
                       },

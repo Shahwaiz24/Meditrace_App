@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Services/api_service.dart';
 import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Sign%20Up%20Completed/signup_completed_view.dart';
 
@@ -166,88 +169,74 @@ class EmergencyContactViewmodel with ChangeNotifier {
 
   onSetupLaterOntap(
       {required BuildContext context,
-      required String userFirstName,
-      required String userLastName,
-      required String userEmailAddress,
-      required String userPhoneNumber,
-      required String userGender,
-      required String userPrefix,
-      required String userDateofBirth,
-      required String userPassword,
-      required String userBloodGroup,
-      required String userHeight,
-      required String userWeight,
-      required List userKnownAllergies,
-      required List userChronicCondition,
-      required List userEmergency}) async {
+   }) async {
     isStart = true;
     isUiFieldsFill = false;
     notifyListeners();
-    print("Api Working Started");
-    userId = "000023232435453asvsd";
+      final Map apiBody = {
+      "firstname": SignUpGlobalData.finalFirstName,
+      "lastname": SignUpGlobalData.finalLastName,
+      "email": SignUpGlobalData.finalEmailAddress,
+      "password": SignUpGlobalData.finalPassword,
+      "phoneNumber": SignUpGlobalData.finalPhoneNumber,
+      "gender": SignUpGlobalData.finalGender,
+      "dateofbirth": SignUpGlobalData.finalDateOfBirth,
+      "medicalInformation": {
+        "bloodGroup": SignUpGlobalData.finalBloodGroup,
+        "weight": SignUpGlobalData.finalWeight,
+        "height": SignUpGlobalData.finalHeight,
+        "known_Allergies": SignUpGlobalData.allergies,
+        "chronic_Conditions": SignUpGlobalData.chronic
+      },
+      "emergency_Contact": SignUpGlobalData.emergencyContacts,
+    };
 
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-          builder: (context) => SignupCompletedView(
-                userId: userId,
-                isError: false,
-              )),
-      (Route<dynamic> route) => false,
-    );
+    var jsonBody = jsonEncode(apiBody);
+
+    bool apiRequest = await ApiService.signUpUser(body: apiBody);
+     if (apiRequest == true) {
+      isStart = false;
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SignupCompletedView(
+                  userId: UserGlobalData.userId,
+                  isError: false,
+                )),
+        (Route<dynamic> route) => false,
+      );
+    } else {
+      isStart = false;
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SignupCompletedView(
+                  userId: UserGlobalData.userId,
+                  isError: true,
+                )),
+        (Route<dynamic> route) => false,
+      );
+    }
+   
   }
 
-  onContinueOntap(
-      {required BuildContext context,
-      required String userFirstName,
-      required String userLastName,
-      required String userEmailAddress,
-      required String userPhoneNumber,
-      required String userGender,
-      required String userPrefix,
-      required String userDateofBirth,
-      required String userPassword,
-      required String userBloodGroup,
-      required String userHeight,
-      required String userWeight,
-      required List userKnownAllergies,
-      required List userChronicCondition,
-      required List userEmergency}) async {
+  onContinueOntap({
+    required BuildContext context,
+    required String contactName,
+    required String contactNumber,
+    required bool isEnable,
+    required String secondContactName,
+    required String secondContactNumber,
+  }) async {
     isStart = true;
     isUiFieldsFill = false;
-    notifyListeners();
-    await Future.delayed(Duration(seconds: 2));
-
-    // Api Work Here and Navigatio n if Has Error then isError = true and then NotifyListner and Get Response of User id
-    userId = "0000232132qa2";
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-          builder: (context) => SignupCompletedView(
-                userId: userId,
-                isError: false,
-              )),
-      (Route<dynamic> route) => false,
-    );
-    isStart = false;
-  }
-
-  nextOntap(
-      {required String contactName,
-      required String contactNumber,
-      required bool isEnable,
-      required String secondContactName,
-      required String secondContactNumber,
-      required BuildContext context}) async {
-    isStart = true;
-
     notifyListeners();
     bool validation = await validate(
         contactName: contactName,
-        contactNumber: contactNumber,
-        secondContactName: secondContactName,
         secondContactNumber: secondContactNumber,
-        isEnable: isEnable);
+        isEnable: isEnable,
+        contactNumber: contactNumber,
+        secondContactName: secondContactName);
     if (validation == true && isEnable == true) {
       Map<String, dynamic> firstContact = {
         "contact_name": contactName,
@@ -261,59 +250,119 @@ class EmergencyContactViewmodel with ChangeNotifier {
       SignUpGlobalData.emergencyContacts.add(firstContact);
       SignUpGlobalData.emergencyContacts.add(SecondContact);
 
-      print(
-          'First Number : ${firstContactNumberFormatted} | Second Number : ${secondContactNumberFormatted}');
+      final Map apiBody = {
+        "firstname": SignUpGlobalData.finalFirstName,
+        "lastname": SignUpGlobalData.finalLastName,
+        "email": SignUpGlobalData.finalEmailAddress,
+        "password": SignUpGlobalData.finalPassword,
+        "phoneNumber": SignUpGlobalData.finalPhoneNumber,
+        "gender": SignUpGlobalData.finalGender,
+        "dateofbirth": SignUpGlobalData.finalDateOfBirth,
+        "medicalInformation": {
+          "bloodGroup": SignUpGlobalData.finalBloodGroup,
+          "weight": SignUpGlobalData.finalWeight,
+          "height": SignUpGlobalData.finalHeight,
+          "known_Allergies": SignUpGlobalData.allergies,
+          "chronic_Conditions": SignUpGlobalData.chronic
+        },
+        "emergency_Contact": SignUpGlobalData.emergencyContacts,
+      };
 
-      print('Api Work Here for 2 Emergency Contacts');
-      await onContinueOntap(
-          context: context,
-          userFirstName: SignUpGlobalData.finalFirstName,
-          userLastName: SignUpGlobalData.finalLastName,
-          userEmailAddress: SignUpGlobalData.finalEmailAddress,
-          userPhoneNumber: SignUpGlobalData.finalPhoneNumber,
-          userGender: SignUpGlobalData.finalGender,
-          userPrefix: SignUpGlobalData.finalPrefix,
-          userDateofBirth: SignUpGlobalData.finalDateOfBirth,
-          userPassword: SignUpGlobalData.finalPassword,
-          userBloodGroup: SignUpGlobalData.finalBloodGroup,
-          userHeight: SignUpGlobalData.finalHeight,
-          userWeight: SignUpGlobalData.finalWeight,
-          userKnownAllergies: SignUpGlobalData.allergies,
-          userChronicCondition: SignUpGlobalData.chronic,
-          userEmergency: SignUpGlobalData.emergencyContacts);
+      var jsonBody = jsonEncode(apiBody);
 
-      isUiFieldsFill = false;
-      isStart = false;
+      bool apiRequest = await ApiService.signUpUser(body: apiBody);
+      if (apiRequest == true) {
+        isStart = false;
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SignupCompletedView(
+                    userId: UserGlobalData.userId,
+                    isError: false,
+                  )),
+          (Route<dynamic> route) => false,
+        );
+      } else {
+        isStart = false;
+         Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SignupCompletedView(
+                    userId: UserGlobalData.userId,
+                    isError: true,
+                  )),
+          (Route<dynamic> route) => false,
+        );
+      }
     } else if (validation == true && isEnable != true) {
       Map<String, dynamic> contact = {
         "contact_name": contactName,
         "contact_number": formattedNumber,
       };
       SignUpGlobalData.emergencyContacts.add(contact);
-      print('Number Formated : ${formattedNumber}');
+      final Map apiBody = {
+        "firstname": SignUpGlobalData.finalFirstName,
+        "lastname": SignUpGlobalData.finalLastName,
+        "email": SignUpGlobalData.finalEmailAddress,
+        "password": SignUpGlobalData.finalPassword,
+        "phoneNumber": SignUpGlobalData.finalPhoneNumber,
+        "gender": SignUpGlobalData.finalGender,
+        "dateofbirth": SignUpGlobalData.finalDateOfBirth,
+        "medicalInformation": {
+          "bloodGroup": SignUpGlobalData.finalBloodGroup,
+          "weight": SignUpGlobalData.finalWeight,
+          "height": SignUpGlobalData.finalHeight,
+          "known_Allergies": SignUpGlobalData.allergies,
+          "chronic_Conditions": SignUpGlobalData.chronic
+        },
+        "emergency_Contact": SignUpGlobalData.emergencyContacts,
+      };
 
-      print('Api Work Here for One Emergency Contact');
-      await onContinueOntap(
-          context: context,
-          userFirstName: SignUpGlobalData.finalFirstName,
-          userLastName: SignUpGlobalData.finalLastName,
-          userEmailAddress: SignUpGlobalData.finalEmailAddress,
-          userPhoneNumber: SignUpGlobalData.finalPhoneNumber,
-          userGender: SignUpGlobalData.finalGender,
-          userPrefix: SignUpGlobalData.finalPrefix,
-          userDateofBirth: SignUpGlobalData.finalDateOfBirth,
-          userPassword: SignUpGlobalData.finalPassword,
-          userBloodGroup: SignUpGlobalData.finalBloodGroup,
-          userHeight: SignUpGlobalData.finalHeight,
-          userWeight: SignUpGlobalData.finalWeight,
-          userKnownAllergies: SignUpGlobalData.allergies,
-          userChronicCondition: SignUpGlobalData.chronic,
-          userEmergency: SignUpGlobalData.emergencyContacts);
+      var jsonBody = jsonEncode(apiBody);
 
-      isUiFieldsFill = false;
-      isStart = false;
-    } else {
-      isStart = false;
+      bool apiRequest = await ApiService.signUpUser(body: apiBody);
+         if (apiRequest == true) {
+        isStart = false;
+          isContactNameFocus = false;
+        isContactNameNotEmpty = false;
+        isContactNumberFocus = false;
+        isContactNumberNotEmpty = false;
+        onSecondContactNameFocus = false;
+        onSecondContactNumberFocus = false;
+        isSecondContactNameNotEmpty = false;
+        isSecondContactNumberNotEmpty = false;
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SignupCompletedView(
+                    userId: UserGlobalData.userId,
+                    isError: false,
+                  )),
+          (Route<dynamic> route) => false,
+        );
+      } else {
+        isStart = false;
+          isContactNameFocus = false;
+        isContactNameNotEmpty = false;
+        isContactNumberFocus = false;
+        isContactNumberNotEmpty = false;
+        onSecondContactNameFocus = false;
+        onSecondContactNumberFocus = false;
+        isSecondContactNameNotEmpty = false;
+        isSecondContactNumberNotEmpty = false;
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SignupCompletedView(
+                    userId: UserGlobalData.userId,
+                    isError: true,
+                  )),
+          (Route<dynamic> route) => false,
+        );
+      }
+    }
+    else{
+        isStart = false;
       isUiFieldsFill = false;
       error = true;
       isContactNameFocus = false;
@@ -325,7 +374,7 @@ class EmergencyContactViewmodel with ChangeNotifier {
       isSecondContactNameNotEmpty = false;
       isSecondContactNumberNotEmpty = false;
       notifyListeners();
-      await Future.delayed(Duration(seconds: 2));
+       await Future.delayed(Duration(milliseconds: 1500));
       error = false;
       notifyListeners();
     }

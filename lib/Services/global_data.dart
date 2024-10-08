@@ -22,6 +22,7 @@ class OTPvalue {
 // User Global Data After SignUp or Login //
 
 class UserGlobalData {
+  static String userId = '';
   static int selectedBottomBarIndex = 0;
   static bool userHomePageCheck = false;
   static String userFirstName = '';
@@ -30,8 +31,5 @@ class UserGlobalData {
   static List userBag = [];
   static List userEmegerncyContacts = [];
   static List userMedicines = [
-    {"medicine_name": "Ibruofen", "time": "3:37 AM"},
-    {"medicine_name": "Panadol", "time": "3:36 AM"},
-    {"medicine_name": "ICU", "time": "4: AM"},
   ];
 }

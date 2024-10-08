@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:meditrace_project/Services/global_data.dart';
 
 class ApiService {
   static String url = "https://meditrace-app-back-end.vercel.app/v1/api/";
-  static checkUserForSignUp({ required body}) async {
+  static checkUserForSignUp({required body}) async {
     try {
       final urlParsing = ApiService.url + "check-user-signup";
       final clientUrl = await Uri.parse(urlParsing);
@@ -20,6 +21,26 @@ class ApiService {
     } catch (e) {
       print("Error : ${e.toString()}");
       return false;
+    }
+  }
+
+  static signUpUser({required body}) async {
+    try {
+      final urlParsing = ApiService.url + "signup";
+      final clientUrl = await Uri.parse(urlParsing);
+      var response = await http.post(clientUrl, body: body);
+
+      var responseBody = await jsonDecode(response.body);
+      if (responseBody['Status'] == 'Success') {
+        UserGlobalData.userId = responseBody['Id'];
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print("Error : ${e.toString()}");
+      return false;
+      
     }
   }
 }
