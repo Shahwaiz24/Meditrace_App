@@ -33,14 +33,17 @@ class ApiService {
       var responseBody = await jsonDecode(response.body);
       if (responseBody['Status'] == 'Success') {
         UserGlobalData.userId = responseBody['Id'];
+                print("Body : ${responseBody.toString()}");
+
         return true;
       } else {
+        print("Body : ${responseBody.toString()}");
         return false;
       }
     } catch (e) {
       print("Error : ${e.toString()}");
-      return false;
       
+      return false;
     }
   }
 }

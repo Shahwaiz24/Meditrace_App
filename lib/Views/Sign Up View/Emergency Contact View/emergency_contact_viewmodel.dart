@@ -24,7 +24,6 @@ class EmergencyContactViewmodel with ChangeNotifier {
 
   String firstContactNumberFormatted = '';
   String secondContactNumberFormatted = '';
-  String userId = "";
 
   bool isSetupLater = false;
 
@@ -167,13 +166,13 @@ class EmergencyContactViewmodel with ChangeNotifier {
     }
   }
 
-  onSetupLaterOntap(
-      {required BuildContext context,
-   }) async {
+  onSetupLaterOntap({
+    required BuildContext context,
+  }) async {
     isStart = true;
     isUiFieldsFill = false;
     notifyListeners();
-      final Map apiBody = {
+    final Map apiBody = {
       "firstname": SignUpGlobalData.finalFirstName,
       "lastname": SignUpGlobalData.finalLastName,
       "email": SignUpGlobalData.finalEmailAddress,
@@ -193,9 +192,10 @@ class EmergencyContactViewmodel with ChangeNotifier {
 
     var jsonBody = jsonEncode(apiBody);
 
-    bool apiRequest = await ApiService.signUpUser(body: apiBody);
-     if (apiRequest == true) {
+    bool apiRequest = await ApiService.signUpUser(body: jsonBody);
+    if (apiRequest == true) {
       isStart = false;
+      isContactNameNotEmpty = false;
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
@@ -217,7 +217,6 @@ class EmergencyContactViewmodel with ChangeNotifier {
         (Route<dynamic> route) => false,
       );
     }
-   
   }
 
   onContinueOntap({
@@ -238,7 +237,7 @@ class EmergencyContactViewmodel with ChangeNotifier {
         contactNumber: contactNumber,
         secondContactName: secondContactName);
     if (validation == true && isEnable == true) {
-      Map<String, dynamic> firstContact = {
+      Map firstContact = {
         "contact_name": contactName,
         "contact_number": firstContactNumberFormatted,
       };
@@ -270,29 +269,55 @@ class EmergencyContactViewmodel with ChangeNotifier {
 
       var jsonBody = jsonEncode(apiBody);
 
-      bool apiRequest = await ApiService.signUpUser(body: apiBody);
+      bool apiRequest = await ApiService.signUpUser(body: jsonBody);
       if (apiRequest == true) {
         isStart = false;
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SignupCompletedView(
-                    userId: UserGlobalData.userId,
-                    isError: false,
-                  )),
-          (Route<dynamic> route) => false,
-        );
+        isContactNameNotEmpty = false;
+        isContactNumberNotEmpty = false;
+        isUiFieldsFill = false;
+        formattedNumber = '';
+        error = false;
+        isSecondContactEnable = false;
+        onSecondContactNameFocus = false;
+        onSecondContactNumberFocus = false;
+        isSecondContactNameNotEmpty = false;
+        isSecondContactNumberNotEmpty = false;
+        firstContactNumberFormatted = '';
+        secondContactNumberFormatted = '';
+        isSetupLater = false;
+        // Navigator.pushAndRemoveUntil(
+        //   context,
+        //   MaterialPageRoute(
+        //       builder: (context) => SignupCompletedView(
+        //             userId: UserGlobalData.userId,
+        //             isError: false,
+        //           )),
+        //   (Route<dynamic> route) => false,
+        // );
       } else {
         isStart = false;
-         Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SignupCompletedView(
-                    userId: UserGlobalData.userId,
-                    isError: true,
-                  )),
-          (Route<dynamic> route) => false,
-        );
+        isContactNameNotEmpty = false;
+        isContactNumberNotEmpty = false;
+        isUiFieldsFill = false;
+        formattedNumber = '';
+        error = false;
+        isSecondContactEnable = false;
+        onSecondContactNameFocus = false;
+        onSecondContactNumberFocus = false;
+        isSecondContactNameNotEmpty = false;
+        isSecondContactNumberNotEmpty = false;
+        firstContactNumberFormatted = '';
+        secondContactNumberFormatted = '';
+        isSetupLater = false;
+        // Navigator.pushAndRemoveUntil(
+        //   context,
+        //   MaterialPageRoute(
+        //       builder: (context) => SignupCompletedView(
+        //             userId: UserGlobalData.userId,
+        //             isError: true,
+        //           )),
+        //   (Route<dynamic> route) => false,
+        // );
       }
     } else if (validation == true && isEnable != true) {
       Map<String, dynamic> contact = {
@@ -319,62 +344,75 @@ class EmergencyContactViewmodel with ChangeNotifier {
       };
 
       var jsonBody = jsonEncode(apiBody);
-
-      bool apiRequest = await ApiService.signUpUser(body: apiBody);
-         if (apiRequest == true) {
+      bool apiRequest = await ApiService.signUpUser(body: jsonBody);
+      if (apiRequest == true) {
         isStart = false;
-          isContactNameFocus = false;
         isContactNameNotEmpty = false;
-        isContactNumberFocus = false;
         isContactNumberNotEmpty = false;
+        isUiFieldsFill = false;
+        formattedNumber = '';
+        error = false;
+        isSecondContactEnable = false;
         onSecondContactNameFocus = false;
         onSecondContactNumberFocus = false;
         isSecondContactNameNotEmpty = false;
         isSecondContactNumberNotEmpty = false;
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SignupCompletedView(
-                    userId: UserGlobalData.userId,
-                    isError: false,
-                  )),
-          (Route<dynamic> route) => false,
-        );
+        firstContactNumberFormatted = '';
+        secondContactNumberFormatted = '';
+        isSetupLater = false;
+        // Navigator.pushAndRemoveUntil(
+        //   context,
+        //   MaterialPageRoute(
+        //       builder: (context) => SignupCompletedView(
+        //             userId: UserGlobalData.userId,
+        //             isError: false,
+        //           )),
+        //   (Route<dynamic> route) => false,
+        // );
       } else {
         isStart = false;
-          isContactNameFocus = false;
         isContactNameNotEmpty = false;
-        isContactNumberFocus = false;
         isContactNumberNotEmpty = false;
+        isUiFieldsFill = false;
+        formattedNumber = '';
+        error = false;
+        isSecondContactEnable = false;
         onSecondContactNameFocus = false;
         onSecondContactNumberFocus = false;
         isSecondContactNameNotEmpty = false;
         isSecondContactNumberNotEmpty = false;
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SignupCompletedView(
-                    userId: UserGlobalData.userId,
-                    isError: true,
-                  )),
-          (Route<dynamic> route) => false,
-        );
+        firstContactNumberFormatted = '';
+        secondContactNumberFormatted = '';
+        isSetupLater = false;
+        // Navigator.pushAndRemoveUntil(
+        //   context,
+        //   MaterialPageRoute(
+        //       builder: (context) => SignupCompletedView(
+        //             userId: UserGlobalData.userId,
+        //             isError: true,
+        //           )),
+        //   (Route<dynamic> route) => false,
+        // );
       }
-    }
-    else{
-        isStart = false;
+    } else {
+      isStart = false;
       isUiFieldsFill = false;
       error = true;
-      isContactNameFocus = false;
       isContactNameNotEmpty = false;
-      isContactNumberFocus = false;
       isContactNumberNotEmpty = false;
+      isUiFieldsFill = false;
+      formattedNumber = '';
+      error = false;
+      isSecondContactEnable = false;
       onSecondContactNameFocus = false;
       onSecondContactNumberFocus = false;
       isSecondContactNameNotEmpty = false;
       isSecondContactNumberNotEmpty = false;
+      firstContactNumberFormatted = '';
+      secondContactNumberFormatted = '';
+      isSetupLater = false;
       notifyListeners();
-       await Future.delayed(Duration(milliseconds: 1500));
+      await Future.delayed(Duration(milliseconds: 1500));
       error = false;
       notifyListeners();
     }

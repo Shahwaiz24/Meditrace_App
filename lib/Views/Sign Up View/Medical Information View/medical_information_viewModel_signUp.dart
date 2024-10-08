@@ -20,7 +20,9 @@ class MedicalInformationSignUpViewModel with ChangeNotifier {
   bool isHeightNotEmpty = false;
   bool isChronicSelected = false;
   bool isAllergiesSelected = false;
-  List<String> selectedChronicConditions = []; // List to hold selected items
+  List<String> selectedChronicConditions = [];
+
+  // List to hold selected items
   List<String> allChronicConditions = [
     "Cancer",
     "Cardiovascular Diseases",
@@ -143,14 +145,28 @@ class MedicalInformationSignUpViewModel with ChangeNotifier {
       isUiFieldsFill = false;
       isStart = false;
       notifyListeners();
+      isWeightNotEmpty = false;
+      isHeightNotEmpty = false;
+      isChronicSelected = false;
+      isAllergiesSelected = false;
+      selectedAllergies = [];
+      selectedChronicConditions = [];
+      isBloodGroupSelect = false;
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => EmergencyContactView()));
     } else {
       isStart = false;
       isError = true;
       isUiFieldsFill = false;
+      isWeightNotEmpty = false;
+      isHeightNotEmpty = false;
+      isChronicSelected = false;
+      isAllergiesSelected = false;
+      selectedAllergies = [];
+      selectedChronicConditions = [];
+      isBloodGroupSelect = false;
       notifyListeners();
-      await Future.delayed(const Duration(seconds: 3));
+      await Future.delayed(const Duration(milliseconds: 1500));
       isError = false;
       notifyListeners();
     }
@@ -201,9 +217,7 @@ class MedicalInformationSignUpViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  bool isConditionSelected(String condition) {
-    return selectedChronicConditions.contains(condition);
-  }
+
 
   onAllergiesSelect({required String allergies}) {
     isAllergiesSelected = true;

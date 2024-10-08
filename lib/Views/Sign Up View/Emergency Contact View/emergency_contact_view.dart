@@ -314,10 +314,18 @@ class EmergencyContactView extends StatelessWidget {
                 child: Column(
                   children: [
                     InkWell(
-                      onTap: () {
+                      onTap: () async {
                         if (model.isUiFieldsFill == true &&
                             model.isStart == false) {
-                         
+                          await model.onContinueOntap(
+                              context: context,
+                              contactName: contactNameContrller.text,
+                              contactNumber: contactNumberContrller.text,
+                              isEnable: model.isSecondContactEnable,
+                              secondContactName:
+                                  contactNameSecondContrller.text,
+                              secondContactNumber:
+                                  contactNumberSecondContrller.text);
                           contactNameContrller.clear();
                           contactNumberContrller.clear();
                           contactNameSecondContrller.clear();
@@ -334,23 +342,28 @@ class EmergencyContactView extends StatelessWidget {
                                   : AppColors.unFocusPrimaryColor,
                               borderRadius:
                                   BorderRadius.circular(screenWidth * 0.080)),
-                          child: Center(
-                            child: Text(
-                              'Continue',
-                              style: TextStyle(
-                                  color: AppColors.TextwhiteColor,
-                                  fontFamily: 'Poppins Semi Bold',
-                                  fontSize: screenHeight * 0.020),
-                            ),
-                          )),
+                          child: model.isStart
+                              ? Center(
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.TextwhiteColor,
+                                  ),
+                                )
+                              : Center(
+                                  child: Text(
+                                    'Continue',
+                                    style: TextStyle(
+                                        color: AppColors.TextwhiteColor,
+                                        fontFamily: 'Poppins Semi Bold',
+                                        fontSize: screenHeight * 0.020),
+                                  ),
+                                )),
                     ),
                     SizedBox(height: screenHeight * 0.010),
                     InkWell(
-                      onTap: () {
+                      onTap: () async {
                         if (model.isStart == false) {
-                 
+                          model.onSetupLaterOntap(context: context);
                         }
-                        
                       },
                       child: Text(
                         'Set up Later',

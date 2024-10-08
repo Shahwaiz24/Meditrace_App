@@ -34,6 +34,17 @@ class PersonalInformationViewmodel with ChangeNotifier {
     SignUpGlobalData.finalDateOfBirth = Birthdate;
     SignUpGlobalData.finalGender = Gender;
     SignUpGlobalData.finalPrefix = Prefix;
+    isFirstNameNotEmpty = false;
+    isPrefixSelect = false;
+    isBirthDatePicked = false;
+    isGenderSelect = false;
+    Selectedgender = '';
+    Selectedprefix = '';
+    isFirstNameError = false;
+    isUiFieldsFill = false;
+    isLastNameNotEmpty = false;
+    
+    SelectedBirth = '';
 
     Navigator.pushReplacement(
         context,
