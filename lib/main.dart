@@ -31,7 +31,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  // This Class is the Root of Application
+  // This Class is the Root of Application to Run
 
   @override
   Widget build(BuildContext context) {
