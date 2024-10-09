@@ -351,9 +351,9 @@ class SignupView extends StatelessWidget {
                         Consumer<SignUpViewmodel>(
                             builder: (context, model, child) {
                           return InkWell(
-                            onTap: () {
-                              if (model.isSignUpStart == false) {
-                                model.signUpFunction(
+                            onTap: () async {
+                              if (model.isSignUpStart == false)  {
+                              await  model.signUpFunction(
                                     Email: emailController.text,
                                     phoneNumber:
                                         phoneNumberController.text,
@@ -392,6 +392,8 @@ class SignupView extends StatelessWidget {
                             ),
                           );
                         }),
+                        
+                        
                         Padding(
                           padding: EdgeInsets.only(top: screenHeight * 0.020),
                           child: Row(

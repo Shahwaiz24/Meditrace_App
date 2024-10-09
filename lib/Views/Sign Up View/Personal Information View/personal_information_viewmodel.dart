@@ -27,29 +27,42 @@ class PersonalInformationViewmodel with ChangeNotifier {
       required String firstName,
       required String lastName,
       required String Gender,
+      required String Email,
+      required String phoneNumber,
+      required String Password,
       required String Prefix,
       required String Birthdate}) {
-    SignUpGlobalData.finalFirstName = firstName;
-    SignUpGlobalData.finalLastName = lastName;
-    SignUpGlobalData.finalDateOfBirth = Birthdate;
-    SignUpGlobalData.finalGender = Gender;
-    SignUpGlobalData.finalPrefix = Prefix;
+
     isFirstNameNotEmpty = false;
     isPrefixSelect = false;
     isBirthDatePicked = false;
     isGenderSelect = false;
-    Selectedgender = '';
-    Selectedprefix = '';
+
     isFirstNameError = false;
     isUiFieldsFill = false;
     isLastNameNotEmpty = false;
     
-    SelectedBirth = '';
+SignUpGlobalData.finalFirstName = firstName;
+    SignUpGlobalData.finalLastName = lastName;
+    SignUpGlobalData.finalDateOfBirth = Birthdate;
+    SignUpGlobalData.finalGender = Gender;
+    SignUpGlobalData.finalPrefix = Prefix;
+       SignUpGlobalData.finalPassword = Password;
+                        SignUpGlobalData.finalEmailAddress = Email;
+
+        SignUpGlobalData.finalPhoneNumber = phoneNumber;
+        Selectedgender = '';
+    Selectedprefix = '';
+        SelectedBirth = '';
+
+                print("Email : ${SignUpGlobalData.finalEmailAddress} | Password : ${SignUpGlobalData.finalPassword} | Phone Number : ${ SignUpGlobalData.finalPhoneNumber}");
 
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) => MedicalInformationSignupView()));
+                
+
   }
 
   checkallFields({

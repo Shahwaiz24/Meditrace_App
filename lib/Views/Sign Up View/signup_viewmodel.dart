@@ -241,15 +241,22 @@ class SignUpViewmodel with ChangeNotifier {
       bool apiCheck = await ApiService.checkUserForSignUp(body: jsonBody);
 
       if (apiCheck == true) {
-        SignUpGlobalData.finalEmailAddress = Email;
-        SignUpGlobalData.finalPassword = Password;
-        SignUpGlobalData.finalPhoneNumber = formattedNumber;
+       
         isSignUpStart = false;
         isUiFieldsFill = false;
+           SignUpGlobalData.finalPassword = Password;
+                        SignUpGlobalData.finalEmailAddress = Email;
+
+        SignUpGlobalData.finalPhoneNumber = formattedNumber;
+                    print("Email : ${SignUpGlobalData.finalEmailAddress} | Password : ${SignUpGlobalData.finalPassword} | Phone Number : ${ SignUpGlobalData.finalPhoneNumber}");
         notifyListeners();
 
+
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => PersonalInformationView()));
+            MaterialPageRoute(builder: (context) => PersonalInformationView(email: SignUpGlobalData.finalEmailAddress,password:SignUpGlobalData.finalPassword ,phoneNumber: SignUpGlobalData.finalPhoneNumber,)));
+     
+
+
       } else {
         isSignUpStart = false;
         isCheck = false;
@@ -266,7 +273,7 @@ class SignUpViewmodel with ChangeNotifier {
       isSignUpError = true;
       isUiFieldsFill = false;
       notifyListeners();
-      await Future.delayed(const Duration(seconds: 4));
+ await Future.delayed(const Duration(milliseconds: 1500));
       isSignUpError = false;
       notifyListeners();
     }

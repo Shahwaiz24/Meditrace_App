@@ -152,6 +152,8 @@ class MedicalInformationSignUpViewModel with ChangeNotifier {
       selectedAllergies = [];
       selectedChronicConditions = [];
       isBloodGroupSelect = false;
+              print("Email : ${SignUpGlobalData.finalEmailAddress} | Password : ${SignUpGlobalData.finalPassword} | Phone Number : ${ SignUpGlobalData.finalPhoneNumber}");
+
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => EmergencyContactView()));
     } else {

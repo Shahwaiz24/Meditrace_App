@@ -3,6 +3,7 @@ import 'package:meditrace_project/Components/app_logo.dart';
 import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Services/local_storage.dart';
 import 'package:meditrace_project/Services/utils.dart';
+import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 import 'package:meditrace_project/Views/Sign%20In%20View/signin_view.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/signup_view.dart';
 
@@ -29,6 +30,12 @@ class SplashViewmodel with ChangeNotifier {
       bool check = await LocalStorage.checkLogin();
       if (check == true) {
         print("Navigate to Home View");
+        await Future.delayed(const Duration(seconds: 1));
+            Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const HomeView()),
+      (Route<dynamic> route) => false,
+    );
       } else {
         Future.delayed(const Duration(seconds: 1), () {
           showNewColumn();

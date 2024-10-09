@@ -10,7 +10,11 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class PersonalInformationView extends StatelessWidget {
-  PersonalInformationView({super.key});
+  PersonalInformationView({super.key,required this.email,required this.password,required this.phoneNumber});
+
+  final String email;
+  final String password;
+  final String phoneNumber;
 
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
@@ -311,6 +315,9 @@ class PersonalInformationView extends StatelessWidget {
                   onTap: () {
                     if (model.isUiFieldsFill == true) {
                       model.next(
+                        phoneNumber: phoneNumber,
+                        Email: email,
+                        Password: password,
                           context: context,
                           firstName: firstNameController.text,
                           lastName: lastNameController.text,
