@@ -19,6 +19,11 @@ class SplashViewmodel with ChangeNotifier {
     notifyListeners();
   }
 
+  void navigating() async {
+    _animate = false;
+    _showButtons = false;
+  }
+
   void showNewColumn() {
     _showButtons = true;
     notifyListeners();
@@ -30,12 +35,16 @@ class SplashViewmodel with ChangeNotifier {
       bool check = await LocalStorage.checkLogin();
       if (check == true) {
         print("Navigate to Home View");
+        String? id = await LocalStorage.getUserid();
+        print("Id : ${id}");
         await Future.delayed(const Duration(seconds: 1));
-            Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const HomeView()),
-      (Route<dynamic> route) => false,
-    );
+
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeView()),
+          (Route<dynamic> route) => false,
+        );
+        navigating();
       } else {
         Future.delayed(const Duration(seconds: 1), () {
           showNewColumn();

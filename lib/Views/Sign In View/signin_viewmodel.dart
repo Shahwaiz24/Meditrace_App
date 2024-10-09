@@ -8,6 +8,7 @@ import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20Ema
 import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 
 class SigninViewmodel with ChangeNotifier {
+  static String user_id = '';
   bool isPasswordVisible = false;
   bool isSignInStart = false;
   bool isUiFieldsFill = false;
@@ -119,7 +120,7 @@ class SigninViewmodel with ChangeNotifier {
         isUiFieldsFill = false;
         notifyListeners();
         await LocalStorage.userLogin();
-        await LocalStorage.saveUserId(userId: UserGlobalData.userId);
+        await LocalStorage.saveUserId(userId: SigninViewmodel.user_id);
         print("Saved Id and Login ");
         Navigator.pushAndRemoveUntil(
           context,

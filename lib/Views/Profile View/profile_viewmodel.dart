@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:meditrace_project/Services/local_storage.dart';
 import 'package:meditrace_project/Views/Profile%20Update%20View/profile_update_view.dart';
 import 'package:meditrace_project/Views/Settings%20View/setting_view.dart';
+import 'package:meditrace_project/Views/Splash%20View/splash_view.dart';
 
 class ProfileViewmodel with ChangeNotifier {
   bool isLoading = false;
@@ -31,6 +33,15 @@ class ProfileViewmodel with ChangeNotifier {
     userAge = age.toString();
   }
 
+  logoutTap({required BuildContext context}) async {
+    await LocalStorage.logoutUser();
+       Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const SplashView()),
+          (Route<dynamic> route) => false,
+        );
+  }
+
   lbsToKg(double lbs) {
     const double conversionFactor = 0.45359237;
     final weight = lbs * conversionFactor;
@@ -49,9 +60,10 @@ class ProfileViewmodel with ChangeNotifier {
 
   navigateToUpdateProfile({required BuildContext context}) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) =>  ProfileUpdateView()));
+        context, MaterialPageRoute(builder: (context) => ProfileUpdateView()));
   }
-   navigateToSettings({required BuildContext context}) {
+
+  navigateToSettings({required BuildContext context}) {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const SettingView()));
   }

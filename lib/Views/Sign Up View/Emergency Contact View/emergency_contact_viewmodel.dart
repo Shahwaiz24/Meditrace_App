@@ -13,6 +13,7 @@ class EmergencyContactViewmodel with ChangeNotifier {
   String formattedNumber = '';
   bool isContactNumberNotEmpty = false;
   bool isUiFieldsFill = false;
+
   bool error = false;
   bool isSecondContactEnable = false;
   bool onSecondContactNameFocus = false;

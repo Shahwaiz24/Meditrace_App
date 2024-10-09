@@ -6,6 +6,8 @@ import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 import 'package:meditrace_project/Views/Splash%20View/splash_view.dart';
 
 class SignupCompletedViewmodel with ChangeNotifier {
+        static String user_id = '';
+
   bool isLoading = false;
   bool isvisible = false;
 

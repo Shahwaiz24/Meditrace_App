@@ -7,6 +7,7 @@ import 'package:meditrace_project/Views/Sign%20Up%20View/Personal%20Information%
 
 class SignUpViewmodel with ChangeNotifier {
   bool isCheck = false;
+
   bool isSignUpStart = false;
   bool isPasswordVisible = false;
 
