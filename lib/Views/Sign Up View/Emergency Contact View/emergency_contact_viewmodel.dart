@@ -285,15 +285,15 @@ class EmergencyContactViewmodel with ChangeNotifier {
         firstContactNumberFormatted = '';
         secondContactNumberFormatted = '';
         isSetupLater = false;
-        // Navigator.pushAndRemoveUntil(
-        //   context,
-        //   MaterialPageRoute(
-        //       builder: (context) => SignupCompletedView(
-        //             userId: UserGlobalData.userId,
-        //             isError: false,
-        //           )),
-        //   (Route<dynamic> route) => false,
-        // );
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SignupCompletedView(
+                    userId: UserGlobalData.userId,
+                    isError: false,
+                  )),
+          (Route<dynamic> route) => false,
+        );
       } else {
         isStart = false;
         isContactNameNotEmpty = false;
@@ -309,15 +309,15 @@ class EmergencyContactViewmodel with ChangeNotifier {
         firstContactNumberFormatted = '';
         secondContactNumberFormatted = '';
         isSetupLater = false;
-        // Navigator.pushAndRemoveUntil(
-        //   context,
-        //   MaterialPageRoute(
-        //       builder: (context) => SignupCompletedView(
-        //             userId: UserGlobalData.userId,
-        //             isError: true,
-        //           )),
-        //   (Route<dynamic> route) => false,
-        // );
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SignupCompletedView(
+                    userId: UserGlobalData.userId,
+                    isError: true,
+                  )),
+          (Route<dynamic> route) => false,
+        );
       }
     } else if (validation == true && isEnable != true) {
       Map<String, dynamic> contact = {
@@ -360,15 +360,15 @@ class EmergencyContactViewmodel with ChangeNotifier {
         firstContactNumberFormatted = '';
         secondContactNumberFormatted = '';
         isSetupLater = false;
-        // Navigator.pushAndRemoveUntil(
-        //   context,
-        //   MaterialPageRoute(
-        //       builder: (context) => SignupCompletedView(
-        //             userId: UserGlobalData.userId,
-        //             isError: false,
-        //           )),
-        //   (Route<dynamic> route) => false,
-        // );
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SignupCompletedView(
+                    userId: UserGlobalData.userId,
+                    isError: false,
+                  )),
+          (Route<dynamic> route) => false,
+        );
       } else {
         isStart = false;
         isContactNameNotEmpty = false;
@@ -384,15 +384,15 @@ class EmergencyContactViewmodel with ChangeNotifier {
         firstContactNumberFormatted = '';
         secondContactNumberFormatted = '';
         isSetupLater = false;
-        // Navigator.pushAndRemoveUntil(
-        //   context,
-        //   MaterialPageRoute(
-        //       builder: (context) => SignupCompletedView(
-        //             userId: UserGlobalData.userId,
-        //             isError: true,
-        //           )),
-        //   (Route<dynamic> route) => false,
-        // );
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SignupCompletedView(
+                    userId: UserGlobalData.userId,
+                    isError: true,
+                  )),
+          (Route<dynamic> route) => false,
+        );
       }
     } else {
       isStart = false;
