@@ -248,16 +248,17 @@ class PersonalInformationView extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) {
                           return CustomDatePicker(
-                              onSelect: (value) {
+                              onSelect: (value) async{
                                 model.onDateSelect(date: value);
+                                await model.checkallFields(
+                      firstName: firstNameController.text,
+                      lastName: lastNameController.text,
+                    );
                               },
                               isDateOfBirth: true,
                               isDialogOpen: true);
                         });
-                    await model.checkallFields(
-                      firstName: firstNameController.text,
-                      lastName: lastNameController.text,
-                    );
+                    
                   }
                 },
                 child: ButtonComponent(

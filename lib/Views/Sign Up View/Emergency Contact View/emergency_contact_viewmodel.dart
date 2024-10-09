@@ -172,23 +172,23 @@ class EmergencyContactViewmodel with ChangeNotifier {
     isStart = true;
     isUiFieldsFill = false;
     notifyListeners();
-    final Map apiBody = {
-      "firstname": SignUpGlobalData.finalFirstName,
-      "lastname": SignUpGlobalData.finalLastName,
-      "email": SignUpGlobalData.finalEmailAddress,
-      "password": SignUpGlobalData.finalPassword,
-      "phoneNumber": SignUpGlobalData.finalPhoneNumber,
-      "gender": SignUpGlobalData.finalGender,
-      "dateofbirth": SignUpGlobalData.finalDateOfBirth,
-      "medicalInformation": {
-        "bloodGroup": SignUpGlobalData.finalBloodGroup,
-        "weight": SignUpGlobalData.finalWeight,
-        "height": SignUpGlobalData.finalHeight,
-        "known_Allergies": SignUpGlobalData.allergies,
-        "chronic_Conditions": SignUpGlobalData.chronic
-      },
-      "emergency_Contact": SignUpGlobalData.emergencyContacts,
-    };
+          final Map apiBody = {
+        "firstname": SignUpGlobalData.finalFirstName,
+        "lastname": SignUpGlobalData.finalLastName,
+        "email": SignUpGlobalData.finalEmailAddress,
+        "password": SignUpGlobalData.finalPassword,
+        "phoneNumber": SignUpGlobalData.finalPhoneNumber,
+        "gender": SignUpGlobalData.finalGender,
+        "dateofbirth": SignUpGlobalData.finalDateOfBirth,
+        "medicalInformation": {
+          "bloodGroup": SignUpGlobalData.finalBloodGroup,
+          "weight": SignUpGlobalData.finalWeight,
+          "height": SignUpGlobalData.finalHeight,
+          "known_Allergies": SignUpGlobalData.allergies,
+          "chronic_Conditions": SignUpGlobalData.chronic
+        },
+        "emergency_Contact": SignUpGlobalData.emergencyContacts
+      };
 
     var jsonBody = jsonEncode(apiBody);
 
@@ -230,192 +230,218 @@ class EmergencyContactViewmodel with ChangeNotifier {
     isStart = true;
     isUiFieldsFill = false;
     notifyListeners();
-    bool validation = await validate(
-        contactName: contactName,
-        secondContactNumber: secondContactNumber,
-        isEnable: isEnable,
-        contactNumber: contactNumber,
-        secondContactName: secondContactName);
-    if (validation == true && isEnable == true) {
-      Map firstContact = {
-        "contact_name": contactName,
-        "contact_number": firstContactNumberFormatted,
-      };
-
-      Map<String, dynamic> SecondContact = {
-        "contact_name": secondContactName,
-        "contact_number": secondContactNumberFormatted,
-      };
-      SignUpGlobalData.emergencyContacts.add(firstContact);
-      SignUpGlobalData.emergencyContacts.add(SecondContact);
-
-      final Map apiBody = {
-        "firstname": SignUpGlobalData.finalFirstName,
-        "lastname": SignUpGlobalData.finalLastName,
-        "email": SignUpGlobalData.finalEmailAddress,
-        "password": SignUpGlobalData.finalPassword,
-        "phoneNumber": SignUpGlobalData.finalPhoneNumber,
-        "gender": SignUpGlobalData.finalGender,
-        "dateofbirth": SignUpGlobalData.finalDateOfBirth,
+         final Map apiBody = {
+        "firstname": "SignUpGlobalData.finalFirstName",
+        "lastname": "SignUpGlobalData.finalLastName",
+        "email": "SignUpGlobalData.finalEmailAddress",
+        "password": "SignUpGlobalData.finalPassword",
+        "phoneNumber": "SignUpGlobalData.finalPhoneNumber",
+        "gender": "SignUpGlobalData.finalGender",
+        "dateofbirth": "SignUpGlobalData.finalDateOfBirth",
         "medicalInformation": {
-          "bloodGroup": SignUpGlobalData.finalBloodGroup,
-          "weight": SignUpGlobalData.finalWeight,
-          "height": SignUpGlobalData.finalHeight,
-          "known_Allergies": SignUpGlobalData.allergies,
-          "chronic_Conditions": SignUpGlobalData.chronic
+          "bloodGroup": "SignUpGlobalData.finalBloodGroup",
+          "weight": "SignUpGlobalData.finalWeight",
+          "height": "SignUpGlobalData.finalHeight",
+          "known_Allergies": [],
+          "chronic_Conditions": []
         },
-        "emergency_Contact": SignUpGlobalData.emergencyContacts,
+        "emergency_Contact": []
       };
 
       var jsonBody = jsonEncode(apiBody);
 
       bool apiRequest = await ApiService.signUpUser(body: jsonBody);
-      if (apiRequest == true) {
-        isStart = false;
-        isContactNameNotEmpty = false;
-        isContactNumberNotEmpty = false;
-        isUiFieldsFill = false;
-        formattedNumber = '';
-        error = false;
-        isSecondContactEnable = false;
-        onSecondContactNameFocus = false;
-        onSecondContactNumberFocus = false;
-        isSecondContactNameNotEmpty = false;
-        isSecondContactNumberNotEmpty = false;
-        firstContactNumberFormatted = '';
-        secondContactNumberFormatted = '';
-        isSetupLater = false;
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SignupCompletedView(
-                    userId: UserGlobalData.userId,
-                    isError: false,
-                  )),
-          (Route<dynamic> route) => false,
-        );
-      } else {
-        isStart = false;
-        isContactNameNotEmpty = false;
-        isContactNumberNotEmpty = false;
-        isUiFieldsFill = false;
-        formattedNumber = '';
-        error = false;
-        isSecondContactEnable = false;
-        onSecondContactNameFocus = false;
-        onSecondContactNumberFocus = false;
-        isSecondContactNameNotEmpty = false;
-        isSecondContactNumberNotEmpty = false;
-        firstContactNumberFormatted = '';
-        secondContactNumberFormatted = '';
-        isSetupLater = false;
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SignupCompletedView(
-                    userId: UserGlobalData.userId,
-                    isError: true,
-                  )),
-          (Route<dynamic> route) => false,
-        );
-      }
-    } else if (validation == true && isEnable != true) {
-      Map<String, dynamic> contact = {
-        "contact_name": contactName,
-        "contact_number": formattedNumber,
-      };
-      SignUpGlobalData.emergencyContacts.add(contact);
-      final Map apiBody = {
-        "firstname": SignUpGlobalData.finalFirstName,
-        "lastname": SignUpGlobalData.finalLastName,
-        "email": SignUpGlobalData.finalEmailAddress,
-        "password": SignUpGlobalData.finalPassword,
-        "phoneNumber": SignUpGlobalData.finalPhoneNumber,
-        "gender": SignUpGlobalData.finalGender,
-        "dateofbirth": SignUpGlobalData.finalDateOfBirth,
-        "medicalInformation": {
-          "bloodGroup": SignUpGlobalData.finalBloodGroup,
-          "weight": SignUpGlobalData.finalWeight,
-          "height": SignUpGlobalData.finalHeight,
-          "known_Allergies": SignUpGlobalData.allergies,
-          "chronic_Conditions": SignUpGlobalData.chronic
-        },
-        "emergency_Contact": SignUpGlobalData.emergencyContacts,
-      };
-
-      var jsonBody = jsonEncode(apiBody);
-      bool apiRequest = await ApiService.signUpUser(body: jsonBody);
-      if (apiRequest == true) {
-        isStart = false;
-        isContactNameNotEmpty = false;
-        isContactNumberNotEmpty = false;
-        isUiFieldsFill = false;
-        formattedNumber = '';
-        error = false;
-        isSecondContactEnable = false;
-        onSecondContactNameFocus = false;
-        onSecondContactNumberFocus = false;
-        isSecondContactNameNotEmpty = false;
-        isSecondContactNumberNotEmpty = false;
-        firstContactNumberFormatted = '';
-        secondContactNumberFormatted = '';
-        isSetupLater = false;
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SignupCompletedView(
-                    userId: UserGlobalData.userId,
-                    isError: false,
-                  )),
-          (Route<dynamic> route) => false,
-        );
-      } else {
-        isStart = false;
-        isContactNameNotEmpty = false;
-        isContactNumberNotEmpty = false;
-        isUiFieldsFill = false;
-        formattedNumber = '';
-        error = false;
-        isSecondContactEnable = false;
-        onSecondContactNameFocus = false;
-        onSecondContactNumberFocus = false;
-        isSecondContactNameNotEmpty = false;
-        isSecondContactNumberNotEmpty = false;
-        firstContactNumberFormatted = '';
-        secondContactNumberFormatted = '';
-        isSetupLater = false;
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SignupCompletedView(
-                    userId: UserGlobalData.userId,
-                    isError: true,
-                  )),
-          (Route<dynamic> route) => false,
-        );
-      }
-    } else {
       isStart = false;
-      isUiFieldsFill = false;
-      error = true;
-      isContactNameNotEmpty = false;
-      isContactNumberNotEmpty = false;
-      isUiFieldsFill = false;
-      formattedNumber = '';
-      error = false;
-      isSecondContactEnable = false;
-      onSecondContactNameFocus = false;
-      onSecondContactNumberFocus = false;
-      isSecondContactNameNotEmpty = false;
-      isSecondContactNumberNotEmpty = false;
-      firstContactNumberFormatted = '';
-      secondContactNumberFormatted = '';
-      isSetupLater = false;
       notifyListeners();
-      await Future.delayed(Duration(milliseconds: 1500));
-      error = false;
-      notifyListeners();
-    }
+
+    // bool validation = await validate(
+    //     contactName: contactName,
+    //     secondContactNumber: secondContactNumber,
+    //     isEnable: isEnable,
+    //     contactNumber: contactNumber,
+    //     secondContactName: secondContactName);
+    // if (validation == true && isEnable == true) {
+    //   Map firstContact = {
+    //     "contact_name": contactName,
+    //     "contact_number": firstContactNumberFormatted,
+    //   };
+
+    //   Map<String, dynamic> SecondContact = {
+    //     "contact_name": secondContactName,
+    //     "contact_number": secondContactNumberFormatted,
+    //   };
+    //   SignUpGlobalData.emergencyContacts.add(firstContact);
+    //   SignUpGlobalData.emergencyContacts.add(SecondContact);
+
+      //      final Map apiBody = {
+      //   "firstname": SignUpGlobalData.finalFirstName,
+      //   "lastname": SignUpGlobalData.finalLastName,
+      //   "email": SignUpGlobalData.finalEmailAddress,
+      //   "password": SignUpGlobalData.finalPassword,
+      //   "phoneNumber": SignUpGlobalData.finalPhoneNumber,
+      //   "gender": SignUpGlobalData.finalGender,
+      //   "dateofbirth": SignUpGlobalData.finalDateOfBirth,
+      //   "medicalInformation": {
+      //     "bloodGroup": SignUpGlobalData.finalBloodGroup,
+      //     "weight": SignUpGlobalData.finalWeight,
+      //     "height": SignUpGlobalData.finalHeight,
+      //     "known_Allergies": SignUpGlobalData.allergies,
+      //     "chronic_Conditions": SignUpGlobalData.chronic
+      //   },
+      //   "emergency_Contact": SignUpGlobalData.emergencyContacts
+      // };
+
+      // var jsonBody = jsonEncode(apiBody);
+
+      // bool apiRequest = await ApiService.signUpUser(body: jsonBody);
+    //   if (apiRequest == true) {
+    //     isStart = false;
+    //     isContactNameNotEmpty = false;
+    //     isContactNumberNotEmpty = false;
+    //     isUiFieldsFill = false;
+    //     formattedNumber = '';
+    //     error = false;
+    //     isSecondContactEnable = false;
+    //     onSecondContactNameFocus = false;
+    //     onSecondContactNumberFocus = false;
+    //     isSecondContactNameNotEmpty = false;
+    //     isSecondContactNumberNotEmpty = false;
+    //     firstContactNumberFormatted = '';
+    //     secondContactNumberFormatted = '';
+    //     isSetupLater = false;
+    //     Navigator.pushAndRemoveUntil(
+    //       context,
+    //       MaterialPageRoute(
+    //           builder: (context) => SignupCompletedView(
+    //                 userId: UserGlobalData.userId,
+    //                 isError: false,
+    //               )),
+    //       (Route<dynamic> route) => false,
+    //     );
+    //   } else {
+    //     isStart = false;
+    //     isContactNameNotEmpty = false;
+    //     isContactNumberNotEmpty = false;
+    //     isUiFieldsFill = false;
+    //     formattedNumber = '';
+    //     error = false;
+    //     isSecondContactEnable = false;
+    //     onSecondContactNameFocus = false;
+    //     onSecondContactNumberFocus = false;
+    //     isSecondContactNameNotEmpty = false;
+    //     isSecondContactNumberNotEmpty = false;
+    //     firstContactNumberFormatted = '';
+    //     secondContactNumberFormatted = '';
+    //     isSetupLater = false;
+    //     Navigator.pushAndRemoveUntil(
+    //       context,
+    //       MaterialPageRoute(
+    //           builder: (context) => SignupCompletedView(
+    //                 userId: UserGlobalData.userId,
+    //                 isError: true,
+    //               )),
+    //       (Route<dynamic> route) => false,
+    //     );
+    //   }
+    // } else if (validation == true && isEnable != true) {
+    //   Map<String, dynamic> contact = {
+    //     "contact_name": contactName,
+    //     "contact_number": formattedNumber,
+    //   };
+    //   SignUpGlobalData.emergencyContacts.add(contact);
+    //         final Map apiBody = {
+    //     "firstname": SignUpGlobalData.finalFirstName,
+    //     "lastname": SignUpGlobalData.finalLastName,
+    //     "email": SignUpGlobalData.finalEmailAddress,
+    //     "password": SignUpGlobalData.finalPassword,
+    //     "phoneNumber": SignUpGlobalData.finalPhoneNumber,
+    //     "gender": SignUpGlobalData.finalGender,
+    //     "dateofbirth": SignUpGlobalData.finalDateOfBirth,
+    //     "medicalInformation": {
+    //       "bloodGroup": SignUpGlobalData.finalBloodGroup,
+    //       "weight": SignUpGlobalData.finalWeight,
+    //       "height": SignUpGlobalData.finalHeight,
+    //       "known_Allergies": SignUpGlobalData.allergies,
+    //       "chronic_Conditions": SignUpGlobalData.chronic
+    //     },
+    //     "emergency_Contact": SignUpGlobalData.emergencyContacts
+    //   };
+
+    //   var jsonBody = jsonEncode(apiBody);
+    //   bool apiRequest = await ApiService.signUpUser(body: jsonBody);
+    //   if (apiRequest == true) {
+    //     isStart = false;
+    //     isContactNameNotEmpty = false;
+    //     isContactNumberNotEmpty = false;
+    //     isUiFieldsFill = false;
+    //     formattedNumber = '';
+    //     error = false;
+    //     isSecondContactEnable = false;
+    //     onSecondContactNameFocus = false;
+    //     onSecondContactNumberFocus = false;
+    //     isSecondContactNameNotEmpty = false;
+    //     isSecondContactNumberNotEmpty = false;
+    //     firstContactNumberFormatted = '';
+    //     secondContactNumberFormatted = '';
+    //     isSetupLater = false;
+    //     Navigator.pushAndRemoveUntil(
+    //       context,
+    //       MaterialPageRoute(
+    //           builder: (context) => SignupCompletedView(
+    //                 userId: UserGlobalData.userId,
+    //                 isError: false,
+    //               )),
+    //       (Route<dynamic> route) => false,
+    //     );
+    //   } else {
+    //     isStart = false;
+    //     isContactNameNotEmpty = false;
+    //     isContactNumberNotEmpty = false;
+    //     isUiFieldsFill = false;
+    //     formattedNumber = '';
+    //     error = false;
+    //     isSecondContactEnable = false;
+    //     onSecondContactNameFocus = false;
+    //     onSecondContactNumberFocus = false;
+    //     isSecondContactNameNotEmpty = false;
+    //     isSecondContactNumberNotEmpty = false;
+    //     firstContactNumberFormatted = '';
+    //     secondContactNumberFormatted = '';
+    //     isSetupLater = false;
+    //     Navigator.pushAndRemoveUntil(
+    //       context,
+    //       MaterialPageRoute(
+    //           builder: (context) => SignupCompletedView(
+    //                 userId: UserGlobalData.userId,
+    //                 isError: true,
+    //               )),
+    //       (Route<dynamic> route) => false,
+    //     );
+    //   }
+    // } else {
+    //   isStart = false;
+    //   isUiFieldsFill = false;
+    //   error = true;
+    //   isContactNameNotEmpty = false;
+    //   isContactNumberNotEmpty = false;
+    //   isUiFieldsFill = false;
+    //   formattedNumber = '';
+    //   error = false;
+    //   isSecondContactEnable = false;
+    //   onSecondContactNameFocus = false;
+    //   onSecondContactNumberFocus = false;
+    //   isSecondContactNameNotEmpty = false;
+    //   isSecondContactNumberNotEmpty = false;
+    //   firstContactNumberFormatted = '';
+    //   secondContactNumberFormatted = '';
+    //   isSetupLater = false;
+    //   notifyListeners();
+    //   await Future.delayed(Duration(milliseconds: 1500));
+    //   error = false;
+    //   notifyListeners();
+    // }
+  
+  
   }
 
   checkallFields(
@@ -425,7 +451,6 @@ class EmergencyContactViewmodel with ChangeNotifier {
       required String secondContactNumber,
       required String secondContactName}) {
     isUiFieldsFill = false;
-    notifyListeners();
     if ((contactName != null && contactName.isNotEmpty) &&
         (contactNumber != null &&
             contactNumber.isNotEmpty &&
