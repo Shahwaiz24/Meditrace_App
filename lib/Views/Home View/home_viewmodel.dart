@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meditrace_project/Components/button.dart';
+import 'package:meditrace_project/Services/api_service.dart';
 import 'package:meditrace_project/Services/global_data.dart';
+import 'package:meditrace_project/Services/local_storage.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Bag%20View/bag_view.dart';
 import 'package:meditrace_project/Views/Home%20View/home_view.dart';
@@ -10,6 +13,11 @@ import 'package:meditrace_project/Views/Medicine%20View/medicine_view.dart';
 import 'package:meditrace_project/Views/Profile%20View/profile_view.dart';
 
 class HomeViewmodel with ChangeNotifier {
+  bool isLoading = false;
+  bool isError = false;
+  bool called = false;
+
+  static String? user_id = "";
   String day = '';
   String date = '';
   bool showContainer = false;
@@ -27,37 +35,74 @@ class HomeViewmodel with ChangeNotifier {
     );
   }
 
+  getUserData() async {
+    isLoading = true;
+    called = true;
+    try {
+      HomeViewmodel.user_id = await LocalStorage.getUserid();
+      if (HomeViewmodel.user_id != null && HomeViewmodel.user_id!.isNotEmpty) {
+        final Map forParseBody = {"user_Id": HomeViewmodel.user_id.toString()};
+        var jsonBody = jsonEncode(forParseBody);
+        bool apiCheck = await ApiService.getUserData(body: jsonBody);
+        if (apiCheck == true) {
+          await getDateandDay();
+          isLoading = false;
+          notifyListeners();
+          triggerFadeInAnimation();
+        } else {
+          isLoading = false;
+          isError = true;
+          notifyListeners();
+        }
+      }
+    } on Exception catch (e) {
+      print("Error : ${e.toString()}");
+      isLoading = false;
+      isError = true;
+      notifyListeners();
+    }
+  }
+
+  initStateFunction() async {
+    if (called == true) {
+    } else {
+      print("Init Called");
+      await getUserData();
+    }
+  }
+
   onBottomBarSelected({required int index, required BuildContext context}) {
     UserGlobalData.selectedBottomBarIndex = index;
     if (UserGlobalData.selectedBottomBarIndex == 0) {
       showContainer = false;
+      called = false;
       containerOpacity = 0.0;
       medicines_text_opacity = 0.0;
       progress_text_opacity = 0.0;
       center_text_opacity = 0.0;
       progressValue = 0.0;
-     Navigator.pushAndRemoveUntil(
+      Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const HomeView()),
         (Route<dynamic> route) => false,
       );
     } else if (UserGlobalData.selectedBottomBarIndex == 1) {
       print('Bag View');
-        Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const BagView()),
-      (Route<dynamic> route) => false,
-    );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const BagView()),
+        (Route<dynamic> route) => false,
+      );
     } else if (UserGlobalData.selectedBottomBarIndex == 2) {
       print('Medicine View');
       Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const MedicineView()),
-      (Route<dynamic> route) => false,
-    );
+        context,
+        MaterialPageRoute(builder: (context) => const MedicineView()),
+        (Route<dynamic> route) => false,
+      );
     } else if (UserGlobalData.selectedBottomBarIndex == 3) {
       print('Profile View');
-        Navigator.pushAndRemoveUntil(
+      Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const ProfileView()),
         (Route<dynamic> route) => false,
@@ -82,7 +127,7 @@ class HomeViewmodel with ChangeNotifier {
   void triggerFadeInAnimation() async {
     print('Start Animatiion');
 
-    await Future.delayed(const Duration(seconds: 1), () {
+    await Future.delayed(const Duration(milliseconds: 100), () {
       showContainer = true;
     });
 
@@ -90,14 +135,14 @@ class HomeViewmodel with ChangeNotifier {
       containerOpacity = 1.0;
       startProgressAnimation();
     });
-    await Future.delayed(const Duration(seconds: 1), () {
+    await Future.delayed(const Duration(milliseconds: 100), () {
       medicines_text_opacity = 1.0;
     });
-    await Future.delayed(const Duration(seconds: 1), () {
+    await Future.delayed(const Duration(milliseconds: 100), () {
       progress_text_opacity = 1.0;
       notifyListeners();
     });
-    await Future.delayed(const Duration(seconds: 1), () {
+    await Future.delayed(const Duration(milliseconds: 100), () {
       center_text_opacity = 1.0;
       notifyListeners();
     });

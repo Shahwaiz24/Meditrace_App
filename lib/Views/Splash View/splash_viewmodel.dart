@@ -35,8 +35,7 @@ class SplashViewmodel with ChangeNotifier {
       bool check = await LocalStorage.checkLogin();
       if (check == true) {
         print("Navigate to Home View");
-        String? id = await LocalStorage.getUserid();
-        print("Id : ${id}");
+       
         await Future.delayed(const Duration(seconds: 1));
 
         Navigator.pushAndRemoveUntil(

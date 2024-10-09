@@ -5,27 +5,16 @@ import 'package:provider/provider.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Home%20View/home_viewmodel.dart';
 
-class HomeView extends StatefulWidget {
+class HomeView extends StatelessWidget {
   const HomeView({super.key});
-
-  @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-  @override
-  void initState() {
-    super.initState();
-    final model = Provider.of<HomeViewmodel>(context, listen: false);
-    model.getDateandDay();
-    model.triggerFadeInAnimation(); // Start the fade-in animation
-  }
 
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<HomeViewmodel>(context);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+     model.initStateFunction();
+
 
     return Scaffold(
       backgroundColor: AppColors.ScaffoldColor,
@@ -33,7 +22,7 @@ class _HomeViewState extends State<HomeView> {
         screenHeight: screenHeight,
         screenWidth: screenWidth,
       ),
-      body: Padding(
+      body: model.isLoading == true ? Center(child: CircularProgressIndicator(color: AppColors.PrimaryBlueColor,),) : Padding(
         padding: EdgeInsets.only(
           top: screenHeight * 0.100,
           left: screenWidth * 0.070,
@@ -134,6 +123,7 @@ class _HomeViewState extends State<HomeView> {
           ],
         ),
       ),
+   
     );
   }
 }
