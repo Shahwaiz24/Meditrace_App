@@ -92,13 +92,16 @@ class SigninView extends StatelessWidget {
                             ? const Icon(
                                 Icons.email_outlined,
                               )
-                            : model.isEmailNotEmpty == true ? const Icon(
-                                Icons.email_outlined,
-                              ) : Icon(
-                                Icons.email_outlined,
-                                color: const Color(0xffA3A2A3).withOpacity(0.8),
-                                size: screenHeight * 0.032,
-                              ),
+                            : model.isEmailNotEmpty == true
+                                ? const Icon(
+                                    Icons.email_outlined,
+                                  )
+                                : Icon(
+                                    Icons.email_outlined,
+                                    color: const Color(0xffA3A2A3)
+                                        .withOpacity(0.8),
+                                    size: screenHeight * 0.032,
+                                  ),
                         isPrefix: true,
                         controller: emailController,
                         enablefillColor:
@@ -166,15 +169,17 @@ class SigninView extends StatelessWidget {
                                 Icons.lock_outline_rounded,
                                 color: Colors.black,
                               )
-                            : model.isPasswordNotEmpty == true ? const Icon(
-                                Icons.lock_outline_rounded,
-                                color: Colors.black,
-                              )  : Icon(
-                                Icons.lock_outline_rounded,
-                                color: AppColors.unFocusPrimaryColor
-                                    .withOpacity(0.8),
-                                size: screenHeight * 0.032,
-                              ),
+                            : model.isPasswordNotEmpty == true
+                                ? const Icon(
+                                    Icons.lock_outline_rounded,
+                                    color: Colors.black,
+                                  )
+                                : Icon(
+                                    Icons.lock_outline_rounded,
+                                    color: AppColors.unFocusPrimaryColor
+                                        .withOpacity(0.8),
+                                    size: screenHeight * 0.032,
+                                  ),
                         controller: passwordController,
                         enablefillColor:
                             AppColors.unFocusPrimaryColor.withOpacity(0.1),
@@ -248,7 +253,7 @@ class SigninView extends StatelessWidget {
                           child: model.isSignInStart
                               ? Center(
                                   child: CircularProgressIndicator(
-                                    color: AppColors.PrimaryBlueColor,
+                                    color: AppColors.TextwhiteColor,
                                   ),
                                 )
                               : Center(

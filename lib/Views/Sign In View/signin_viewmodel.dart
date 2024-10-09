@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Services/api_service.dart';
+import 'package:meditrace_project/Services/global_Data.dart';
+import 'package:meditrace_project/Services/local_storage.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20Email%20View/forgot_password_view.dart';
+import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 
 class SigninViewmodel with ChangeNotifier {
   bool isPasswordVisible = false;
@@ -25,7 +31,8 @@ class SigninViewmodel with ChangeNotifier {
       notifyListeners();
     }
   }
-    isPasswordEmptyCheck({required String password}) {
+
+  isPasswordEmptyCheck({required String password}) {
     if (password.isNotEmpty) {
       isPasswordNotEmpty = true;
       notifyListeners();
@@ -94,21 +101,55 @@ class SigninViewmodel with ChangeNotifier {
       required String Password,
       required BuildContext context}) async {
     isSignInStart = true;
+    isUiFieldsFill = false;
     notifyListeners();
     bool validate = await validation(EmailText: Email, Password: Password);
     if (validate == true) {
-      print('Navigating and SuccessFully Login');
+      final Map forparseBody = {"email": Email, "password": Password};
+      var finalBody = jsonEncode(forparseBody);
+      bool apiCheck = await ApiService.loginUser(body: finalBody);
 
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (context) => HomeView()));
-      isSignInStart = false;
-      notifyListeners();
+      if (apiCheck == true) {
+        isFocusEmail = false;
+        isSignInStart = false;
+        isFocusPassword = false;
+        isPasswordVisible = false;
+        isHiddenPassword = true;
+        isSignUpError = false;
+        isUiFieldsFill = false;
+        notifyListeners();
+        await LocalStorage.userLogin();
+        await LocalStorage.saveUserId(userId: UserGlobalData.userId);
+        print("Saved Id and Login ");
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeView()),
+          (Route<dynamic> route) => false,
+        );
+      } else {
+        isFocusEmail = false;
+        isSignInStart = false;
+        isFocusPassword = false;
+        isPasswordVisible = false;
+        isHiddenPassword = true;
+        isSignUpError = true;
+        isUiFieldsFill = false;
+        notifyListeners();
+        await Future.delayed(const Duration(milliseconds: 1500));
+        isSignUpError = false;
+        notifyListeners();
+      }
     } else {
+      isFocusEmail = false;
       isSignInStart = false;
+      isFocusPassword = false;
+      isPasswordVisible = false;
+      isHiddenPassword = true;
       isSignUpError = true;
       isUiFieldsFill = false;
       notifyListeners();
-      await Future.delayed(const Duration(seconds: 3));
+      await Future.delayed(const Duration(milliseconds: 1500));
+
       isSignUpError = false;
       notifyListeners();
     }

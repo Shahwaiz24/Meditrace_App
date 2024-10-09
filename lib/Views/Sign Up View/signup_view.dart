@@ -171,7 +171,7 @@ class SignupView extends StatelessWidget {
                             ? Icon(Icons.call_outlined)
                             : Icon(
                                 Icons.call_outlined,
-                                color: const Color(0xffA3A2A3).withOpacity(0.8),
+                                color: AppColors.unFocusPrimaryColor.withOpacity(0.8),
                                 size: screenHeight * 0.032,
                               ),
                         Suffix: Text(''),
