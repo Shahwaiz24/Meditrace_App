@@ -9,7 +9,9 @@ class ApiService {
     try {
       final urlParsing = ApiService.url + "check-user-signup";
       final clientUrl = await Uri.parse(urlParsing);
-      var response = await http.post(clientUrl, body: body);
+      var response = await http.post(clientUrl, body: body,headers: {
+        "Content-Type": "application/json", 
+      },);
 
       var responseBody = jsonDecode(response.body);
       if (responseBody['Status'] == 'Failure') {
@@ -28,7 +30,9 @@ class ApiService {
     try {
       final urlParsing = ApiService.url + "signup";
       final clientUrl = await Uri.parse(urlParsing);
-      var response = await http.post(clientUrl, body: body);
+      var response = await http.post(clientUrl, body: body,headers: {
+        "Content-Type": "application/json", 
+      },);
 
       var responseBody = await jsonDecode(response.body);
       if (responseBody['Status'] == 'Success') {
