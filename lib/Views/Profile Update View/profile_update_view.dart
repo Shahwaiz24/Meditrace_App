@@ -112,7 +112,7 @@ class ProfileUpdateView extends StatelessWidget {
                           ? AppColors.TextwhiteColor
                           : AppColors.unFocusPrimaryColor.withOpacity(0.1),
                   outlineColor: AppColors.unFocusPrimaryColor,
-                  radius: screenWidth * 0.020,
+                  radius: BorderRadius.circular(screenWidth * 0.020),
                   isHidden: false,
                   HintText: 'First Name',
                   hintStyle: TextStyle(
@@ -170,7 +170,7 @@ class ProfileUpdateView extends StatelessWidget {
                           ? AppColors.TextwhiteColor
                           : AppColors.unFocusPrimaryColor.withOpacity(0.1),
                   outlineColor: AppColors.unFocusPrimaryColor,
-                  radius: screenWidth * 0.020,
+                  radius: BorderRadius.circular(screenWidth * 0.020),
                   isHidden: false,
                   HintText: 'Last Name',
                   hintStyle: TextStyle(
@@ -228,7 +228,7 @@ class ProfileUpdateView extends StatelessWidget {
                           ? AppColors.TextwhiteColor
                           : AppColors.unFocusPrimaryColor.withOpacity(0.1),
                   outlineColor: AppColors.unFocusPrimaryColor,
-                  radius: screenWidth * 0.020,
+                  radius: BorderRadius.circular(screenWidth * 0.020),
                   isHidden: false,
                   HintText: 'Email Address',
                   hintStyle: TextStyle(
@@ -286,7 +286,7 @@ class ProfileUpdateView extends StatelessWidget {
                           ? AppColors.TextwhiteColor
                           : AppColors.unFocusPrimaryColor.withOpacity(0.1),
                   outlineColor: AppColors.unFocusPrimaryColor,
-                  radius: screenWidth * 0.020,
+                  radius: BorderRadius.circular(screenWidth * 0.020),
                   isHidden: false,
                   HintText: 'Phone Number',
                   hintStyle: TextStyle(
@@ -344,7 +344,7 @@ class ProfileUpdateView extends StatelessWidget {
                           ? AppColors.TextwhiteColor
                           : AppColors.unFocusPrimaryColor.withOpacity(0.1),
                   outlineColor: AppColors.unFocusPrimaryColor,
-                  radius: screenWidth * 0.020,
+                  radius: BorderRadius.circular(screenWidth * 0.020),
                   isHidden: false,
                   HintText: 'Date Of Birth',
                   hintStyle: TextStyle(

@@ -67,7 +67,7 @@ class EmergencyContactView extends StatelessWidget {
                           : AppColors.unFocusPrimaryColor.withOpacity(0.1),
                   outlineColor:
                       model.error ? Colors.red : AppColors.unFocusPrimaryColor,
-                  radius: screenWidth * 0.020,
+                  radius: BorderRadius.circular(screenWidth * 0.020),
                   isHidden: false,
                   HintText: model.error ? "Enter Correct Name" : 'Contact Name',
                   hintStyle: TextStyle(
@@ -113,7 +113,7 @@ class EmergencyContactView extends StatelessWidget {
                           : AppColors.unFocusPrimaryColor.withOpacity(0.1),
                   outlineColor:
                       model.error ? Colors.red : AppColors.unFocusPrimaryColor,
-                  radius: screenWidth * 0.020,
+                  radius: BorderRadius.circular(screenWidth * 0.020),
                   isHidden: false,
                   HintText: model.error
                       ? 'Enter Number in 10 Digits'
@@ -180,7 +180,7 @@ class EmergencyContactView extends StatelessWidget {
                           outlineColor: model.error
                               ? Colors.red
                               : AppColors.unFocusPrimaryColor,
-                          radius: screenWidth * 0.020,
+                          radius:  BorderRadius.circular(screenWidth * 0.020),
                           isHidden: false,
                           HintText: model.error
                               ? "Enter Correct Name"
@@ -235,7 +235,7 @@ class EmergencyContactView extends StatelessWidget {
                           outlineColor: model.error
                               ? Colors.red
                               : AppColors.unFocusPrimaryColor,
-                          radius: screenWidth * 0.020,
+                          radius: BorderRadius.circular(screenWidth * 0.020),
                           isHidden: false,
                           HintText: model.error
                               ? "Enter Correct Number"

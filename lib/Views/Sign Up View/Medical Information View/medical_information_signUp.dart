@@ -125,7 +125,7 @@ class MedicalInformationSignupView extends StatelessWidget {
                   outlineColor: model.isError
                       ? Colors.red.withOpacity(0.5)
                       : AppColors.unFocusPrimaryColor.withOpacity(0.5),
-                  radius: screenHeight * 0.010,
+                  radius: BorderRadius.circular(screenHeight * 0.010),
                   isHidden: false,
                   HintText: model.isError
                       ? 'Enter Correct Weight In lbs'
@@ -197,7 +197,7 @@ class MedicalInformationSignupView extends StatelessWidget {
                   outlineColor: model.isError
                       ? Colors.red.withOpacity(0.5)
                       : AppColors.unFocusPrimaryColor.withOpacity(0.5),
-                  radius: screenHeight * 0.010,
+                  radius: BorderRadius.circular(screenHeight * 0.010),
                   isHidden: false,
                   HintText: model.isError
                       ? 'Enter Correct Height in cm'

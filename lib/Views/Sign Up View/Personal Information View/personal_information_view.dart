@@ -120,7 +120,7 @@ class PersonalInformationView extends StatelessWidget {
                           ? AppColors.TextwhiteColor
                           : AppColors.unFocusPrimaryColor.withOpacity(0.1),
                   outlineColor: AppColors.unFocusPrimaryColor,
-                  radius: screenWidth * 0.020,
+                  radius: BorderRadius.circular(screenWidth * 0.020),
                   isHidden: false,
                   HintText: 'First Name',
                   hintStyle: TextStyle(
@@ -162,7 +162,7 @@ class PersonalInformationView extends StatelessWidget {
                           ? AppColors.TextwhiteColor
                           : AppColors.unFocusPrimaryColor.withOpacity(0.1),
                   outlineColor: AppColors.unFocusPrimaryColor,
-                  radius: screenWidth * 0.020,
+                  radius: BorderRadius.circular(screenWidth * 0.020,),
                   isHidden: false,
                   HintText: 'Last Name',
                   hintStyle: TextStyle(

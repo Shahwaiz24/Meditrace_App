@@ -71,7 +71,7 @@ class CreateNewpasswordView extends StatelessWidget {
                   outlineColor: model.isError == true
                       ? Colors.red
                       : AppColors.unFocusPrimaryColor.withOpacity(0.5),
-                  radius: screenWidth * 0.020,
+                  radius: BorderRadius.circular(screenWidth * 0.020),
                   isHidden: model.isPasswordHidden,
                   HintText: "Enter Password",
                   hintStyle: TextStyle(
@@ -150,7 +150,7 @@ class CreateNewpasswordView extends StatelessWidget {
                   outlineColor: model.isError == true
                       ? Colors.red
                       : AppColors.unFocusPrimaryColor.withOpacity(0.5),
-                  radius: screenWidth * 0.020,
+                  radius: BorderRadius.circular(screenWidth * 0.020),
                   isHidden: model.isPasswordHidden,
                   HintText: "Confirm Password",
                   hintStyle: TextStyle(

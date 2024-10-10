@@ -74,17 +74,23 @@ class SignUpViewmodel with ChangeNotifier {
       isFocusEmail = false;
       isFocusPassword = false;
       isFocusPhoneNumber = false;
+      isEmailNotEmpty = false;
+      isPasswordNotEmpty = false;
+      isPhoneNumberNotEmpty = false;
       isPasswordVisible = false;
       isHiddenPassword = true;
       isSignUpError = false;
       isSignUpStart = false;
       isUiFieldsFill = false;
-      notifyListeners();
+      // notifyListeners();
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => navigationName()));
     } else if (isPop == true) {
       isCheck = false;
       isFocusEmail = false;
+      isEmailNotEmpty = false;
+      isPasswordNotEmpty = false;
+      isPhoneNumberNotEmpty = false;
       isFocusPassword = false;
       isFocusPhoneNumber = false;
       isPasswordVisible = false;

@@ -110,7 +110,7 @@ class SigninView extends StatelessWidget {
                         outlineColor: model.isSignUpError
                             ? Colors.red.withOpacity(0.5)
                             : AppColors.unFocusPrimaryColor.withOpacity(0.5),
-                        radius: screenHeight * 0.010,
+                        radius: BorderRadius.circular(screenHeight * 0.010),
                         HintText: model.isSignUpError
                             ? 'Invalid Email'
                             : 'Email Address',
@@ -187,7 +187,7 @@ class SigninView extends StatelessWidget {
                         outlineColor: model.isSignUpError
                             ? Colors.red.withOpacity(0.5)
                             : AppColors.unFocusPrimaryColor.withOpacity(0.5),
-                        radius: screenHeight * 0.010,
+                        radius: BorderRadius.circular(screenHeight * 0.010),
                         HintText: model.isSignUpError
                             ? 'Invalid Password'
                             : 'Password',

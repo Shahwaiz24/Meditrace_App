@@ -73,7 +73,7 @@ class ForgotPasswordView extends StatelessWidget {
                       : AppColors.unFocusPrimaryColor.withOpacity(0.5),
 
                       
-                  radius: screenWidth * 0.020,
+                  radius: BorderRadius.circular(screenWidth * 0.020),
                   isHidden: false,
                   HintText: model.isError == true
                       ? "User Didn't Exist"

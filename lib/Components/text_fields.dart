@@ -26,7 +26,7 @@ class TextFields extends StatelessWidget {
 
   final TextEditingController controller;
   final Color outlineColor;
-  final double radius;
+  final BorderRadius radius;
   final Color focusfillColor;
 
   final Color enablefillColor;
@@ -69,14 +69,14 @@ class TextFields extends StatelessWidget {
           hintStyle: hintStyle,
           enabled: true,
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(radius),
+            borderRadius: radius,
             borderSide: BorderSide(
               color: outlineColor,
               width: 1,
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(radius),
+            borderRadius: radius,
             borderSide: BorderSide(
               color: outlineColor, // Darker border on focus
               width: 2, // Thicker border on focus

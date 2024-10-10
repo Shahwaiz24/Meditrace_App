@@ -100,7 +100,7 @@ class SignupView extends StatelessWidget {
                         outlineColor: model.isSignUpError
                             ? Colors.red.withOpacity(0.5)
                             : AppColors.unFocusPrimaryColor.withOpacity(0.5),
-                        radius: screenHeight * 0.010,
+                        radius: BorderRadius.circular(screenHeight * 0.010),
                         isHidden: false,
                         HintText: model.isSignUpError == true
                             ? "Enter Correct Email Address"
@@ -138,39 +138,117 @@ class SignupView extends StatelessWidget {
                   ),
                   Consumer<SignUpViewmodel>(builder: (context, model, child) {
                     return Container(
-                      decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(screenHeight * 0.010)),
-                      child: Row(
-                        children: [
-                          (model.isPhoneNumberNotEmpty ||
-                                  model.isFocusPhoneNumber)
-                              ? Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: screenWidth * 0.030,
-                                      vertical: screenHeight * 0.020),
-                                  decoration: BoxDecoration(
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(screenHeight * 0.060)),
+                        child: (model.isPhoneNumberNotEmpty ||
+                                model.isFocusPhoneNumber)
+                            ? Row(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: screenWidth * 0.030,
+                                        vertical: screenHeight * 0.020),
+                                    decoration: BoxDecoration(
                                       color: AppColors.unFocusPrimaryColor
                                           .withOpacity(0.4),
                                       borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(
-                                              screenWidth * 0.020),
-                                          bottomRight: Radius.circular(
-                                              screenWidth * 0.020))),
-                                  child: Center(
-                                    child: Text(
-                                      "+1",
-                                      style: TextStyle(
-                                          color: AppColors.TextblackColor
-                                              .withOpacity(0.8),
-                                          fontFamily: "Poppins Bold",
-                                          fontSize: screenHeight * 0.020),
+                                          topLeft: Radius.circular(
+                                              screenHeight * 0.010),
+                                          bottomLeft: Radius.circular(
+                                              screenHeight * 0.010)),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "+1",
+                                        style: TextStyle(
+                                            color: AppColors.TextblackColor
+                                                .withOpacity(0.8),
+                                            fontFamily: "Poppins Bold",
+                                            fontSize: screenHeight * 0.020),
+                                      ),
                                     ),
                                   ),
-                                )
-                              : Text(""),
-                          Expanded(
-                            child: TextFields(
+                                  Expanded(
+                                    child: TextFields(
+                                        contentStyle: const TextStyle(
+                                            fontFamily: 'Poppins Regular',
+                                            fontWeight: FontWeight.w500),
+                                        onFocus: (value) {
+                                          model.onFocusChange(
+                                              'phoneNumber', value);
+                                        },
+                                        isNumberKeyboard: true,
+                                        controller: phoneNumberController,
+                                        enablefillColor: Colors.black,
+                                        focusfillColor:
+                                            model.isFocusPhoneNumber == true
+                                                ? AppColors.TextwhiteColor
+                                                : model.isPhoneNumberNotEmpty ==
+                                                        true
+                                                    ? AppColors.TextwhiteColor
+                                                    : AppColors
+                                                        .unFocusPrimaryColor
+                                                        .withOpacity(0.1),
+                                        outlineColor: model.isSignUpError
+                                            ? Colors.red.withOpacity(0.5)
+                                            : AppColors.unFocusPrimaryColor
+                                                .withOpacity(0.5),
+                                        radius: BorderRadius.only(
+                                            topRight: Radius.circular(
+                                                screenHeight * 0.010),
+                                            bottomRight: Radius.circular(
+                                                screenHeight * 0.010)),
+                                        isHidden: false,
+                                        HintText: model.isSignUpError == true
+                                            ? "Enter 10 Digits Number"
+                                            : 'Phone Number',
+                                        hintStyle: TextStyle(
+                                            color: model.isSignUpError
+                                                ? Colors.red.withOpacity(0.5)
+                                                : Colors.grey,
+                                            fontFamily: 'Poppins Regular',
+                                            fontSize: screenHeight * 0.018),
+                                        Prefix: model.isFocusPhoneNumber == true
+                                            ? Icon(Icons.call_outlined)
+                                            //  Row(
+                                            //     // mainAxisAlignment: MainAxisAlignment.start,
+                                            //     children: [
+
+                                            //       SizedBox(
+                                            //         width: screenWidth * 0.020,
+                                            //       ),
+                                            //       Icon(Icons.call_outlined),
+                                            //     ],
+                                            //   )
+                                            : model.isPhoneNumberNotEmpty == true
+                                                ? Icon(Icons.call_outlined)
+                                                : Icon(
+                                                    Icons.call_outlined,
+                                                    color: AppColors
+                                                        .unFocusPrimaryColor
+                                                        .withOpacity(0.8),
+                                                    size: screenHeight * 0.032,
+                                                  ),
+                                        Suffix: Text(''),
+                                        isSuffix: false,
+                                        isPrefix: true,
+                                        onChanged: (value) async {
+                                          await model.checkPhoneNumberEmpty(
+                                              phoneNumber:
+                                                  phoneNumberController.text);
+                                          await model.onChangedFocusOFUi(
+                                              ischeck: model.isCheck,
+                                              phoneNumber:
+                                                  phoneNumberController.text,
+                                              emailText: emailController.text,
+                                              PasswordText:
+                                                  passwordController.text);
+                                        }),
+                                  )
+                                ],
+                              )
+                            : TextFields(
                                 contentStyle: const TextStyle(
                                     fontFamily: 'Poppins Regular',
                                     fontWeight: FontWeight.w500),
@@ -190,7 +268,9 @@ class SignupView extends StatelessWidget {
                                     ? Colors.red.withOpacity(0.5)
                                     : AppColors.unFocusPrimaryColor
                                         .withOpacity(0.5),
-                                radius: screenHeight * 0.010,
+                                radius: BorderRadius.circular(
+                                  screenHeight * 0.010,
+                                ),
                                 isHidden: false,
                                 HintText: model.isSignUpError == true
                                     ? "Enter 10 Digits Number"
@@ -203,16 +283,6 @@ class SignupView extends StatelessWidget {
                                     fontSize: screenHeight * 0.018),
                                 Prefix: model.isFocusPhoneNumber == true
                                     ? Icon(Icons.call_outlined)
-                                    //  Row(
-                                    //     // mainAxisAlignment: MainAxisAlignment.start,
-                                    //     children: [
-
-                                    //       SizedBox(
-                                    //         width: screenWidth * 0.020,
-                                    //       ),
-                                    //       Icon(Icons.call_outlined),
-                                    //     ],
-                                    //   )
                                     : model.isPhoneNumberNotEmpty == true
                                         ? Icon(Icons.call_outlined)
                                         : Icon(
@@ -232,11 +302,7 @@ class SignupView extends StatelessWidget {
                                       phoneNumber: phoneNumberController.text,
                                       emailText: emailController.text,
                                       PasswordText: passwordController.text);
-                                }),
-                          )
-                        ],
-                      ),
-                    );
+                                }));
                   }),
                   SizedBox(
                     height: screenHeight * 0.030,
@@ -262,7 +328,7 @@ class SignupView extends StatelessWidget {
                         outlineColor: model.isSignUpError
                             ? Colors.red.withOpacity(0.5)
                             : AppColors.unFocusPrimaryColor.withOpacity(0.5),
-                        radius: screenHeight * 0.010,
+                        radius: BorderRadius.circular(screenHeight * 0.010),
                         isHidden: model.isHiddenPassword,
                         HintText: model.isSignUpError == true
                             ? "Enter Password with @, Capital, Number"
