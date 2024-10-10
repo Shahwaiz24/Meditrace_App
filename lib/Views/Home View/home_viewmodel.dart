@@ -16,6 +16,7 @@ class HomeViewmodel with ChangeNotifier {
   bool isLoading = false;
   bool isError = false;
   bool called = false;
+  String userName = "";
 
   static String? user_id = "";
   String day = '';
@@ -49,6 +50,8 @@ class HomeViewmodel with ChangeNotifier {
         bool apiCheck = await ApiService.getUserData(body: jsonBody);
         if (apiCheck == true) {
           await getDateandDay();
+       userName = UserGlobalData.userData['firstname'] + " " + UserGlobalData.userData['lastname'];
+
           isLoading = false;
           notifyListeners();
           triggerFadeInAnimation();
@@ -93,7 +96,7 @@ class HomeViewmodel with ChangeNotifier {
       );
     } else if (UserGlobalData.selectedBottomBarIndex == 1) {
       print('Bag View');
-       showContainer = false;
+      showContainer = false;
       isError = false;
       isLoading = false;
       called = false;
@@ -112,7 +115,7 @@ class HomeViewmodel with ChangeNotifier {
       );
       print("Data : ${UserGlobalData.userData}");
     } else if (UserGlobalData.selectedBottomBarIndex == 2) {
-       showContainer = false;
+      showContainer = false;
       isError = false;
       isLoading = false;
       called = false;
@@ -132,7 +135,7 @@ class HomeViewmodel with ChangeNotifier {
       );
       print("Data : ${UserGlobalData.userData}");
     } else if (UserGlobalData.selectedBottomBarIndex == 3) {
-       showContainer = false;
+      showContainer = false;
       isError = false;
       isLoading = false;
       called = false;

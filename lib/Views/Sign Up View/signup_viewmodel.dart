@@ -20,6 +20,7 @@ class SignUpViewmodel with ChangeNotifier {
   bool isPhoneNumberNotEmpty = false;
   bool isPasswordNotEmpty = false;
   bool isEmailNotEmpty = false;
+  bool isEnableCode = false;
   String formattedNumber = '';
   checkEmailEmpty({required String email}) {
     if (email.isNotEmpty) {
@@ -36,10 +37,12 @@ class SignUpViewmodel with ChangeNotifier {
   checkPhoneNumberEmpty({required String phoneNumber}) {
     if (phoneNumber.isNotEmpty) {
       isPhoneNumberNotEmpty = true;
+      isEnableCode = true;
 
       notifyListeners();
     } else {
       isPhoneNumberNotEmpty = false;
+      isEnableCode = false;
 
       notifyListeners();
     }
@@ -136,12 +139,15 @@ class SignUpViewmodel with ChangeNotifier {
   void onFocusChange(String field, bool hasFocus) {
     if (field == "email") {
       isFocusEmail = hasFocus;
+      isEnableCode = false;
       notifyListeners();
     } else if (field == "phoneNumber") {
       isFocusPhoneNumber = hasFocus;
+      isEnableCode = true;
       notifyListeners();
     } else if (field == "password") {
       isFocusPassword = hasFocus;
+      isEnableCode = false;
       notifyListeners();
     }
     notifyListeners();
@@ -242,22 +248,24 @@ class SignUpViewmodel with ChangeNotifier {
       bool apiCheck = await ApiService.checkUserForSignUp(body: jsonBody);
 
       if (apiCheck == true) {
-       
         isSignUpStart = false;
         isUiFieldsFill = false;
-           SignUpGlobalData.finalPassword = Password;
-                        SignUpGlobalData.finalEmailAddress = Email;
+        SignUpGlobalData.finalPassword = Password;
+        SignUpGlobalData.finalEmailAddress = Email;
 
         SignUpGlobalData.finalPhoneNumber = formattedNumber;
-                    print("Email : ${SignUpGlobalData.finalEmailAddress} | Password : ${SignUpGlobalData.finalPassword} | Phone Number : ${ SignUpGlobalData.finalPhoneNumber}");
+        print(
+            "Email : ${SignUpGlobalData.finalEmailAddress} | Password : ${SignUpGlobalData.finalPassword} | Phone Number : ${SignUpGlobalData.finalPhoneNumber}");
         notifyListeners();
 
-
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => PersonalInformationView(email: SignUpGlobalData.finalEmailAddress,password:SignUpGlobalData.finalPassword ,phoneNumber: SignUpGlobalData.finalPhoneNumber,)));
-     
-
-
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => PersonalInformationView(
+                      email: SignUpGlobalData.finalEmailAddress,
+                      password: SignUpGlobalData.finalPassword,
+                      phoneNumber: SignUpGlobalData.finalPhoneNumber,
+                    )));
       } else {
         isSignUpStart = false;
         isCheck = false;
@@ -274,7 +282,7 @@ class SignUpViewmodel with ChangeNotifier {
       isSignUpError = true;
       isUiFieldsFill = false;
       notifyListeners();
- await Future.delayed(const Duration(milliseconds: 1500));
+      await Future.delayed(const Duration(milliseconds: 1500));
       isSignUpError = false;
       notifyListeners();
     }

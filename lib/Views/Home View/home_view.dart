@@ -47,7 +47,7 @@ class HomeView extends StatelessWidget {
                     ),
                     SizedBox(height: screenHeight * 0.010),
                     Text(
-                      'Tanya Sen!',
+                      model.userName,
                       style: TextStyle(
                           color: AppColors.TextblackColor,
                           fontFamily: 'Poppins Bold',
@@ -65,7 +65,7 @@ class HomeView extends StatelessWidget {
                       backgroundColor: Colors.white,
                       child: UserGlobalData.userProfilePhoto.isEmpty
                           ? ImageIcon(
-                              AssetImage(
+                             const AssetImage(
                                 'assets/images/icon/bottom_bar_icon/profile.png',
                               ),
                               size: screenHeight * 0.03,

@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/button.dart';
+import 'package:meditrace_project/Components/code_field_widget.dart';
 import 'package:meditrace_project/Components/text_fields.dart';
 import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Services/utils.dart';
@@ -69,7 +70,6 @@ class SignupView extends StatelessWidget {
                 ),
               ],
             ),
-          
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -137,55 +137,106 @@ class SignupView extends StatelessWidget {
                     height: screenHeight * 0.030,
                   ),
                   Consumer<SignUpViewmodel>(builder: (context, model, child) {
-                    return TextFields(
-                        contentStyle: const TextStyle(
-                            fontFamily: 'Poppins Regular',
-                            fontWeight: FontWeight.w500),
-                        onFocus: (value) {
-                          model.onFocusChange('phoneNumber', value);
-                        },
-                        isNumberKeyboard: true,
-                        controller: phoneNumberController,
-                        enablefillColor: Colors.black,
-                        focusfillColor: model.isFocusPhoneNumber == true
-                            ? AppColors.TextwhiteColor
-                            : model.isPhoneNumberNotEmpty == true
-                                ? AppColors.TextwhiteColor
-                                : AppColors.unFocusPrimaryColor
-                                    .withOpacity(0.1),
-                        outlineColor: model.isSignUpError
-                            ? Colors.red.withOpacity(0.5)
-                            : AppColors.unFocusPrimaryColor.withOpacity(0.5),
-                        radius: screenHeight * 0.010,
-                        isHidden: false,
-                        HintText: model.isSignUpError == true
-                            ? "Enter 10 Digits Number"
-                            : 'Phone Number',
-                        hintStyle: TextStyle(
-                            color: model.isSignUpError
-                                ? Colors.red.withOpacity(0.5)
-                                : Colors.grey,
-                            fontFamily: 'Poppins Regular',
-                            fontSize: screenHeight * 0.018),
-                        Prefix: model.isFocusPhoneNumber == true
-                            ? Icon(Icons.call_outlined)
-                            : Icon(
-                                Icons.call_outlined,
-                                color: AppColors.unFocusPrimaryColor.withOpacity(0.8),
-                                size: screenHeight * 0.032,
-                              ),
-                        Suffix: Text(''),
-                        isSuffix: false,
-                        isPrefix: true,
-                        onChanged: (value) async {
-                          await model.checkPhoneNumberEmpty(
-                              phoneNumber: phoneNumberController.text);
-                          await model.onChangedFocusOFUi(
-                              ischeck: model.isCheck,
-                              phoneNumber: phoneNumberController.text,
-                              emailText: emailController.text,
-                              PasswordText: passwordController.text);
-                        });
+                    return Container(
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(screenHeight * 0.010)),
+                      child: Row(
+                        children: [
+                          (model.isPhoneNumberNotEmpty ||
+                                  model.isFocusPhoneNumber)
+                              ? Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: screenWidth * 0.030,
+                                      vertical: screenHeight * 0.020),
+                                  decoration: BoxDecoration(
+                                      color: AppColors.unFocusPrimaryColor
+                                          .withOpacity(0.4),
+                                      borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(
+                                              screenWidth * 0.020),
+                                          bottomRight: Radius.circular(
+                                              screenWidth * 0.020))),
+                                  child: Center(
+                                    child: Text(
+                                      "+1",
+                                      style: TextStyle(
+                                          color: AppColors.TextblackColor
+                                              .withOpacity(0.8),
+                                          fontFamily: "Poppins Bold",
+                                          fontSize: screenHeight * 0.020),
+                                    ),
+                                  ),
+                                )
+                              : Text(""),
+                          Expanded(
+                            child: TextFields(
+                                contentStyle: const TextStyle(
+                                    fontFamily: 'Poppins Regular',
+                                    fontWeight: FontWeight.w500),
+                                onFocus: (value) {
+                                  model.onFocusChange('phoneNumber', value);
+                                },
+                                isNumberKeyboard: true,
+                                controller: phoneNumberController,
+                                enablefillColor: Colors.black,
+                                focusfillColor: model.isFocusPhoneNumber == true
+                                    ? AppColors.TextwhiteColor
+                                    : model.isPhoneNumberNotEmpty == true
+                                        ? AppColors.TextwhiteColor
+                                        : AppColors.unFocusPrimaryColor
+                                            .withOpacity(0.1),
+                                outlineColor: model.isSignUpError
+                                    ? Colors.red.withOpacity(0.5)
+                                    : AppColors.unFocusPrimaryColor
+                                        .withOpacity(0.5),
+                                radius: screenHeight * 0.010,
+                                isHidden: false,
+                                HintText: model.isSignUpError == true
+                                    ? "Enter 10 Digits Number"
+                                    : 'Phone Number',
+                                hintStyle: TextStyle(
+                                    color: model.isSignUpError
+                                        ? Colors.red.withOpacity(0.5)
+                                        : Colors.grey,
+                                    fontFamily: 'Poppins Regular',
+                                    fontSize: screenHeight * 0.018),
+                                Prefix: model.isFocusPhoneNumber == true
+                                    ? Icon(Icons.call_outlined)
+                                    //  Row(
+                                    //     // mainAxisAlignment: MainAxisAlignment.start,
+                                    //     children: [
+
+                                    //       SizedBox(
+                                    //         width: screenWidth * 0.020,
+                                    //       ),
+                                    //       Icon(Icons.call_outlined),
+                                    //     ],
+                                    //   )
+                                    : model.isPhoneNumberNotEmpty == true
+                                        ? Icon(Icons.call_outlined)
+                                        : Icon(
+                                            Icons.call_outlined,
+                                            color: AppColors.unFocusPrimaryColor
+                                                .withOpacity(0.8),
+                                            size: screenHeight * 0.032,
+                                          ),
+                                Suffix: Text(''),
+                                isSuffix: false,
+                                isPrefix: true,
+                                onChanged: (value) async {
+                                  await model.checkPhoneNumberEmpty(
+                                      phoneNumber: phoneNumberController.text);
+                                  await model.onChangedFocusOFUi(
+                                      ischeck: model.isCheck,
+                                      phoneNumber: phoneNumberController.text,
+                                      emailText: emailController.text,
+                                      PasswordText: passwordController.text);
+                                }),
+                          )
+                        ],
+                      ),
+                    );
                   }),
                   SizedBox(
                     height: screenHeight * 0.030,
@@ -352,11 +403,10 @@ class SignupView extends StatelessWidget {
                             builder: (context, model, child) {
                           return InkWell(
                             onTap: () async {
-                              if (model.isSignUpStart == false)  {
-                              await  model.signUpFunction(
+                              if (model.isSignUpStart == false) {
+                                await model.signUpFunction(
                                     Email: emailController.text,
-                                    phoneNumber:
-                                        phoneNumberController.text,
+                                    phoneNumber: phoneNumberController.text,
                                     Password: passwordController.text,
                                     context: context);
                                 emailController.clear();
@@ -392,8 +442,6 @@ class SignupView extends StatelessWidget {
                             ),
                           );
                         }),
-                        
-                        
                         Padding(
                           padding: EdgeInsets.only(top: screenHeight * 0.020),
                           child: Row(
