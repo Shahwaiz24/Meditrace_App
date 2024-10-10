@@ -10,6 +10,7 @@ import 'package:meditrace_project/Views/Sign%20Up%20View/signup_view.dart';
 class SplashViewmodel with ChangeNotifier {
   bool _animate = false;
   bool _showButtons = false;
+  bool isCompleted = false;
 
   bool get animate => _animate;
   bool get showButtons => _showButtons;
@@ -20,8 +21,11 @@ class SplashViewmodel with ChangeNotifier {
   }
 
   void navigating() async {
+    print("Animation Reset");
+    isCompleted = false;
     _animate = false;
     _showButtons = false;
+    notifyListeners();
   }
 
   void showNewColumn() {
@@ -30,28 +34,32 @@ class SplashViewmodel with ChangeNotifier {
   }
 
   void animating({required BuildContext context}) async {
-    await Future.delayed(const Duration(seconds: 3), () async {
-      startAnimation();
-      bool check = await LocalStorage.checkLogin();
-      if (check == true) {
-        print("Navigate to Home View");
-       
-        await Future.delayed(const Duration(seconds: 1));
+    if (isCompleted != true) {
+      isCompleted = true;
+      print("Animating Start Again ");
+      await Future.delayed(const Duration(seconds: 3), () async {
+        startAnimation();
+        bool check = await LocalStorage.checkLogin();
+        if (check == true) {
+          print("Navigate to Home View");
 
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeView()),
-          (Route<dynamic> route) => false,
-        );
-        navigating();
-      } else {
-        Future.delayed(const Duration(seconds: 1), () {
-          showNewColumn();
-        });
-      }
+          await Future.delayed(const Duration(seconds: 1));
 
-// //
-    });
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeView()),
+            (Route<dynamic> route) => false,
+          );
+          navigating();
+        } else {
+          Future.delayed(const Duration(seconds: 1), () {
+            showNewColumn();
+          });
+        }
+      });
+    } else {
+      print("Already Completed");
+    }
   }
 
   Widget buildAnimatedButtons({
@@ -108,6 +116,7 @@ class SplashViewmodel with ChangeNotifier {
                     print('Navigating to Sign In');
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => SigninView()));
+                    navigating();
                   },
                   child: ButtonComponent(
                     decoration: BoxDecoration(
@@ -136,6 +145,7 @@ class SplashViewmodel with ChangeNotifier {
                     print('Navigating to Sign Up');
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => SignupView()));
+                    navigating();
                   },
                   child: ButtonComponent(
                     decoration: BoxDecoration(

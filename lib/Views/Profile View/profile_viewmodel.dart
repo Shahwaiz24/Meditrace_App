@@ -42,6 +42,7 @@ class ProfileViewmodel with ChangeNotifier {
   }
 
   logoutTap({required BuildContext context}) async {
+    UserGlobalData.selectedBottomBarIndex = 0;
     await LocalStorage.logoutUser();
     Navigator.pushAndRemoveUntil(
       context,

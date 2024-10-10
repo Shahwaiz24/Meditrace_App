@@ -4,26 +4,17 @@ import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Splash%20View/splash_viewmodel.dart';
 import 'package:provider/provider.dart';
 
-class SplashView extends StatefulWidget {
+class SplashView extends StatelessWidget {
   const SplashView({super.key});
 
-  @override
-  State<SplashView> createState() => _SplashViewState();
-}
-
-class _SplashViewState extends State<SplashView> {
-  @override
-  void initState() {
-    Provider.of<SplashViewmodel>(context, listen: false)
-        .animating(context: context);
-    super.initState();
-  }
+  
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    final model = Provider.of<SplashViewmodel>(context, listen: false);
+    final model = Provider.of<SplashViewmodel>(context, listen: true);
+    model.animating(context: context);
 
     return Scaffold(
       backgroundColor: AppColors.ScaffoldColor,

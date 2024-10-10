@@ -78,6 +78,8 @@ class HomeViewmodel with ChangeNotifier {
     UserGlobalData.selectedBottomBarIndex = index;
     if (UserGlobalData.selectedBottomBarIndex == 0) {
       showContainer = false;
+      isError = false;
+      isLoading = false;
       called = false;
       containerOpacity = 0.0;
       medicines_text_opacity = 0.0;
@@ -91,6 +93,15 @@ class HomeViewmodel with ChangeNotifier {
       );
     } else if (UserGlobalData.selectedBottomBarIndex == 1) {
       print('Bag View');
+       showContainer = false;
+      isError = false;
+      isLoading = false;
+      called = false;
+      containerOpacity = 0.0;
+      medicines_text_opacity = 0.0;
+      progress_text_opacity = 0.0;
+      center_text_opacity = 0.0;
+      progressValue = 0.0;
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
@@ -101,6 +112,15 @@ class HomeViewmodel with ChangeNotifier {
       );
       print("Data : ${UserGlobalData.userData}");
     } else if (UserGlobalData.selectedBottomBarIndex == 2) {
+       showContainer = false;
+      isError = false;
+      isLoading = false;
+      called = false;
+      containerOpacity = 0.0;
+      medicines_text_opacity = 0.0;
+      progress_text_opacity = 0.0;
+      center_text_opacity = 0.0;
+      progressValue = 0.0;
       print('Medicine View');
       Navigator.pushAndRemoveUntil(
         context,
@@ -112,6 +132,15 @@ class HomeViewmodel with ChangeNotifier {
       );
       print("Data : ${UserGlobalData.userData}");
     } else if (UserGlobalData.selectedBottomBarIndex == 3) {
+       showContainer = false;
+      isError = false;
+      isLoading = false;
+      called = false;
+      containerOpacity = 0.0;
+      medicines_text_opacity = 0.0;
+      progress_text_opacity = 0.0;
+      center_text_opacity = 0.0;
+      progressValue = 0.0;
       print('Profile View');
       Navigator.pushAndRemoveUntil(
         context,
