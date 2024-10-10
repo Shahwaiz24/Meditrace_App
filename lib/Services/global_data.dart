@@ -1,8 +1,7 @@
 class SignUpGlobalData {
-    static String finalPhoneNumber = '';
+  static String finalPhoneNumber = '';
   static String finalEmailAddress = '';
   static String finalPassword = '';
-
 
   static String finalBloodGroup = '';
   static String finalWeight = '';
@@ -27,11 +26,11 @@ class UserGlobalData {
   static String userId = '';
   static int selectedBottomBarIndex = 0;
   static bool userHomePageCheck = false;
+  static Map userData = {};
   static String userFirstName = '';
   static String userLastName = '';
   static String userProfilePhoto = '';
   static List userBag = [];
   static List userEmegerncyContacts = [];
-  static List userMedicines = [
-  ];
+  static List userMedicines = [];
 }

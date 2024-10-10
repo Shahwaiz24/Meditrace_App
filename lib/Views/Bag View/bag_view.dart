@@ -6,7 +6,9 @@ import 'package:meditrace_project/Views/Bag%20View/bag_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class BagView extends StatelessWidget {
-  const BagView({super.key});
+  const BagView({super.key, required this.userData});
+
+  final Map userData;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,7 @@ class BagView extends StatelessWidget {
                 const Spacer(),
                 InkWell(
                   onTap: () {
-                    model.onAvatarClick(context: context);
+                    model.onAvatarClick(context: context, user_data: userData);
                   },
                   child: CircleAvatar(
                       maxRadius: screenHeight * 0.030,

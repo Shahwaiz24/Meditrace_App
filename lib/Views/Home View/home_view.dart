@@ -18,7 +18,7 @@ class HomeView extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.ScaffoldColor,
-      bottomNavigationBar: BottomNavBar(
+      bottomNavigationBar: model.isLoading == true ? null : BottomNavBar(
         screenHeight: screenHeight,
         screenWidth: screenWidth,
       ),

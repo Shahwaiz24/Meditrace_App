@@ -9,7 +9,8 @@ import 'package:meditrace_project/Views/Profile%20View/profile_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class ProfileView extends StatefulWidget {
-  const ProfileView({super.key});
+  const ProfileView({super.key, required this.userData});
+  final Map userData;
 
   @override
   State<ProfileView> createState() => _ProfileViewState();
@@ -19,7 +20,7 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   void initState() {
     final model = Provider.of<ProfileViewmodel>(context, listen: false);
-    model.initStateFunction(lbs: 180.0, dateofBirth: '29-09-2000');
+    model.initStateFunction();
     super.initState();
   }
 
@@ -119,7 +120,7 @@ class _ProfileViewState extends State<ProfileView> {
                                 height: screenHeight * 0.020,
                               ),
                               Text(
-                                'Tanya Sen',
+                                model.userFullname,
                                 style: TextStyle(
                                     color: AppColors.TextwhiteColor,
                                     fontFamily: 'Poppins Semi Bold',
@@ -188,7 +189,7 @@ class _ProfileViewState extends State<ProfileView> {
                                                 Row(
                                                   children: [
                                                     Text(
-                                                      '170.18',
+                                                      model.userHeight,
                                                       style: TextStyle(
                                                           fontFamily:
                                                               'Poppins Medium',
@@ -248,7 +249,7 @@ class _ProfileViewState extends State<ProfileView> {
                                                   Row(
                                                     children: [
                                                       Text(
-                                                        '110',
+                                                        model.userWeight,
                                                         style: TextStyle(
                                                             fontFamily:
                                                                 'Poppins Medium',
@@ -370,7 +371,7 @@ class _ProfileViewState extends State<ProfileView> {
                                                 Row(
                                                   children: [
                                                     Text(
-                                                      'O+',
+                                                      model.userBloodGroup,
                                                       style: TextStyle(
                                                           fontFamily:
                                                               'Poppins Medium',

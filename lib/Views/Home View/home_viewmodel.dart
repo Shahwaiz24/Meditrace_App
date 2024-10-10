@@ -30,7 +30,10 @@ class HomeViewmodel with ChangeNotifier {
     UserGlobalData.selectedBottomBarIndex = 3;
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => const ProfileView()),
+      MaterialPageRoute(
+          builder: (context) => ProfileView(
+                userData: UserGlobalData.userData,
+              )),
       (Route<dynamic> route) => false,
     );
   }
@@ -90,23 +93,35 @@ class HomeViewmodel with ChangeNotifier {
       print('Bag View');
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const BagView()),
+        MaterialPageRoute(
+            builder: (context) => BagView(
+                  userData: UserGlobalData.userData,
+                )),
         (Route<dynamic> route) => false,
       );
+      print("Data : ${UserGlobalData.userData}");
     } else if (UserGlobalData.selectedBottomBarIndex == 2) {
       print('Medicine View');
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const MedicineView()),
+        MaterialPageRoute(
+            builder: (context) => MedicineView(
+                  userData: UserGlobalData.userData,
+                )),
         (Route<dynamic> route) => false,
       );
+      print("Data : ${UserGlobalData.userData}");
     } else if (UserGlobalData.selectedBottomBarIndex == 3) {
       print('Profile View');
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const ProfileView()),
+        MaterialPageRoute(
+            builder: (context) => ProfileView(
+                  userData: UserGlobalData.userData,
+                )),
         (Route<dynamic> route) => false,
       );
+      print("Data : ${UserGlobalData.userData}");
     }
     notifyListeners();
   }

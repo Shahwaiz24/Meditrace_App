@@ -6,7 +6,8 @@ import 'package:meditrace_project/Views/Medicine%20View/medicine_viewmodel.dart'
 import 'package:provider/provider.dart';
 
 class MedicineView extends StatelessWidget {
-  const MedicineView({super.key});
+  const MedicineView({super.key, required this.userData});
+  final Map userData;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,7 @@ class MedicineView extends StatelessWidget {
                 const Spacer(),
                 InkWell(
                   onTap: () {
-                    model.onAvatarClick(context: context);
+                    model.onAvatarClick(context: context,user_data: userData);
                   },
                   child: CircleAvatar(
                       maxRadius: screenHeight * 0.030,

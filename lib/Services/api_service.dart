@@ -102,7 +102,22 @@ class ApiService {
       );
       var responseBody = await jsonDecode(response.body);
       if (responseBody['Status'] == 'Success') {
-        print("Body : ${responseBody.toString()}");
+        Map body = responseBody['response'];
+        final Map userData = {
+          "firstname": body['firstname'],
+          "lastname": body["lastname"],
+          "email": body["email"],
+          "password": body["password"],
+          "phone_number": body["phone_number"],
+          "gender": body["gender"],
+          "birthDate": body["birthDate"],
+          "bags": body["bags"],
+          "medicines": body["medicines"],
+          "medical_Information": body["medical Information"],
+          "emergencyContacts": body["emergencyContacts"]
+        };
+        UserGlobalData.userData = userData;
+        print("Data : ${UserGlobalData.userData}");
 
         return true;
       } else {
