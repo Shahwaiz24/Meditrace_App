@@ -204,23 +204,12 @@ class SignupView extends StatelessWidget {
                                             ? "Enter 10 Digits Number"
                                             : 'Phone Number',
                                         hintStyle: TextStyle(
-                                            color: model.isSignUpError
-                                                ? Colors.red.withOpacity(0.5)
-                                                : Colors.grey,
+                                            color: Colors.grey,
                                             fontFamily: 'Poppins Regular',
                                             fontSize: screenHeight * 0.018),
                                         Prefix: model.isFocusPhoneNumber == true
                                             ? Icon(Icons.call_outlined)
-                                            //  Row(
-                                            //     // mainAxisAlignment: MainAxisAlignment.start,
-                                            //     children: [
-
-                                            //       SizedBox(
-                                            //         width: screenWidth * 0.020,
-                                            //       ),
-                                            //       Icon(Icons.call_outlined),
-                                            //     ],
-                                            //   )
+                                           
                                             : model.isPhoneNumberNotEmpty == true
                                                 ? Icon(Icons.call_outlined)
                                                 : Icon(

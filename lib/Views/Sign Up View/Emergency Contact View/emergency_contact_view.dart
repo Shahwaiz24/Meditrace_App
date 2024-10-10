@@ -103,48 +103,141 @@ class EmergencyContactView extends StatelessWidget {
             ),
             Consumer<EmergencyContactViewmodel>(
                 builder: (context, model, child) {
-              return TextFields(
-                  controller: contactNumberContrller,
-                  enablefillColor: Colors.black,
-                  focusfillColor: model.isContactNumberFocus == true
-                      ? AppColors.TextwhiteColor
-                      : model.isContactNumberNotEmpty == true
-                          ? AppColors.TextwhiteColor
-                          : AppColors.unFocusPrimaryColor.withOpacity(0.1),
-                  outlineColor:
-                      model.error ? Colors.red : AppColors.unFocusPrimaryColor,
-                  radius: BorderRadius.circular(screenWidth * 0.020),
-                  isHidden: false,
-                  HintText: model.error
-                      ? 'Enter Number in 10 Digits'
-                      : 'Contact Number',
-                  hintStyle: TextStyle(
-                    color: model.error
-                        ? Colors.red
-                        : AppColors.unFocusPrimaryColor,
-                    fontFamily: 'Poppins Regular',
-                  ),
-                  Prefix: Text(''),
-                  Suffix: Text(''),
-                  isSuffix: false,
-                  isNumberKeyboard: true,
-                  isPrefix: false,
-                  onFocus: (focus) {
-                    model.isContactNumberEmptyCheck(
-                        contactNumber: contactNameContrller.text);
-                    model.onContactPhoneNumberFocus(focus: focus);
-                  },
-                  contentStyle: const TextStyle(
-                      fontFamily: 'Poppins Regular',
-                      fontWeight: FontWeight.w500),
-                  onChanged: (value) {
-                    model.checkallFields(
-                        isEnable: model.isSecondContactEnable,
-                        secondContactName: contactNameSecondContrller.text,
-                        secondContactNumber: contactNumberSecondContrller.text,
-                        contactName: contactNameContrller.text,
-                        contactNumber: contactNumberContrller.text);
-                  });
+              return Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(screenHeight * 0.060)),
+                child: (model.isContactNumberFocus ||
+                        model.isContactNumberNotEmpty)
+                    ? Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.030,
+                                vertical: screenHeight * 0.020),
+                            decoration: BoxDecoration(
+                              color: AppColors.unFocusPrimaryColor
+                                  .withOpacity(0.4),
+                              borderRadius: BorderRadius.only(
+                                  topLeft:
+                                      Radius.circular(screenHeight * 0.010),
+                                  bottomLeft:
+                                      Radius.circular(screenHeight * 0.010)),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "+1",
+                                style: TextStyle(
+                                    color: AppColors.TextblackColor.withOpacity(
+                                        0.8),
+                                    fontFamily: "Poppins Bold",
+                                    fontSize: screenHeight * 0.020),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: TextFields(
+                                controller: contactNumberContrller,
+                                enablefillColor: Colors.black,
+                                focusfillColor:
+                                    model.isContactNumberFocus == true
+                                        ? AppColors.TextwhiteColor
+                                        : model.isContactNumberNotEmpty == true
+                                            ? AppColors.TextwhiteColor
+                                            : AppColors.unFocusPrimaryColor
+                                                .withOpacity(0.1),
+                                outlineColor: model.error
+                                    ? Colors.red
+                                    : AppColors.unFocusPrimaryColor
+                                        .withOpacity(0.5),
+                                radius: BorderRadius.only(
+                                    topRight:
+                                        Radius.circular(screenWidth * 0.020),
+                                    bottomRight:
+                                        Radius.circular(screenWidth * 0.020)),
+                                isHidden: false,
+                                HintText: model.error
+                                    ? 'Enter Number in 10 Digits'
+                                    : 'Contact Number',
+                                hintStyle: TextStyle(
+                                  color: model.error
+                                      ? Colors.red
+                                      : AppColors.unFocusPrimaryColor,
+                                  fontFamily: 'Poppins Regular',
+                                ),
+                                Prefix: Text(''),
+                                Suffix: Text(''),
+                                isSuffix: false,
+                                isNumberKeyboard: true,
+                                isPrefix: false,
+                                onFocus: (focus) {
+                                  model.isContactNumberEmptyCheck(
+                                      contactNumber: contactNameContrller.text);
+                                  model.onContactPhoneNumberFocus(focus: focus);
+                                },
+                                contentStyle: const TextStyle(
+                                    fontFamily: 'Poppins Regular',
+                                    fontWeight: FontWeight.w500),
+                                onChanged: (value) {
+                                  model.checkallFields(
+                                      isEnable: model.isSecondContactEnable,
+                                      secondContactName:
+                                          contactNameSecondContrller.text,
+                                      secondContactNumber:
+                                          contactNumberSecondContrller.text,
+                                      contactName: contactNameContrller.text,
+                                      contactNumber:
+                                          contactNumberContrller.text);
+                                }),
+                          ),
+                        ],
+                      )
+                    : TextFields(
+                        controller: contactNumberContrller,
+                        enablefillColor: Colors.black,
+                        focusfillColor: model.isContactNumberFocus == true
+                            ? AppColors.TextwhiteColor
+                            : model.isContactNumberNotEmpty == true
+                                ? AppColors.TextwhiteColor
+                                : AppColors.unFocusPrimaryColor
+                                    .withOpacity(0.1),
+                        outlineColor: model.error
+                            ? Colors.red
+                            : AppColors.unFocusPrimaryColor,
+                        radius: BorderRadius.circular(screenWidth * 0.020),
+                        isHidden: false,
+                        HintText: model.error
+                            ? 'Enter Number in 10 Digits'
+                            : 'Contact Number',
+                        hintStyle: TextStyle(
+                          color: model.error
+                              ? Colors.red
+                              : AppColors.unFocusPrimaryColor,
+                          fontFamily: 'Poppins Regular',
+                        ),
+                        Prefix: Text(''),
+                        Suffix: Text(''),
+                        isSuffix: false,
+                        isNumberKeyboard: true,
+                        isPrefix: false,
+                        onFocus: (focus) {
+                          model.isContactNumberEmptyCheck(
+                              contactNumber: contactNameContrller.text);
+                          model.onContactPhoneNumberFocus(focus: focus);
+                        },
+                        contentStyle: const TextStyle(
+                            fontFamily: 'Poppins Regular',
+                            fontWeight: FontWeight.w500),
+                        onChanged: (value) {
+                          model.checkallFields(
+                              isEnable: model.isSecondContactEnable,
+                              secondContactName:
+                                  contactNameSecondContrller.text,
+                              secondContactNumber:
+                                  contactNumberSecondContrller.text,
+                              contactName: contactNameContrller.text,
+                              contactNumber: contactNumberContrller.text);
+                        }),
+              );
             }),
             SizedBox(
               height: screenHeight * 0.020,
@@ -180,7 +273,7 @@ class EmergencyContactView extends StatelessWidget {
                           outlineColor: model.error
                               ? Colors.red
                               : AppColors.unFocusPrimaryColor,
-                          radius:  BorderRadius.circular(screenWidth * 0.020),
+                          radius: BorderRadius.circular(screenWidth * 0.020),
                           isHidden: false,
                           HintText: model.error
                               ? "Enter Correct Name"
@@ -221,56 +314,150 @@ class EmergencyContactView extends StatelessWidget {
                     ),
                     Consumer<EmergencyContactViewmodel>(
                         builder: (context, model, child) {
-                      return TextFields(
-                          controller: contactNumberSecondContrller,
-                          enablefillColor:
-                              AppColors.unFocusPrimaryColor.withOpacity(0.1),
-                          focusfillColor:
-                              model.onSecondContactNumberFocus == true
-                                  ? AppColors.TextwhiteColor
-                                  : model.isSecondContactNumberNotEmpty == true
+                      return (model.isSecondContactNumberNotEmpty ||
+                              model.onSecondContactNumberFocus)
+                          ? Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: screenWidth * 0.030,
+                                      vertical: screenHeight * 0.020),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.unFocusPrimaryColor
+                                        .withOpacity(0.4),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(
+                                            screenHeight * 0.010),
+                                        bottomLeft: Radius.circular(
+                                            screenHeight * 0.010)),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "+1",
+                                      style: TextStyle(
+                                          color: AppColors.TextblackColor
+                                              .withOpacity(0.8),
+                                          fontFamily: "Poppins Bold",
+                                          fontSize: screenHeight * 0.020),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: TextFields(
+                                      controller: contactNumberSecondContrller,
+                                      enablefillColor: Colors.black,
+                                      focusfillColor: model
+                                                  .onSecondContactNumberFocus ==
+                                              true
+                                          ? AppColors.TextwhiteColor
+                                          : model.isSecondContactNumberNotEmpty ==
+                                                  true
+                                              ? AppColors.TextwhiteColor
+                                              : AppColors.unFocusPrimaryColor
+                                                  .withOpacity(0.1),
+                                      outlineColor: model.error
+                                          ? Colors.red
+                                          : AppColors.unFocusPrimaryColor
+                                              .withOpacity(0.5),
+                                      radius: BorderRadius.only(
+                                          topRight: Radius.circular(
+                                              screenWidth * 0.020),
+                                          bottomRight: Radius.circular(
+                                              screenWidth * 0.020)),
+                                      isHidden: false,
+                                      HintText: model.error
+                                          ? 'Enter Number in 10 Digits'
+                                          : 'Contact Number',
+                                      hintStyle: TextStyle(
+                                        color: model.error
+                                            ? Colors.red
+                                            : AppColors.unFocusPrimaryColor,
+                                        fontFamily: 'Poppins Regular',
+                                      ),
+                                      Prefix: Text(''),
+                                      Suffix: Text(''),
+                                      isSuffix: false,
+                                      isNumberKeyboard: true,
+                                      isPrefix: false,
+                                      onFocus: (focus) {
+                                        model.onSecondContactNumberFocusChange(
+                                            focus: focus);
+                                      },
+                                      contentStyle: const TextStyle(
+                                          fontFamily: 'Poppins Regular',
+                                          fontWeight: FontWeight.w500),
+                                      onChanged: (value) async {
+                                        await model
+                                            .isSecondContactNumberEmptyCheck(
+                                                secondContactNumber:
+                                                    contactNameContrller.text);
+                                        model.checkallFields(
+                                            isEnable:
+                                                model.isSecondContactEnable,
+                                            secondContactName:
+                                                contactNameSecondContrller.text,
+                                            secondContactNumber:
+                                                contactNumberSecondContrller
+                                                    .text,
+                                            contactName:
+                                                contactNameContrller.text,
+                                            contactNumber:
+                                                contactNumberContrller.text);
+                                      }),
+                                ),
+                              ],
+                            )
+                          : TextFields(
+                              controller: contactNumberSecondContrller,
+                              enablefillColor: Colors.black,
+                              focusfillColor:
+                                  model.onSecondContactNumberFocus == true
                                       ? AppColors.TextwhiteColor
-                                      : AppColors.unFocusPrimaryColor
-                                          .withOpacity(0.1),
-                          outlineColor: model.error
-                              ? Colors.red
-                              : AppColors.unFocusPrimaryColor,
-                          radius: BorderRadius.circular(screenWidth * 0.020),
-                          isHidden: false,
-                          HintText: model.error
-                              ? "Enter Correct Number"
-                              : 'Contact Number',
-                          hintStyle: TextStyle(
-                            color: model.error
-                                ? Colors.red
-                                : AppColors.unFocusPrimaryColor,
-                            fontFamily: 'Poppins Regular',
-                          ),
-                          Prefix: Text(''),
-                          Suffix: Text(''),
-                          isSuffix: false,
-                          isNumberKeyboard: true,
-                          isPrefix: false,
-                          onFocus: (focus) {
-                            model.onSecondContactNumberFocusChange(
-                                focus: focus);
-                          },
-                          contentStyle: const TextStyle(
-                              fontFamily: 'Poppins Regular',
-                              fontWeight: FontWeight.w500),
-                          onChanged: (value) {
-                            model.isSecondContactNumberEmptyCheck(
-                                secondContactNumber:
-                                    contactNumberSecondContrller.text);
-                            model.checkallFields(
-                                isEnable: model.isSecondContactEnable,
-                                secondContactName:
-                                    contactNameSecondContrller.text,
-                                secondContactNumber:
-                                    contactNumberSecondContrller.text,
-                                contactName: contactNameContrller.text,
-                                contactNumber: contactNumberContrller.text);
-                          });
+                                      : model.isSecondContactNumberNotEmpty ==
+                                              true
+                                          ? AppColors.TextwhiteColor
+                                          : AppColors.unFocusPrimaryColor
+                                              .withOpacity(0.1),
+                              outlineColor: model.error
+                                  ? Colors.red
+                                  : AppColors.unFocusPrimaryColor,
+                              radius:
+                                  BorderRadius.circular(screenWidth * 0.020),
+                              isHidden: false,
+                              HintText: model.error
+                                  ? 'Enter Number in 10 Digits'
+                                  : 'Contact Number',
+                              hintStyle: TextStyle(
+                                color: model.error
+                                    ? Colors.red
+                                    : AppColors.unFocusPrimaryColor,
+                                fontFamily: 'Poppins Regular',
+                              ),
+                              Prefix: Text(''),
+                              Suffix: Text(''),
+                              isSuffix: false,
+                              isNumberKeyboard: true,
+                              isPrefix: false,
+                              onFocus: (focus) {
+                                model.onSecondContactNumberFocusChange(
+                                    focus: focus);
+                              },
+                              contentStyle: const TextStyle(
+                                  fontFamily: 'Poppins Regular',
+                                  fontWeight: FontWeight.w500),
+                              onChanged: (value) async {
+                                await model.isSecondContactNumberEmptyCheck(
+                                    secondContactNumber:
+                                        contactNameContrller.text);
+                                model.checkallFields(
+                                    isEnable: model.isSecondContactEnable,
+                                    secondContactName:
+                                        contactNameSecondContrller.text,
+                                    secondContactNumber:
+                                        contactNumberSecondContrller.text,
+                                    contactName: contactNameContrller.text,
+                                    contactNumber: contactNumberContrller.text);
+                              });
                     }),
                   ],
                 );
