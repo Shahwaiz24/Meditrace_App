@@ -15,6 +15,8 @@ class BagView extends StatelessWidget {
     final model = Provider.of<BagViewmodel>(context);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    model.nameGet();
+
     return Scaffold(
       bottomNavigationBar:
           BottomNavBar(screenHeight: screenHeight, screenWidth: screenWidth),
@@ -43,7 +45,7 @@ class BagView extends StatelessWidget {
                     ),
                     SizedBox(height: screenHeight * 0.010),
                     Text(
-                      'Tanya Sen!',
+                      UserGlobalData.username,
                       style: TextStyle(
                           color: AppColors.TextblackColor,
                           fontFamily: 'Poppins Bold',

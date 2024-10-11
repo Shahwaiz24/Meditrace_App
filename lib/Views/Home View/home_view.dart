@@ -67,7 +67,7 @@ class HomeView extends StatelessWidget {
                                   ),
                                   SizedBox(height: screenHeight * 0.010),
                                   Text(
-                                    model.userName,
+                                    UserGlobalData.username,
                                     style: TextStyle(
                                         color: AppColors.TextblackColor,
                                         fontFamily: 'Poppins Bold',

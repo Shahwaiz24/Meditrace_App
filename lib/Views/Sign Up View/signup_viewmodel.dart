@@ -268,6 +268,13 @@ class SignUpViewmodel with ChangeNotifier {
         print(
             "Email : ${SignUpGlobalData.finalEmailAddress} | Password : ${SignUpGlobalData.finalPassword} | Phone Number : ${SignUpGlobalData.finalPhoneNumber}");
         notifyListeners();
+         isSignUpStart = false;
+        isCheck = false;
+        isPhoneNumberNotEmpty = false;
+        isEmailNotEmpty = false;
+        isPhoneNumberNotEmpty = false;
+        isSignUpError = true;
+        isUiFieldsFill = false;
 
         Navigator.pushReplacement(
             context,
@@ -280,6 +287,9 @@ class SignUpViewmodel with ChangeNotifier {
       } else {
         isSignUpStart = false;
         isCheck = false;
+        isPhoneNumberNotEmpty = false;
+        isEmailNotEmpty = false;
+        isPhoneNumberNotEmpty = false;
         isSignUpError = true;
         isUiFieldsFill = false;
         notifyListeners();
@@ -289,6 +299,9 @@ class SignUpViewmodel with ChangeNotifier {
       }
     } else {
       isSignUpStart = false;
+      isPhoneNumberNotEmpty = false;
+      isEmailNotEmpty = false;
+      isPhoneNumberNotEmpty = false;
       isCheck = false;
       isSignUpError = true;
       isUiFieldsFill = false;

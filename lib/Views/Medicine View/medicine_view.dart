@@ -14,6 +14,7 @@ class MedicineView extends StatelessWidget {
     final model = Provider.of<MedicineViewmodel>(context);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    model.nameGet();
     return Scaffold(
       bottomNavigationBar:
           BottomNavBar(screenHeight: screenHeight, screenWidth: screenWidth),
@@ -42,7 +43,7 @@ class MedicineView extends StatelessWidget {
                     ),
                     SizedBox(height: screenHeight * 0.010),
                     Text(
-                      'Tanya Sen!',
+                      UserGlobalData.username,
                       style: TextStyle(
                           color: AppColors.TextblackColor,
                           fontFamily: 'Poppins Bold',
@@ -53,7 +54,7 @@ class MedicineView extends StatelessWidget {
                 const Spacer(),
                 InkWell(
                   onTap: () {
-                    model.onAvatarClick(context: context,user_data: userData);
+                    model.onAvatarClick(context: context, user_data: userData);
                   },
                   child: CircleAvatar(
                       maxRadius: screenHeight * 0.030,
@@ -89,20 +90,30 @@ class MedicineView extends StatelessWidget {
             ),
             Row(
               children: [
-                Icon(
-                  Icons.add_box_rounded,
-                  color: AppColors.PrimaryBlueColor,
-                  size: screenHeight * 0.032,
+                InkWell(
+                  onTap: () {
+                    model.navigate(context: context);
+                  },
+                  child: Icon(
+                    Icons.add_box_rounded,
+                    color: AppColors.PrimaryBlueColor,
+                    size: screenHeight * 0.032,
+                  ),
                 ),
                 SizedBox(
                   width: screenWidth * 0.020,
                 ),
-                Text(
-                  'Add New Medicine',
-                  style: TextStyle(
-                      color: AppColors.PrimaryBlueColor,
-                      fontFamily: 'Poppins Medium',
-                      fontSize: screenHeight * 0.016),
+                InkWell(
+                  onTap: () {
+                    model.navigate(context: context);
+                  },
+                  child: Text(
+                    'Add New Medicine',
+                    style: TextStyle(
+                        color: AppColors.PrimaryBlueColor,
+                        fontFamily: 'Poppins Medium',
+                        fontSize: screenHeight * 0.016),
+                  ),
                 )
               ],
             ),

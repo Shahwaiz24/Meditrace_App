@@ -6,6 +6,7 @@ import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20Ema
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20OTP%20View/entering_otp_viewmodel.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Password%20Changed%20View/password_changed_viewmodel.dart';
 import 'package:meditrace_project/Views/Home%20View/home_viewmodel.dart';
+import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Add%20Medication%20View/add_medication_viewmodel.dart';
 import 'package:meditrace_project/Views/Medicine%20View/medicine_viewmodel.dart';
 import 'package:meditrace_project/Views/Profile%20Update%20View/profile_update_viewmodel.dart';
 import 'package:meditrace_project/Views/Profile%20View/profile_viewmodel.dart';
@@ -39,6 +40,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => SplashViewmodel()),
+                ChangeNotifierProvider(create: (_) => AddMedicationViewmodel()),
+
         ChangeNotifierProvider(create: (_) => PersonalInformationViewmodel()),
         ChangeNotifierProvider(create: (_) => SigninViewmodel()),
         ChangeNotifierProvider(create: (_) => SignUpViewmodel()),

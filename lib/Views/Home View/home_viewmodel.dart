@@ -18,7 +18,6 @@ class HomeViewmodel with ChangeNotifier {
   bool isLoading = false;
   bool isError = false;
   bool called = false;
-  String userName = "";
 
   static String? user_id = "";
   String day = '';
@@ -54,9 +53,10 @@ class HomeViewmodel with ChangeNotifier {
         bool apiCheck = await ApiService.getUserData(body: jsonBody);
         if (apiCheck == true) {
           await getDateandDay();
-          userName = UserGlobalData.userData['firstname'] +
-              " " +
-              UserGlobalData.userData['lastname'];
+          UserGlobalData.username = UserGlobalData.userData['firstname'] +
+                  " " +
+                  UserGlobalData.userData['lastname'] ??
+              "";
 
           isLoading = false;
           notifyListeners();
