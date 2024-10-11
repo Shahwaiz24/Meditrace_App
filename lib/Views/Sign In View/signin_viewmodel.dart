@@ -6,6 +6,7 @@ import 'package:meditrace_project/Services/global_Data.dart';
 import 'package:meditrace_project/Services/local_storage.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20Email%20View/forgot_password_view.dart';
 import 'package:meditrace_project/Views/Home%20View/home_view.dart';
+import 'package:meditrace_project/Views/Splash%20View/splash_view.dart';
 
 class SigninViewmodel with ChangeNotifier {
   static String user_id = '';
@@ -122,10 +123,11 @@ class SigninViewmodel with ChangeNotifier {
         await LocalStorage.userLogin();
         await LocalStorage.saveUserId(userId: SigninViewmodel.user_id);
         print("Saved Id and Login ");
-        Navigator.pushAndRemoveUntil(
+        Navigator.of(context).popUntil((route) => route.isFirst);
+
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const HomeView()),
-          (Route<dynamic> route) => false,
         );
       } else {
         isFocusEmail = false;
@@ -170,6 +172,8 @@ class SigninViewmodel with ChangeNotifier {
       isSignUpError = false;
       isUiFieldsFill = false;
       notifyListeners();
+      Navigator.of(context).popUntil((route) => route.isFirst);
+
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => navigationName()));
     } else if (isPop == true) {
@@ -182,7 +186,12 @@ class SigninViewmodel with ChangeNotifier {
       isSignUpError = false;
       isUiFieldsFill = false;
       notifyListeners();
-      Navigator.pop(context);
+      Navigator.of(context).popUntil((route) => route.isFirst);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const SplashView()),
+      );
     } else {
       isFocusEmail = false;
       isFocusPassword = false;

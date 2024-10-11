@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/api_service.dart';
 import 'package:meditrace_project/Services/global_Data.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Personal%20Information%20View/personal_information_view.dart';
+import 'package:meditrace_project/Views/Splash%20View/splash_view.dart';
 
 class SignUpViewmodel with ChangeNotifier {
   bool isCheck = false;
@@ -99,7 +100,11 @@ class SignUpViewmodel with ChangeNotifier {
       isSignUpStart = false;
       isUiFieldsFill = false;
       notifyListeners();
-      Navigator.pop(context);
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const SplashView()),
+      );
     } else {
       isCheck = false;
       isFocusEmail = false;

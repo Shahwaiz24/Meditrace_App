@@ -263,10 +263,10 @@ class HomeViewmodel with ChangeNotifier {
     progress_text_opacity = 0.0;
     center_text_opacity = 0.0;
     progressValue = 0.0;
-    Navigator.pushAndRemoveUntil(
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const SplashView()),
-      (Route<dynamic> route) => false,
     );
   }
 
@@ -407,7 +407,7 @@ class HomeViewmodel with ChangeNotifier {
 
   refrestTap({required BuildContext context}) {
     tap++;
-    if (tap <= 4) {
+    if (tap <= 3) {
       showContainer = false;
       isError = false;
       isLoading = false;
@@ -425,7 +425,7 @@ class HomeViewmodel with ChangeNotifier {
       );
     } else {
       print("Error Tap :${tap}");
-       showContainer = false;
+      showContainer = false;
       isError = false;
       isLoading = false;
       called = false;
@@ -434,15 +434,13 @@ class HomeViewmodel with ChangeNotifier {
       progress_text_opacity = 0.0;
       center_text_opacity = 0.0;
       progressValue = 0.0;
-       isTapisFour = true;
+      isTapisFour = true;
       // notifyListeners();
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const HomeView()),
         (Route<dynamic> route) => false,
       );
-
-     
     }
   }
 

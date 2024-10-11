@@ -22,12 +22,9 @@ class SplashViewmodel with ChangeNotifier {
 
   void navigating() async {
     print("Animation Reset");
-
     _animate = false;
     _showButtons = false;
-
     isCompleted = false;
-    notifyListeners();
   }
 
   void showNewColumn() {
@@ -36,9 +33,10 @@ class SplashViewmodel with ChangeNotifier {
   }
 
   void animating({required BuildContext context}) async {
-    if (isCompleted != true) {
+    if (isCompleted == false) {
       print("Animating Start Again ");
       isCompleted = true;
+
       await Future.delayed(const Duration(seconds: 3), () async {
         startAnimation();
         bool check = await LocalStorage.checkLogin();
@@ -46,13 +44,14 @@ class SplashViewmodel with ChangeNotifier {
           print("Navigate to Home View");
 
           await Future.delayed(const Duration(seconds: 1));
-
-          Navigator.pushAndRemoveUntil(
+          isCompleted = false;
+          _animate = false;
+          _showButtons = false;
+          Navigator.of(context).popUntil((route) => route.isFirst);
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const HomeView()),
-            (Route<dynamic> route) => false,
           );
-          navigating();
         } else {
           Future.delayed(const Duration(seconds: 1), () {
             showNewColumn();
