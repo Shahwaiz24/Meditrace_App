@@ -25,7 +25,6 @@ import 'package:provider/provider.dart';
 void main() async {
   await WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize local notifications
   await BackGroundService.initializing();
 
   runApp(const MyApp());

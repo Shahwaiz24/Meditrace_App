@@ -58,6 +58,7 @@ class HomeViewmodel with ChangeNotifier {
         } else {
           isLoading = false;
           isError = true;
+          print("Error : ${isError}");
           notifyListeners();
         }
       }

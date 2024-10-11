@@ -18,11 +18,24 @@ class HomeView extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.ScaffoldColor,
-      bottomNavigationBar: model.isLoading == true ? null : BottomNavBar(
+      bottomNavigationBar: Consumer<HomeViewmodel>(builder: (context,model,child){
+        return model.isLoading == true ? const Text("") : model.isError == true ? const Text("") : BottomNavBar(
         screenHeight: screenHeight,
         screenWidth: screenWidth,
-      ),
-      body: model.isLoading == true ? Center(child: CircularProgressIndicator(color: AppColors.PrimaryBlueColor,),) : Padding(
+      );
+      }),
+      body: model.isLoading == true ? Center(child: CircularProgressIndicator(color: AppColors.PrimaryBlueColor,),) : model.isError == true ? Center(child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Stack(
+               alignment: Alignment.center,
+              children: [
+                Image(image: AssetImage("assets/images/image_back.png")),
+                Image(image: AssetImage("assets/images/final_error.png"))
+              ],
+            )
+          ],
+        ),) :  Padding(
         padding: EdgeInsets.only(
           top: screenHeight * 0.100,
           left: screenWidth * 0.070,
