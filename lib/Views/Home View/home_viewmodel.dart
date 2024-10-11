@@ -11,6 +11,7 @@ import 'package:meditrace_project/Views/Bag%20View/bag_view.dart';
 import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 import 'package:meditrace_project/Views/Medicine%20View/medicine_view.dart';
 import 'package:meditrace_project/Views/Profile%20View/profile_view.dart';
+import 'package:meditrace_project/Views/Splash%20View/splash_view.dart';
 
 class HomeViewmodel with ChangeNotifier {
   bool isLoading = false;
@@ -26,6 +27,8 @@ class HomeViewmodel with ChangeNotifier {
   double medicines_text_opacity = 0.0;
   double progress_text_opacity = 0.0;
   double center_text_opacity = 0.0;
+  int tap = 0;
+  bool isTapisFour = false;
 
   onAvatarClick({required BuildContext context}) {
     UserGlobalData.selectedBottomBarIndex = 3;
@@ -50,7 +53,9 @@ class HomeViewmodel with ChangeNotifier {
         bool apiCheck = await ApiService.getUserData(body: jsonBody);
         if (apiCheck == true) {
           await getDateandDay();
-       userName = UserGlobalData.userData['firstname'] + " " + UserGlobalData.userData['lastname'];
+          userName = UserGlobalData.userData['firstname'] +
+              " " +
+              UserGlobalData.userData['lastname'];
 
           isLoading = false;
           notifyListeners();
@@ -246,6 +251,24 @@ class HomeViewmodel with ChangeNotifier {
     );
   }
 
+  logoutonError({required BuildContext context}) {
+    LocalStorage.logoutUser();
+    showContainer = false;
+    isError = false;
+    isLoading = false;
+    called = false;
+    containerOpacity = 0.0;
+    medicines_text_opacity = 0.0;
+    progress_text_opacity = 0.0;
+    center_text_opacity = 0.0;
+    progressValue = 0.0;
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const SplashView()),
+      (Route<dynamic> route) => false,
+    );
+  }
+
   // Main animated container with the custom chart and other UI elements
   Widget getAnimatedContainer({
     required double screenWidth,
@@ -378,6 +401,103 @@ class HomeViewmodel with ChangeNotifier {
               ),
             ))
       ],
+    );
+  }
+
+  refrestTap({required BuildContext context}) {
+    tap++;
+    if (tap <= 4) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeView()),
+        (Route<dynamic> route) => false,
+      );
+    } else {
+      isTapisFour = true;
+      notifyListeners();
+    }
+  }
+
+  Widget ErrorWidget(
+      {required double screenHeight,
+      required double screenWidth,
+      required BuildContext context}) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Stack(
+            alignment: Alignment.center,
+            children: [
+              Image(image: AssetImage("assets/images/image_back.png")),
+              Image(image: AssetImage("assets/images/final_error.png"))
+            ],
+          ),
+          SizedBox(
+            height: screenHeight * 0.020,
+          ),
+          Text(
+            "An Error Occured While\n    Fetching User Data",
+            style: TextStyle(
+                fontFamily: "Poppins Medium",
+                fontSize: screenHeight * 0.018,
+                color: AppColors.TextblackColor.withOpacity(0.8)),
+          ),
+          SizedBox(
+            height: screenHeight * 0.020,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.180),
+            child: isTapisFour == true
+                ? InkWell(
+                    onTap: () {
+                      refrestTap(context: context);
+                    },
+                    child: ButtonComponent(
+                      screenHeight: screenHeight,
+                      screenWidth: screenWidth,
+                      ButtonHeight: 0.080,
+                      decoration: BoxDecoration(
+                          color: AppColors.PrimaryBlueColor,
+                          borderRadius:
+                              BorderRadius.circular(screenWidth * 0.080)),
+                      child: Center(
+                        child: Text(
+                          "Refresh",
+                          style: TextStyle(
+                              color: AppColors.TextwhiteColor,
+                              fontFamily: "Poppins Semi Bold",
+                              fontSize: screenHeight * 0.020),
+                        ),
+                      ),
+                    ),
+                  )
+                : InkWell(
+                    onTap: () {
+                      refrestTap(context: context);
+                    },
+                    child: ButtonComponent(
+                      screenHeight: screenHeight,
+                      screenWidth: screenWidth,
+                      ButtonHeight: 0.080,
+                      decoration: BoxDecoration(
+                          color: AppColors.PrimaryBlueColor,
+                          borderRadius:
+                              BorderRadius.circular(screenWidth * 0.080)),
+                      child: Center(
+                        child: Text(
+                          "Logout",
+                          style: TextStyle(
+                              color: AppColors.TextwhiteColor,
+                              fontFamily: "Poppins Semi Bold",
+                              fontSize: screenHeight * 0.020),
+                        ),
+                      ),
+                    ),
+                  ),
+          )
+        ],
+      ),
     );
   }
 }

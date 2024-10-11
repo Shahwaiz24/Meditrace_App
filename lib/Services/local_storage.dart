@@ -8,7 +8,6 @@ class LocalStorage {
   static initialized() async {
     prefs = await SharedPreferences.getInstance();
     print('Initialized Local Storage');
-    prefs.clear();
   }
 
   static checkLogin() async {
