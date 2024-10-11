@@ -22,9 +22,11 @@ class SplashViewmodel with ChangeNotifier {
 
   void navigating() async {
     print("Animation Reset");
-    isCompleted = false;
+
     _animate = false;
     _showButtons = false;
+
+    isCompleted = false;
     notifyListeners();
   }
 
@@ -35,8 +37,8 @@ class SplashViewmodel with ChangeNotifier {
 
   void animating({required BuildContext context}) async {
     if (isCompleted != true) {
-      isCompleted = true;
       print("Animating Start Again ");
+      isCompleted = true;
       await Future.delayed(const Duration(seconds: 3), () async {
         startAnimation();
         bool check = await LocalStorage.checkLogin();
@@ -114,9 +116,9 @@ class SplashViewmodel with ChangeNotifier {
                 InkWell(
                   onTap: () {
                     print('Navigating to Sign In');
+                    navigating();
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => SigninView()));
-                    navigating();
                   },
                   child: ButtonComponent(
                     decoration: BoxDecoration(
@@ -143,9 +145,9 @@ class SplashViewmodel with ChangeNotifier {
                 InkWell(
                   onTap: () {
                     print('Navigating to Sign Up');
+                    navigating();
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => SignupView()));
-                    navigating();
                   },
                   child: ButtonComponent(
                     decoration: BoxDecoration(

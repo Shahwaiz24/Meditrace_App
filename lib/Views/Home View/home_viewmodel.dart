@@ -12,6 +12,7 @@ import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 import 'package:meditrace_project/Views/Medicine%20View/medicine_view.dart';
 import 'package:meditrace_project/Views/Profile%20View/profile_view.dart';
 import 'package:meditrace_project/Views/Splash%20View/splash_view.dart';
+import 'package:meditrace_project/Views/Splash%20View/splash_viewmodel.dart';
 
 class HomeViewmodel with ChangeNotifier {
   bool isLoading = false;
@@ -407,14 +408,41 @@ class HomeViewmodel with ChangeNotifier {
   refrestTap({required BuildContext context}) {
     tap++;
     if (tap <= 4) {
+      showContainer = false;
+      isError = false;
+      isLoading = false;
+      called = false;
+      containerOpacity = 0.0;
+      medicines_text_opacity = 0.0;
+      progress_text_opacity = 0.0;
+      center_text_opacity = 0.0;
+      progressValue = 0.0;
+      print("Error Tap :${tap}");
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const HomeView()),
         (Route<dynamic> route) => false,
       );
     } else {
-      isTapisFour = true;
-      notifyListeners();
+      print("Error Tap :${tap}");
+       showContainer = false;
+      isError = false;
+      isLoading = false;
+      called = false;
+      containerOpacity = 0.0;
+      medicines_text_opacity = 0.0;
+      progress_text_opacity = 0.0;
+      center_text_opacity = 0.0;
+      progressValue = 0.0;
+       isTapisFour = true;
+      // notifyListeners();
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeView()),
+        (Route<dynamic> route) => false,
+      );
+
+     
     }
   }
 
@@ -447,55 +475,54 @@ class HomeViewmodel with ChangeNotifier {
             height: screenHeight * 0.020,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.180),
-            child: isTapisFour == true
-                ? InkWell(
-                    onTap: () {
-                      refrestTap(context: context);
-                    },
-                    child: ButtonComponent(
-                      screenHeight: screenHeight,
-                      screenWidth: screenWidth,
-                      ButtonHeight: 0.080,
-                      decoration: BoxDecoration(
-                          color: AppColors.PrimaryBlueColor,
-                          borderRadius:
-                              BorderRadius.circular(screenWidth * 0.080)),
-                      child: Center(
-                        child: Text(
-                          "Refresh",
-                          style: TextStyle(
-                              color: AppColors.TextwhiteColor,
-                              fontFamily: "Poppins Semi Bold",
-                              fontSize: screenHeight * 0.020),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.180),
+              child: isTapisFour == true
+                  ? InkWell(
+                      onTap: () {
+                        logoutonError(context: context);
+                      },
+                      child: ButtonComponent(
+                        screenHeight: screenHeight,
+                        screenWidth: screenWidth,
+                        ButtonHeight: 0.080,
+                        decoration: BoxDecoration(
+                            color: AppColors.PrimaryBlueColor,
+                            borderRadius:
+                                BorderRadius.circular(screenWidth * 0.080)),
+                        child: Center(
+                          child: Text(
+                            "Logout",
+                            style: TextStyle(
+                                color: AppColors.TextwhiteColor,
+                                fontFamily: "Poppins Semi Bold",
+                                fontSize: screenHeight * 0.020),
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                : InkWell(
-                    onTap: () {
-                      refrestTap(context: context);
-                    },
-                    child: ButtonComponent(
-                      screenHeight: screenHeight,
-                      screenWidth: screenWidth,
-                      ButtonHeight: 0.080,
-                      decoration: BoxDecoration(
-                          color: AppColors.PrimaryBlueColor,
-                          borderRadius:
-                              BorderRadius.circular(screenWidth * 0.080)),
-                      child: Center(
-                        child: Text(
-                          "Logout",
-                          style: TextStyle(
-                              color: AppColors.TextwhiteColor,
-                              fontFamily: "Poppins Semi Bold",
-                              fontSize: screenHeight * 0.020),
+                    )
+                  : InkWell(
+                      onTap: () {
+                        refrestTap(context: context);
+                      },
+                      child: ButtonComponent(
+                        screenHeight: screenHeight,
+                        screenWidth: screenWidth,
+                        ButtonHeight: 0.080,
+                        decoration: BoxDecoration(
+                            color: AppColors.PrimaryBlueColor,
+                            borderRadius:
+                                BorderRadius.circular(screenWidth * 0.080)),
+                        child: Center(
+                          child: Text(
+                            "Refresh",
+                            style: TextStyle(
+                                color: AppColors.TextwhiteColor,
+                                fontFamily: "Poppins Semi Bold",
+                                fontSize: screenHeight * 0.020),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-          )
+                    ))
         ],
       ),
     );
