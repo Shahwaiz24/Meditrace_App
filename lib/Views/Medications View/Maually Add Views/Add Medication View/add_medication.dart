@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Components/custom_dropdown_menu.dart';
 import 'package:meditrace_project/Components/text_fields.dart';
 import 'package:meditrace_project/Services/utils.dart';
@@ -78,6 +79,10 @@ class AddMedication extends StatelessWidget {
                       fontWeight: FontWeight.w500),
                   onChanged: (value) {
                     model.isNameEmptyCheck(name: medicineName.text);
+                    model.checkallFields(
+                        name: medicineName.text,
+                        strength: medicineStrength.text,
+                        unit: model.selectedUnit);
                   });
             }),
             SizedBox(
@@ -113,6 +118,10 @@ class AddMedication extends StatelessWidget {
                       fontWeight: FontWeight.w500),
                   onChanged: (value) {
                     model.isStrengthEmptyCheck(strength: medicineStrength.text);
+                    model.checkallFields(
+                        name: medicineName.text,
+                        strength: medicineStrength.text,
+                        unit: model.selectedUnit);
                   });
             }),
             SizedBox(
@@ -123,6 +132,10 @@ class AddMedication extends StatelessWidget {
                 items: ["mg", "mcg", "g", "ml", "%"],
                 onChanged: (value) {
                   model.selectUnit(unit: value!);
+                  model.checkallFields(
+                      name: medicineName.text,
+                      strength: medicineStrength.text,
+                      unit: model.selectedUnit);
                 },
                 decoration: InputDecoration(
                   filled: true,
@@ -151,6 +164,41 @@ class AddMedication extends StatelessWidget {
                     fontFamily: 'Poppins Regular', fontWeight: FontWeight.w500),
               );
             }),
+            const Spacer(),
+            Consumer<AddMedicationViewmodel>(builder: (context, model, child) {
+              return Padding(
+                padding: EdgeInsets.only(bottom: screenHeight * 0.030),
+                child: InkWell(
+                  onTap: () {
+                    if (model.isFieldsFill == true) {
+                      model.next(
+                          name: medicineName.text,
+                          strength: medicineStrength.text,
+                          unit: model.selectedUnit);
+                    }
+                  },
+                  child: ButtonComponent(
+                      screenHeight: screenHeight,
+                      screenWidth: screenWidth,
+                      ButtonHeight: 0.075,
+                      decoration: BoxDecoration(
+                          color: model.isFieldsFill == true
+                              ? AppColors.PrimaryBlueColor
+                              : AppColors.unFocusPrimaryColor,
+                          borderRadius:
+                              BorderRadius.circular(screenWidth * 0.080)),
+                      child: Center(
+                        child: Text(
+                          'Next',
+                          style: TextStyle(
+                              color: AppColors.TextwhiteColor,
+                              fontFamily: 'Poppins Semi Bold',
+                              fontSize: screenHeight * 0.020),
+                        ),
+                      )),
+                ),
+              );
+            })
           ],
         ),
       ),

@@ -247,7 +247,7 @@ class PersonalInformationView extends StatelessWidget {
                 builder: (context, model, child) {
               return InkWell(
                 onTap: () async {
-                  if (model.isBirthDatePicked == false) {
+                
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -263,8 +263,7 @@ class PersonalInformationView extends StatelessWidget {
                               isDialogOpen: true);
                         });
                     
-                  }
-                },
+                           },
                 child: ButtonComponent(
                   screenHeight: screenHeight,
                   screenWidth: screenWidth,

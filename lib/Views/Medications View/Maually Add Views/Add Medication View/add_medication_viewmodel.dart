@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Services/global_data.dart';
 
 class AddMedicationViewmodel with ChangeNotifier {
   bool isNameNotEmpty = false;
@@ -7,6 +8,57 @@ class AddMedicationViewmodel with ChangeNotifier {
   bool isStrengthFocus = false;
   bool isUnitSelect = false;
   String selectedUnit = "";
+  bool isFieldsFill = false;
+  bool isError = false;
+
+  next({
+    required String name,
+    required String strength,
+    required String unit,
+  }) {
+    isFieldsFill = false;
+    notifyListeners();
+    try {
+      var number = double.tryParse(strength);
+      if ((name.isNotEmpty) &&
+          (strength.isNotEmpty) &&
+          (unit.isNotEmpty) &&
+          (number != null)) {
+        MedicineAddingData.medicinesName = name;
+        MedicineAddingData.medicinesStrength = strength;
+        MedicineAddingData.medicinesUnit = unit;
+        print(
+            "Medications Second Screen Navigation | Runtime Type  : ${number.runtimeType}");
+      } else {
+        isError = true;
+        isNameNotEmpty = false;
+        isStrengthNotEmpty = false;
+        isUnitSelect = false;
+        notifyListeners();
+      }
+    } on Exception catch (e) {
+      print("Error : ${e.toString()}");
+      isError = true;
+      isNameNotEmpty = false;
+      isStrengthNotEmpty = false;
+      isUnitSelect = false;
+      notifyListeners();
+    }
+  }
+
+  checkallFields({
+    required String name,
+    required String strength,
+    required String unit,
+  }) {
+    if ((name.isNotEmpty) && (strength.isNotEmpty) && (unit.isNotEmpty)) {
+      isFieldsFill = true;
+      notifyListeners();
+    } else {
+      isFieldsFill = false;
+      notifyListeners();
+    }
+  }
 
   void selectUnit({required String unit}) {
     isUnitSelect = true;

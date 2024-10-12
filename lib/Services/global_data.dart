@@ -35,3 +35,9 @@ class UserGlobalData {
   static List userMedicines = [];
   static String username = "";
 }
+
+class MedicineAddingData {
+  static String medicinesName = "";
+  static String medicinesStrength = "";
+  static String medicinesUnit = "";
+}
