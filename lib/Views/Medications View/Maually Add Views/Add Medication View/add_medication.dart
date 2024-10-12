@@ -52,8 +52,11 @@ class AddMedication extends StatelessWidget {
               return TextFields(
                   controller: medicineName,
                   enablefillColor: Colors.black,
-                  focusfillColor:
-                      AppColors.unFocusPrimaryColor.withOpacity(0.1),
+                  focusfillColor: model.isNameFocus == true
+                      ? AppColors.TextwhiteColor
+                      : model.isNameNotEmpty == true
+                          ? AppColors.TextwhiteColor
+                          : AppColors.unFocusPrimaryColor.withOpacity(0.1),
                   outlineColor: AppColors.unFocusPrimaryColor,
                   radius: BorderRadius.circular(screenWidth * 0.020),
                   isHidden: false,
@@ -67,12 +70,15 @@ class AddMedication extends StatelessWidget {
                   isSuffix: false,
                   isNumberKeyboard: false,
                   isPrefix: false,
-                  onFocus: (value) {},
-                  contentStyle: TextStyle(
-                    color: AppColors.unFocusPrimaryColor,
-                    fontFamily: 'Poppins Regular',
-                  ),
-                  onChanged: (value) {});
+                  onFocus: (value) {
+                    model.onNameFocus(focus: value);
+                  },
+                  contentStyle: const TextStyle(
+                      fontFamily: 'Poppins Regular',
+                      fontWeight: FontWeight.w500),
+                  onChanged: (value) {
+                    model.isNameEmptyCheck(name: medicineName.text);
+                  });
             }),
             SizedBox(
               height: screenHeight * 0.030,
@@ -81,8 +87,11 @@ class AddMedication extends StatelessWidget {
               return TextFields(
                   controller: medicineStrength,
                   enablefillColor: Colors.black,
-                  focusfillColor:
-                      AppColors.unFocusPrimaryColor.withOpacity(0.1),
+                  focusfillColor: model.isStrengthFocus == true
+                      ? AppColors.TextwhiteColor
+                      : model.isStrengthNotEmpty == true
+                          ? AppColors.TextwhiteColor
+                          : AppColors.unFocusPrimaryColor.withOpacity(0.1),
                   outlineColor: AppColors.unFocusPrimaryColor,
                   radius: BorderRadius.circular(screenWidth * 0.020),
                   isHidden: false,
@@ -94,14 +103,17 @@ class AddMedication extends StatelessWidget {
                   Prefix: Text(""),
                   Suffix: Text(""),
                   isSuffix: false,
-                  isNumberKeyboard: false,
+                  isNumberKeyboard: true,
                   isPrefix: false,
-                  onFocus: (value) {},
-                  contentStyle: TextStyle(
-                    color: AppColors.unFocusPrimaryColor,
-                    fontFamily: 'Poppins Regular',
-                  ),
-                  onChanged: (value) {});
+                  onFocus: (value) {
+                    model.onStrengthFocus(focus: value);
+                  },
+                  contentStyle: const TextStyle(
+                      fontFamily: 'Poppins Regular',
+                      fontWeight: FontWeight.w500),
+                  onChanged: (value) {
+                    model.isStrengthEmptyCheck(strength: medicineStrength.text);
+                  });
             }),
             SizedBox(
               height: screenHeight * 0.030,
@@ -109,7 +121,9 @@ class AddMedication extends StatelessWidget {
             Consumer<AddMedicationViewmodel>(builder: (context, model, value) {
               return CustomDropdown(
                 items: ["mg", "mcg", "g", "ml", "%"],
-                onChanged: (value) {},
+                onChanged: (value) {
+                  model.selectUnit(unit: value!);
+                },
                 decoration: InputDecoration(
                   filled: true,
                   focusedBorder: OutlineInputBorder(
@@ -121,7 +135,9 @@ class AddMedication extends StatelessWidget {
                       borderRadius: BorderRadius.circular(screenWidth * 0.020),
                       borderSide: BorderSide(
                           color: AppColors.unFocusPrimaryColor, width: 1)),
-                  fillColor: AppColors.unFocusPrimaryColor.withOpacity(0.1),
+                  fillColor: model.isUnitSelect == true
+                      ? AppColors.TextwhiteColor
+                      : AppColors.unFocusPrimaryColor.withOpacity(0.1),
                 ),
                 icon: Icon(Icons.keyboard_arrow_down_rounded),
                 hint: Text(
