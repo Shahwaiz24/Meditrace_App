@@ -174,6 +174,7 @@ class AddMedication extends StatelessWidget {
                       onTap: () {
                         if (model.isFieldsFill == true) {
                           model.next(
+                              context: context,
                               name: medicineName.text,
                               strength: medicineStrength.text,
                               unit: model.selectedUnit);

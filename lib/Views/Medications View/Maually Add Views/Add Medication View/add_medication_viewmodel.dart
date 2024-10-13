@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Views/Home%20View/home_view.dart';
+import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Selection%20View/selection_view.dart';
 
 // This is The Medicatiob Adding View model //
 
@@ -27,11 +28,11 @@ class AddMedicationViewmodel with ChangeNotifier {
         context, MaterialPageRoute(builder: (context) => const HomeView()));
   }
 
-  next({
-    required String name,
-    required String strength,
-    required String unit,
-  }) {
+  next(
+      {required String name,
+      required String strength,
+      required String unit,
+      required BuildContext context}) {
     isFieldsFill = false;
     notifyListeners();
     try {
@@ -43,8 +44,8 @@ class AddMedicationViewmodel with ChangeNotifier {
         MedicineAddingData.medicinesName = name;
         MedicineAddingData.medicinesStrength = strength;
         MedicineAddingData.medicinesUnit = unit;
-        print(
-            "Medications Second Screen Navigation | Runtime Type  : ${number.runtimeType}");
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const SelectionView()));
       } else {
         isError = true;
         isNameNotEmpty = false;

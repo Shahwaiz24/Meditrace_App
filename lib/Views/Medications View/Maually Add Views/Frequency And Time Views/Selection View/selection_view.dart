@@ -1,10 +1,86 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Components/button.dart';
+import 'package:meditrace_project/Services/utils.dart';
+import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Selection%20View/selection_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 class SelectionView extends StatelessWidget {
   const SelectionView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    final model = Provider.of<SelectionViewmodel>(context);
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    return Scaffold(
+      backgroundColor: AppColors.ScaffoldColor,
+      resizeToAvoidBottomInset: false,
+      body: Padding(
+        padding: EdgeInsets.only(
+          top: screenHeight * 0.100,
+          left: screenWidth * 0.070,
+          right: screenWidth * 0.070,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'When will you take this',
+              style: TextStyle(
+                  color: AppColors.PrimaryBlueColor,
+                  fontFamily: 'Poppins Medium',
+                  fontSize: screenHeight * 0.016),
+            ),
+            SizedBox(height: screenHeight * 0.010),
+            Text(
+              "Add Frequency and Time",
+              style: TextStyle(
+                  color: AppColors.TextblackColor,
+                  fontFamily: 'Poppins Bold',
+                  fontSize: screenHeight * 0.020),
+            ),
+            SizedBox(
+              height: screenHeight * 0.030,
+            ),
+            Consumer<SelectionViewmodel>(builder: (context, model, child) {
+              return InkWell(
+                child: ButtonComponent(
+                    screenHeight: screenHeight,
+                    screenWidth: screenWidth,
+                    ButtonHeight: 0.080,
+                    decoration: BoxDecoration(
+                        color: AppColors.DropDownUnfocusColor.withOpacity(0.4),
+                        borderRadius:
+                            BorderRadius.circular(screenWidth * 0.040)),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: screenWidth * 0.040),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Frequency",
+                            style: TextStyle(
+                                color: AppColors.TextblackColor,
+                                fontFamily: 'Poppins Medium',
+                                fontSize: screenHeight * 0.019),
+                          ),
+                          const Spacer(),
+                          Icon(
+                            Icons.check_circle_rounded,
+                            size: screenHeight * 0.032,
+                            color: AppColors.AppTextColor1,
+                          )
+                        ],
+                      ),
+                    )),
+              );
+            })
+          ],
+        ),
+      ),
+    );
   }
 }
