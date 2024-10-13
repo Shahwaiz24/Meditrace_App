@@ -12,6 +12,7 @@ class SelectionView extends StatelessWidget {
     final model = Provider.of<SelectionViewmodel>(context);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    model.checkFields(isInit: true);
     return Scaffold(
       backgroundColor: AppColors.ScaffoldColor,
       resizeToAvoidBottomInset: false,
@@ -46,6 +47,9 @@ class SelectionView extends StatelessWidget {
             Consumer<SelectionViewmodel>(
               builder: (context, model, child) {
                 return InkWell(
+                  onTap: () {
+                    model.frequency(context: context);
+                  },
                   child: ButtonComponent(
                       screenHeight: screenHeight,
                       screenWidth: screenWidth,

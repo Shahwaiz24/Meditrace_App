@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Frequency%20Selection%20View/frequency_view.dart';
 
 class SelectionViewmodel with ChangeNotifier {
   bool isFieldsFill = false;
@@ -13,18 +14,23 @@ class SelectionViewmodel with ChangeNotifier {
 
   frequency({required BuildContext context}) {
     isFieldsFill = false;
-    // Navigating To Frequency Screen //
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => const FrequencyView()));
   }
 
-  checkFields({required BuildContext context}) {
+  checkFields({required bool isInit}) {
     if ((isFrequencyCompleted == true) &&
         (isStartingDateCompleted == true) &&
         (isTimeCompleted == true)) {
       isFieldsFill = true;
-      notifyListeners();
+      if (isInit == false) {
+        notifyListeners();
+      }
     } else {
       isFieldsFill = false;
-      notifyListeners();
+      if (isInit == false) {
+        notifyListeners();
+      }
     }
   }
 }
