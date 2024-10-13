@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/global_data.dart';
 
+// This is The Medicatiob Adding View model //
+
 class AddMedicationViewmodel with ChangeNotifier {
   bool isNameNotEmpty = false;
   bool isStrengthNotEmpty = false;
