@@ -236,6 +236,8 @@ class FrequencyView extends StatelessWidget {
                             height: screenHeight *
                                 0.050, // Adjust the height as per your needs
                             child: ListView.builder(
+                              shrinkWrap: true,
+                              
                               scrollDirection:
                                   Axis.horizontal, // Horizontal direction
                               itemCount:
@@ -243,16 +245,17 @@ class FrequencyView extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 // Return a Container for each day
                                 return Container(
-                                  // margin: edge,
+                                  margin: EdgeInsets.only(right: screenWidth * 0.022),
                                   padding: EdgeInsets.symmetric(
-                                    horizontal: screenWidth * 0.030,
+                                    horizontal: screenWidth * 0.020,
+                                    vertical: 0
                                   ),
                                   decoration: BoxDecoration(
                                     color: index < 5
-                                        ? Colors.teal
+                                        ? AppColors.BagContainer
                                         : Colors.grey.withOpacity(
                                             0.2), // Highlight weekdays
-                                    borderRadius: BorderRadius.circular(16),
+                                    borderRadius: BorderRadius.circular(screenWidth * 0.020),
                                   ),
                                   child: Center(
                                     child: Text(
@@ -268,8 +271,9 @@ class FrequencyView extends StatelessWidget {
                                       ][index],
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: screenHeight * 0.018,
+                                        color: AppColors.TextwhiteColor,
+                                        fontFamily: "Poppins Regular",
+                                        fontSize: screenHeight * 0.020,
                                       ),
                                     ),
                                   ),

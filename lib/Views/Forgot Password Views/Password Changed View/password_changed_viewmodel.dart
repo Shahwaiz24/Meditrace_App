@@ -158,11 +158,13 @@ class PasswordChangedViewModel with ChangeNotifier {
   }
 
    onContineTap({required BuildContext context}) {
+    _isVisible = false;
     Navigator.of(context).popUntil((route) => route.isFirst);
     Navigator.pushReplacement(context,   MaterialPageRoute(builder: (context) => const SplashView()),);
   }
 
   onTryAgainTap({required BuildContext context}) {
+    _isVisible = false;
     Navigator.of(context).popUntil((route) => route.isFirst);
     Navigator.pushReplacement(context,   MaterialPageRoute(builder: (context) => const SplashView()),);
   
