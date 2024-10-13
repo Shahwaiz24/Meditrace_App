@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Services/api_service.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Password%20Changed%20View/password_changed_view.dart';
 
 class CreateNewpasswordViewmodel with ChangeNotifier {
@@ -12,7 +15,6 @@ class CreateNewpasswordViewmodel with ChangeNotifier {
 
   bool isPasswordHidden = false;
 
-  String finalPassword = "";
 
   void isPasswordFocus({required bool focus}) {
     isFocusPassword = focus;
@@ -64,6 +66,7 @@ class CreateNewpasswordViewmodel with ChangeNotifier {
   onChangedPasswordTap(
       {required String password,
       required String repeatPassword,
+      required String email,
       required BuildContext context}) async {
     isStart = true;
     isFieldsFill = false;
@@ -75,16 +78,50 @@ class CreateNewpasswordViewmodel with ChangeNotifier {
             repeatPassword.length >= 4 &&
             repeatPassword == repeatPassword)) {
       print("Everythings Alright Api Work Here");
-      await Future.delayed(Duration(seconds: 1));
-      isStart = false;
-      notifyListeners();
+
+      final Map jsonMap = {
+        "email" : email,
+        "password" : password
+      };
+      var json = jsonEncode(jsonMap);
+
+      bool apicheck = await ApiService.changePassword(body: json);
+      if(apicheck == true){
+        isFocusPassword = false;
+        isPasswordHidden = false;
+        isFocusRepeatPassword = false;
+        isFieldsFill = false;
+        isPasswordNotEmpty = false;
+        isError = false;
+        isRepeatPasswordNotEmpty = false;
+isStart = false;
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => PasswordChangedView(isError: false,)));
+          MaterialPageRoute(builder: (context) => const PasswordChangedView(isError: false,)));
+      }else{
+  isFocusPassword = false;
+        isPasswordHidden = false;
+        isFocusRepeatPassword = false;
+        isFieldsFill = false;
+        isPasswordNotEmpty = false;
+        isError = false;
+        isRepeatPasswordNotEmpty = false;
+isStart = false;
+notifyListeners();
+ Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const PasswordChangedView(isError: true,)));
+      }
+      
     } else {
       isStart = false;
+      isFocusPassword = false;
+        isPasswordHidden = false;
+        isFocusRepeatPassword = false;
+        isFieldsFill = false;
+        isPasswordNotEmpty = false;
+        isRepeatPasswordNotEmpty = false;
       isError = true;
       notifyListeners();
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(Duration(milliseconds: 1500));
       isError = false;
       notifyListeners();
     }

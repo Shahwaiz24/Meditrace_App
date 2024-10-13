@@ -130,6 +130,7 @@ class PasswordChangedViewModel with ChangeNotifier {
                       child: InkWell(
                         onTap: () {
                           print("Password Changed and Continue Tap");
+                          onContineTap(context: context);
                         },
                         child: ButtonComponent(
                           screenHeight: screenHeight,
@@ -156,11 +157,14 @@ class PasswordChangedViewModel with ChangeNotifier {
               ));
   }
 
+   onContineTap({required BuildContext context}) {
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    Navigator.pushReplacement(context,   MaterialPageRoute(builder: (context) => const SplashView()),);
+  }
+
   onTryAgainTap({required BuildContext context}) {
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const SplashView()),
-      (Route<dynamic> route) => false,
-    );
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    Navigator.pushReplacement(context,   MaterialPageRoute(builder: (context) => const SplashView()),);
+  
   }
 }

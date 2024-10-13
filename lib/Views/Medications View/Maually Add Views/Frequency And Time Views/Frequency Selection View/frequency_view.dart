@@ -243,7 +243,7 @@ class FrequencyView extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 // Return a Container for each day
                                 return Container(
-                                  margin: edge,
+                                  // margin: edge,
                                   padding: EdgeInsets.symmetric(
                                     horizontal: screenWidth * 0.030,
                                   ),

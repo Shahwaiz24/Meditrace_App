@@ -6,7 +6,9 @@ import 'package:meditrace_project/Views/Forgot%20Password%20Views/Create%20New%2
 import 'package:provider/provider.dart';
 
 class CreateNewpasswordView extends StatelessWidget {
-  CreateNewpasswordView({super.key});
+  CreateNewpasswordView({super.key,required this.email});
+    final String email;
+
 
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController repeatPasswordController =
@@ -224,6 +226,7 @@ class CreateNewpasswordView extends StatelessWidget {
                       onTap: () {
                         if (model.isStart == false) {
                           model.onChangedPasswordTap(
+                            email: email,
                               password: passwordController.text,
                               repeatPassword: repeatPasswordController.text,
                               context: context);

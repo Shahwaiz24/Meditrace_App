@@ -10,7 +10,7 @@ import 'package:meditrace_project/Services/notification_service.dart';
 class BackGroundService {
   static int id = 0;
   static initializing() async {
-    await _initializeLocalNotifications(); // Initialize notifications with a valid drawable icon
+    // await _initializeLocalNotifications(); // Initialize notifications with a valid drawable icon
     await BackGroundService.initializeService();
     await LocalStorage.initialized();
   }
@@ -18,7 +18,7 @@ class BackGroundService {
   // Local notification initialization with proper drawable icon
   static Future<void> _initializeLocalNotifications() async {
     await AwesomeNotifications().initialize(
-      "resource://mipmap/ic_launcher", // Ensure this is set correctly
+      "resource://mipmap/ic_launcher", 
       [
         NotificationChannel(
           

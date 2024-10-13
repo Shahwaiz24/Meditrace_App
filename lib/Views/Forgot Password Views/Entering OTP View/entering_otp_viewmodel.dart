@@ -26,17 +26,15 @@ class EnteringOtpViewmodel with ChangeNotifier {
     Navigator.pop(context);
   }
 
-  onTapConfirm({required BuildContext context, required String Otp}) async {
+  onTapConfirm({required BuildContext context, required String Otp,required String email}) async {
     isStart = true;
     isFieldFills = false;
     notifyListeners();
     if (Otp != null && Otp.isNotEmpty && Otp == OTPvalue.otp) {
       print("OTP Alright and Navigating");
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => CreateNewpasswordView()));
-      await Future.delayed(const Duration(seconds: 2));
+          MaterialPageRoute(builder: (context) => CreateNewpasswordView(email: email,)));
       isStart = false;
-      notifyListeners();
     } else {
       isStart = false;
       //  Loading Is False //

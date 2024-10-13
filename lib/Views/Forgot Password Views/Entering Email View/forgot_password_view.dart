@@ -80,7 +80,7 @@ class ForgotPasswordView extends StatelessWidget {
                       : "Email Address",
                   hintStyle: TextStyle(
                     color: model.isError
-                        ? Colors.red
+                        ? Colors.red.withOpacity(0.5)
                         : AppColors.unFocusPrimaryColor,
                     fontFamily: 'Poppins Regular',
                   ),
@@ -153,6 +153,7 @@ class ForgotPasswordView extends StatelessWidget {
                         if (model.isStart == false) {
                           model.sentOtpTap(
                               email: emailController.text, context: context);
+                              emailController.clear();
                         }
                       },
                       child: ButtonComponent(

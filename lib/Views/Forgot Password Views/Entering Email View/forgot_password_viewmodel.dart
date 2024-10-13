@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Services/api_service.dart';
 import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20OTP%20View/entering_otp_view.dart';
 
@@ -52,13 +55,43 @@ class ForgotPasswordViewmodel with ChangeNotifier {
       isStart = true;
       fieldsFill = false;
       notifyListeners();
-      print(
-          "All Okay and Api Work Have to be Here \n Navigate to Next Otp Verifying Screen");
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => EnteringOtpView()));
-      OTPvalue.otp = "2024";
-      await Future.delayed(const Duration(seconds: 1));
+      
+      final Map Forjson = {
+        "email" : email
+      };
+      var json = await jsonEncode(Forjson);
+    bool apiCheck = await ApiService.sendOtp(body: json);
+    if(apiCheck == true){
       isStart = false;
+      isError = false;
+      fieldsFill = false;
+      isEmailNotEmpty = false;
+print(
+          "Navigate to Next Otp Verifying Screen");
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => EnteringOtpView(email: email,)));
+    }else{
+       isStart = false;
+      fieldsFill = false;
+      isEmailNotEmpty = false;
+      isError = true;
+      notifyListeners();
+      await Future.delayed(Duration(milliseconds: 1500));
+      isError = false;
+      notifyListeners();
     }
+      
+     
+    }else{
+       isStart = false;
+      fieldsFill = false;
+      isEmailNotEmpty = false;
+      isError = true;
+      notifyListeners();
+      await Future.delayed(Duration(milliseconds: 1500));
+      isError = false;
+      notifyListeners();
+    }
+
   }
 }

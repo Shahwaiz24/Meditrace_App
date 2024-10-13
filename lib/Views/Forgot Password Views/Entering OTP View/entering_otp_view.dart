@@ -6,7 +6,9 @@ import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20OTP
 import 'package:provider/provider.dart';
 
 class EnteringOtpView extends StatelessWidget {
-  EnteringOtpView({super.key});
+  EnteringOtpView({super.key,required this.email});
+
+  final String email;
 
   final TextEditingController otpController = TextEditingController();
 
@@ -106,6 +108,7 @@ class EnteringOtpView extends StatelessWidget {
                       onTap: () {
                         if (model.isStart == false) {
                           model.onTapConfirm(
+                            email: email,
                               context: context, Otp: model.completedOtp);
                           otpController.clear();
                         }
