@@ -68,11 +68,17 @@ class SelectionView extends StatelessWidget {
                                 fontSize: screenHeight * 0.019),
                           ),
                           const Spacer(),
-                          Icon(
-                            Icons.check_circle_rounded,
-                            size: screenHeight * 0.032,
-                            color: AppColors.AppTextColor1,
-                          )
+                          SelectionViewmodel.isFrequencyCompleted == true
+                              ? Icon(
+                                  Icons.check_circle_rounded,
+                                  size: screenHeight * 0.032,
+                                  color: AppColors.AppTextColor1,
+                                )
+                              : Icon(
+                                  Icons.check_circle_outline_outlined,
+                                  size: screenHeight * 0.032,
+                                  color: AppColors.unFocusPrimaryColor,
+                                )
                         ],
                       ),
                     )),
