@@ -19,6 +19,7 @@ class SelectionViewmodel with ChangeNotifier {
   }
 
   checkFields({required bool isInit}) {
+    print("Checking");
     if ((isFrequencyCompleted == true) &&
         (isStartingDateCompleted == true) &&
         (isTimeCompleted == true)) {

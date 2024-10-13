@@ -185,6 +185,9 @@ class SelectionView extends StatelessWidget {
                 );
               },
             ),
+          
+          
+          
             const Spacer(),
             Consumer<SelectionViewmodel>(builder: (context, model, child) {
               return Padding(
