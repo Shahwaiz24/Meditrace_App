@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/global_data.dart';
+import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 
 // This is The Medicatiob Adding View model //
 
@@ -12,6 +13,19 @@ class AddMedicationViewmodel with ChangeNotifier {
   String selectedUnit = "";
   bool isFieldsFill = false;
   bool isError = false;
+
+  navigateToBack({required BuildContext context}) {
+    isNameNotEmpty = false;
+    isStrengthNotEmpty = false;
+    isNameFocus = false;
+    isStrengthFocus = false;
+    selectedUnit = "";
+    isUnitSelect = false;
+    isError = false;
+    isFieldsFill = false;
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => const HomeView()));
+  }
 
   next({
     required String name,

@@ -7,13 +7,12 @@ import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20OTP
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Password%20Changed%20View/password_changed_viewmodel.dart';
 import 'package:meditrace_project/Views/Home%20View/home_viewmodel.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Add%20Medication%20View/add_medication_viewmodel.dart';
+import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Selection%20View/selection_viewmodel.dart';
 import 'package:meditrace_project/Views/Medicine%20View/medicine_viewmodel.dart';
 import 'package:meditrace_project/Views/Profile%20Update%20View/profile_update_viewmodel.dart';
 import 'package:meditrace_project/Views/Profile%20View/profile_viewmodel.dart';
 import 'package:meditrace_project/Views/Settings%20View/setting_viewmodel.dart';
-import 'package:meditrace_project/Views/Sign%20In%20View/signin_view.dart';
 import 'package:meditrace_project/Views/Sign%20In%20View/signin_viewmodel.dart';
-import 'package:meditrace_project/Views/Sign%20Up%20View/Emergency%20Contact%20View/emergency_contact_view.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Emergency%20Contact%20View/emergency_contact_viewmodel.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Medical%20Information%20View/medical_information_viewModel_signUp.dart';
 import 'package:meditrace_project/Views/Sign%20Up%20View/Personal%20Information%20View/personal_information_viewmodel.dart';
@@ -40,8 +39,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => SplashViewmodel()),
-                ChangeNotifierProvider(create: (_) => AddMedicationViewmodel()),
-
+        ChangeNotifierProvider(create: (_) => AddMedicationViewmodel()),
+        ChangeNotifierProvider(create: (_) => SelectionViewmodel()),
         ChangeNotifierProvider(create: (_) => PersonalInformationViewmodel()),
         ChangeNotifierProvider(create: (_) => SigninViewmodel()),
         ChangeNotifierProvider(create: (_) => SignUpViewmodel()),
@@ -60,10 +59,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CreateNewpasswordViewmodel()),
         ChangeNotifierProvider(create: (_) => PasswordChangedViewModel()),
       ],
-      child: const  MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: SplashView()
-      ),
+      child: const MaterialApp(
+          debugShowCheckedModeBanner: false, home: SplashView()),
     );
   }
 }
