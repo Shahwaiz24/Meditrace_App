@@ -63,7 +63,9 @@ class TimeView extends StatelessWidget {
             Consumer<TimeViewmodel>(
               builder: (context, model, child) {
                 return InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    model.selectDose1(context: context);
+                  },
                   child: ButtonComponent(
                       screenHeight: screenHeight,
                       screenWidth: screenWidth,
@@ -87,7 +89,7 @@ class TimeView extends StatelessWidget {
                                   fontFamily: 'Poppins Medium',
                                   fontSize: screenHeight * 0.019),
                             ),
-                         const   Spacer(),
+                            const Spacer(),
                             model.isDose1Selected == true
                                 ? Row(
                                     children: [
