@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Components/time_picker.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Time%20View/TIme%20Picker%20View/time_picker_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class TimePickerView extends StatelessWidget {
-  const TimePickerView({super.key,required this.Onchanged});
+  const TimePickerView({super.key, required this.Onchanged});
 
   final ValueChanged<String> Onchanged;
 
@@ -60,6 +61,26 @@ class TimePickerView extends StatelessWidget {
             SizedBox(
               height: screenHeight * 0.060,
             ),
+            Consumer<TimePickerViewmodel>(builder: (context, model, child) {
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(screenWidth * 0.020),
+                  border: Border.all(
+                      color: AppColors.unFocusPrimaryColor, width: 1),
+                ),
+                height: screenHeight * 0.400,
+                child: Center(
+                  child: TimePicker(
+                      initialHour: 0,
+                      initialMinute: 00,
+                      isAm: true,
+                      onTimeChanged: (value) {
+                        Onchanged(value.toString());
+                        model.stateListen();
+                      }),
+                ),
+              );
+            })
           ],
         ),
       ),

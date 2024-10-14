@@ -16,7 +16,6 @@ class TimePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // AM/PM Index based on isAm boolean
     int amPmIndex = isAm ? 0 : 1;
 
     // Initializing controllers based on initial time provided
@@ -33,38 +32,39 @@ class TimePicker extends StatelessWidget {
         children: [
           // Hour Picker
           _buildPicker(
-            hourController,
-            12,
-            (index) {
+            controller: hourController,
+            itemCount: 12,
+            currentItem: initialHour % 12,
+            onSelectedItemChanged: (index) {
               int selectedHour = (index + 1) % 12;
               if (!isAm && selectedHour < 12) {
                 selectedHour += 12;
               }
               onTimeChanged(DateTime(0, 0, 0, selectedHour, initialMinute));
             },
-            (index) => (index + 1).toString().padLeft(2, '0'),
-            'HH',
-            const BorderRadius.only(
+            formatLabel: (index) => (index + 1).toString().padLeft(2, '0'),
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(8),
               bottomLeft: Radius.circular(8),
             ),
           ),
           // Minute Picker
           _buildPicker(
-            minuteController,
-            60,
-            (index) {
+            controller: minuteController,
+            itemCount: 60,
+            currentItem: initialMinute,
+            onSelectedItemChanged: (index) {
               onTimeChanged(DateTime(0, 0, 0, initialHour, index));
             },
-            (index) => index.toString().padLeft(2, '0'),
-            'MM',
-            BorderRadius.zero,
+            formatLabel: (index) => index.toString().padLeft(2, '0'),
+            borderRadius: BorderRadius.zero,
           ),
           // AM/PM Picker
           _buildPicker(
-            ampmController,
-            2,
-            (index) {
+            controller: ampmController,
+            itemCount: 2,
+            currentItem: amPmIndex,
+            onSelectedItemChanged: (index) {
               bool isNowAm = index == 0;
               int currentHour = initialHour;
               if (isNowAm && currentHour >= 12) {
@@ -74,9 +74,8 @@ class TimePicker extends StatelessWidget {
               }
               onTimeChanged(DateTime(0, 0, 0, currentHour, initialMinute));
             },
-            (index) => index == 0 ? 'AM' : 'PM',
-            'AM/PM',
-            const BorderRadius.only(
+            formatLabel: (index) => index == 0 ? 'AM' : 'PM',
+            borderRadius: const BorderRadius.only(
               topRight: Radius.circular(8),
               bottomRight: Radius.circular(8),
             ),
@@ -86,14 +85,14 @@ class TimePicker extends StatelessWidget {
     );
   }
 
-  Widget _buildPicker(
-    FixedExtentScrollController controller,
-    int itemCount,
-    ValueChanged<int> onSelectedItemChanged,
-    String Function(int) formatLabel,
-    String semanticLabel,
-    BorderRadius borderRadius,
-  ) {
+  Widget _buildPicker({
+    required FixedExtentScrollController controller,
+    required int itemCount,
+    required int currentItem,
+    required ValueChanged<int> onSelectedItemChanged,
+    required String Function(int) formatLabel,
+    required BorderRadius borderRadius,
+  }) {
     return SizedBox(
       width: 75,
       height: 150,
@@ -108,10 +107,12 @@ class TimePicker extends StatelessWidget {
             physics: const FixedExtentScrollPhysics(),
             childDelegate: ListWheelChildBuilderDelegate(
               builder: (context, index) {
+                bool isSelected = index == currentItem;
                 return Container(
                   alignment: Alignment.center,
                   child: TimeTileWidget(
                     time: formatLabel(index),
+                    isSelected: isSelected,
                   ),
                 );
               },
@@ -136,8 +137,13 @@ class TimePicker extends StatelessWidget {
 
 class TimeTileWidget extends StatelessWidget {
   final String time;
+  final bool isSelected;
 
-  const TimeTileWidget({Key? key, required this.time}) : super(key: key);
+  const TimeTileWidget({
+    Key? key,
+    required this.time,
+    required this.isSelected,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +153,10 @@ class TimeTileWidget extends StatelessWidget {
         child: Text(
           time,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.bold, fontSize: 25, color: Colors.black),
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+                color: isSelected ? Colors.black : Colors.grey,
+              ),
         ),
       ),
     );
