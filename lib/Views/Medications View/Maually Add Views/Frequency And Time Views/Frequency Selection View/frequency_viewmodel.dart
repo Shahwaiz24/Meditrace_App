@@ -6,6 +6,20 @@ class FrequencyViewmodel with ChangeNotifier {
   bool isEverday = false;
   bool isSpecific = false;
   bool isAsNeeded = false;
+  List<String> selectedDays = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri'];
+
+  void pickDay(String day) {
+    if (selectedDays.contains(day)) {
+      selectedDays.remove(day);
+      print("Day Tap : ${day} | Selected Days : ${selectedDays} ");
+      notifyListeners();
+    } else {
+      selectedDays.add(day);
+      print("Day Tap : ${day} | Selected Days : ${selectedDays} ");
+
+      notifyListeners();
+    }
+  }
 
   navigateToPop({required BuildContext context}) {
     isSelected = false;
@@ -36,8 +50,8 @@ class FrequencyViewmodel with ChangeNotifier {
     if ((isEverday == true) || (isSpecific == true) || (isAsNeeded == true)) {
       isSelected = true;
       notifyListeners();
-    }else{
-            isSelected = false;
+    } else {
+      isSelected = false;
       notifyListeners();
     }
   }
