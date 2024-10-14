@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Services/utils.dart';
 
 class CustomDatePicker extends StatefulWidget {
@@ -23,18 +22,21 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   DateTime selectedDate = DateTime.now();
   late DateTime firstAllowedDate;
   late DateTime lastAllowedDate;
-  DateTime focusedDate = DateTime.now(); // Month navigation control
+  DateTime focusedDate = DateTime.now();
 
   @override
   void initState() {
     super.initState();
+
     if (widget.isDateOfBirth) {
+      // For Date of Birth, allow dates from 1900 up to today
       firstAllowedDate = DateTime(1900);
       lastAllowedDate = DateTime.now(); // Today's date is the max for DoB
     } else {
+      // For other events, allow only future dates
       firstAllowedDate =
           DateTime.now(); // Today's date is the min for future events
-      lastAllowedDate = DateTime(2100);
+      lastAllowedDate = DateTime(2100); // Infinite future allowed
     }
   }
 
@@ -43,7 +45,6 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     return widget.isDialogOpen ? _buildDialog(context) : _buildPicker(context);
   }
 
-  // Build method for showing dialog
   Widget _buildDialog(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
@@ -62,10 +63,9 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     );
   }
 
-  // Build method for showing date picker
   Widget _buildPicker(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final screenHeight = MediaQuery.of(context).size.height;
+    final screenHeight = mediaQuery.size.height;
     final screenWidth = mediaQuery.size.width;
     final textScaleFactor = mediaQuery.textScaleFactor;
 
@@ -75,7 +75,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[100], // Light background color
+        color: Colors.grey[100],
         borderRadius: BorderRadius.circular(10),
       ),
       padding: EdgeInsets.symmetric(horizontal: paddingHorizontal),
@@ -93,13 +93,16 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 ),
                 color: _canGoToPreviousMonth() ? Colors.black : Colors.grey,
               ),
-              Text(
-                DateFormat.yMMMM().format(focusedDate),
-                style: TextStyle(
-                  fontSize: fontSize * 1.2,
-                  fontFamily: 'Poppins Regular',
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
+              GestureDetector(
+                onTap: () => _selectYear(context), // Open year selection
+                child: Text(
+                  DateFormat.yMMMM().format(focusedDate),
+                  style: TextStyle(
+                    fontSize: fontSize * 1.2,
+                    fontFamily: 'Poppins Regular',
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               IconButton(
@@ -108,9 +111,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   Icons.keyboard_arrow_right_outlined,
                   size: screenHeight * 0.040,
                 ),
-                color: _canGoToNextMonth()
-                    ? Colors.black
-                    : Colors.grey, // Disable if navigation is blocked
+                color: _canGoToNextMonth() ? Colors.black : Colors.grey,
               ),
             ],
           ),
@@ -170,6 +171,48 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     );
   }
 
+  void _selectYear(BuildContext context) {
+    int currentYear = DateTime.now().year;
+    int startYear;
+    int endYear;
+
+    // Determine the range of years based on isDateOfBirth
+    if (widget.isDateOfBirth) {
+      startYear = 1900; // Start from 1900 for date of birth
+      endYear = currentYear; // Up to current year
+    } else {
+      startYear = currentYear + 1; // Only the current year
+      endYear = 2100; // Allow future years
+    }
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Select Year'),
+          content: Container(
+            width: double.maxFinite,
+            child: ListView.builder(
+              itemCount: (endYear - startYear + 1), // Total years in range
+              itemBuilder: (context, index) {
+                int year = startYear + index; // Calculate the actual year
+                return ListTile(
+                  title: Text(year.toString()),
+                  onTap: () {
+                    setState(() {
+                      focusedDate = DateTime(year, focusedDate.month);
+                    });
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   TextStyle _buildDayLabelStyle(double screenHeight) {
     return TextStyle(
       color: Colors.black,
@@ -179,19 +222,25 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     );
   }
 
-  // Helper Functions
-
   List<DateTime> _filteredDaysInMonth(DateTime date) {
-    final daysInMonth = _daysInMonth(date);
+    final today = DateTime.now();
+    final firstDayOfMonth = DateTime(date.year, date.month, 1);
+    final lastDayOfMonth = DateTime(date.year, date.month + 1, 0);
+
     List<DateTime> validDates = [];
 
-    for (int day = 1; day <= daysInMonth; day++) {
+    // Loop through each day in the current month
+    for (int day = 1; day <= lastDayOfMonth.day; day++) {
       final currentDay = DateTime(date.year, date.month, day);
-      bool isDisabled = widget.isDateOfBirth
-          ? currentDay.isAfter(lastAllowedDate)
-          : currentDay.isBefore(firstAllowedDate);
 
-      if (!isDisabled) {
+      // Hide dates before today if isDateOfBirth is false
+      if (!widget.isDateOfBirth && currentDay.isBefore(today)) {
+        continue; // Skip days before today
+      }
+
+      // Only display the current day and future dates, starting from today's weekday
+      if (currentDay
+          .isAfter(today.subtract(Duration(days: today.weekday - 1)))) {
         validDates.add(currentDay);
       }
     }
@@ -206,7 +255,6 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     return firstDayOfNextMonth.subtract(const Duration(days: 1)).day;
   }
 
-  // Prevent user from going forward when isDateOfBirth is true
   bool _canGoToNextMonth() {
     if (widget.isDateOfBirth) {
       return focusedDate.year != lastAllowedDate.year ||
@@ -215,7 +263,6 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     return true;
   }
 
-  // Prevent user from going backward when isDateOfBirth is false
   bool _canGoToPreviousMonth() {
     if (!widget.isDateOfBirth) {
       return focusedDate.year != firstAllowedDate.year ||
@@ -241,9 +288,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       selectedDate = date;
       String finalDate =
           DateFormat('d-MM-yyyy').format(selectedDate).toString();
-
       widget.onSelect(finalDate);
-      // Print the selected date in "day-month-year" format
       print("Selected Date : ${finalDate}");
     });
   }

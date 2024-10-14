@@ -17,8 +17,9 @@ class SelectionViewmodel with ChangeNotifier {
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (context) => const FrequencyView()));
   }
+ 
 
-  
+
 
   checkFields({required bool isInit}) {
     print("Checking");

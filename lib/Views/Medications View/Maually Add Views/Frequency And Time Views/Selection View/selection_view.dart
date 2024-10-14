@@ -162,53 +162,7 @@ class SelectionView extends StatelessWidget {
                 );
               },
             ),
-            SizedBox(
-              height: screenHeight * 0.030,
-            ),
-            Consumer<SelectionViewmodel>(
-              builder: (context, model, child) {
-                return InkWell(
-                  child: ButtonComponent(
-                      screenHeight: screenHeight,
-                      screenWidth: screenWidth,
-                      ButtonHeight: 0.080,
-                      decoration: BoxDecoration(
-                          color:
-                              AppColors.DropDownUnfocusColor.withOpacity(0.4),
-                          borderRadius:
-                              BorderRadius.circular(screenWidth * 0.040)),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: screenWidth * 0.040),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Starting Date",
-                              style: TextStyle(
-                                  color: AppColors.TextblackColor,
-                                  fontFamily: 'Poppins Medium',
-                                  fontSize: screenHeight * 0.019),
-                            ),
-                            const Spacer(),
-                            SelectionViewmodel.isStartingDateCompleted == true
-                                ? Icon(
-                                    Icons.check_circle_rounded,
-                                    size: screenHeight * 0.032,
-                                    color: AppColors.AppTextColor1,
-                                  )
-                                : Icon(
-                                    Icons.check_circle_outline_outlined,
-                                    size: screenHeight * 0.032,
-                                    color: AppColors.unFocusPrimaryColor,
-                                  )
-                          ],
-                        ),
-                      )),
-                );
-              },
-            ),
+           
             SizedBox(
               height: screenHeight * 0.030,
             ),

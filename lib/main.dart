@@ -7,7 +7,6 @@ import 'package:meditrace_project/Views/Forgot%20Password%20Views/Entering%20OTP
 import 'package:meditrace_project/Views/Forgot%20Password%20Views/Password%20Changed%20View/password_changed_viewmodel.dart';
 import 'package:meditrace_project/Views/Home%20View/home_viewmodel.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Add%20Medication%20View/add_medication_viewmodel.dart';
-import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Frequency%20Selection%20View/frequency_view.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Frequency%20Selection%20View/frequency_viewmodel.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Selection%20View/selection_viewmodel.dart';
 import 'package:meditrace_project/Views/Medicine%20View/medicine_viewmodel.dart';
@@ -26,7 +25,6 @@ import 'package:provider/provider.dart';
 
 void main() async {
   await WidgetsFlutterBinding.ensureInitialized();
-
   await BackGroundService.initializing();
 
   runApp(const MyApp());

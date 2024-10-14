@@ -59,6 +59,7 @@ class FrequencyView extends StatelessWidget {
                 ),
               ],
             ),
+           
             SizedBox(
               height: screenHeight * 0.060,
             ),
