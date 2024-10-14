@@ -254,7 +254,11 @@ class FrequencyView extends StatelessWidget {
                 child: Column(
                   children: [
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        if (model.isSelected == true) {
+                          model.nextTap(context: context);
+                        }
+                      },
                       child: ButtonComponent(
                           screenHeight: screenHeight,
                           screenWidth: screenWidth,

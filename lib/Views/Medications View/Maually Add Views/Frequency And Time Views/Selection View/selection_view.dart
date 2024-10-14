@@ -5,7 +5,15 @@ import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views
 import 'package:provider/provider.dart';
 
 class SelectionView extends StatelessWidget {
-  const SelectionView({super.key});
+  const SelectionView(
+      {super.key,
+      required this.isAsNeeded,
+      required this.isSpecific,
+      required this.isEverday});
+
+  final bool isSpecific;
+  final bool isEverday;
+  final bool isAsNeeded;
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +83,39 @@ class SelectionView extends StatelessWidget {
                             ),
                             const Spacer(),
                             SelectionViewmodel.isFrequencyCompleted == true
-                                ? Icon(
-                                    Icons.check_circle_rounded,
-                                    size: screenHeight * 0.032,
-                                    color: AppColors.AppTextColor1,
+                                ? Row(
+                                    children: [
+                                      isAsNeeded == true
+                                          ? Text(
+                                              "As Needed",
+                                              style: TextStyle(
+                                                  color: AppColors
+                                                      .unFocusPrimaryColor,
+                                                  fontFamily: "Poppins Regular",
+                                                  fontSize:
+                                                      screenHeight * 0.018),
+                                            )
+                                          : isEverday == true
+                                              ? Text("Everyday",
+                                                  style: TextStyle(
+                                                      color: AppColors
+                                                          .unFocusPrimaryColor,
+                                                      fontFamily:
+                                                          "Poppins Regular",
+                                                      fontSize:
+                                                          screenHeight * 0.018))
+                                              : isSpecific == true
+                                                  ? Text("Specific",
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .unFocusPrimaryColor,
+                                                          fontFamily:
+                                                              "Poppins Regular",
+                                                          fontSize:
+                                                              screenHeight *
+                                                                  0.018))
+                                                  : Text(""),
+                                    ],
                                   )
                                 : Icon(
                                     Icons.check_circle_outline_outlined,
@@ -185,9 +222,6 @@ class SelectionView extends StatelessWidget {
                 );
               },
             ),
-          
-          
-          
             const Spacer(),
             Consumer<SelectionViewmodel>(builder: (context, model, child) {
               return Padding(

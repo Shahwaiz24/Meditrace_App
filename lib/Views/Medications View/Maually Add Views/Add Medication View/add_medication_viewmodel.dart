@@ -45,7 +45,11 @@ class AddMedicationViewmodel with ChangeNotifier {
         MedicineAddingData.medicinesStrength = strength;
         MedicineAddingData.medicinesUnit = unit;
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const SelectionView()));
+            context, MaterialPageRoute(builder: (context) => const SelectionView(
+                      isAsNeeded: false,
+                      isEverday: false,
+                      isSpecific: false,
+                    )));
       } else {
         isError = true;
         isNameNotEmpty = false;

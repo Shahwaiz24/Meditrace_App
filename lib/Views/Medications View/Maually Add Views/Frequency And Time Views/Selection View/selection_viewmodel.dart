@@ -18,6 +18,8 @@ class SelectionViewmodel with ChangeNotifier {
         MaterialPageRoute(builder: (context) => const FrequencyView()));
   }
 
+  
+
   checkFields({required bool isInit}) {
     print("Checking");
     if ((isFrequencyCompleted == true) &&
