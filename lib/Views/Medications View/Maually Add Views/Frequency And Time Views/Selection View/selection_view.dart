@@ -83,29 +83,53 @@ class SelectionView extends StatelessWidget {
                             ),
                             const Spacer(),
                             SelectionViewmodel.isFrequencyCompleted == true
-                                ? Row(
-                                    children: [
-                                      isAsNeeded == true
-                                          ? Text(
-                                              "As Needed",
-                                              style: TextStyle(
-                                                  color: AppColors
-                                                      .unFocusPrimaryColor,
-                                                  fontFamily: "Poppins Regular",
-                                                  fontSize:
-                                                      screenHeight * 0.018),
-                                            )
-                                          : isEverday == true
-                                              ? Text("Everyday",
+                                ? isAsNeeded == true
+                                    ? Row(
+                                        children: [
+                                          Text(
+                                            "As needed",
+                                            style: TextStyle(
+                                                color: AppColors
+                                                    .unFocusPrimaryColor,
+                                                fontFamily: "Poppins Regular",
+                                                fontSize: screenHeight * 0.020),
+                                          ),
+                                          SizedBox(
+                                            width: screenWidth * 0.010,
+                                          ),
+                                          Icon(
+                                            Icons.keyboard_arrow_right_rounded,
+                                            size: screenHeight * 0.035,
+                                            color: AppColors.TextblackColor,
+                                          )
+                                        ],
+                                      )
+                                    : isEverday == true
+                                        ? Row(
+                                            children: [
+                                              Text("Everyday",
                                                   style: TextStyle(
                                                       color: AppColors
                                                           .unFocusPrimaryColor,
                                                       fontFamily:
                                                           "Poppins Regular",
-                                                      fontSize:
-                                                          screenHeight * 0.018))
-                                              : isSpecific == true
-                                                  ? Text("Specific",
+                                                      fontSize: screenHeight *
+                                                          0.020)),
+                                              SizedBox(
+                                                width: screenWidth * 0.010,
+                                              ),
+                                              Icon(
+                                                Icons
+                                                    .keyboard_arrow_right_rounded,
+                                                size: screenHeight * 0.035,
+                                                color: AppColors.TextblackColor,
+                                              )
+                                            ],
+                                          )
+                                        : isSpecific == true
+                                            ? Row(
+                                                children: [
+                                                  Text("Specific",
                                                       style: TextStyle(
                                                           color: AppColors
                                                               .unFocusPrimaryColor,
@@ -113,10 +137,20 @@ class SelectionView extends StatelessWidget {
                                                               "Poppins Regular",
                                                           fontSize:
                                                               screenHeight *
-                                                                  0.018))
-                                                  : Text(""),
-                                    ],
-                                  )
+                                                                  0.020)),
+                                                  SizedBox(
+                                                    width: screenWidth * 0.010,
+                                                  ),
+                                                  Icon(
+                                                    Icons
+                                                        .keyboard_arrow_right_rounded,
+                                                    size: screenHeight * 0.035,
+                                                    color: AppColors
+                                                        .TextblackColor,
+                                                  )
+                                                ],
+                                              )
+                                            : Text("")
                                 : Icon(
                                     Icons.check_circle_outline_outlined,
                                     size: screenHeight * 0.032,
