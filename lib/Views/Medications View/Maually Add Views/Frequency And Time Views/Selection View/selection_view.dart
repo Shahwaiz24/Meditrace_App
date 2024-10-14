@@ -162,13 +162,15 @@ class SelectionView extends StatelessWidget {
                 );
               },
             ),
-           
             SizedBox(
               height: screenHeight * 0.030,
             ),
             Consumer<SelectionViewmodel>(
               builder: (context, model, child) {
                 return InkWell(
+                  onTap: () {
+                    model.time(context: context);
+                  },
                   child: ButtonComponent(
                       screenHeight: screenHeight,
                       screenWidth: screenWidth,

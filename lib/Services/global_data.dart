@@ -39,6 +39,10 @@ class UserGlobalData {
 class MedicineAddingData {
   static String medicinesName = "";
   static bool isAsNeeded = false;
+  static String dose1Time = "";
+  static String dose2Time = "";
+  static bool isDose2Selected = false;
+
   static bool isSpecific = false;
   static bool isEverday = false;
   static List<String> specificDays = [];
