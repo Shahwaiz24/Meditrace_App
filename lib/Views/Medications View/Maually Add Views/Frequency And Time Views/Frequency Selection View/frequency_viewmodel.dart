@@ -9,16 +9,22 @@ class FrequencyViewmodel with ChangeNotifier {
   List<String> selectedDays = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri'];
 
   void pickDay(String day) {
+    // Check if the day is already selected
     if (selectedDays.contains(day)) {
-      selectedDays.remove(day);
-      print("Day Tap : ${day} | Selected Days : ${selectedDays} ");
-      notifyListeners();
+      // If the day is selected and there are more than one day, remove it
+      if (selectedDays.length > 1) {
+        selectedDays.remove(day);
+        print("Day Tap : ${day} | Selected Days : ${selectedDays} ");
+      }
     } else {
+      // If the day is not in the list, add it
       selectedDays.add(day);
       print("Day Tap : ${day} | Selected Days : ${selectedDays} ");
-
-      notifyListeners();
     }
+
+    // Notify listeners after the operation
+    print("Selected Day Length : ${selectedDays.length}");
+    notifyListeners();
   }
 
   navigateToPop({required BuildContext context}) {
