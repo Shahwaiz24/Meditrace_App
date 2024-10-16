@@ -1,163 +1,117 @@
 import 'package:flutter/material.dart';
 
 class TimePicker extends StatelessWidget {
-  final int initialHour;
-  final int initialMinute;
-  final bool isAm;
-  final ValueChanged<DateTime> onTimeChanged;
+  final Function(int hour, int minute, String period) onChanged;
 
-  const TimePicker({
-    Key? key,
-    required this.initialHour,
-    required this.initialMinute,
-    required this.isAm,
-    required this.onTimeChanged,
-  }) : super(key: key);
+  TimePicker({required this.onChanged});
+
+  final List<int> hours = List.generate(12, (index) => index + 1); // 1-12 hours
+  final List<int> minutes = List.generate(60, (index) => index); // 0-59 minutes
+  final List<String> ampm = ["AM", "PM"]; // AM or PM
 
   @override
   Widget build(BuildContext context) {
-    int amPmIndex = isAm ? 0 : 1;
+    // To keep track of the selected values
+    int selectedHour = 5;
+    int selectedMinute = 30;
+    String selectedPeriod = "AM";
 
-    // Initializing controllers based on initial time provided
-    final FixedExtentScrollController hourController =
-        FixedExtentScrollController(initialItem: initialHour % 12);
-    final FixedExtentScrollController minuteController =
-        FixedExtentScrollController(initialItem: initialMinute);
-    final FixedExtentScrollController ampmController =
-        FixedExtentScrollController(initialItem: amPmIndex);
-
-    return Center(
+    return Container(
+      height: 300,
+      width: 200,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Hour Picker
-          _buildPicker(
-            controller: hourController,
-            itemCount: 12,
-            currentItem: initialHour % 12,
-            onSelectedItemChanged: (index) {
-              int selectedHour = (index + 1) % 12;
-              if (!isAm && selectedHour < 12) {
-                selectedHour += 12;
-              }
-              onTimeChanged(DateTime(0, 0, 0, selectedHour, initialMinute));
-            },
-            formatLabel: (index) => (index + 1).toString().padLeft(2, '0'),
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(8),
-              bottomLeft: Radius.circular(8),
-            ),
-          ),
-          // Minute Picker
-          _buildPicker(
-            controller: minuteController,
-            itemCount: 60,
-            currentItem: initialMinute,
-            onSelectedItemChanged: (index) {
-              onTimeChanged(DateTime(0, 0, 0, initialHour, index));
-            },
-            formatLabel: (index) => index.toString().padLeft(2, '0'),
-            borderRadius: BorderRadius.zero,
-          ),
-          // AM/PM Picker
-          _buildPicker(
-            controller: ampmController,
-            itemCount: 2,
-            currentItem: amPmIndex,
-            onSelectedItemChanged: (index) {
-              bool isNowAm = index == 0;
-              int currentHour = initialHour;
-              if (isNowAm && currentHour >= 12) {
-                currentHour -= 12;
-              } else if (!isNowAm && currentHour < 12) {
-                currentHour += 12;
-              }
-              onTimeChanged(DateTime(0, 0, 0, currentHour, initialMinute));
-            },
-            formatLabel: (index) => index == 0 ? 'AM' : 'PM',
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(8),
-              bottomRight: Radius.circular(8),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPicker({
-    required FixedExtentScrollController controller,
-    required int itemCount,
-    required int currentItem,
-    required ValueChanged<int> onSelectedItemChanged,
-    required String Function(int) formatLabel,
-    required BorderRadius borderRadius,
-  }) {
-    return SizedBox(
-      width: 75,
-      height: 150,
-      child: Stack(
-        children: [
-          ListWheelScrollView.useDelegate(
-            controller: controller,
-            itemExtent: 40,
-            diameterRatio: 1.2,
-            offAxisFraction: 0,
-            onSelectedItemChanged: onSelectedItemChanged,
-            physics: const FixedExtentScrollPhysics(),
-            childDelegate: ListWheelChildBuilderDelegate(
-              builder: (context, index) {
-                bool isSelected = index == currentItem;
-                return Container(
-                  alignment: Alignment.center,
-                  child: TimeTileWidget(
-                    time: formatLabel(index),
-                    isSelected: isSelected,
-                  ),
-                );
+          // Hour picker
+          Expanded(
+            child: ListWheelScrollView.useDelegate(
+              itemExtent: 50,
+              physics: FixedExtentScrollPhysics(),
+              onSelectedItemChanged: (index) {
+                selectedHour = hours[index];
+                onChanged(selectedHour, selectedMinute, selectedPeriod);
               },
-              childCount: itemCount,
+              childDelegate: ListWheelChildBuilderDelegate(
+                builder: (context, index) {
+                  bool isSelected = hours[index] == selectedHour;
+                  return Center(
+                    child: Text(
+                      hours[index].toString().padLeft(2, '0'),
+                      style: TextStyle(
+                        fontSize: isSelected ? 24 : 18,
+                        fontWeight: FontWeight.bold,
+                        color: isSelected ? Colors.black : Colors.grey,
+                      ),
+                    ),
+                  );
+                },
+                childCount: hours.length,
+              ),
             ),
           ),
-          Center(
-            child: Container(
-              height: 45,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.15),
-                borderRadius: borderRadius,
+          // Separator between hour and minute
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              ':',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+          ),
+          // Minute picker
+          Expanded(
+            child: ListWheelScrollView.useDelegate(
+              itemExtent: 50,
+              physics: FixedExtentScrollPhysics(),
+              onSelectedItemChanged: (index) {
+                selectedMinute = minutes[index];
+                onChanged(selectedHour, selectedMinute, selectedPeriod);
+              },
+              childDelegate: ListWheelChildBuilderDelegate(
+                builder: (context, index) {
+                  bool isSelected = minutes[index] == selectedMinute;
+                  return Center(
+                    child: Text(
+                      minutes[index].toString().padLeft(2, '0'),
+                      style: TextStyle(
+                        fontSize: isSelected ? 24 : 18,
+                        fontWeight: FontWeight.bold,
+                        color: isSelected ? Colors.black : Colors.grey,
+                      ),
+                    ),
+                  );
+                },
+                childCount: minutes.length,
+              ),
+            ),
+          ),
+          // AM/PM picker
+          Expanded(
+            child: ListWheelScrollView.useDelegate(
+              itemExtent: 50,
+              physics: FixedExtentScrollPhysics(),
+              onSelectedItemChanged: (index) {
+                selectedPeriod = ampm[index];
+                onChanged(selectedHour, selectedMinute, selectedPeriod);
+              },
+              childDelegate: ListWheelChildBuilderDelegate(
+                builder: (context, index) {
+                  bool isSelected = ampm[index] == selectedPeriod;
+                  return Center(
+                    child: Text(
+                      ampm[index],
+                      style: TextStyle(
+                        fontSize: isSelected ? 24 : 18,
+                        fontWeight: FontWeight.bold,
+                        color: isSelected ? Colors.black : Colors.grey,
+                      ),
+                    ),
+                  );
+                },
+                childCount: ampm.length,
               ),
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class TimeTileWidget extends StatelessWidget {
-  final String time;
-  final bool isSelected;
-
-  const TimeTileWidget({
-    Key? key,
-    required this.time,
-    required this.isSelected,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      child: Center(
-        child: Text(
-          time,
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                color: isSelected ? Colors.black : Colors.grey,
-              ),
-        ),
       ),
     );
   }
