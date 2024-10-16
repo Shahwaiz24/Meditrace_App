@@ -58,13 +58,14 @@ class AddMedication extends StatelessWidget {
                       : model.isNameNotEmpty == true
                           ? AppColors.TextwhiteColor
                           : AppColors.unFocusPrimaryColor.withOpacity(0.1),
-                  outlineColor: AppColors.unFocusPrimaryColor,
+                  outlineColor:  model.isError ? Colors.red : AppColors.unFocusPrimaryColor,
                   radius: BorderRadius.circular(screenWidth * 0.020),
                   isHidden: false,
-                  HintText: "Medication Name",
+                  HintText: model.isError ? "Enter Medication Name" : "Medication Name",
                   hintStyle: TextStyle(
-                    color: AppColors.unFocusPrimaryColor,
-                    fontFamily: 'Poppins Regular',
+ color: model.isError
+                        ? Colors.red
+                        : AppColors.unFocusPrimaryColor,                    fontFamily: 'Poppins Regular',
                   ),
                   Prefix: Text(""),
                   Suffix: Text(""),
@@ -97,12 +98,14 @@ class AddMedication extends StatelessWidget {
                       : model.isStrengthNotEmpty == true
                           ? AppColors.TextwhiteColor
                           : AppColors.unFocusPrimaryColor.withOpacity(0.1),
-                  outlineColor: AppColors.unFocusPrimaryColor,
+                  outlineColor:  model.isError ? Colors.red : AppColors.unFocusPrimaryColor,
                   radius: BorderRadius.circular(screenWidth * 0.020),
                   isHidden: false,
-                  HintText: "Medication Strength",
+                  HintText: model.isError == true ? "Enter Valid Strength" : "Medication Strength",
                   hintStyle: TextStyle(
-                    color: AppColors.unFocusPrimaryColor,
+                   color: model.isError
+                        ? Colors.red
+                        : AppColors.unFocusPrimaryColor,
                     fontFamily: 'Poppins Regular',
                   ),
                   Prefix: Text(""),

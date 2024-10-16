@@ -32,7 +32,7 @@ class AddMedicationViewmodel with ChangeNotifier {
       {required String name,
       required String strength,
       required String unit,
-      required BuildContext context}) {
+      required BuildContext context} ) async {
     isFieldsFill = false;
     notifyListeners();
     try {
@@ -56,6 +56,9 @@ class AddMedicationViewmodel with ChangeNotifier {
         isStrengthNotEmpty = false;
         isUnitSelect = false;
         notifyListeners();
+       await Future.delayed(Duration(milliseconds: 1500));
+       isError = false;
+       notifyListeners();
       }
     } on Exception catch (e) {
       print("Error : ${e.toString()}");
@@ -64,6 +67,9 @@ class AddMedicationViewmodel with ChangeNotifier {
       isStrengthNotEmpty = false;
       isUnitSelect = false;
       notifyListeners();
+          await Future.delayed(Duration(milliseconds: 1500));
+       isError = false;
+       notifyListeners();
     }
   }
 
