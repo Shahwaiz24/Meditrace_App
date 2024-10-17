@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Components/time_picker.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Time%20View/TIme%20Picker%20View/time_picker_viewmodel.dart';
@@ -76,12 +77,41 @@ class TimePickerView extends StatelessWidget {
                     onChanged: (hour, minute, period) {
                       String formattedMinute =
                           minute.toString().padLeft(2, '0');
-                      print("Selected Time: $hour:$formattedMinute $period");
+                      model.changedTime(
+                          hour: hour, minute: formattedMinute, period: period);
                     },
                   ),
                 ),
               );
-            })
+            }),
+            const Spacer(),
+            Consumer<TimePickerViewmodel>(builder: (context, model, child) {
+              return Padding(
+                padding: EdgeInsets.only(bottom: screenHeight * 0.030),
+                child: InkWell(
+                  child: ButtonComponent(
+                    screenHeight: screenHeight,
+                    screenWidth: screenWidth,
+                    ButtonHeight: 0.075,
+                    decoration: BoxDecoration(
+                        color: model.isFieldsFill == true
+                            ? AppColors.PrimaryBlueColor
+                            : AppColors.unFocusPrimaryColor,
+                        borderRadius:
+                            BorderRadius.circular(screenWidth * 0.080)),
+                    child: Center(
+                      child: Text(
+                        'Save',
+                        style: TextStyle(
+                            color: AppColors.TextwhiteColor,
+                            fontFamily: 'Poppins Semi Bold',
+                            fontSize: screenHeight * 0.020),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }),
           ],
         ),
       ),

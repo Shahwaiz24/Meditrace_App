@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Time%20View/TIme%20Picker%20View/time_picker_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,6 @@ class TimePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Consumer<TimePickerViewmodel>(builder: (context, model, child) {
       return Container(
         height: screenheight * 0.300,
@@ -29,7 +29,7 @@ class TimePicker extends StatelessWidget {
             // Hour picker
             Expanded(
               child: ListWheelScrollView.useDelegate(
-                itemExtent: 50,
+                itemExtent: screenheight * 0.050,
                 physics: FixedExtentScrollPhysics(),
                 onSelectedItemChanged: (index) {
                   model.updateHour(hours[index]);
@@ -44,9 +44,16 @@ class TimePicker extends StatelessWidget {
                       child: Text(
                         hours[index].toString().padLeft(2, '0'),
                         style: TextStyle(
-                          fontSize: isSelected ? 24 : 18,
+                          fontFamily: isSelected == true
+                              ? "Poppins Semi Bold"
+                              : "Poppins Regular",
+                          fontSize: isSelected
+                              ? screenheight * 0.040
+                              : screenheight * 0.020,
                           fontWeight: FontWeight.bold,
-                          color: isSelected ? Colors.black : Colors.grey,
+                          color: isSelected
+                              ? AppColors.TextblackColor
+                              : AppColors.unFocusPrimaryColor,
                         ),
                       ),
                     );
@@ -60,13 +67,15 @@ class TimePicker extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
                 ':',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: screenheight * 0.030,
+                    fontWeight: FontWeight.bold),
               ),
             ),
             // Minute picker
             Expanded(
               child: ListWheelScrollView.useDelegate(
-                itemExtent: 50,
+                itemExtent: screenheight * 0.050,
                 physics: FixedExtentScrollPhysics(),
                 onSelectedItemChanged: (index) {
                   model.updateMinute(minutes[index]);
@@ -83,9 +92,16 @@ class TimePicker extends StatelessWidget {
                             .toString()
                             .padLeft(2, '0'), // Correctly pad minute
                         style: TextStyle(
-                          fontSize: isSelected ? 24 : 18,
+                          fontFamily: isSelected == true
+                              ? "Poppins Semi Bold"
+                              : "Poppins Regular",
+                          fontSize: isSelected
+                              ? screenheight * 0.040
+                              : screenheight * 0.020,
                           fontWeight: FontWeight.bold,
-                          color: isSelected ? Colors.black : Colors.grey,
+                          color: isSelected
+                              ? AppColors.TextblackColor
+                              : AppColors.unFocusPrimaryColor,
                         ),
                       ),
                     );
@@ -97,7 +113,7 @@ class TimePicker extends StatelessWidget {
             // AM/PM picker
             Expanded(
               child: ListWheelScrollView.useDelegate(
-                itemExtent: 50,
+                itemExtent: screenheight * 0.050,
                 physics: FixedExtentScrollPhysics(),
                 onSelectedItemChanged: (index) {
                   model.updatePeriod(ampm[index]);
@@ -108,13 +124,21 @@ class TimePicker extends StatelessWidget {
                 childDelegate: ListWheelChildBuilderDelegate(
                   builder: (context, index) {
                     bool isSelected = ampm[index] == model.selectedPeriod;
+
                     return Center(
                       child: Text(
                         ampm[index],
                         style: TextStyle(
-                          fontSize: isSelected ? 24 : 18,
+                          fontFamily: isSelected == true
+                              ? "Poppins Semi Bold"
+                              : "Poppins Regular",
+                          fontSize: isSelected
+                              ? screenheight * 0.025
+                              : screenheight * 0.020,
                           fontWeight: FontWeight.bold,
-                          color: isSelected ? Colors.black : Colors.grey,
+                          color: isSelected
+                              ? AppColors.TextblackColor
+                              : AppColors.unFocusPrimaryColor,
                         ),
                       ),
                     );
