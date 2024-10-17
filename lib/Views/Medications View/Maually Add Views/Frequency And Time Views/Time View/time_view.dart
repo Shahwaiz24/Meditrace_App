@@ -44,7 +44,9 @@ class TimeView extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            model.navigatetoBack(context: context, isPop: true);
+                          },
                           child: Icon(
                             size: screenHeight * 0.030,
                             Icons.arrow_back_ios_new,
@@ -90,7 +92,7 @@ class TimeView extends StatelessWidget {
                                   fontSize: screenHeight * 0.019),
                             ),
                             const Spacer(),
-                            model.isDose1Selected == true
+                            TimeViewmodel.isDose1Selected == true
                                 ? Row(
                                     children: [
                                       Text(MedicineAddingData.dose1Time,
@@ -101,6 +103,11 @@ class TimeView extends StatelessWidget {
                                               fontSize: screenHeight * 0.020)),
                                       SizedBox(
                                         width: screenWidth * 0.010,
+                                      ),
+                                      Icon(
+                                        Icons.keyboard_arrow_right_rounded,
+                                        size: screenHeight * 0.035,
+                                        color: AppColors.TextblackColor,
                                       )
                                     ],
                                   )
@@ -115,6 +122,99 @@ class TimeView extends StatelessWidget {
                 );
               },
             ),
+            SizedBox(
+              height: screenHeight * 0.025,
+            ),
+            Consumer<TimeViewmodel>(builder: (context, model, child) {
+              if (model.isSecondDoseEnable == true) {
+                return InkWell(
+                  onTap: () {
+                    model.selectDose2(context: context);
+                  },
+                  child: ButtonComponent(
+                      screenHeight: screenHeight,
+                      screenWidth: screenWidth,
+                      ButtonHeight: 0.080,
+                      decoration: BoxDecoration(
+                          color:
+                              AppColors.DropDownUnfocusColor.withOpacity(0.4),
+                          borderRadius:
+                              BorderRadius.circular(screenWidth * 0.040)),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: screenWidth * 0.040),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Dose 2",
+                              style: TextStyle(
+                                  color: AppColors.TextblackColor,
+                                  fontFamily: 'Poppins Medium',
+                                  fontSize: screenHeight * 0.019),
+                            ),
+                            const Spacer(),
+                            TimeViewmodel.isDose2Selected == true
+                                ? Row(
+                                    children: [
+                                      Text(MedicineAddingData.dose2Time,
+                                          style: TextStyle(
+                                              color:
+                                                  AppColors.unFocusPrimaryColor,
+                                              fontFamily: "Poppins Regular",
+                                              fontSize: screenHeight * 0.020)),
+                                      SizedBox(
+                                        width: screenWidth * 0.010,
+                                      ),
+                                      Icon(
+                                        Icons.keyboard_arrow_right_rounded,
+                                        size: screenHeight * 0.035,
+                                        color: AppColors.TextblackColor,
+                                      )
+                                    ],
+                                  )
+                                : Icon(
+                                    Icons.keyboard_arrow_right_rounded,
+                                    size: screenHeight * 0.035,
+                                    color: AppColors.TextblackColor,
+                                  )
+                          ],
+                        ),
+                      )),
+                );
+              } else {
+                return Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        model.addDose2();
+                      },
+                      child: Icon(
+                        Icons.add_box_rounded,
+                        color: AppColors.PrimaryBlueColor,
+                        size: screenHeight * 0.032,
+                      ),
+                    ),
+                    SizedBox(
+                      width: screenWidth * 0.020,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        model.addDose2();
+                      },
+                      child: Text(
+                        'Add another dose',
+                        style: TextStyle(
+                            color: AppColors.PrimaryBlueColor,
+                            fontFamily: 'Poppins Medium',
+                            fontSize: screenHeight * 0.018),
+                      ),
+                    )
+                  ],
+                );
+              }
+            })
           ],
         ),
       ),

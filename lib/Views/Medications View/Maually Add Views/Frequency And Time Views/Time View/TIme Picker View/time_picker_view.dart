@@ -6,9 +6,9 @@ import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views
 import 'package:provider/provider.dart';
 
 class TimePickerView extends StatelessWidget {
-  const TimePickerView({super.key, required this.Onchanged});
+  const TimePickerView({super.key, required this.isSecond});
 
-  final ValueChanged<String> Onchanged;
+  final bool isSecond;
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +41,6 @@ class TimePickerView extends StatelessWidget {
                               color: AppColors.TextblackColor,
                               fontSize: screenHeight * 0.020,
                               fontFamily: "Poppins Bold"),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: InkWell(
-                          onTap: () {},
-                          child: Icon(
-                            size: screenHeight * 0.030,
-                            Icons.arrow_back_ios_new,
-                            color: AppColors.ButtonBackColor,
-                          ),
                         ),
                       ),
                     ],
@@ -89,6 +78,9 @@ class TimePickerView extends StatelessWidget {
               return Padding(
                 padding: EdgeInsets.only(bottom: screenHeight * 0.030),
                 child: InkWell(
+                  onTap: () {
+                    model.saveFunction(context: context, second: isSecond);
+                  },
                   child: ButtonComponent(
                     screenHeight: screenHeight,
                     screenWidth: screenWidth,
