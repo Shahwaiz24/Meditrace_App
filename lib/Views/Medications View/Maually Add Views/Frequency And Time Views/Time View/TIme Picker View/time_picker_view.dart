@@ -71,9 +71,12 @@ class TimePickerView extends StatelessWidget {
                 height: screenHeight * 0.400,
                 child: Center(
                   child: TimePicker(
+                    screenheight: screenHeight,
+                    screenwidth: screenWidth,
                     onChanged: (hour, minute, period) {
-                      print("Selected Time: $hour:$minute $period");
-                      model.stateListen();
+                      String formattedMinute =
+                          minute.toString().padLeft(2, '0');
+                      print("Selected Time: $hour:$formattedMinute $period");
                     },
                   ),
                 ),

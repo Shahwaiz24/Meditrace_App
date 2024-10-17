@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
@@ -18,10 +17,9 @@ class BackGroundService {
   // Local notification initialization with proper drawable icon
   static Future<void> _initializeLocalNotifications() async {
     await AwesomeNotifications().initialize(
-      "resource://mipmap/ic_launcher", 
+      "resource://mipmap/ic_launcher",
       [
         NotificationChannel(
-          
           channelGroupKey: 'basic_channel_group',
           channelKey: 'notification_channel', // Regular notification channel
           channelName: 'Notification Channel',
@@ -33,7 +31,6 @@ class BackGroundService {
           enableVibration: true,
           enableLights: true,
         ),
-        
         NotificationChannel(
           channelKey:
               'my_foreground_channel', // Foreground service notification channel
@@ -47,9 +44,6 @@ class BackGroundService {
           enableVibration: false, // You can adjust these settings as needed
         ),
       ],
-    
-      
-      
       channelGroups: [
         NotificationChannelGroup(
           channelGroupKey: 'basic_channel_group',
@@ -58,60 +52,64 @@ class BackGroundService {
       ],
       debug: true,
     );
-      await AwesomeNotifications().setListeners(
-        onActionReceivedMethod: (receivedAction) async {
-      if (receivedAction.buttonKeyPressed == 'SNOOZE') {
-        print('Snooze button pressed!');
-        await AwesomeNotifications().cancel(id);
-        print("SuccessFully Canceled");
-        // Call your custom snooze function here
-      } else if (receivedAction.buttonKeyPressed == 'TAKE') {
-        print('Take button pressed!');
-      }
-      return Future.value();
-    });
-    await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-      if (!isAllowed) {
-        AwesomeNotifications().requestPermissionToSendNotifications();
-      }
-    });
+    //   await AwesomeNotifications().setListeners(
+    //     onActionReceivedMethod: (receivedAction) async {
+    //   if (receivedAction.buttonKeyPressed == 'SNOOZE') {
+    //     print('Snooze button pressed!');
+    //     await AwesomeNotifications().cancel(id);
+    //     print("SuccessFully Canceled");
+    //     // Call your custom snooze function here
+    //   } else if (receivedAction.buttonKeyPressed == 'TAKE') {
+    //     print('Take button pressed!');
+    //   }
+    //   return Future.value();
+    // });
+    // await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+    //   if (!isAllowed) {
+    //     AwesomeNotifications().requestPermissionToSendNotifications();
+    //   }
+    // });
   }
 
   static Future<bool> onStart(ServiceInstance service) async {
-    // Show notification immediately
     print("Background service running at ${DateTime.now()}");
-    // // Schedule periodic check for medicine times
-    Timer.periodic(const Duration(seconds: 6), (timer) async {
+    Timer.periodic(const Duration(minutes: 1), (timer) async {
       print("Background service running at ${DateTime.now()}");
-
-      await Future.microtask(() async {
-        // Run your task here asynchronously
-        // NotificationService.checkMedicineTimes();
-      });
     });
     return true;
   }
 
   static Future<void> initializeService() async {
     final service = FlutterBackgroundService();
+    // var notificationChannel = const AndroidNotificationChannel(
+    //   'my_foreground_channel', // ID of the channel
+    //   'Foreground Service', // Channel name
+    //   importance: Importance.defaultImportance,
+    //   description: 'This channel is used for foreground service notifications',
+    // );
+    // var notificationManager = await FlutterLocalNotificationsPlugin();
+    // var androidInit =  const AndroidInitializationSettings(
+    //     '@mipmap/ic_launcher'); // Ensure the icon exists in res/drawable
+    // var initSettings = await InitializationSettings(android: androidInit);
 
-    await service.configure(
-      androidConfiguration: AndroidConfiguration(
-        onStart: onStart,
-        autoStart: true,
-        isForegroundMode: true,
-        notificationChannelId:
-            'my_foreground_channel', // Foreground service channel
-        initialNotificationTitle: 'Meditrace Service Active',
-        initialNotificationContent: 'Checking Medicines ',
-        foregroundServiceNotificationId: 888, // Notification ID
-      ),
-      iosConfiguration: IosConfiguration(
-        autoStart: true,
-        onBackground: onStart,
-      ),
-    );
+    // await service.configure(
+    //   androidConfiguration: AndroidConfiguration(
+    //     onStart: onStart,
+    //     autoStart: true,
+    //     isForegroundMode: true,
+        
+    //     notificationChannelId:
+    //         'my_foreground_channel', // Foreground service channel
+    //     initialNotificationTitle: 'Meditrace Service Active',
+    //     initialNotificationContent: 'Checking Medicines ',
+    //     foregroundServiceNotificationId: 888, // Notification ID\
+    //   ),
+    //   iosConfiguration: IosConfiguration(
+    //     autoStart: true,
+    //     onBackground: onStart,
+    //   ),
+    // );
 
-    print("Services Configured");
+    // print("Services Configured");
   }
 }
