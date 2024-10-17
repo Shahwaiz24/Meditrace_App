@@ -45,6 +45,7 @@ class TimeViewmodel with ChangeNotifier {
 
   addDose2() {
     isSecondDoseEnable = true;
+    MedicineAddingData.isDose2Selected = true;
     notifyListeners();
   }
 

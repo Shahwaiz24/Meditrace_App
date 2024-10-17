@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Frequency%20Selection%20View/frequency_view.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Time%20View/time_view.dart';
+import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Review%20Medication%20View/review_medication_view.dart';
 
 class SelectionViewmodel with ChangeNotifier {
   bool isFieldsFill = false;
@@ -9,7 +10,12 @@ class SelectionViewmodel with ChangeNotifier {
   static bool isTimeCompleted = false;
 
   next({required BuildContext context}) {
-    print("Next Function Started Wokring");
+      isFrequencyCompleted = false;
+      isTimeCompleted = false;
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const ReviewMedicationView()));
+    
   }
 
   frequency({required BuildContext context}) {

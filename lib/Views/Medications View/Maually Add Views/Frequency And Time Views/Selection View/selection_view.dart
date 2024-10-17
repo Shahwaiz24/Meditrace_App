@@ -224,6 +224,7 @@ class SelectionView extends StatelessWidget {
                           ],
                         ),
                       )),
+             
                 );
               },
             ),
@@ -235,7 +236,9 @@ class SelectionView extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        if (model.isFieldsFill == true) {}
+                        if (model.isFieldsFill == true) {
+                          model.next(context: context);
+                        }
                       },
                       child: ButtonComponent(
                           screenHeight: screenHeight,

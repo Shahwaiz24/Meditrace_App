@@ -11,6 +11,7 @@ import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Selection%20View/selection_viewmodel.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Time%20View/TIme%20Picker%20View/time_picker_viewmodel.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Time%20View/time_viewmodel.dart';
+import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Review%20Medication%20View/review_medication_viewmodel.dart';
 import 'package:meditrace_project/Views/Medicine%20View/medicine_viewmodel.dart';
 import 'package:meditrace_project/Views/Profile%20Update%20View/profile_update_viewmodel.dart';
 import 'package:meditrace_project/Views/Profile%20View/profile_viewmodel.dart';
@@ -64,6 +65,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => EnteringOtpViewmodel()),
         ChangeNotifierProvider(create: (_) => CreateNewpasswordViewmodel()),
         ChangeNotifierProvider(create: (_) => PasswordChangedViewModel()),
+        ChangeNotifierProvider(create: (_) => ReviewMedicationViewmodel()),
+
       ],
       child: const MaterialApp(
           debugShowCheckedModeBanner: false, home: SplashView()),
