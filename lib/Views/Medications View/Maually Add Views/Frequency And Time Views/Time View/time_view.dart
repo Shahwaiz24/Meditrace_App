@@ -13,6 +13,7 @@ class TimeView extends StatelessWidget {
     final model = Provider.of<TimeViewmodel>(context);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    model.initCheck();
     return Scaffold(
       backgroundColor: AppColors.ScaffoldColor,
       resizeToAvoidBottomInset: false,
@@ -214,7 +215,38 @@ class TimeView extends StatelessWidget {
                   ],
                 );
               }
-            })
+            }),
+            const Spacer(),
+            Consumer<TimeViewmodel>(builder: (context, model, child) {
+              return Padding(
+                padding: EdgeInsets.only(bottom: screenHeight * 0.030),
+                child: InkWell(
+                  onTap: () {
+                    model.navigatetoBack(context: context, isPop: false);
+                  },
+                  child: ButtonComponent(
+                    screenHeight: screenHeight,
+                    screenWidth: screenWidth,
+                    ButtonHeight: 0.075,
+                    decoration: BoxDecoration(
+                        color: model.isFieldFill == true
+                            ? AppColors.PrimaryBlueColor
+                            : AppColors.unFocusPrimaryColor,
+                        borderRadius:
+                            BorderRadius.circular(screenWidth * 0.080)),
+                    child: Center(
+                      child: Text(
+                        'Save',
+                        style: TextStyle(
+                            color: AppColors.TextwhiteColor,
+                            fontFamily: 'Poppins Semi Bold',
+                            fontSize: screenHeight * 0.020),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }),
           ],
         ),
       ),

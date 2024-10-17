@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/button.dart';
+import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Selection%20View/selection_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -196,10 +197,24 @@ class SelectionView extends StatelessWidget {
                             ),
                             const Spacer(),
                             SelectionViewmodel.isTimeCompleted == true
-                                ? Icon(
-                                    Icons.check_circle_rounded,
-                                    size: screenHeight * 0.032,
-                                    color: AppColors.AppTextColor1,
+                                ? Row(
+                                    children: [
+                                      Text(
+                                          "${MedicineAddingData.dose1Time},${MedicineAddingData.dose2Time}",
+                                          style: TextStyle(
+                                              color:
+                                                  AppColors.unFocusPrimaryColor,
+                                              fontFamily: "Poppins Regular",
+                                              fontSize: screenHeight * 0.020)),
+                                      SizedBox(
+                                        width: screenWidth * 0.010,
+                                      ),
+                                      Icon(
+                                        Icons.keyboard_arrow_right_rounded,
+                                        size: screenHeight * 0.035,
+                                        color: AppColors.TextblackColor,
+                                      )
+                                    ],
                                   )
                                 : Icon(
                                     Icons.check_circle_outline_outlined,
