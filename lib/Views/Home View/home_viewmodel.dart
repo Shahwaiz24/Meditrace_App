@@ -49,6 +49,7 @@ class HomeViewmodel with ChangeNotifier {
       HomeViewmodel.user_id = await LocalStorage.getUserid();
       if (HomeViewmodel.user_id != null && HomeViewmodel.user_id!.isNotEmpty) {
         final Map forParseBody = {"user_Id": HomeViewmodel.user_id.toString()};
+        UserGlobalData.userId = HomeViewmodel.user_id!;
         var jsonBody = jsonEncode(forParseBody);
         bool apiCheck = await ApiService.getUserData(body: jsonBody);
         if (apiCheck == true) {
@@ -96,11 +97,9 @@ class HomeViewmodel with ChangeNotifier {
       progress_text_opacity = 0.0;
       center_text_opacity = 0.0;
       progressValue = 0.0;
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeView()),
-        (Route<dynamic> route) => false,
-      );
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const HomeView()));
     } else if (UserGlobalData.selectedBottomBarIndex == 1) {
       print('Bag View');
       showContainer = false;
@@ -112,14 +111,13 @@ class HomeViewmodel with ChangeNotifier {
       progress_text_opacity = 0.0;
       center_text_opacity = 0.0;
       progressValue = 0.0;
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (context) => BagView(
-                  userData: UserGlobalData.userData,
-                )),
-        (Route<dynamic> route) => false,
-      );
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BagView(
+                    userData: UserGlobalData.userData,
+                  )));
       print("Data : ${UserGlobalData.userData}");
     } else if (UserGlobalData.selectedBottomBarIndex == 2) {
       showContainer = false;
@@ -132,14 +130,13 @@ class HomeViewmodel with ChangeNotifier {
       center_text_opacity = 0.0;
       progressValue = 0.0;
       print('Medicine View');
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (context) => MedicineView(
-                  userData: UserGlobalData.userData,
-                )),
-        (Route<dynamic> route) => false,
-      );
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => MedicineView(
+                    userData: UserGlobalData.userData,
+                  )));
       print("Data : ${UserGlobalData.userData}");
     } else if (UserGlobalData.selectedBottomBarIndex == 3) {
       showContainer = false;
@@ -152,14 +149,13 @@ class HomeViewmodel with ChangeNotifier {
       center_text_opacity = 0.0;
       progressValue = 0.0;
       print('Profile View');
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ProfileView(
-                  userData: UserGlobalData.userData,
-                )),
-        (Route<dynamic> route) => false,
-      );
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ProfileView(
+                    userData: UserGlobalData.userData,
+                  )));
       print("Data : ${UserGlobalData.userData}");
     }
     notifyListeners();

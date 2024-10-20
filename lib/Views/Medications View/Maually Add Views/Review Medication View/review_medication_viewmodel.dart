@@ -18,60 +18,67 @@ class ReviewMedicationViewmodel with ChangeNotifier {
     if (MedicineAddingData.isAsNeeded == true) {
       if (MedicineAddingData.isDose2Selected == true) {
         data = {
-          "medicine-name": MedicineAddingData.medicinesName,
-          "medicine-strength": MedicineAddingData.medicinesStrength,
-          "medicine-frequency": MedicineAddingData.isAsNeeded,
+          "medicine-name": MedicineAddingData.medicinesName.toString(),
+          "medicine-strength":
+              "${MedicineAddingData.medicinesStrength} ${MedicineAddingData.medicinesUnit}",
+          "medicine-frequency": "As-Needed",
           "medicine-dose-count": 2,
-          "medicine-dose1-time": MedicineAddingData.dose1Time,
-          "medicine-dose2-time": MedicineAddingData.dose2Time
+          "medicine-dose1-time": MedicineAddingData.dose1Time.toString(),
+          "medicine-dose2-time": MedicineAddingData.dose2Time.toString()
         };
       } else {
         data = {
-          "medicine-name": MedicineAddingData.medicinesName,
-          "medicine-strength": MedicineAddingData.medicinesStrength,
-          "medicine-frequency": MedicineAddingData.isAsNeeded,
+          "medicine-name": MedicineAddingData.medicinesName.toString(),
+          "medicine-strength":
+              "${MedicineAddingData.medicinesStrength} ${MedicineAddingData.medicinesUnit}",
+          "medicine-frequency": "As-Needed",
           "medicine-dose-count": 1,
-          "medicine-dose1-time": MedicineAddingData.dose1Time
+          "medicine-dose1-time": MedicineAddingData.dose1Time.toString()
         };
       }
     } else if (MedicineAddingData.isEverday == true) {
       if (MedicineAddingData.isDose2Selected == true) {
         data = {
-          "medicine-name": MedicineAddingData.medicinesName,
-          "medicine-strength": MedicineAddingData.medicinesStrength,
-          "medicine-frequency": MedicineAddingData.isEverday,
+          "medicine-name": MedicineAddingData.medicinesName.toString(),
+          "medicine-strength":
+              "${MedicineAddingData.medicinesStrength} ${MedicineAddingData.medicinesUnit}",
+          "medicine-frequency": "Everyday",
           "medicine-dose-count": 2,
-          "medicine-dose1-time": MedicineAddingData.dose1Time,
-          "medicine-dose2-time": MedicineAddingData.dose2Time
+          "medicine-dose1-time": MedicineAddingData.dose1Time.toString(),
+          "medicine-dose2-time": MedicineAddingData.dose2Time.toString()
         };
       } else {
         data = {
-          "medicine-name": MedicineAddingData.medicinesName,
-          "medicine-strength": MedicineAddingData.medicinesStrength,
-          "medicine-frequency": MedicineAddingData.isEverday,
+          "medicine-name": MedicineAddingData.medicinesName.toString(),
+          "medicine-strength":
+              "${MedicineAddingData.medicinesStrength} ${MedicineAddingData.medicinesUnit}",
+          "medicine-frequency": "Everyday",
           "medicine-dose-count": 1,
-          "medicine-dose1-time": MedicineAddingData.dose1Time
+          "medicine-dose1-time": MedicineAddingData.dose1Time.toString()
         };
       }
     } else {
       if (MedicineAddingData.isDose2Selected == true) {
         data = {
-          "medicine-name": MedicineAddingData.medicinesName,
-          "medicine-strength": MedicineAddingData.medicinesStrength,
-          "medicine-frequency": MedicineAddingData.isSpecific,
+          "medicine-name": MedicineAddingData.medicinesName.toString(),
+          "medicine-strength":
+              "${MedicineAddingData.medicinesStrength} ${MedicineAddingData.medicinesUnit}",
+          "medicine-frequency": "Specific-days",
           "medicine-days": MedicineAddingData.specificDays,
           "medicine-dose-count": 2,
-          "medicine-dose1-time": MedicineAddingData.dose1Time,
-          "medicine-dose2-time": MedicineAddingData.dose2Time
+          "medicine-dose1-time": MedicineAddingData.dose1Time.toString(),
+          "medicine-dose2-time": MedicineAddingData.dose2Time.toString()
         };
       } else {
         data = {
-          "medicine-name": MedicineAddingData.medicinesName,
-          "medicine-strength": MedicineAddingData.medicinesStrength,
-          "medicine-frequency": MedicineAddingData.isSpecific,
+          "medicine-name": MedicineAddingData.medicinesName.toString(),
+          "medicine-strength":
+              "${MedicineAddingData.medicinesStrength} ${MedicineAddingData.medicinesUnit}",
+          "medicine-frequency": "Specific-days",
           "medicine-days": MedicineAddingData.specificDays,
-          "medicine-dose-count": 1,
-          "medicine-dose1-time": MedicineAddingData.dose1Time
+          "medicine-dose-count": 2,
+          "medicine-dose1-time": MedicineAddingData.dose1Time.toString(),
+          "medicine-dose2-time": MedicineAddingData.dose2Time.toString()
         };
       }
     }
@@ -95,9 +102,11 @@ class ReviewMedicationViewmodel with ChangeNotifier {
     isLoading = true;
     isSelected = false;
     notifyListeners();
+
     final List allMedicine = medicines;
     allMedicine.add(medicineToAdd);
     final map = {"userId": userId, " medicine": allMedicine};
+    print("Data : ${map}");
     var jsonMap = jsonEncode(map);
 
     bool apiRequest = await ApiService.addMedicine(body: jsonMap);
