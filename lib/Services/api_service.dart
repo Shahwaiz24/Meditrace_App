@@ -8,42 +8,39 @@ class ApiService {
   static String url = "https://meditrace-app-back-end.vercel.app/v1/api/";
 
   static changePassword({required body}) async {
-     try {
-  final urlParsing = ApiService.url + "change-password";
-   final clientUrl = await Uri.parse(urlParsing);
-   var response = await http.post(
-     clientUrl,
-     body: body,
-     headers: {
-       "Content-Type": "application/json",
-     });
+    try {
+      final urlParsing = ApiService.url + "change-password";
+      final clientUrl = await Uri.parse(urlParsing);
+      var response = await http.post(clientUrl, body: body, headers: {
+        "Content-Type": "application/json",
+      });
       var responseBody = jsonDecode(response.body);
-        if (responseBody['Status'] == 'Success') {
+      if (responseBody['Status'] == 'Success') {
         return true;
       } else {
         print("Response Body : ${responseBody.toString()}");
         return false;
       }
-} on Exception catch (e) {
-
-print("Error : ${e.toString()}");
-      return false;}
-         
+    } on Exception catch (e) {
+      print("Error : ${e.toString()}");
+      return false;
+    }
   }
-static sendOtp({required body}) async {
-     try {
-     final urlParsing = ApiService.url + "send-otp";
+
+  static sendOtp({required body}) async {
+    try {
+      final urlParsing = ApiService.url + "send-otp";
       final clientUrl = await Uri.parse(urlParsing);
-    var response = await http.post(
+      var response = await http.post(
         clientUrl,
         body: body,
         headers: {
           "Content-Type": "application/json",
         },
       );
-       var responseBody = jsonDecode(response.body);
-        
-       if (responseBody['Status'] == 'Success') {
+      var responseBody = jsonDecode(response.body);
+
+      if (responseBody['Status'] == 'Success') {
         OTPvalue.otp = responseBody["OTP"].toString();
         return true;
       } else {
@@ -54,10 +51,9 @@ static sendOtp({required body}) async {
       print("Error : ${e.toString()}");
       return false;
     }
-}
+  }
 
   static checkUserForSignUp({required body}) async {
-  
     try {
       final urlParsing = ApiService.url + "check-user-signup";
       final clientUrl = await Uri.parse(urlParsing);
@@ -177,6 +173,33 @@ static sendOtp({required body}) async {
       }
     } catch (e) {
       print("Error Of Request : ${e.toString()}");
+      return false;
+    }
+  }
+
+  static addMedicine({required body}) async {
+    try {
+      final urlParsing = ApiService.url + "add-medicine";
+      final clientUrl = await Uri.parse(urlParsing);
+      var response = await http.post(
+        clientUrl,
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      );
+      var responseBody = jsonDecode(response.body);
+
+      if (responseBody["Status"] == "Success") {
+        print("Body: ${responseBody.toString()}");
+        return true;
+      } else {
+        print("Body: ${responseBody.toString()}");
+
+        return false;
+      }
+    } catch (e) {
+      print("Error : ${e.toString()}");
       return false;
     }
   }

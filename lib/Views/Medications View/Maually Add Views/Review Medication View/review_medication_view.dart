@@ -35,18 +35,17 @@ class ReviewMedicationView extends StatelessWidget {
                       fontFamily: 'Poppins Medium',
                       fontSize: screenHeight * 0.016),
                 ),
-
                 const Spacer(),
-                     InkWell(
-                          onTap: () {
-                            model.close(context: context);
-                          },
-                          child: Icon(
-                            Icons.close,
-                            size: screenHeight * 0.030,
-                            color: AppColors.TextblackColor,
-                          ),
-                        ),
+                InkWell(
+                  onTap: () {
+                    model.close(context: context);
+                  },
+                  child: Icon(
+                    Icons.close,
+                    size: screenHeight * 0.030,
+                    color: AppColors.TextblackColor,
+                  ),
+                ),
               ],
             ),
             SizedBox(height: screenHeight * 0.010),
@@ -239,6 +238,39 @@ class ReviewMedicationView extends StatelessWidget {
                   ),
                 )),
             const Spacer(),
+            Consumer<ReviewMedicationViewmodel>(
+                builder: (context, model, child) {
+              return InkWell(
+                onTap: () {
+                  if(model.isError  == false){
+model.addMedicine(userId: UserGlobalData.userId, medicines: medicines, context: context, medicineToAdd: medicineToAdd)
+
+                  }
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: screenHeight * 0.030),
+                  child: ButtonComponent(
+                      screenHeight: screenHeight,
+                      screenWidth: screenWidth,
+                      ButtonHeight: 0.075,
+                      decoration: BoxDecoration(
+                          color: 
+                             AppColors.PrimaryBlueColor,
+                             
+                          borderRadius:
+                              BorderRadius.circular(screenWidth * 0.080)),
+                      child: Center(
+                        child: Text(
+                          'Add to Medications',
+                          style: TextStyle(
+                              color: AppColors.TextwhiteColor,
+                              fontFamily: 'Poppins Semi Bold',
+                              fontSize: screenHeight * 0.020),
+                        ),
+                      )),
+                ),
+              );
+            }),
           ],
         ),
       ),

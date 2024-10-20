@@ -27,12 +27,7 @@ class UserGlobalData {
   static int selectedBottomBarIndex = 0;
   static bool userHomePageCheck = false;
   static Map userData = {};
-  static String userFirstName = '';
-  static String userLastName = '';
   static String userProfilePhoto = '';
-  static List userBag = [];
-  static List userEmegerncyContacts = [];
-  static List userMedicines = [];
   static String username = "";
 }
 

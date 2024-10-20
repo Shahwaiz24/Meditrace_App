@@ -405,7 +405,7 @@ class _ProfileViewState extends State<ProfileView> {
                             )),
                         Consumer<ProfileViewmodel>(
                             builder: (context, model, child) {
-                          if (UserGlobalData.userEmegerncyContacts.length !=
+                          if (UserGlobalData.userData["emergencyContacts"].length !=
                               0) {
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

@@ -291,6 +291,7 @@ class FrequencyView extends StatelessWidget {
                                   fontSize: screenHeight * 0.020),
                             ),
                           )),
+                    
                     ),
                   ],
                 ),
