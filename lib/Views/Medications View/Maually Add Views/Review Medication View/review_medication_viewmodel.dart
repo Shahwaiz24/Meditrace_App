@@ -12,6 +12,72 @@ class ReviewMedicationViewmodel with ChangeNotifier {
   bool isError = false;
   bool isLoading = false;
 
+  Map data = {};
+
+  initFunc() {
+    if (MedicineAddingData.isAsNeeded == true) {
+      if (MedicineAddingData.isDose2Selected == true) {
+        data = {
+          "medicine-name": MedicineAddingData.medicinesName,
+          "medicine-strength": MedicineAddingData.medicinesStrength,
+          "medicine-frequency": MedicineAddingData.isAsNeeded,
+          "medicine-dose-count": 2,
+          "medicine-dose1-time": MedicineAddingData.dose1Time,
+          "medicine-dose2-time": MedicineAddingData.dose2Time
+        };
+      } else {
+        data = {
+          "medicine-name": MedicineAddingData.medicinesName,
+          "medicine-strength": MedicineAddingData.medicinesStrength,
+          "medicine-frequency": MedicineAddingData.isAsNeeded,
+          "medicine-dose-count": 1,
+          "medicine-dose1-time": MedicineAddingData.dose1Time
+        };
+      }
+    } else if (MedicineAddingData.isEverday == true) {
+      if (MedicineAddingData.isDose2Selected == true) {
+        data = {
+          "medicine-name": MedicineAddingData.medicinesName,
+          "medicine-strength": MedicineAddingData.medicinesStrength,
+          "medicine-frequency": MedicineAddingData.isEverday,
+          "medicine-dose-count": 2,
+          "medicine-dose1-time": MedicineAddingData.dose1Time,
+          "medicine-dose2-time": MedicineAddingData.dose2Time
+        };
+      } else {
+        data = {
+          "medicine-name": MedicineAddingData.medicinesName,
+          "medicine-strength": MedicineAddingData.medicinesStrength,
+          "medicine-frequency": MedicineAddingData.isEverday,
+          "medicine-dose-count": 1,
+          "medicine-dose1-time": MedicineAddingData.dose1Time
+        };
+      }
+    } else {
+      if (MedicineAddingData.isDose2Selected == true) {
+        data = {
+          "medicine-name": MedicineAddingData.medicinesName,
+          "medicine-strength": MedicineAddingData.medicinesStrength,
+          "medicine-frequency": MedicineAddingData.isSpecific,
+          "medicine-days": MedicineAddingData.specificDays,
+          "medicine-dose-count": 2,
+          "medicine-dose1-time": MedicineAddingData.dose1Time,
+          "medicine-dose2-time": MedicineAddingData.dose2Time
+        };
+      } else {
+        data = {
+          "medicine-name": MedicineAddingData.medicinesName,
+          "medicine-strength": MedicineAddingData.medicinesStrength,
+          "medicine-frequency": MedicineAddingData.isSpecific,
+          "medicine-days": MedicineAddingData.specificDays,
+          "medicine-dose-count": 1,
+          "medicine-dose1-time": MedicineAddingData.dose1Time
+        };
+      }
+    }
+    print("Medicine Data : ${data}");
+  }
+
   close({required BuildContext context}) {
     SelectionViewmodel.isFrequencyCompleted = false;
     SelectionViewmodel.isTimeCompleted = false;

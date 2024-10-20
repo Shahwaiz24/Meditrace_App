@@ -13,6 +13,7 @@ class ReviewMedicationView extends StatelessWidget {
     final model = Provider.of<ReviewMedicationViewmodel>(context);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    model.initFunc();
     return Scaffold(
       backgroundColor: AppColors.ScaffoldColor,
       resizeToAvoidBottomInset: false,
@@ -242,9 +243,12 @@ class ReviewMedicationView extends StatelessWidget {
                 builder: (context, model, child) {
               return InkWell(
                 onTap: () {
-                  if(model.isError  == false){
-model.addMedicine(userId: UserGlobalData.userId, medicines: medicines, context: context, medicineToAdd: medicineToAdd)
-
+                  if (model.isError == false) {
+                    model.addMedicine(
+                        userId: UserGlobalData.userId,
+                        medicines: UserGlobalData.userData["medicines"],
+                        context: context,
+                        medicineToAdd: model.data);
                   }
                 },
                 child: Padding(
@@ -254,20 +258,26 @@ model.addMedicine(userId: UserGlobalData.userId, medicines: medicines, context: 
                       screenWidth: screenWidth,
                       ButtonHeight: 0.075,
                       decoration: BoxDecoration(
-                          color: 
-                             AppColors.PrimaryBlueColor,
-                             
+                          color: model.isLoading == true
+                              ? AppColors.unFocusPrimaryColor
+                              : AppColors.PrimaryBlueColor,
                           borderRadius:
                               BorderRadius.circular(screenWidth * 0.080)),
-                      child: Center(
-                        child: Text(
-                          'Add to Medications',
-                          style: TextStyle(
-                              color: AppColors.TextwhiteColor,
-                              fontFamily: 'Poppins Semi Bold',
-                              fontSize: screenHeight * 0.020),
-                        ),
-                      )),
+                      child: model.isLoading == true
+                          ? Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.TextwhiteColor,
+                              ),
+                            )
+                          : Center(
+                              child: Text(
+                                'Add to Medications',
+                                style: TextStyle(
+                                    color: AppColors.TextwhiteColor,
+                                    fontFamily: 'Poppins Semi Bold',
+                                    fontSize: screenHeight * 0.020),
+                              ),
+                            )),
                 ),
               );
             }),

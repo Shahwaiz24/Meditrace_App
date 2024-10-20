@@ -424,8 +424,7 @@ class _ProfileViewState extends State<ProfileView> {
                                   height: screenHeight * 0.025,
                                 ),
                                 ListView.builder(
-                                    itemCount: SignUpGlobalData
-                                        .emergencyContacts.length,
+                                    itemCount: UserGlobalData.userData["emergencyContacts"].length,
                                     itemBuilder: (context, index) {
                                       return ButtonComponent(
                                           screenHeight: screenHeight,
