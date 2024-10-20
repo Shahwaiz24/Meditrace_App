@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/global_data.dart';
+import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Selection%20View/selection_view.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Selection%20View/selection_viewmodel.dart';
 
@@ -9,6 +10,21 @@ class FrequencyViewmodel with ChangeNotifier {
   bool isSpecific = false;
   bool isAsNeeded = false;
   List<String> selectedDays = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri'];
+
+  close({required BuildContext context}){
+   SelectionViewmodel.isFrequencyCompleted = false;
+      SelectionViewmodel.isTimeCompleted = false;
+    isSelected = false;
+    isSpecific = false;
+    isAsNeeded = false;
+    isEverday = false;
+    selectedDays = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri'];
+
+     Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const HomeView()));
+
+  }
 
   nextTap({required BuildContext context}) {
     if (isSpecific == true) {

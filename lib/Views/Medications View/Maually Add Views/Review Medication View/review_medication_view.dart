@@ -26,12 +26,28 @@ class ReviewMedicationView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Check if the data is correct',
-              style: TextStyle(
-                  color: AppColors.PrimaryBlueColor,
-                  fontFamily: 'Poppins Medium',
-                  fontSize: screenHeight * 0.016),
+            Row(
+              children: [
+                Text(
+                  'Check if the data is correct',
+                  style: TextStyle(
+                      color: AppColors.PrimaryBlueColor,
+                      fontFamily: 'Poppins Medium',
+                      fontSize: screenHeight * 0.016),
+                ),
+
+                const Spacer(),
+                     InkWell(
+                          onTap: () {
+                            model.close(context: context);
+                          },
+                          child: Icon(
+                            Icons.close,
+                            size: screenHeight * 0.030,
+                            color: AppColors.TextblackColor,
+                          ),
+                        ),
+              ],
             ),
             SizedBox(height: screenHeight * 0.010),
             Text(
@@ -222,8 +238,7 @@ class ReviewMedicationView extends StatelessWidget {
                     ],
                   ),
                 )),
-                const Spacer(),
-                
+            const Spacer(),
           ],
         ),
       ),

@@ -35,12 +35,27 @@ class SelectionView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'When will you take this',
-              style: TextStyle(
-                  color: AppColors.PrimaryBlueColor,
-                  fontFamily: 'Poppins Medium',
-                  fontSize: screenHeight * 0.016),
+            Row(
+              children: [
+                Text(
+                  'When will you take this',
+                  style: TextStyle(
+                      color: AppColors.PrimaryBlueColor,
+                      fontFamily: 'Poppins Medium',
+                      fontSize: screenHeight * 0.016),
+                ),
+                const Spacer(),
+                InkWell(
+                  onTap: () {
+                    model.close(context: context);
+                  },
+                  child: Icon(
+                    Icons.close,
+                    size: screenHeight * 0.030,
+                    color: AppColors.TextblackColor,
+                  ),
+                )
+              ],
             ),
             SizedBox(height: screenHeight * 0.010),
             Text(
@@ -224,7 +239,6 @@ class SelectionView extends StatelessWidget {
                           ],
                         ),
                       )),
-             
                 );
               },
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/global_data.dart';
+import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Frequency%20Selection%20View/frequency_view.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Selection%20View/selection_view.dart';
 import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Selection%20View/selection_viewmodel.dart';
@@ -10,6 +11,20 @@ class TimeViewmodel with ChangeNotifier {
   static bool isDose2Selected = false;
   bool isSecondDoseEnable = false;
   bool isFieldFill = false;
+
+close({required BuildContext context}){
+   SelectionViewmodel.isFrequencyCompleted = false;
+      SelectionViewmodel.isTimeCompleted = false;
+      isDose1Selected = false;
+      isDose2Selected = false;
+      isSecondDoseEnable = false;
+      isFieldFill = false;
+  
+     Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const HomeView()));
+
+  }
 
   initCheck() {
     if ((isDose1Selected == true) && (isSecondDoseEnable == false)) {
@@ -32,6 +47,7 @@ class TimeViewmodel with ChangeNotifier {
                   isSecond: false,
                 )));
   }
+  
 
   selectDose2({required BuildContext context}) {
     isDose2Selected = false;

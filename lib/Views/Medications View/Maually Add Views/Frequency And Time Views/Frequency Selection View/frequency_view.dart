@@ -54,12 +54,24 @@ class FrequencyView extends StatelessWidget {
                           ),
                         ),
                       ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
+                          onTap: () {
+                            model.close(context: context);
+                          },
+                          child: Icon(
+                            Icons.close,
+                            size: screenHeight * 0.030,
+                            color: AppColors.TextblackColor,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
               ],
             ),
-           
             SizedBox(
               height: screenHeight * 0.060,
             ),
