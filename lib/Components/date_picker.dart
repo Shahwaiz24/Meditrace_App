@@ -229,20 +229,25 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
     List<DateTime> validDates = [];
 
-    // Loop through each day in the current month
+    // Loop through each day in the selected month
     for (int day = 1; day <= lastDayOfMonth.day; day++) {
       final currentDay = DateTime(date.year, date.month, day);
 
-      // Hide dates before today if isDateOfBirth is false
-      if (!widget.isDateOfBirth && currentDay.isBefore(today)) {
-        continue; // Skip days before today
+      if (widget.isDateOfBirth) {
+        // For Date of Birth, don't show future dates (dates after today)
+        if (currentDay.isAfter(today)) {
+          continue; // Skip dates after today
+        }
+      } else {
+        // For other events, hide past dates only in the current month
+        if (date.year == today.year &&
+            date.month == today.month &&
+            currentDay.isBefore(today)) {
+          continue; // Skip past days in the current month
+        }
       }
 
-      // Only display the current day and future dates, starting from today's weekday
-      if (currentDay
-          .isAfter(today.subtract(Duration(days: today.weekday - 1)))) {
-        validDates.add(currentDay);
-      }
+      validDates.add(currentDay);
     }
 
     return validDates;

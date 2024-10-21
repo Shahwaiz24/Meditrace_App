@@ -105,7 +105,7 @@ class ReviewMedicationViewmodel with ChangeNotifier {
 
     final List allMedicine = medicines;
     allMedicine.add(medicineToAdd);
-    final map = {"userId": userId, " medicine": allMedicine};
+    final map = {"userId": userId, "medicine": allMedicine};
     print("Data : ${map}");
     var jsonMap = jsonEncode(map);
 
