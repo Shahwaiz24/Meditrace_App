@@ -405,7 +405,8 @@ class _ProfileViewState extends State<ProfileView> {
                             )),
                         Consumer<ProfileViewmodel>(
                             builder: (context, model, child) {
-                          if (UserGlobalData.userData["emergencyContacts"].length !=
+                          if (UserGlobalData
+                                  .userData["emergencyContacts"].length !=
                               0) {
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -424,7 +425,11 @@ class _ProfileViewState extends State<ProfileView> {
                                   height: screenHeight * 0.025,
                                 ),
                                 ListView.builder(
-                                    itemCount: UserGlobalData.userData["emergencyContacts"].length,
+                                    itemCount: UserGlobalData
+                                        .userData["emergencyContacts"].length,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    padding: EdgeInsets.all(0),
+                                    shrinkWrap: true,
                                     itemBuilder: (context, index) {
                                       return ButtonComponent(
                                           screenHeight: screenHeight,
@@ -459,8 +464,9 @@ class _ProfileViewState extends State<ProfileView> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                      SignUpGlobalData
-                                                              .emergencyContacts[
+                                                      UserGlobalData.userData[
+                                                              "emergencyContacts"]
+                                                          [
                                                           index]["contact_name"],
                                                       style: TextStyle(
                                                           color: AppColors
@@ -476,9 +482,9 @@ class _ProfileViewState extends State<ProfileView> {
                                                           screenHeight * 0.005,
                                                     ),
                                                     Text(
-                                                        SignUpGlobalData
-                                                                    .emergencyContacts[
-                                                                index]
+                                                        UserGlobalData.userData[
+                                                                    "emergencyContacts"]
+                                                                [index]
                                                             ["contact_number"],
                                                         style: TextStyle(
                                                             color: AppColors
