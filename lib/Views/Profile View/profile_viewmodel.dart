@@ -44,11 +44,13 @@ class ProfileViewmodel with ChangeNotifier {
   logoutTap({required BuildContext context}) async {
     UserGlobalData.selectedBottomBarIndex = 0;
     await LocalStorage.logoutUser();
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const SplashView()),
-      (Route<dynamic> route) => false,
-    );
+    UserGlobalData.userData = {};
+    UserGlobalData.userId = "";
+    UserGlobalData.userHomePageCheck = false;
+
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => const SplashView()));
   }
 
   lbsToKg(lbs) {
