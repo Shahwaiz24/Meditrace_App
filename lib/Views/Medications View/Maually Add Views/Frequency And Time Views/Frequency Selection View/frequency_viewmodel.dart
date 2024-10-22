@@ -11,19 +11,18 @@ class FrequencyViewmodel with ChangeNotifier {
   bool isAsNeeded = false;
   List<String> selectedDays = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri'];
 
-  close({required BuildContext context}){
-   SelectionViewmodel.isFrequencyCompleted = false;
-      SelectionViewmodel.isTimeCompleted = false;
+  close({required BuildContext context}) {
+    SelectionViewmodel.isFrequencyCompleted = false;
+    SelectionViewmodel.isTimeCompleted = false;
     isSelected = false;
     isSpecific = false;
     isAsNeeded = false;
     isEverday = false;
     selectedDays = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri'];
 
-     Navigator.of(context).popUntil((route) => route.isFirst);
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const HomeView()));
-
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => const HomeView()));
   }
 
   nextTap({required BuildContext context}) {
@@ -32,9 +31,7 @@ class FrequencyViewmodel with ChangeNotifier {
       isEverday = false;
       isSpecific = false;
       isAsNeeded = false;
-      selectedDays = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri'];
       SelectionViewmodel.isFrequencyCompleted = true;
-
       MedicineAddingData.isAsNeeded = false;
       MedicineAddingData.isEverday = false;
 

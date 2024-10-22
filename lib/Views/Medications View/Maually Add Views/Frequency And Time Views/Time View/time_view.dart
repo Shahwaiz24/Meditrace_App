@@ -140,7 +140,7 @@ class TimeView extends StatelessWidget {
               height: screenHeight * 0.025,
             ),
             Consumer<TimeViewmodel>(builder: (context, model, child) {
-              if (model.isSecondDoseEnable == true) {
+              if (TimeViewmodel.isSecondDoseEnable == true) {
                 return InkWell(
                   onTap: () {
                     model.selectDose2(context: context);

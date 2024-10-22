@@ -9,7 +9,7 @@ import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views
 class TimeViewmodel with ChangeNotifier {
   static bool isDose1Selected = false;
   static bool isDose2Selected = false;
-  bool isSecondDoseEnable = false;
+ static bool isSecondDoseEnable = false;
   bool isFieldFill = false;
 
 close({required BuildContext context}){
@@ -71,6 +71,7 @@ close({required BuildContext context}){
       isDose2Selected = false;
       isSecondDoseEnable = false;
       SelectionViewmodel.isTimeCompleted = false;
+       MedicineAddingData.isDose2Selected = false;
       Navigator.of(context).popUntil((route) => route.isFirst);
       Navigator.pushReplacement(
         context,

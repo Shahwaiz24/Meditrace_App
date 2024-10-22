@@ -238,6 +238,34 @@ class ReviewMedicationView extends StatelessWidget {
                     ],
                   ),
                 )),
+            model.isError == true
+                ? Column(
+                    children: [
+                      SizedBox(
+                        height: screenHeight * 0.020,
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.error,
+                            color: Colors.red,
+                            size: screenHeight * 0.030,
+                          ),
+                          SizedBox(
+                            width: screenWidth * 0.020,
+                          ),
+                          Text(
+                            "An Error Occured While Adding your \nMedication",
+                            style: TextStyle(
+                                color: AppColors.TextblackColor,
+                                fontFamily: "Poppins Medium",
+                                fontSize: screenHeight * 0.018),
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                : Text(""),
             const Spacer(),
             Consumer<ReviewMedicationViewmodel>(
                 builder: (context, model, child) {

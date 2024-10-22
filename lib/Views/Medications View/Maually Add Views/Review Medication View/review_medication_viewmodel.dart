@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:meditrace_project/Services/api_service.dart';
 import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Views/Home%20View/home_view.dart';
+import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Time%20View/time_view.dart';
+import 'package:meditrace_project/Views/Medications%20View/Maually%20Add%20Views/Frequency%20And%20Time%20Views/Time%20View/time_viewmodel.dart';
 
 import '../Frequency And Time Views/Selection View/selection_viewmodel.dart';
 
@@ -76,9 +78,8 @@ class ReviewMedicationViewmodel with ChangeNotifier {
               "${MedicineAddingData.medicinesStrength} ${MedicineAddingData.medicinesUnit}",
           "medicine-frequency": "Specific-days",
           "medicine-days": MedicineAddingData.specificDays,
-          "medicine-dose-count": 2,
-          "medicine-dose1-time": MedicineAddingData.dose1Time.toString(),
-          "medicine-dose2-time": MedicineAddingData.dose2Time.toString()
+          "medicine-dose-count": 1,
+          "medicine-dose1-time": MedicineAddingData.dose1Time.toString()
         };
       }
     }
@@ -115,6 +116,9 @@ class ReviewMedicationViewmodel with ChangeNotifier {
       isSelected = false;
       SelectionViewmodel.isFrequencyCompleted = false;
       SelectionViewmodel.isTimeCompleted = false;
+      TimeViewmodel.isSecondDoseEnable = false;
+      TimeViewmodel.isDose1Selected = false;
+      TimeViewmodel.isDose2Selected = false;
       Navigator.of(context).popUntil((route) => route.isFirst);
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const HomeView()));
@@ -123,7 +127,7 @@ class ReviewMedicationViewmodel with ChangeNotifier {
       isSelected = false;
       isError = true;
       notifyListeners();
-      await Future.delayed(Duration(milliseconds: 1500));
+      await Future.delayed(const Duration(milliseconds: 1500));
       isError = false;
       notifyListeners();
     }

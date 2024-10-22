@@ -212,25 +212,47 @@ class SelectionView extends StatelessWidget {
                             ),
                             const Spacer(),
                             SelectionViewmodel.isTimeCompleted == true
-                                ? Row(
-                                    children: [
-                                      Text(
-                                          "${MedicineAddingData.dose1Time},${MedicineAddingData.dose2Time}",
-                                          style: TextStyle(
-                                              color:
-                                                  AppColors.unFocusPrimaryColor,
-                                              fontFamily: "Poppins Regular",
-                                              fontSize: screenHeight * 0.020)),
-                                      SizedBox(
-                                        width: screenWidth * 0.010,
-                                      ),
-                                      Icon(
-                                        Icons.keyboard_arrow_right_rounded,
-                                        size: screenHeight * 0.035,
-                                        color: AppColors.TextblackColor,
+                                ? MedicineAddingData.isDose2Selected == true
+                                    ? Row(
+                                        children: [
+                                          Text(
+                                              "${MedicineAddingData.dose1Time},${MedicineAddingData.dose2Time}",
+                                              style: TextStyle(
+                                                  color: AppColors
+                                                      .unFocusPrimaryColor,
+                                                  fontFamily: "Poppins Regular",
+                                                  fontSize:
+                                                      screenHeight * 0.020)),
+                                          SizedBox(
+                                            width: screenWidth * 0.010,
+                                          ),
+                                          Icon(
+                                            Icons.keyboard_arrow_right_rounded,
+                                            size: screenHeight * 0.035,
+                                            color: AppColors.TextblackColor,
+                                          )
+                                        ],
                                       )
-                                    ],
-                                  )
+                                    : Row(
+                                        children: [
+                                          Text(
+                                              "${MedicineAddingData.dose1Time}",
+                                              style: TextStyle(
+                                                  color: AppColors
+                                                      .unFocusPrimaryColor,
+                                                  fontFamily: "Poppins Regular",
+                                                  fontSize:
+                                                      screenHeight * 0.020)),
+                                          SizedBox(
+                                            width: screenWidth * 0.010,
+                                          ),
+                                          Icon(
+                                            Icons.keyboard_arrow_right_rounded,
+                                            size: screenHeight * 0.035,
+                                            color: AppColors.TextblackColor,
+                                          )
+                                        ],
+                                      )
                                 : Icon(
                                     Icons.check_circle_outline_outlined,
                                     size: screenHeight * 0.032,
