@@ -5,7 +5,28 @@ import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Views/Sign%20In%20View/signin_viewmodel.dart';
 
 class ApiService {
-  static String url = "https://meditrace-app-back-end.vercel.app/v1/api/";
+  static String url = "https://meditrace-app-backend.vercel.app/v1/api/";
+
+  static updateProfile({required body}) async {
+    try {
+      final urlParsing = ApiService.url + "update-profile";
+      final clientUrl = await Uri.parse(urlParsing);
+      var response = await http.post(clientUrl, body: body, headers: {
+        "Content-Type": "application/json",
+      });
+
+      var responseBody = jsonDecode(response.body);
+       if (responseBody['Status'] == 'Success') {
+        return true;
+      } else {
+        print("Response Body : ${responseBody.toString()}");
+        return false;
+      }
+    } catch (e) {
+       print("Error : ${e.toString()}");
+      return false;
+    }
+  }
 
   static changePassword({required body}) async {
     try {

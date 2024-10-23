@@ -1,14 +1,18 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meditrace_project/Components/bottom_sheet.dart';
+import 'package:meditrace_project/Services/api_service.dart';
 import 'package:meditrace_project/Services/global_data.dart';
 import 'package:meditrace_project/Services/image_picker.dart';
 import 'package:meditrace_project/Services/utils.dart';
+import 'package:meditrace_project/Views/Home%20View/home_view.dart';
 
 class ProfileUpdateViewmodel with ChangeNotifier {
   bool isFocusFirstName = false;
+  bool isError = false;
   bool isFocusLastName = false;
   bool isFocusEmail = false;
   bool isFocusPhone = false;
@@ -20,15 +24,82 @@ class ProfileUpdateViewmodel with ChangeNotifier {
   bool isDateofBirthNotEmpty = false;
   bool allFieldFill = false;
   File? selectedImage;
+  bool isLoading = false;
   bool imageSelected = false;
+  bool isBirthDatePicked = false;
+  String SelectedBirth = "";
   navigateToback({required BuildContext context}) {
+    isLoading = false;
     isFirstNameNotEmpty = false;
     imageSelected = false;
     isLastNameNotEmpty = false;
+    SelectedBirth = "";
     isDateofBirthNotEmpty = false;
+    isBirthDatePicked = false;
     isPhoneNotEmpty = false;
+
     allFieldFill = false;
     Navigator.pop(context);
+  }
+
+  saveChangesTap(
+      {required BuildContext context,
+      required String firstname,
+      required String lastname,
+      required String email,
+      required String phoneNumber,
+      required String birth,
+      required String userId}) async {
+    if (allFieldFill == true) {
+      isLoading = true;
+      allFieldFill = false;
+      notifyListeners();
+
+      final map = {
+        "userId": userId,
+        "userfirstName": firstname,
+        "userlastName": lastname,
+        "userdateOfbirth": birth,
+        "useremail": email,
+        "usernumber": phoneNumber,
+        "image": selectedImage,
+        "uploadDate":
+            " Day :  ${DateTime.now().day} | Month : ${DateTime.now().month} | Year : ${DateTime.now().year}"
+      };
+      var jsonMap = await jsonEncode(map);
+      print("Data : ${map}");
+
+      bool apiCheck = await ApiService.updateProfile(body: jsonMap);
+      if (apiCheck == true) {
+        isLoading = false;
+        isFirstNameNotEmpty = false;
+        imageSelected = false;
+        isLastNameNotEmpty = false;
+        isDateofBirthNotEmpty = false;
+        isPhoneNotEmpty = false;
+        allFieldFill = false;
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeView()),
+        );
+      } else {
+        isLoading = false;
+        isFirstNameNotEmpty = false;
+        imageSelected = false;
+        isLastNameNotEmpty = false;
+        isDateofBirthNotEmpty = false;
+        isPhoneNotEmpty = false;
+        allFieldFill = false;
+        notifyListeners();
+        isError = true;
+        notifyListeners();
+
+        await Future.delayed(Duration(milliseconds: 1500));
+        isError = false;
+        notifyListeners();
+      }
+    }
   }
 
   Widget buildProfileImage(double screenHeight, ProfileUpdateViewmodel model) {
@@ -51,9 +122,7 @@ class ProfileUpdateViewmodel with ChangeNotifier {
           ),
         ),
       );
-    }
-
-    else if (UserGlobalData.userProfilePhoto.isNotEmpty &&
+    } else if (UserGlobalData.userProfilePhoto.isNotEmpty &&
         model.imageSelected == true) {
       // Show selected image from file
       return Container(
@@ -67,9 +136,7 @@ class ProfileUpdateViewmodel with ChangeNotifier {
           ),
         ),
       );
-    }
-
-    else if (UserGlobalData.userProfilePhoto.isNotEmpty &&
+    } else if (UserGlobalData.userProfilePhoto.isNotEmpty &&
         model.imageSelected == false) {
       return Container(
         width: screenHeight * 0.12,
@@ -224,7 +291,12 @@ class ProfileUpdateViewmodel with ChangeNotifier {
 
   void onDateOfBirthFocusChange(bool hasFocus) {
     isFocusDateofBirth = hasFocus;
+    notifyListeners();
+  }
 
+  onDateSelect({required String date}) {
+    isBirthDatePicked = true;
+    SelectedBirth = date;
     notifyListeners();
   }
 
