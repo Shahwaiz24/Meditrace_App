@@ -55,21 +55,24 @@ class ProfileUpdateViewmodel with ChangeNotifier {
       allFieldFill = false;
       notifyListeners();
 
-      final map = {
-        "userId": userId,
-        "userfirstName": firstname,
-        "userlastName": lastname,
-        "userdateOfbirth": birth,
-        "useremail": email,
-        "usernumber": phoneNumber,
-        "image": selectedImage,
-        "uploadDate":
-            " Day :  ${DateTime.now().day} | Month : ${DateTime.now().month} | Year : ${DateTime.now().year}"
-      };
-      var jsonMap = await jsonEncode(map);
-      print("Data : ${map}");
+      // Convert image file to Base64 string
+      List<int> imageBytes = await selectedImage!.readAsBytes();
+      String base64Image = await base64Encode(imageBytes);
 
-      bool apiCheck = await ApiService.updateProfile(body: jsonMap);
+      // Add the Base64 image to the map
+      final map = {
+        "userId": userId.toString(),
+        "userfirstName": firstname.toString(),
+        "userlastName": lastname.toString(),
+        "userdateOfbirth": birth.toString(),
+        "useremail": email.toString(),
+        "usernumber": phoneNumber.toString(),
+        "image": base64Image,
+        "uploadDate":
+            "Day :  ${DateTime.now().day.toString()} | Month : ${DateTime.now().month.toString()} | Year : ${DateTime.now().year.toString()}"
+      };
+      print("Data : ${map}");
+      bool apiCheck = await ApiService.updateProfile(body: jsonEncode(map));
       if (apiCheck == true) {
         isLoading = false;
         isFirstNameNotEmpty = false;
@@ -248,14 +251,39 @@ class ProfileUpdateViewmodel with ChangeNotifier {
   }
 
   void showCustomBottomSheet(BuildContext context,
-      {required double screenHeight, required double screenWidth}) {
+      {required double screenHeight,
+      required double screenWidth,
+      required String email,
+      required String firstname,
+      required String lastname,
+      required String phonenumber}) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true, // Allows the bottom sheet to take full height
       backgroundColor: Colors.transparent, // To see the rounded corners effect
       builder: (context) => CustomBottomSheet(
-        pickImage: pickImageFromGallery, // Pass the function reference
-        clickImage: clickPhoto, // Pass the function reference
+        pickImage: () async {
+          var image = await pickImageFromGallery();
+          await checkFields(
+              firstName: firstname,
+              lastName: lastname,
+              phone: phonenumber,
+              email: email,
+              selectedImage: selectedImage,
+              birth: SelectedBirth);
+          return image;
+        }, // Pass the function reference
+        clickImage: () async {
+          var image = await clickPhoto();
+          await checkFields(
+              firstName: firstname,
+              lastName: lastname,
+              phone: phonenumber,
+              email: email,
+              selectedImage: selectedImage,
+              birth: SelectedBirth);
+          return image;
+        }, // Pass the functi, // Pass the function reference
         screenHeight: screenHeight,
         screenWidth: screenWidth,
       ),
@@ -360,17 +388,15 @@ class ProfileUpdateViewmodel with ChangeNotifier {
     }
   }
 
-  void checkFields(
+  checkFields(
       {required String birth,
       required String firstName,
       required String lastName,
       required String email,
-      required File selectedImage,
+      required File? selectedImage,
       required String phone}) {
     if ((birth.isNotEmpty) &&
-        (selectedImage != null) && // Check if the file is not null
-        (selectedImage.existsSync()) && // Check if the file exists
-        (selectedImage.lengthSync() > 0) &&
+        (imageSelected != false) && // Check if the file is not null
         (firstName.isNotEmpty) &&
         (lastName.isNotEmpty) &&
         (email.isNotEmpty) &&
@@ -378,9 +404,11 @@ class ProfileUpdateViewmodel with ChangeNotifier {
         (phone.isNotEmpty && phone.length == 10)) {
       allFieldFill = true;
       notifyListeners();
+      print("All Good Working");
     } else {
       allFieldFill = false;
       notifyListeners();
+      print("All Not Good Working");
     }
   }
 }

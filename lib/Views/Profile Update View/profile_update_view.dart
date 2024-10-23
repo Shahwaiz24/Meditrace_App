@@ -76,9 +76,14 @@ class ProfileUpdateView extends StatelessWidget {
             ),
             Center(
               child: InkWell(
-                onTap: () {
+                onTap: () async {
                   model.showCustomBottomSheet(context,
-                      screenHeight: screenHeight, screenWidth: screenWidth);
+                      screenHeight: screenHeight,
+                      screenWidth: screenWidth,
+                      email: email.text,
+                      lastname: lastName.text,
+                      firstname: firstName.text,
+                      phonenumber: phone.text);
                 },
                 child: Consumer<ProfileUpdateViewmodel>(
                     builder: (context, model, child) {
@@ -148,8 +153,8 @@ class ProfileUpdateView extends StatelessWidget {
                   onChanged: (value) {
                     model.checkFirstNameEmpty(firstName: firstName.text);
                     model.checkFields(
-                        selectedImage: model.selectedImage!,
-                        birth: dateofBirth.text,
+                        selectedImage: model.selectedImage,
+                        birth: model.SelectedBirth,
                         firstName: firstName.text,
                         lastName: lastName.text,
                         email: email.text,
@@ -206,8 +211,8 @@ class ProfileUpdateView extends StatelessWidget {
                   onChanged: (value) {
                     model.checkLastNameEmpty(lastName: lastName.text);
                     model.checkFields(
-                        selectedImage: model.selectedImage!,
-                        birth: dateofBirth.text,
+                        selectedImage: model.selectedImage,
+                        birth: model.SelectedBirth,
                         firstName: firstName.text,
                         lastName: lastName.text,
                         email: email.text,
@@ -263,8 +268,8 @@ class ProfileUpdateView extends StatelessWidget {
                   onChanged: (value) {
                     model.checkEmailEmpty(email: email.text);
                     model.checkFields(
-                        selectedImage: model.selectedImage!,
-                        birth: dateofBirth.text,
+                        selectedImage: model.selectedImage,
+                        birth: model.SelectedBirth,
                         firstName: firstName.text,
                         lastName: lastName.text,
                         email: email.text,
@@ -321,8 +326,8 @@ class ProfileUpdateView extends StatelessWidget {
                   onChanged: (value) {
                     model.checkPhoneEmpty(phone: phone.text);
                     model.checkFields(
-                        selectedImage: model.selectedImage!,
-                        birth: dateofBirth.text,
+                        selectedImage: model.selectedImage,
+                        birth: model.SelectedBirth,
                         firstName: firstName.text,
                         lastName: lastName.text,
                         email: email.text,
@@ -344,8 +349,8 @@ class ProfileUpdateView extends StatelessWidget {
                               model.onDateSelect(date: value);
                               model.onDateOfBirthFocusChange(true);
                               model.checkFields(
-                                  selectedImage: model.selectedImage!,
-                                  birth: dateofBirth.text,
+                                  selectedImage: model.selectedImage,
+                                  birth: model.SelectedBirth,
                                   firstName: firstName.text,
                                   lastName: lastName.text,
                                   email: email.text,
@@ -407,7 +412,6 @@ class ProfileUpdateView extends StatelessWidget {
                     ),
                   ),
                 ),
-                
               );
             }),
             const Spacer(),
@@ -422,7 +426,7 @@ class ProfileUpdateView extends StatelessWidget {
                         lastname: lastName.text,
                         email: email.text,
                         phoneNumber: phone.text,
-                        birth: dateofBirth.text,
+                        birth: model.SelectedBirth,
                         userId: UserGlobalData.userId);
                   },
                   child: ButtonComponent(
@@ -435,15 +439,21 @@ class ProfileUpdateView extends StatelessWidget {
                               : AppColors.unFocusPrimaryColor,
                           borderRadius:
                               BorderRadius.circular(screenWidth * 0.080)),
-                      child: Center(
-                        child: Text(
-                          'Save Changes',
-                          style: TextStyle(
-                              color: AppColors.TextwhiteColor,
-                              fontFamily: 'Poppins Semi Bold',
-                              fontSize: screenHeight * 0.020),
-                        ),
-                      )),
+                      child: model.isLoading == true
+                          ? Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.TextwhiteColor,
+                              ),
+                            )
+                          : Center(
+                              child: Text(
+                                'Save Changes',
+                                style: TextStyle(
+                                    color: AppColors.TextwhiteColor,
+                                    fontFamily: 'Poppins Semi Bold',
+                                    fontSize: screenHeight * 0.020),
+                              ),
+                            )),
                 ),
               );
             }),

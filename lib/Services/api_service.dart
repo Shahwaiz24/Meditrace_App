@@ -16,14 +16,13 @@ class ApiService {
       });
 
       var responseBody = jsonDecode(response.body);
-       if (responseBody['Status'] == 'Success') {
+      if (responseBody['Status'] == 'Success') {
         return true;
       } else {
         print("Response Body : ${responseBody.toString()}");
         return false;
       }
     } catch (e) {
-       print("Error : ${e.toString()}");
       return false;
     }
   }
