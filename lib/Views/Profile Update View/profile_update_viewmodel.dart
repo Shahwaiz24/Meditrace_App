@@ -72,7 +72,9 @@ class ProfileUpdateViewmodel with ChangeNotifier {
             "Day :  ${DateTime.now().day.toString()} | Month : ${DateTime.now().month.toString()} | Year : ${DateTime.now().year.toString()}"
       };
       print("Data : ${map}");
-      bool apiCheck = await ApiService.updateProfile(body: jsonEncode(map));
+      bool apiCheck = true;
+
+      // await ApiService.updateProfile(body: jsonEncode(map));
       if (apiCheck == true) {
         isLoading = false;
         isFirstNameNotEmpty = false;
@@ -80,12 +82,18 @@ class ProfileUpdateViewmodel with ChangeNotifier {
         isLastNameNotEmpty = false;
         isDateofBirthNotEmpty = false;
         isPhoneNotEmpty = false;
+        isEmailNotEmpty = false;
+        isBirthDatePicked = false;
+        isDateofBirthNotEmpty = false;
         allFieldFill = false;
+        UserGlobalData.selectedBottomBarIndex = 0;
         Navigator.of(context).popUntil((route) => route.isFirst);
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const HomeView()),
         );
+        notifyListeners();
       } else {
         isLoading = false;
         isFirstNameNotEmpty = false;

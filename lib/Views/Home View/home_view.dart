@@ -7,15 +7,26 @@ import 'package:provider/provider.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Home%20View/home_viewmodel.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  @override
+  void initState() {
+    final model = Provider.of<HomeViewmodel>(context, listen: false);
+    model.initStateFunction();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<HomeViewmodel>(context);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    model.initStateFunction();
 
     return Scaffold(
         backgroundColor: AppColors.ScaffoldColor,
