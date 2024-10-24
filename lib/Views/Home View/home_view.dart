@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrace_project/Components/bottom_bar.dart';
-import 'package:meditrace_project/Components/button.dart';
 import 'package:meditrace_project/Services/global_data.dart';
-import 'package:meditrace_project/Views/Splash%20View/splash_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:meditrace_project/Services/utils.dart';
 import 'package:meditrace_project/Views/Home%20View/home_viewmodel.dart';

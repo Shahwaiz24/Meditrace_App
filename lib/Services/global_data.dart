@@ -27,6 +27,7 @@ class UserGlobalData {
   static int selectedBottomBarIndex = 0;
   static bool userHomePageCheck = false;
   static Map userData = {};
+  static bool is
   static String userProfilePhoto = '';
   static String username = "";
 }
